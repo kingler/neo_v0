@@ -1,0 +1,190 @@
+# System Context Management
+system_context:
+  # Command and Context Flow
+  command_flow:
+    registry:
+      help_command:
+        name: "#help"
+        description: "Display available commands and documentation"
+        workflow:
+          - "Load command registry"
+          - "Generate command documentation"
+          - "Display usage information"
+          - "Create help documentation"
+      
+      feature_request_command:
+        name: "#new-fr"
+        description: "Create new feature request"
+        prerequisites:
+          - "Previous feature request context"
+          - "Current task context"
+        workflow:
+          - "Load requirements template"
+          - "Gather feature details"
+          - "Generate specifications"
+          - "Create documentation"
+      
+      deliverables_command:
+        name: "#init-deliverables"
+        description: "Initialize project deliverables structure"
+        workflow:
+          - "Create directory structure"
+          - "Initialize templates"
+          - "Setup version control"
+          - "Configure access"
+
+  # Agent Context Management
+  agent_contexts:
+    product_owner_context:
+      type: "requirements_context"
+      storage: "vector_store"
+      collection: "product_requirements"
+      workflow:
+        - "Load product context"
+        - "Update requirements"
+        - "Sync with stakeholders"
+    
+    system_architect_context:
+      type: "architecture_context"
+      storage: "vector_store"
+      collection: "system_architecture"
+      workflow:
+        - "Load system context"
+        - "Update architecture"
+        - "Sync with development"
+
+  # Workflow Context Management
+  workflow_contexts:
+    planning_workflow:
+      requirements:
+        command: "#requirements-init"
+        workflow:
+          - "Load requirements context"
+          - "Update specifications"
+          - "Generate documentation"
+      
+      architecture:
+        command: "#arch-init"
+        workflow:
+          - "Load architecture context"
+          - "Update system design"
+          - "Generate diagrams"
+    
+    development_workflow:
+      implementation:
+        command: "#dev-init"
+        workflow:
+          - "Load development context"
+          - "Update codebase"
+          - "Generate documentation"
+      
+      testing:
+        command: "#test-init"
+        workflow:
+          - "Load testing context"
+          - "Update test suite"
+          - "Generate reports"
+
+  # Context Operations Management
+  operations_management:
+    initialization:
+      project_init:
+        command: "#init-context"
+        workflow:
+          - "Create context structure"
+          - "Initialize vector store"
+          - "Setup persistence"
+          - "Configure access"
+      
+      agent_init:
+        command: "#init-agent-context"
+        workflow:
+          - "Load agent profiles"
+          - "Initialize workspaces"
+          - "Setup communication"
+          - "Configure permissions"
+
+    maintenance:
+      context_update:
+        command: "#update-context"
+        workflow:
+          - "Check for changes"
+          - "Update vector store"
+          - "Sync with agents"
+          - "Update documentation"
+      
+      context_cleanup:
+        command: "#cleanup-context"
+        workflow:
+          - "Archive old context"
+          - "Optimize storage"
+          - "Update indexes"
+          - "Generate reports"
+
+  # Security Management
+  security_management:
+    access_control:
+      role_definitions:
+        admin_role:
+          name: "admin"
+          permissions: ["read", "write", "delete", "manage"]
+        agent_role:
+          name: "agent"
+          permissions: ["read", "write", "update"]
+        viewer_role:
+          name: "viewer"
+          permissions: ["read"]
+      
+      scope_definitions:
+        project_scope:
+          name: "project"
+          access: ["admin", "agent"]
+        agent_scope:
+          name: "agent"
+          access: ["agent"]
+        public_scope:
+          name: "public"
+          access: ["viewer"]
+
+    audit_management:
+      logging_config:
+        events:
+          - "Context access"
+          - "Changes made"
+          - "User actions"
+          - "System events"
+      
+      reporting_config:
+        report_types:
+          - "Access reports"
+          - "Change history"
+          - "Usage statistics"
+          - "Security incidents"
+
+  # Monitoring Management
+  monitoring_management:
+    metrics_config:
+      performance_metrics:
+        - "Query response time"
+        - "Update latency"
+        - "Storage utilization"
+        - "Cache hit rate"
+      
+      usage_metrics:
+        - "Active contexts"
+        - "Context size"
+        - "Access frequency"
+        - "Update frequency"
+
+    alerts_config:
+      threshold_definitions:
+        - "High latency"
+        - "Storage capacity"
+        - "Error rate"
+        - "Security events"
+      
+      notification_types:
+        - "System alerts"
+        - "Security alerts"
+        - "Performance alerts"
+        - "Usage alerts"

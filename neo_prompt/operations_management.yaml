@@ -1,0 +1,35 @@
+# Operations Management
+operations_management:
+  initialization:
+    project_init:
+      command: "#init-context"
+      workflow:
+        - "Create context structure"
+        - "Initialize vector store"
+        - "Setup persistence"
+        - "Configure access"
+    
+    agent_init:
+      command: "#init-agent-context"
+      workflow:
+        - "Load agent profiles"
+        - "Initialize workspaces"
+        - "Setup communication"
+        - "Configure permissions"
+
+  maintenance:
+    context_update:
+      command: "#update-context"
+      workflow:
+        - "Check for changes"
+        - "Update vector store"
+        - "Sync with agents"
+        - "Update documentation"
+    
+    context_cleanup:
+      command: "#cleanup-context"
+      workflow:
+        - "Archive old context"
+        - "Optimize storage"
+        - "Update indexes"
+        - "Generate reports"

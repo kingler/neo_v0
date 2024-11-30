@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Atomic Design System Wireframe Development Prompt
+    </purpose>
+
+    <instructions>
+        <instruction>Create detailed wireframes following the Atomic Design System methodology, progressing from atoms to pages</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Wireframes will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from design_wireframe_development_prompt.md -->
+    </content>
+</prompt>

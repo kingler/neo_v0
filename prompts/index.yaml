@@ -1,0 +1,386 @@
+# Neo Prompt Index
+version: "1.0.0"
+description: "Index of all Neo prompts, templates, and documentation"
+# Agent
+agents:
+  product_owner:
+      - name: "Initialize Requirements"
+        command: "#requirements-init"
+        link: "@commands.yaml:agent_commands.product_owner.requirements.#requirements-init"
+      
+      - name: "Generate Feature Map"
+        command: "#feature-map"
+        link: "@commands.yaml:agent_commands.product_owner.requirements.#feature-map"
+      
+      - name: "Generate Roadmap"
+        command: "#roadmap-gen"
+        link: "@commands.yaml:agent_commands.product_owner.requirements.#roadmap-gen"
+  system_architect:
+      - name: "Initialize Architecture"
+        command: "#arch-init"
+        link: "@commands.yaml:agent_commands.system_architect.architecture.#arch-init"
+      
+      - name: "Generate UML"
+        command: "#uml-gen"
+        link: "@commands.yaml:agent_commands.system_architect.architecture.#uml-gen"
+      
+      - name: "Design API"
+        command: "#api-design"
+  frontend_developer:
+      - name: "Implement UI"
+        command: "#ui-implement"
+        link: "@commands.yaml:agent_commands.frontend_developer.ui_development.#ui-implement"
+      
+      - name: "Build Components"
+        command: "#component-build"
+        link: "@commands.yaml:agent_commands.frontend_developer.ui_development.#component-build"
+  backend_developer:
+      - name: "Implement API"
+        command: "#api-implement"
+        link: "@commands.yaml:agent_commands.backend_developer.api_implementation.#api-implement"
+      
+      - name: "Build Services"
+        command: "#service-build"
+        link: "@commands.yaml:agent_commands.backend_developer.api_implementation.#service-build"
+  database_developer:
+      - name: "Implement Schema"
+        command: "#schema-implement"
+        link: "@commands.yaml:agent_commands.database_developer.database.#schema-implement"
+      
+      - name: "Generate Migrations"
+        command: "#migration-gen"
+        link: "@commands.yaml:agent_commands.database_developer.database.#migration-gen"
+  test_engineer:
+      - name: "Run Test Suite"
+        command: "#test-suite"
+        link: "@commands.yaml:agent_commands.test_engineer.testing.#test-suite"
+      
+      - name: "Check Coverage"
+        command: "#coverage-check"
+        link: "@commands.yaml:agent_commands.test_engineer.testing.#coverage-check"
+  version_control:
+    - name: "Initialize Git"
+      command: "#init-git"
+      link: "@commands.yaml:system_commands.version_control.#init-git"
+    
+    - name: "Commit Changes"
+      command: "#commit"
+      link: "@commands.yaml:system_commands.version_control.#commit"
+  documentation:
+    - name: "Initialize Documentation"
+      command: "#docs-init"
+      link: "@commands.yaml:system_commands.documentation.#docs-init"
+    
+    - name: "Generate Documentation"
+      command: "#gen-docs"
+      link: "@commands.yaml:system_commands.documentation.#gen-docs"
+  
+# Metadata
+metadata:
+  last_updated: "${new Date().toISOString()}"
+  format_version: "1.0"
+  supported_link_types:
+    - "markdown: [file.md](path/to/file.md)"
+    - "template: @file.yaml:section.template"
+    - "content: ${fs.readFileSync('path/file.yaml', 'utf8')}"
+
+# Documentation
+documentation:
+  product:
+    - name: "Business Requirements Document"
+      command: "#load-template --template-type BRD"
+      link: "@commands.yaml:template_commands.#load-template"
+      type: "BRD"
+      generates: ["business_requirements"]
+    
+    - name: "Product Requirements Document"
+      command: "#load-template --template-type PRD"
+      link: "@commands.yaml:template_commands.#load-template"
+      type: "PRD"
+      generates: ["product_requirements"]
+
+  design:
+    - name: "UX Design Document"
+      link: "[UXDD.md](deliverables/documentation/design/UXDD.md)"
+      template: "@documentation_management.yaml:document_management.supported_docs.UXDD"
+      type: "UXDD"
+      description: "Define user experience"
+      requires: ["PRD"]
+      generates: ["ux_design"]
+      location: "/deliverables/documentation/design"
+      subfolders:
+        - "wireframes/"
+        - "prototypes/"
+        - "assets/"
+
+  technical:
+    - name: "Software Requirements Specification"
+      link: "[SRD.md](deliverables/documentation/technical/SRD.md)"
+      template: "@documentation_management.yaml:document_management.supported_docs.SRS"
+      type: "SRS"
+      description: "Technical specifications"
+      requires: ["UXDD"]
+      generates: ["software_requirements"]
+      location: "/deliverables/documentation/technical"
+    
+    - name: "Technical Requirements Document"
+      link: "[TRD.md](deliverables/documentation/technical/TRD.md)"
+      template: "@documentation_management.yaml:document_management.supported_docs.TRD"
+      type: "TRD"
+      description: "Technical requirements"
+      requires: ["SRS"]
+      generates: ["technical_requirements"]
+      location: "/deliverables/documentation/technical"
+    
+    - name: "Design Requirements Document"
+      link: "[DRD.md](deliverables/documentation/technical/DRD.md)"
+      template: "@documentation_management.yaml:document_management.supported_docs.DRD"
+      type: "DRD"
+      description: "Design requirements"
+      requires: ["TRD"]
+      generates: ["design_requirements"]
+      location: "/deliverables/documentation/technical"
+
+# Development
+development:
+    frontend:
+      - name: "Atomic Design System"
+        link: "[atomic_design_system.meta.md](chains/components/development/atomic_design_system.meta.md)"
+        template: "@frontend.yaml:templates.atomic_design"
+        type: "design_system"
+        requires: ["project_setup"]
+        generates: ["component_specs", "style_guide"]
+      - name: "Component Library"
+        link: "[component_library.meta.md](chains/components/development/component_library.meta.md)"
+        template: "@frontend.yaml:templates.component_library"
+        type: "components"
+        requires: ["atomic_design_system"]
+        generates: ["component_library", "usage_docs"]
+    
+    backend:
+      - name: "Service Architecture"
+        link: "[service_architecture.meta.md](chains/components/development/service_architecture.meta.md)"
+        template: "@backend.yaml:templates.service_architecture"
+        type: "services"
+        requires: ["system_architecture"]
+        generates: ["service_specs", "interaction_diagrams"]
+      - name: "API Implementation"
+        link: "[api_implementation.meta.md](chains/components/development/api_implementation.meta.md)"
+        template: "@backend.yaml:templates.api_implementation"
+        type: "api"
+        requires: ["api_design", "service_architecture"]
+        generates: ["api_implementation", "endpoint_tests"]
+
+# Project Management
+project_management:
+    setup:
+    - name: "Initialize Project"
+      command: "#init-project"
+      link: "@commands.yaml:system_commands.project_management.#init-project"
+      type: "project_setup"
+      description: "Initialize new project structure"
+      workflow: ["project_setup", "git_init", "dependencies"]
+    
+    - name: "Initialize Memory"
+      command: "#init-memory"
+      link: "@commands.yaml:system_commands.project_management.#init-memory"
+      type: "setup"
+      description: "Setup vector database"
+    
+    - name: "Generate Project Structure"
+      command: "#generate-project-structure"
+      link: "@commands.yaml:system_commands.project_management.#generate-project-structure"
+      type: "project_setup"
+      description: "Generate project structure from template"
+    
+    - name: "Organize Root Directory"
+      command: "#organize-root"
+      link: "@commands.yaml:system_commands.project_management.#organize-root"
+      type: "maintenance"
+      description: "Clean and organize root directory"
+      
+    - name: "Existing Project Setup"
+      link: "[existing_project.meta.md](chains/components/project_management/existing_project.meta.md)"
+      template: "@project_management.yaml:project_organization.existing_project_structure"
+      type: "setup"
+      requires: ["codebase_scan", "template_selection"]
+      generates: ["project_structure", "migration_plan"]
+
+# Testing
+testing:
+    setup:
+      - name: "Test Framework Setup"
+        link: "[test_framework.meta.md](chains/components/testing/test_framework.meta.md)"
+        template: "@testing.yaml:templates.framework_setup"
+        type: "testing"
+        requires: ["project_setup"]
+        generates: ["test_framework", "initial_tests"]
+      - name: "Test Strategy"
+        link: "[test_strategy.meta.md](chains/components/testing/test_strategy.meta.md)"
+        template: "@testing.yaml:templates.test_strategy"
+        type: "testing"
+        requires: ["test_framework_setup"]
+        generates: ["test_plan", "coverage_goals"]
+
+# Templates
+templates:
+    file_templates:
+      - name: "Component Template"
+        link: "${fs.readFileSync('neo_prompt/templates/component.yaml', 'utf8')}"
+        type: "template"
+        usage: ["frontend", "component_library"]
+      - name: "Service Template"
+        link: "${fs.readFileSync('neo_prompt/templates/service.yaml', 'utf8')}"
+        type: "template"
+        usage: ["backend", "services"]
+    
+    documentation_templates:
+      - name: "README Template"
+        link: "${fs.readFileSync('neo_prompt/documentation/readme.yaml', 'utf8')}"
+        type: "documentation"
+        usage: ["all"]
+      - name: "API Documentation"
+        link: "${fs.readFileSync('neo_prompt/documentation/api.yaml', 'utf8')}"
+        type: "documentation"
+        usage: ["api", "endpoints"]
+
+# Workflows
+workflows:
+    development:
+      - name: "Feature Development"
+        link: "[feature_development.meta.md](chains/workflows/development/feature_development.meta.md)"
+        template: "@workflows.yaml:templates.feature_development"
+        type: "workflow"
+        triggers: ["feature_request", "bug_fix"]
+        steps: ["plan", "implement", "test", "review"]
+      - name: "Code Review"
+        link: "[code_review.meta.md](chains/workflows/development/code_review.meta.md)"
+        template: "@workflows.yaml:templates.code_review"
+        type: "workflow"
+        triggers: ["pull_request"]
+        steps: ["analyze", "feedback", "approve"]
+
+# Deployment
+deployment:
+    deployment:
+      - name: "CI/CD Pipeline"
+        link: "[cicd_pipeline.meta.md](chains/workflows/deployment/cicd_pipeline.meta.md)"
+        template: "@workflows.yaml:templates.cicd_pipeline"
+      - name: "Release Process"
+        link: "[release_process.meta.md](chains/workflows/deployment/release_process.meta.md)"
+        template: "@workflows.yaml:templates.release_process"
+
+# Requirements Management
+requirements:
+  documentation:
+    - name: "Business Requirements Document"
+      link: "[BRD.meta.md](chains/components/requirements/BRD.meta.md)"
+      template: "@documentation_management.yaml:document_management.supported_docs.BRD"
+      type: "business_requirements"
+      requires: []
+      generates: ["business_requirements", "stakeholder_needs"]
+    
+    - name: "Software Requirements Specification"
+      link: "[SRS.meta.md](chains/components/requirements/SRS.meta.md)"
+      template: "@documentation_management.yaml:document_management.supported_docs.SRS"
+      type: "technical_requirements"
+      requires: ["BRD"]
+      generates: ["technical_specifications", "system_requirements"]
+
+  user_stories:
+    - name: "User Story Generation"
+      link: "[user_stories.meta.md](chains/components/requirements/user_stories.meta.md)"
+      template: "@documentation_management.yaml:document_management.user_story_generation"
+      type: "user_stories"
+      requires: ["BRD"]
+      generates: ["user_stories", "acceptance_criteria"]
+      workflow:
+        - "Gather requirements"
+        - "Define user persona"
+        - "Create story template"
+
+# Design Management
+design:
+  documentation:
+    - name: "UX Design Document"
+      link: "[UXDD.meta.md](chains/components/design/UXDD.meta.md)"
+      template: "@documentation_management.yaml:document_management.supported_docs.UXDD"
+      type: "ux_design"
+      requires: ["user_stories"]
+      generates: ["ux_specifications", "design_guidelines"]
+      workflow:
+        - "Define user personas"
+        - "Create wireframes"
+        - "Design prototypes"
+        - "Document interactions"
+
+  deliverables:
+    structure:
+      - name: "Deliverables Structure"
+        link: "[deliverables_structure.meta.md](chains/components/design/deliverables_structure.meta.md)"
+        template: "@documentation_management.yaml:document_management.init-deliverable"
+        type: "structure"
+        generates: ["folder_structure", "initial_docs"]
+        workflow:
+          step_1:
+            name: "Create Deliverables Structure"
+            path: "/deliverables"
+            subfolders:
+              documentation:
+                product:
+                  files: ["PRD.md", "BRD.md", "requirements/"]
+                development:
+                  files: ["SRD.md", "architecture/", "api-specs/"]
+                design:
+                  files: ["UXDD.md", "wireframes/", "prototypes/"]
+                reports:
+                  files: ["quality/", "metrics/"]
+              code:
+                files: ["snapshots/", "improvements/", "releases/"]
+              tests:
+                files: ["results/", "coverage/", "performance/"]
+              metrics:
+                files: ["quality/", "performance/", "analytics/"]
+
+  automation:
+    - name: "Documentation Generation"
+      link: "[doc_generation.meta.md](chains/components/design/doc_generation.meta.md)"
+      template: "@documentation_management.yaml:document_management.init-deliverable.step_7"
+      type: "automation"
+      workflow:
+        - "Generate Product Documents"
+        - "Generate Technical Documents"
+        - "Generate Design Documents"
+      validation:
+        - "Check document structure"
+        - "Verify cross-references"
+        - "Validate requirements"
+
+# Documentation Management
+documentation_management:
+  product_docs:
+    - name: "Product Documentation"
+      link: "[product_docs.meta.md](chains/components/documentation/product_docs.meta.md)"
+      template: "@documentation_management.yaml:document_management.init-deliverable.step_7"
+      type: "product"
+      location: "/deliverables/documentation/product"
+      files: ["PRD.md", "BRD.md"]
+      requires: ["requirements"]
+
+  technical_docs:
+    - name: "Technical Documentation"
+      link: "[technical_docs.meta.md](chains/components/documentation/technical_docs.meta.md)"
+      template: "@documentation_management.yaml:document_management.init-deliverable.step_7"
+      type: "technical"
+      location: "/deliverables/documentation/technical"
+      files: ["TRD.md", "SRD.md", "DRD.md"]
+      requires: ["product_docs"]
+
+  design_docs:
+    - name: "Design Documentation"
+      link: "[design_docs.meta.md](chains/components/documentation/design_docs.meta.md)"
+      template: "@documentation_management.yaml:document_management.init-deliverable.step_7"
+      type: "design"
+      location: "/deliverables/documentation/design"
+      files: ["UXDD.md"]
+      requires: ["technical_docs"] 

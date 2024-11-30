@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Release Notes Generator Prompt
+    </purpose>
+
+    <instructions>
+        <instruction>Generate comprehensive release notes that document all relevant changes in a user-friendly format</instruction>
+        <instruction>Collect changes, categorize updates, and document impact</instruction>
+        <instruction>Provide release notes, migration guide, deployment guide, and communication package</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Release notes will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from release-notes-prompt.md -->
+    </content>
+</prompt>

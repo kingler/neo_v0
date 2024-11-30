@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Support the Codebase Context Specification
+    </purpose>
+
+    <instructions>
+        <instruction>Follow the Codebase Context Specification</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Codebase context will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from ccs_prompt.md -->
+    </content>
+</prompt>

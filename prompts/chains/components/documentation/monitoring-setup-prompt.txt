@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Monitoring and Observability Setup Generator Prompt
+    </purpose>
+
+    <instructions>
+        <instruction>Generate comprehensive monitoring and observability documentation</instruction>
+        <instruction>Define key metrics, configure alerts, and create dashboards</instruction>
+        <instruction>Provide implementation guide, operations guide, dashboard guide, and alert guide</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Monitoring and observability documentation will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from monitoring-setup-prompt.md -->
+    </content>
+</prompt>

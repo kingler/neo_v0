@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Component Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Generate React components based on screenshot analysis results, following Next.js and Tailwind CSS best practices</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- React components will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from component_generator.md -->
+    </content>
+</prompt>

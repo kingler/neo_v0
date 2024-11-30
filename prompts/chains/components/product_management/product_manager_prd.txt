@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Product Requirements Document (PRD) for Ontology Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Create a comprehensive PRD for an ontology generator based on provided details and analysis</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- PRD will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from product_manager_prd.md -->
+    </content>
+</prompt>

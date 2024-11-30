@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Security Documentation Generator Prompt
+    </purpose>
+
+    <instructions>
+        <instruction>Generate comprehensive security documentation that ensures the application meets security standards and follows best practices</instruction>
+        <instruction>Document security requirements, controls, and policies</instruction>
+        <instruction>Provide security implementation guide, security policies, and security maintenance procedures</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Security documentation will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from security-documentation-prompt.md -->
+    </content>
+</prompt>

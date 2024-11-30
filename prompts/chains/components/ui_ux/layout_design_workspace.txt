@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Layout Design Analysis: Main Workspace (UV_WORKSPACE)
+    </purpose>
+
+    <instructions>
+        <instruction>Analyze the main workspace layout and provide a detailed report</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Layout analysis report will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from layout_design_workspace.md -->
+    </content>
+</prompt>

@@ -1,0 +1,169 @@
+# Development Management
+development_management:
+  development:
+    commands:
+      "#dev-init":
+        description: "Setup development environment"
+        workflow:
+          - "Environment setup"
+          - "Code scaffolding"
+          - "Testing framework"
+    testing:
+      commands:
+        "#test-init":
+          description: "Initialize testing environment"
+        "#test-unit":
+          description: "Run unit tests"
+        "#test-integration":
+          description: "Run integration tests"
+    code_quality:
+      analysis:
+        "#analyze-code":
+          description: "Run code analysis"
+          parameters:
+            - files: "Files to analyze"
+            - depth: "Analysis depth"
+      tools:
+        - "ESLint"
+        - "SonarQube"
+        - "CodeClimate"
+    database_initialization:
+      "#init-database":
+        description: "Initialize database environment and structure"
+        workflow:
+          - "Select database type"
+          - "Configure connection"
+          - "Setup schema"
+          - "Initialize migrations"
+        database_types:
+          postgres:
+            setup:
+              - name: "Initialize PostgreSQL"
+                commands:
+                  - "docker run --name project-db -e POSTGRES_PASSWORD=password -d postgres"
+                  - "prisma init"
+                configuration:
+                  - DATABASE_URL="postgresql://postgres:password@localhost:5432/mydb"
+              - name: "Setup Prisma"
+                steps:
+                  - "Create schema.prisma"
+                  - "Generate client"
+                  - "Run initial migration"
+          
+          mongodb:
+            setup:
+              - name: "Initialize MongoDB"
+                commands:
+                  - "docker run --name mongo-db -d mongo"
+                  - "npm install mongoose"
+                configuration:
+                  - MONGODB_URI="mongodb://localhost:27017/mydb"
+              - name: "Setup Mongoose"
+                steps:
+                  - "Create schema models"
+                  - "Setup connections"
+                  - "Initialize indexes"
+
+        schema_management:
+          commands:
+            "#create-schema":
+              description: "Generate database schema from models"
+              workflow:
+                - "Analyze data models"
+                - "Generate schema file"
+                - "Setup relationships"
+                - "Create indexes"
+            
+            "#run-migration":
+              description: "Create and run database migrations"
+              workflow:
+                - "Generate migration files"
+                - "Validate changes"
+                - "Apply migrations"
+                - "Verify database state"
+
+        data_management:
+          commands:
+            "#seed-database":
+              description: "Seed database with initial data"
+              workflow:
+                - "Load seed data files"
+                - "Validate data format"
+                - "Insert seed data"
+                - "Verify data integrity"
+            
+            "#backup-database":
+              description: "Create database backup"
+              workflow:
+                - "Lock tables"
+                - "Export data"
+                - "Export schema"
+                - "Store backup"
+
+        security:
+          setup:
+            - "Create database users"
+            - "Set permissions"
+            - "Configure authentication"
+            - "Setup encryption"
+          policies:
+            - "Password requirements"
+            - "Access controls"
+            - "Data encryption"
+            - "Audit logging"
+
+        monitoring:
+          metrics:
+            - "Connection pool status"
+            - "Query performance"
+            - "Storage usage"
+            - "Backup status"
+          alerts:
+            - "Connection issues"
+            - "Performance degradation"
+            - "Storage warnings"
+            - "Backup failures"
+
+        maintenance:
+          commands:
+            "#optimize-db":
+              description: "Perform database optimization"
+              workflow:
+                - "Analyze performance"
+                - "Optimize indexes"
+                - "Vacuum tables"
+                - "Update statistics"
+            
+            "#health-check":
+              description: "Check database health"
+              workflow:
+                - "Check connections"
+                - "Verify replication"
+                - "Check disk space"
+                - "Validate backups"
+
+  document_management:
+    cline_docs:
+      structure:
+        - currentTask.md: "Current task tracking"
+        - sprint:
+            - current.md: "Current sprint details"
+            - backlog.md: "Sprint backlog"
+        - context:
+            - project.md: "Project context"
+            - technical.md: "Technical context"
+    sdlc_deliverables:
+      structure:
+        documentation:
+          - product:
+              - PRD.md
+              - BRD.md
+              - requirements/
+          - development:
+              - SRD.md
+              - architecture/
+              - api-specs/
+          - design:
+              - UXDD.md
+              - wireframes/
+              - prototypes/

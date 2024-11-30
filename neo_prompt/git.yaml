@@ -1,0 +1,24 @@
+# Git Integration
+git:
+  class: GitIntegrator
+  components:
+    - readonly watcher: FileWatcher
+    - readonly gitManager: GitManager
+    - readonly logger: Logger
+  repository_management:
+    initialization:
+      default_branch: "main"
+      gitignore_patterns:
+        - "node_modules/"
+        - "dist/"
+        - ".env"
+        - "*.log"
+        - ".DS_Store"
+  workflow:
+    backup:
+      - "Create backup branch of current state"
+      - "git branch backup-YYYY-MM-DD"
+    
+    restore:
+      - "Identify last working commit"
+      - "Restore from backup if needed"

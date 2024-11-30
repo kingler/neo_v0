@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Summarize the given content based on the instructions
+    </purpose>
+
+    <instructions>
+        <instruction>Output in markdown format</instruction>
+        <instruction>Summarize into 4 sections: Main Points, Sentiment, and 3 hot takes biased toward the author and 3 hot takes based against the author </instruction>
+        <instruction>Write the summary in the same as the example-output</instruction>
+    </instructions>
+
+    <content>
+        {...}
+    </content>
+</prompt>

@@ -1,0 +1,13 @@
+# Project Structure
+structure:
+  root:
+    - name: "docs/"
+      contains: ["BRD", "PRD", "UXDD"]
+    - name: "src/"
+      contains: ["Source Code"]
+    - name: "tests/"
+      contains: ["Unit Tests", "Integration Tests"]
+    - name: "config/"
+      contains: ["Environment Config", "Build Config"]
+    - name: "deliverables/"
+      contains: ["Documentation", "Assets"]

@@ -1,0 +1,298 @@
+# Use Case Command Integration
+use_case_commands:
+  # New Project Commands
+  new_project:
+    common_initialization:
+      - "#init-project":
+          description: "Initialize project foundation"
+          workflow:
+            - "Create project structure"
+            - "Setup version control"
+            - "Initialize dependencies"
+            - "Configure development environment"
+      - "#init-documentation":
+          description: "Setup project documentation"
+          workflow:
+            - "Create documentation structure"
+            - "Initialize README"
+            - "Setup documentation generator"
+            - "Create contribution guidelines"
+
+    project_types:
+      website:
+        initialization:
+          - "#init-website":
+              description: "Initialize website project"
+              workflow:
+                - "Setup static site generator"
+                - "Configure build system"
+                - "Initialize content structure"
+                - "Setup deployment pipeline"
+        
+        templates:
+          - type: "Landing Page"
+            command: "#gen-landing"
+            components:
+              - "Hero section"
+              - "Features grid"
+              - "Testimonials"
+              - "Contact form"
+          
+          - type: "Blog"
+            command: "#gen-blog"
+            components:
+              - "Post listing"
+              - "Categories"
+              - "Search functionality"
+              - "RSS feed"
+
+      webapp:
+        initialization:
+          - "#init-webapp":
+              description: "Initialize web application"
+              workflow:
+                - "Setup frontend framework"
+                - "Configure backend API"
+                - "Initialize database"
+                - "Setup authentication"
+        
+        architecture:
+          frontend:
+            - "#init-frontend":
+                framework_options:
+                  - "React"
+                  - "Vue"
+                  - "Angular"
+                setup:
+                  - "Component structure"
+                  - "State management"
+                  - "Routing system"
+          
+          backend:
+            - "#init-backend":
+                framework_options:
+                  - "Node.js/Express"
+                  - "Python/Django"
+                  - "Java/Spring"
+                setup:
+                  - "API structure"
+                  - "Database models"
+                  - "Authentication system"
+
+      mobile_app:
+        initialization:
+          - "#init-mobile":
+              description: "Initialize mobile application"
+              workflow:
+                - "Setup mobile framework"
+                - "Configure native modules"
+                - "Initialize state management"
+                - "Setup build pipeline"
+        
+        platform_setup:
+          cross_platform:
+            - "#init-react-native":
+                setup:
+                  - "React Native configuration"
+                  - "Native modules"
+                  - "Navigation system"
+            - "#init-flutter":
+                setup:
+                  - "Flutter configuration"
+                  - "Widget structure"
+                  - "State management"
+          
+          native:
+            - "#init-ios":
+                setup:
+                  - "iOS project structure"
+                  - "CocoaPods setup"
+                  - "Swift configuration"
+            - "#init-android":
+                setup:
+                  - "Android project structure"
+                  - "Gradle configuration"
+                  - "Kotlin setup"
+
+  # Existing Project Commands
+  existing_project:
+    analysis:
+      - "#analyze-project":
+          description: "Analyze existing project structure"
+          workflow:
+            - "Scan project structure"
+            - "Identify technologies"
+            - "Generate dependency graph"
+            - "Create project map"
+      
+      - "#analyze-architecture":
+          description: "Analyze current architecture"
+          workflow:
+            - "Review system design"
+            - "Identify patterns"
+            - "Document components"
+            - "Map integrations"
+
+    integration:
+      feature_addition:
+        - "#add-feature":
+            workflow:
+              - "Analyze impact"
+              - "Plan integration"
+              - "Implement changes"
+              - "Update tests"
+        
+        - "#update-docs":
+            workflow:
+              - "Update documentation"
+              - "Generate API docs"
+              - "Update diagrams"
+              - "Review changes"
+
+      modernization:
+        - "#modernize-stack":
+            workflow:
+              - "Analyze dependencies"
+              - "Update versions"
+              - "Migrate deprecated code"
+              - "Update build system"
+        
+        - "#optimize-performance":
+            workflow:
+              - "Profile application"
+              - "Identify bottlenecks"
+              - "Implement optimizations"
+              - "Measure improvements"
+
+  # Common Development Workflows
+  development_workflows:
+    feature_development:
+      - "#feature-start":
+          workflow:
+            - "Create feature branch"
+            - "Setup feature structure"
+            - "Initialize tests"
+            - "Update documentation"
+      
+      - "#feature-implement":
+          workflow:
+            - "Implement functionality"
+            - "Write tests"
+            - "Update documentation"
+            - "Create PR"
+
+    testing:
+      unit_testing:
+        - "#test-unit":
+            workflow:
+              - "Generate test cases"
+              - "Implement tests"
+              - "Run test suite"
+              - "Generate coverage"
+      
+      integration_testing:
+        - "#test-integration":
+            workflow:
+              - "Setup test environment"
+              - "Run integration tests"
+              - "Validate components"
+              - "Generate report"
+
+    deployment:
+      staging:
+        - "#deploy-staging":
+            workflow:
+              - "Build application"
+              - "Run tests"
+              - "Deploy to staging"
+              - "Run smoke tests"
+      
+      production:
+        - "#deploy-prod":
+            workflow:
+              - "Verify staging"
+              - "Run security checks"
+              - "Deploy to production"
+              - "Monitor metrics"
+
+  # Project Type Specific Features
+  project_features:
+    website:
+      seo:
+        - "#setup-seo":
+            workflow:
+              - "Configure meta tags"
+              - "Setup sitemap"
+              - "Implement schemas"
+              - "Configure analytics"
+      
+      performance:
+        - "#optimize-web":
+            workflow:
+              - "Optimize images"
+              - "Setup caching"
+              - "Configure CDN"
+              - "Implement lazy loading"
+
+    webapp:
+      authentication:
+        - "#setup-auth":
+            workflow:
+              - "Configure auth system"
+              - "Setup user flows"
+              - "Implement security"
+              - "Add social login"
+      
+      data_management:
+        - "#setup-data":
+            workflow:
+              - "Setup database"
+              - "Configure ORM"
+              - "Implement caching"
+              - "Setup backups"
+
+    mobile_app:
+      native_features:
+        - "#setup-notifications":
+            workflow:
+              - "Configure push notifications"
+              - "Setup handlers"
+              - "Implement deep linking"
+              - "Test notifications"
+      
+      offline_support:
+        - "#setup-offline":
+            workflow:
+              - "Implement data sync"
+              - "Setup local storage"
+              - "Handle conflicts"
+              - "Test offline mode"
+
+  # Integration Points
+  integration_points:
+    version_control:
+      git_workflow:
+        - "#git-flow":
+            workflow:
+              - "Setup branches"
+              - "Configure hooks"
+              - "Setup CI/CD"
+              - "Configure reviews"
+
+    continuous_integration:
+      setup:
+        - "#setup-ci":
+            workflow:
+              - "Configure pipeline"
+              - "Setup environments"
+              - "Define stages"
+              - "Setup notifications"
+
+    monitoring:
+      setup:
+        - "#setup-monitoring":
+            workflow:
+              - "Configure metrics"
+              - "Setup alerts"
+              - "Initialize logging"
+              - "Setup dashboards"

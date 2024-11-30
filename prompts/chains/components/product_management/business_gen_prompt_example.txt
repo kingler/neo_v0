@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Business Description Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Generate a detailed markdown document based on user inputs and guidelines</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Business description will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from business_gen_prompt_example.md -->
+    </content>
+</prompt>

@@ -1,0 +1,6 @@
+# Token Efficiency
+efficiency:
+  instructions:
+    prioritize_key_sections: true
+    truncate_optional_prompts: true
+    use_abbreviated_responses: true

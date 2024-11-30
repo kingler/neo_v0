@@ -1,0 +1,39 @@
+# Security Management
+security_management:
+  access_control:
+    role_definitions:
+      admin_role:
+        name: "admin"
+        permissions: ["read", "write", "delete", "manage"]
+      agent_role:
+        name: "agent"
+        permissions: ["read", "write", "update"]
+      viewer_role:
+        name: "viewer"
+        permissions: ["read"]
+    
+    scope_definitions:
+      project_scope:
+        name: "project"
+        access: ["admin", "agent"]
+      agent_scope:
+        name: "agent"
+        access: ["agent"]
+      public_scope:
+        name: "public"
+        access: ["viewer"]
+
+  audit_management:
+    logging_config:
+      events:
+        - "Context access"
+        - "Changes made"
+        - "User actions"
+        - "System events"
+    
+    reporting_config:
+      report_types:
+        - "Access reports"
+        - "Change history"
+        - "Usage statistics"
+        - "Security incidents"

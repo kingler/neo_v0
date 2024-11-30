@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        PlantUML Diagram Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Determine diagram type and scope definition</instruction>
+        <instruction>Identify entry point and relationship depth</instruction>
+        <instruction>Select components and generate PlantUML</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- PlantUML diagram will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from generate-PlantUML-diagram.md -->
+    </content>
+</prompt>

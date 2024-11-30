@@ -1,0 +1,31 @@
+# Workflow Context Management
+workflow_contexts:
+  planning_workflow:
+    requirements:
+      command: "#requirements-init"
+      workflow:
+        - "Load requirements context"
+        - "Update specifications"
+        - "Generate documentation"
+    
+    architecture:
+      command: "#arch-init"
+      workflow:
+        - "Load architecture context"
+        - "Update system design"
+        - "Generate diagrams"
+  
+  development_workflow:
+    implementation:
+      command: "#dev-init"
+      workflow:
+        - "Load development context"
+        - "Update codebase"
+        - "Generate documentation"
+    
+    testing:
+      command: "#test-init"
+      workflow:
+        - "Load testing context"
+        - "Update test suite"
+        - "Generate reports"

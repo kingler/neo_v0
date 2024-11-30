@@ -1,0 +1,27 @@
+# Monitoring Management
+monitoring_management:
+  metrics_config:
+    performance_metrics:
+      - "Query response time"
+      - "Update latency"
+      - "Storage utilization"
+      - "Cache hit rate"
+    
+    usage_metrics:
+      - "Active contexts"
+      - "Context size"
+      - "Access frequency"
+      - "Update frequency"
+
+  alerts_config:
+    threshold_definitions:
+      - "High latency"
+      - "Storage capacity"
+      - "Error rate"
+      - "Security events"
+    
+    notification_types:
+      - "System alerts"
+      - "Security alerts"
+      - "Performance alerts"
+      - "Usage alerts"

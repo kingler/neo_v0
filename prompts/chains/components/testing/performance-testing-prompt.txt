@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Performance Testing Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Generate comprehensive performance testing documentation and scripts that ensure the application meets performance requirements</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Performance testing documentation and scripts will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from performance-testing-prompt.md -->
+    </content>
+</prompt>

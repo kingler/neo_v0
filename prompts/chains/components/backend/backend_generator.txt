@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Backend Dev Expert
+    </purpose>
+
+    <instructions>
+        <instruction>Implement the full Express server for the provided task</instruction>
+        <instruction>Conduct a thorough analysis of the backend requirements and DB specifications</instruction>
+        <instruction>Write the full working script and specify the dependencies and environment variables</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Full Node.js script will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from backend_generator.md -->
+    </content>
+</prompt>

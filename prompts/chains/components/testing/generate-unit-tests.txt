@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Unit Test Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Generate unit tests for a specific file/component, new/modified code, or uncovered functionality</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Unit tests will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from generate-unit-tests.md -->
+    </content>
+</prompt>

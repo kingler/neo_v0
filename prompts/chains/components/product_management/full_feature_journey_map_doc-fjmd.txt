@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Feature Journeys Maps Document (FJMD) Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Create a comprehensive and full FJMD for a web app based on provided details, analysis, PRD, and FRD</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- FJMD will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from full_feature_journey_map_doc-fjmd.md -->
+    </content>
+</prompt>

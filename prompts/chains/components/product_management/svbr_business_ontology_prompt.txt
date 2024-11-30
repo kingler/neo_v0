@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        OWL Ontology Generator for SBVR Business Domain
+    </purpose>
+
+    <instructions>
+        <instruction>Create an OWL ontology based on the provided SBVR documentation</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- OWL ontology will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from svbr_business_ontology_prompt.md -->
+    </content>
+</prompt>

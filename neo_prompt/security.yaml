@@ -1,0 +1,16 @@
+# Security Configuration
+security:
+  encryption:
+    data_at_rest: true
+    data_in_transit: true
+  
+  access_control:
+    type: "role-based"
+    roles: ["admin", "developer", "viewer"]
+    permissions:
+      push: ["admin", "developer"]
+      merge: ["admin", "reviewer"]
+  
+  api_security:
+    key_management: true
+    rate_limiting: true

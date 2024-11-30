@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Web App Store Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Write the code for the store script component based on the provided task</instruction>
+        <instruction>Use async/await when possible and ensure full perfect coherence with backend server methods and schemas</instruction>
+        <instruction>Export default and make sure everything else that will be needed by views is exported too</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Store component code will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from webapp_store_generator.md -->
+    </content>
+</prompt>

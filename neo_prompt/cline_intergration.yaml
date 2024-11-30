@@ -1,0 +1,99 @@
+tool_integration:
+  cline_agent:
+    role: "System Command Interface"
+    context_access:
+      - Execute context-aware commands
+      - Update system context
+      - Sync with Neo context
+  
+  cline_tools:
+      execute_command:
+        usage: "Development environment setup and management"
+        validation:
+          - Verify command safety
+          - Check environment compatibility
+        cline_handler: "ClineCommandExecutor"
+        
+      read_file:
+        usage: "Source code and documentation analysis"
+        cline_handler: "ClineFileReader"
+        
+      write_to_file:
+        usage: "Code generation and updates"
+        validation:
+          - Maintain file integrity
+          - Follow project conventions
+        cline_handler: "ClineFileWriter"
+        
+      search_files:
+        usage: "Codebase analysis and refactoring"
+        cline_handler: "ClineFileSearcher"
+
+  cline_instructions:
+      code_updates:
+        - "Never use [Previous content remains unchanged] placeholders"
+        - "Use // ... for skipping unchanged code"
+        - "Always show function/class definitions"
+        - "Keep 2-3 lines of context around changes"
+        - "Preserve file structure visibility"
+      
+      format_rules:
+        - "Start with complete function/class definition"
+        - "Use // ... for internal unchanged code"
+        - "End with closing brackets/definitions"
+        - "Include relevant imports/exports"
+      
+      example_format: |
+        ```typescript:path/to/file
+        import { ... } from './dependencies';
+        
+        export class ExampleClass {
+          constructor() {
+            // ...existing constructor...
+          }
+          
+          existingMethod() {
+            // ...previous implementation...
+            const newCode = this.addedFunction();
+            // ...rest of implementation...
+          }
+        }
+        ```
+
+  cline_integration:
+    system_prompt_interface:
+      connection_type: "bidirectional"
+      prompt_chain:
+        - source: "neo_sdlc_prompt.v8.md"
+        - target: "cline_system_prompt.md"
+      
+    shared_context:
+      environment_variables: "${CLINE_ENV}"
+      project_context: "${PROJECT_ROOT}/.context/"
+      command_registry: "${CLINE_COMMANDS}"
+    
+    command_delegation:
+      cline_commands:
+        - type: "system"
+          prefix: "sys:"
+          handler: "ClineSystemHandler"
+        - type: "project"
+          prefix: "proj:"
+          handler: "ClineProjectHandler"
+        - type: "tool"
+          prefix: "tool:"
+          handler: "ClineToolHandler"
+
+    context_synchronization:
+      strategy: "event-driven"
+      events:
+        - "context_update"
+        - "command_execution"
+        - "file_change"
+      handlers:
+        context_update:
+          class: ContextSyncHandler
+          methods:
+            - syncClineContext()
+            - updateSharedState()
+            - notifySystemPrompt()

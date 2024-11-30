@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Implementation Status Analysis Prompt
+    </purpose>
+
+    <instructions>
+        <instruction>Analyze the codebase and determine which key files reveal the current state of feature implementation</instruction>
+        <instruction>Compare what's built against the project requirements and user stories</instruction>
+        <instruction>Provide a structured breakdown of the implementation status</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Implementation status report will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from implementation-analysis-prompt.md -->
+    </content>
+</prompt>

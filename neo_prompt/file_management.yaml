@@ -1,0 +1,201 @@
+# File Management
+file_management:
+  documentation_structure:
+    root_directory: "cline_docs/"
+    essential_files:
+      - name: "projectRoadmap.md"
+        purpose: "Track high-level goals and progress"
+        format: |
+          # Project Roadmap
+          
+          ## Goals
+          - [ ] Goal 1
+          - [ ] Goal 2
+          
+          ## Features
+          - [ ] Feature 1
+          - [ ] Feature 2
+          
+          ## Completion Criteria
+          - Criterion 1
+          - Criterion 2
+          
+          ## Progress History
+          - [x] Completed Task 1 (Date)
+          - [x] Completed Task 2 (Date)
+
+      - name: "currentTask.md"
+        purpose: "Track current objectives and context"
+        format: |
+          # Current Task
+          
+          ## Objective
+          {task_description}
+          
+          ## Context
+          - Related roadmap item: {roadmap_reference}
+          - Dependencies: {dependencies}
+          
+          ## Next Steps
+          1. Step 1
+          2. Step 2
+
+      - name: "techStack.md"
+        purpose: "Document technology decisions"
+        format: |
+          # Technology Stack
+          
+          ## Frontend
+          - Framework: {framework}
+          - UI Library: {ui_library}
+          
+          ## Backend
+          - Runtime: {runtime}
+          - Database: {database}
+          
+          ## Infrastructure
+          - Hosting: {hosting}
+          - CI/CD: {ci_cd}
+
+      - name: "codebaseSummary.md"
+        purpose: "Overview of project structure"
+        format: |
+          # Codebase Summary
+          
+          ## Key Components
+          - Component 1: {description}
+          - Component 2: {description}
+          
+          ## Data Flow
+          {data_flow_description}
+          
+          ## Dependencies
+          - External API: {api_details}
+          - Libraries: {library_details}
+          
+          ## Recent Changes
+          1. Change 1 (Date)
+          2. Change 2 (Date)
+
+  workflow_integration:
+    document_reading_order:
+      1. projectRoadmap.md
+      2. currentTask.md
+      3. techStack.md
+      4. codebaseSummary.md
+    
+    update_triggers:
+      projectRoadmap:
+        - Goal completion
+        - New feature addition
+        - Progress milestone
+      
+      currentTask:
+        - Task completion
+        - Subtask update
+        - Context change
+      
+      techStack:
+        - Technology addition
+        - Architecture change
+        - Version update
+      
+      codebaseSummary:
+        - Structure change
+        - New component
+        - Major refactor
+
+  documentation_commands:
+    "#init-docs":
+      description: "Initialize or reset cline_docs directory"
+      workflow:
+        1. Create cline_docs directory if not exists
+        2. Generate essential documents
+        3. Initialize with project context
+      implementation: |
+        mkdir -p cline_docs
+        touch cline_docs/{projectRoadmap,currentTask,techStack,codebaseSummary}.md
+        
+    "#update-docs":
+      description: "Update specific documentation files"
+      parameters:
+        - name: "doc-type"
+          options: ["roadmap", "task", "tech", "summary", "all"]
+      workflow:
+        1. Read current project context
+        2. Update specified document(s)
+        3. Validate document consistency
+      
+    "#sync-docs":
+      description: "Synchronize all documentation with current project state"
+      workflow:
+        1. Analyze current codebase
+        2. Update all documentation files
+        3. Verify cross-references
+        4. Generate consistency report
+
+  documentation_workflows:
+    initialization:
+      steps:
+        1. Run "#init-docs"
+        2. Gather initial project requirements
+        3. Populate projectRoadmap.md
+        4. Define initial tech stack
+        5. Create initial codebase summary
+      
+    update_process:
+      automated_triggers:
+        - New feature implementation
+        - Technology stack changes
+        - Major refactoring
+        - Sprint completion
+      
+      manual_triggers:
+        - "#update-docs roadmap"
+        - "#update-docs task"
+        - "#update-docs tech"
+        - "#update-docs summary"
+        - "#update-docs all"
+
+  restart_workflows:
+    project_reset:
+      steps:
+        1. Create backup branch of current state
+           - git branch backup-YYYY-MM-DD
+           - git add .
+           - git commit -m "Backup before reset"
+        
+        2. Reset to initial version
+           - git reset --hard $(git rev-list --max-parents=0 HEAD)
+           - git clean -fd
+        
+        3. Restore context files
+           - Reload .context files
+           - Rebuild documentation
+           
+    working_version_restore:
+      steps:
+        1. Identify last working state
+           - Check git logs
+           - Verify build status
+           
+        2. Create safety branch
+           - git branch restore-YYYY-MM-DD
+           
+        3. Reset to working version
+           - git reset --hard <commit-hash>
+           
+        4. Verify system state
+           - Run tests
+           - Check functionality
+           - Validate context
+
+  prompt_optimization:
+    compression:
+      method: "LLM Prompt Compression"
+      reference: "@prompt_compression.md"
+      workflow:
+        1. Analyze prompt content
+        2. Apply compression techniques
+        3. Maintain semantic meaning
+        4. Optimize token usage

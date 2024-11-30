@@ -1,0 +1,36 @@
+---
+# Bug Issues Backlog
+# This file is automatically populated when test failures occur
+
+metadata:
+  last_updated: null
+  total_issues: 0
+  open_issues: 0
+  critical_count: 0
+  high_count: 0
+  medium_count: 0
+  low_count: 0
+
+issues: []  # Will be populated with bug issues when tests fail
+
+sprint_assignments: {}  # Will map issues to sprint numbers
+
+# Example issue structure:
+# issues:
+#   - id: "BUG-001"
+#     type: "bug"
+#     status: "open"
+#     created_date: "2024-01-20T10:30:00Z"
+#     test_type: "integration"
+#     priority: "high"
+#     description: "API endpoint authentication failure in user service"
+#     stack_trace: |
+#       Error: Authentication failed
+#       at UserService.authenticate (user.service.ts:45:12)
+#     affected_components:
+#       - "UserService"
+#       - "AuthenticationMiddleware"
+#     reproduction_steps:
+#       - "Run integration tests for user authentication"
+#       - "Check response from /api/auth endpoint"
+#     sprint_number: 4

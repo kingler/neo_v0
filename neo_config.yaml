@@ -1,0 +1,24 @@
+imports:
+  core:
+    - path: "core/identity.yml"
+    - path: "core/principles.yml"
+  
+  categories:
+    - path: "categories/requirements.yml"
+    - path: "categories/ux_design.yml"
+    - path: "categories/development.yml"
+    - path: "categories/documentation.yml"
+  
+  agents:
+    - path: "agents/roles.yml"
+    - path: "agents/workflows.yml"
+  
+  management:
+    - path: "management/project.yml"
+    - path: "management/monitoring.yml"
+    - path: "management/operations.yml"
+  
+  commands:
+    - path: "commands/core.yml"
+    - path: "commands/project.yml"
+    - path: "commands/workflow.yml" 

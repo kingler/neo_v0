@@ -1,0 +1,486 @@
+# Command Integration
+Commands:
+  _metadata:
+    cline_tools:
+      execution_environment:
+        - "cline_cli"
+        - "cline_repl"
+        - "cline_api"
+      command_prefix: "cline"
+      usage: "cline <command> [options]"
+# Agent-Specific Commands
+  agent_commands:
+    product_owner:
+      requirements:
+        - "#requirements-init":
+            description: "Initialize requirements gathering"
+            workflow:
+              - "Setup requirements structure"
+              - "Initialize templates"
+              - "Configure tracking"
+        - "#feature-map":
+            description: "Generate feature mapping"
+            workflow:
+              - "Analyze requirements"
+              - "Create feature hierarchy"
+              - "Set dependencies"
+        - "#roadmap-gen":
+            description: "Generate product roadmap"
+            workflow:
+              - "Analyze features"
+              - "Set priorities"
+              - "Create timeline"
+
+    ux_researcher:
+      research:
+        - "#research-init":
+            description: "Initialize research project"
+            workflow:
+              - "Define research goals"
+              - "Select methods"
+              - "Create timeline"
+        - "#interview-analyze":
+            description: "Analyze interview data"
+            workflow:
+              - "Process transcripts"
+              - "Extract insights"
+              - "Generate report"
+        - "#survey-process":
+            description: "Process survey data"
+            workflow:
+              - "Analyze responses"
+              - "Generate insights"
+              - "Create visualizations"
+
+    system_architect:
+      architecture:
+        - "#arch-init":
+            description: "Initialize architecture design"
+            workflow:
+              - "Setup architecture docs"
+              - "Initialize diagrams"
+              - "Create templates"
+        - "#uml-gen":
+            description: "Generate UML diagrams"
+            workflow:
+              - "Analyze requirements"
+              - "Create class diagrams"
+              - "Generate sequence diagrams"
+        - "#api-design":
+            description: "Design API specifications"
+            workflow:
+              - "Define endpoints"
+              - "Specify data models"
+              - "Document API"
+
+    frontend_developer:
+      ui_development:
+        - "#ui-implement":
+            description: "Implement UI components"
+            workflow:
+              - "Create component structure"
+              - "Implement styling"
+              - "Add interactions"
+        - "#component-build":
+            description: "Build component library"
+            workflow:
+              - "Create base components"
+              - "Add variations"
+              - "Document usage"
+
+    backend_developer:
+      api_implementation:
+        - "#api-implement":
+            description: "Implement API endpoints"
+            workflow:
+              - "Create routes"
+              - "Implement handlers"
+              - "Add validation"
+        - "#service-build":
+            description: "Build backend services"
+            workflow:
+              - "Create service layer"
+              - "Implement business logic"
+              - "Add error handling"
+
+    database_developer:
+      database:
+        - "#schema-implement":
+            description: "Implement database schema"
+            workflow:
+              - "Create tables"
+              - "Define relationships"
+              - "Add indexes"
+        - "#migration-gen":
+            description: "Generate database migrations"
+            workflow:
+              - "Create migration files"
+              - "Define up/down methods"
+              - "Test migrations"
+
+    test_engineer:
+      testing:
+        - "#test-suite":
+            description: "Run test suites"
+            workflow:
+              - "Execute unit tests"
+              - "Run integration tests"
+              - "Perform E2E testing"
+        - "#coverage-check":
+            description: "Check test coverage"
+            workflow:
+              - "Generate coverage report"
+              - "Check thresholds"
+              - "Identify gaps"
+
+# System-Wide Commands
+  system_commands:
+    project_management:
+      - "#init-project":
+          description: "Initialize new project"
+          workflow:
+            - "Create project structure by running command: #generate-project-structure"
+            - "Setup git repository"
+            - "Initialize dependencies"
+            - "Configure development environment"
+      - "#init-memory":
+          description: "Setup vector database"
+          workflow:
+            - "Install ChromaDB"
+            - "Create collections"
+            - "Setup persistence"
+      - "#generate-project-structure":
+          description: "Generate new project structure from template"
+          workflow:
+            - "Validate template selection"
+            - "Create base directory structure"
+            - "Initialize cline_docs using #init-clinedocs"
+            - "Setup project-specific structure"
+            - "Initialize config files"
+            - "Setup documentation"
+          parameters:
+            - name: "template"
+              type: "string"
+              options: ["webapp", "website", "native_mobile_app"]
+          dependencies:
+            commands:
+              - "#init-clinedocs"
+              - "#init-git"
+              - "#docs-init"
+          permissions:
+            agents: ["neo_agent", "system_architect"]
+          references:
+            structure_template: "@project_management.yaml:project_organization.new_project_structure"
+            cline_docs_template: "@project_management.yaml:project_organization.cline_docs_structure"
+      - "#organize-root":
+          description: "Analyze and organize messy root directory"
+          workflow:
+            - "Scan root directory"
+            - "Analyze file types and purposes"
+            - "Identify misplaced files"
+            - "Create semantic folders"
+            - "Move files to appropriate locations"
+            - "Update references if needed"
+            - "Generate organization report"
+          parameters:
+            - name: "dry_run"
+              type: "boolean"
+              default: true
+              description: "Preview changes without moving files"
+          rules:
+            file_categories:
+              docs: ["*.md", "*.txt", "*.pdf", "documentation/*"]
+              config: ["*.config.*", "*.rc", "*.json", "*.yaml", "*.toml"]
+              scripts: ["*.sh", "*.bat", "*.ps1"]
+              assets: ["*.png", "*.jpg", "*.svg", "*.ico"]
+              build: ["*.lock", "dist/*", "build/*"]
+          dependencies:
+            commands:
+              - "#backup-files"
+              - "#update-references"
+          permissions:
+            agents: ["neo_agent", "system_architect", "system_admin"]
+      - "#list-commands":
+          description: "Display all available commands and their descriptions"
+          usage: "cline #list-commands [--format=<text|json|yaml>] [--filter=<category>]"
+          parameters:
+            - name: "format"
+              type: "string"
+              default: "text"
+              options: ["text", "json", "yaml"]
+            - name: "filter"
+              type: "string"
+              description: "Filter commands by category"
+              optional: true
+          workflow:
+            - "Load command registry"
+            - "Apply filters if specified"
+            - "Format output"
+            - "Display results"
+          output_format:
+            text: |
+              Available Commands:
+              ----------------
+              #command-name
+                Description: Command description
+                Usage: Command usage
+                Category: Command category
+      - "#generate-command-docs":
+          description: "Generate complete command documentation file"
+          usage: "cline #generate-command-docs [--output=<filename>] [--format=<md|txt>]"
+          parameters:
+            - name: "output"
+              type: "string"
+              default: "COMMANDS"
+              description: "Output filename"
+            - name: "format"
+              type: "string"
+              default: "md"
+              options: ["md", "txt"]
+          workflow:
+            - "Scan command registry"
+            - "Build command hierarchy"
+            - "Generate documentation"
+            - "Write to file"
+          file_output:
+            location: "./"
+            template: |
+              # System Commands
+              
+              ## Core Commands
+              {{#each core_commands}}
+              ### {{name}}
+              - Description: {{description}}
+              - Usage: {{usage}}
+              - Parameters: {{parameters}}
+              {{/each}}
+              
+              ## Agent Commands
+              {{#each agent_commands}}
+              ### {{agent}}
+              {{#each commands}}
+              #### {{name}}
+              - Description: {{description}}
+              - Usage: {{usage}}
+              {{/each}}
+              {{/each}}
+      - "#list-flags":
+          description: "Display all available command flags and usage examples"
+          usage: "cline #list-flags [--format=<text|json|md>] [--command=<specific-command>]"
+          parameters:
+            - name: "format"
+              type: "string"
+              default: "text"
+              options: ["text", "json", "md"]
+            - name: "command"
+              type: "string"
+              description: "Show flags for specific command"
+              optional: true
+          output_format:
+            text: |
+              Global Flags:
+              ------------
+              --format=<text|json|yaml|md>
+                Description: Output format
+                Example: cline #list-commands --format=json
+              
+              --output=<filename>
+                Description: Output file name/path
+                Example: cline #generate-command-docs --output=CLI_REFERENCE.md
+              
+              --filter=<category|type|agent>
+                Description: Filter results
+                Example: cline #list-commands --filter=template_commands
+              
+              Template Flags:
+              --------------
+              --template-type=<BRD|PRD|UXDD|...>
+                Description: Specify template type
+                Example: cline #load-template --template-type=BRD
+              
+              --template-path=<path>
+                Description: Custom template location
+                Example: cline #load-template --template-path=./custom/templates
+              
+              Documentation Flags:
+              ------------------
+              --doc-format=<md|txt|html>
+                Description: Documentation format
+                Example: cline #generate-command-docs --doc-format=md
+              
+              --include-examples=<true|false>
+                Description: Include usage examples
+                Example: cline #generate-command-docs --include-examples=true
+              
+              Agent Flags:
+              -----------
+              --agent=<agent-name>
+                Description: Specify agent
+                Example: cline #list-commands --agent=product_owner
+              
+              --agent-role=<role>
+                Description: Filter by agent role
+                Example: cline #list-commands --agent-role=developer
+              
+              Execution Flags:
+              --------------
+              --dry-run=<true|false>
+                Description: Simulate command execution
+                Example: cline #generate-project-structure --dry-run=true
+              
+              --verbose=<true|false>
+                Description: Detailed output
+                Example: cline #list-commands --verbose=true
+              
+              --silent=<true|false>
+                Description: Suppress output
+                Example: cline #generate-command-docs --silent=true
+
+    version_control:
+      - "#init-git":
+          description: "Initialize git repository"
+          workflow:
+            - "Create repository"
+            - "Add gitignore"
+            - "Initial commit"
+      - "#commit":
+          description: "Commit changes"
+          workflow:
+            - "Stage changes"
+            - "Create commit"
+            - "Push to remote"
+
+    documentation:
+      - "#docs-init":
+          description: "Initialize documentation"
+          workflow:
+            - "Create documentation structure"
+            - "Setup documentation generator"
+            - "Initialize API docs"
+      - "#gen-docs":
+          description: "Generate documentation"
+          workflow:
+            - "Generate API docs"
+            - "Create user guides"
+            - "Update README"
+
+# Command Integration
+  command_integration:
+    workflow_hooks:
+      pre_command:
+        - "Validate prerequisites"
+        - "Check permissions"
+        - "Load context"
+      
+      post_command:
+        - "Update context"
+        - "Generate logs"
+        - "Notify relevant agents"
+
+    error_handling:
+      on_failure:
+        - "Log error details"
+        - "Notify relevant agents"
+        - "Attempt recovery"
+        - "Update status"
+
+    context_management:
+      updates:
+        - "Update agent context"
+        - "Refresh vector DB"
+        - "Update project state"
+
+    cline_tools:
+      execution:
+        - name: "cline execute"
+          usage: "cline execute <command>"
+          description: "Execute command through Cline CLI"
+        - name: "cline repl"
+          usage: "cline repl"
+          description: "Interactive command execution"
+        - name: "cline api"
+          usage: "cline api <endpoint>"
+          description: "API-based command execution"
+      
+      validation:
+        - "Verify cline environment"
+        - "Check command syntax"
+        - "Validate permissions"
+
+# Command Execution Rules
+  execution_rules:
+    prerequisites:
+      - "Check agent availability"
+      - "Verify permissions"
+      - "Validate context"
+      - "Check dependencies"
+
+    validation:
+      - "Verify command syntax"
+      - "Check parameter values"
+      - "Validate workflow steps"
+      - "Confirm agent access"
+
+    logging:
+      - "Log command start"
+      - "Track execution steps"
+      - "Record completion status"
+      - "Store artifacts"
+
+  template_commands:
+    - "#load-template":
+        description: "Load and initialize document templates"
+        workflow:
+          - "Validate template type"
+          - "Load template content"
+          - "Initialize template variables"
+        parameters:
+          - name: "template-type"
+            type: "string"
+            required: true
+            options:
+              - "BRD"    # Business Requirements Document
+              - "DRD"    # Design Requirements Document
+              - "PRD"    # Product Requirements Document
+              - "UXDD"   # UX Design Document
+              - "TAD"    # Technical Architecture Document
+              - "QAP"    # Quality Assurance Plan
+              - "UJM"    # User Journey Map
+              - "UPR"    # User Persona Report
+              - "UST"    # User Story Template
+              - "UXR"    # UX Requirements
+              - "WFA"    # Wireframe Annotations
+              - "WFS"    # Wireframe Specification
+              - "DSG"    # Design System Guide
+              - "DPS"    # Deployment Strategy
+              - "IMP"    # Implementation Plan
+              - "TSP"    # Technical Specification
+          - name: "output-path"
+            type: "string"
+            description: "Target path for generated document"
+            required: true
+        references:
+          templates:
+            BRD: "@templates/BRD.md"
+            DRD: "@templates/DRD.md"
+            PRD: "@templates/PRD.md"
+            UXDD: "@templates/feature-request/UXDD.md"
+            TAD: "@templates/technical_architecture.md"
+            QAP: "@templates/qa_plan.md"
+            UJM: "@templates/user_journey_map.md"
+            UPR: "@templates/user_persona_report.md"
+            UST: "@templates/user_story_template.md"
+            UXR: "@templates/ux_requirements.md"
+            WFA: "@templates/wireframe_annotations.md"
+            WFS: "@templates/wireframe_spec.md"
+            DSG: "@templates/design_system.md"
+            DPS: "@templates/deployment_strategy.md"
+            IMP: "@templates/implementation_plan.md"
+            TSP: "@templates/technical_spec.md"
+        template_metadata:
+          version_control: true
+          change_tracking: true
+          required_sections:
+            - "Document Control"
+            - "Executive Summary"
+            - "Change Log"

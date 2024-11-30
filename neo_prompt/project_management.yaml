@@ -1,0 +1,509 @@
+# Project Management - Project Organization Structure and SDLC Organization
+project_organization:
+  # New Project Structure
+      # Start of Selection
+    new_project_structure:
+        generate_command:
+          command: "#generate-project-structure <template>"
+          description: "Generate project structure based on selected template"
+          options:
+            - "webapp"
+            - "website"
+            - "native_mobile_app"
+        templates:
+          webapp:
+            directories:
+              src:
+                description: "Source code directory for web application"
+                subdirs:
+                  - core: "Core application logic"
+                  - features: "Feature-specific modules"
+                  - shared: "Shared utilities and components"
+                  - types: "Type definitions"
+                  - components: "Reusable UI components"
+                  - services: "Application services"
+          website:
+            directories:
+              src:
+                description: "Source code directory for website"
+                subdirs:
+                  - pages: "Page components"
+                  - layouts: "Page layouts"
+                  - styles: "Stylesheets"
+                  - assets: "Static assets"
+          native_mobile_app:
+            directories:
+              src:
+                description: "Source code directory for native mobile application"
+                subdirs:
+                  - screens: "UI screens"
+                  - components: "Reusable components"
+                  - services: "Application services"
+                  - utils: "Utility functions"
+        
+        docs:
+          description: "Documentation directory"
+          subdirs:
+            - architecture: "System architecture documentation"
+            - api: "API documentation"
+            - guides: "Development and user guides"
+            - requirements: "Project requirements"
+        
+        tests:
+          description: "Testing directory"
+          subdirs:
+            - unit: "Unit tests"
+            - integration: "Integration tests"
+            - e2e: "End-to-end tests"
+            - fixtures: "Test fixtures"
+        
+        config:
+          description: "Configuration directory"
+          subdirs:
+            - environments: "Environment configurations"
+            - build: "Build configurations"
+            - deploy: "Deployment configurations"
+        
+        scripts:
+          description: "Scripts directory"
+          subdirs:
+            - build: "Build scripts"
+            - deploy: "Deployment scripts"
+            - tools: "Development tools"
+
+    project_types:
+      website:
+        additional_structure:
+          src:
+            description: "Website source directory"
+            subdirs:
+              - assets: "Static assets"
+              - components: "UI components"
+              - layouts: "Page layouts"
+              - pages: "Page components"
+              - styles: "Stylesheets"
+          
+          public:
+            description: "Public assets directory"
+            subdirs:
+              - images: "Public images"
+              - fonts: "Font files"
+              - static: "Static files"
+
+      webapp:
+        frontend_structure:
+          src:
+            description: "Frontend source directory"
+            subdirs:
+              - components: "UI components"
+              - pages: "Page components"
+              - hooks: "Custom hooks"
+              - store: "State management"
+              - services: "API services"
+              - utils: "Utilities"
+        
+        backend_structure:
+          src:
+            description: "Backend source directory"
+            subdirs:
+              - api: "API routes"
+              - controllers: "Request handlers"
+              - services: "Business logic"
+              - models: "Data models"
+              - middleware: "Custom middleware"
+              - utils: "Utilities"
+
+      mobile_app:
+        structure:
+          src:
+            description: "Mobile app source directory"
+            subdirs:
+              - screens: "Screen components"
+              - navigation: "Navigation config"
+              - components: "Shared components"
+              - services: "API services"
+              - store: "State management"
+              - utils: "Utilities"
+          
+          native:
+            description: "Native code directory"
+            subdirs:
+              - android: "Android specific code"
+              - ios: "iOS specific code"
+  # Project Management
+    project_management:
+      project_initialization:
+        "#new-project":
+          description: "Initialize new project with template selection"
+          workflow:
+            - "Prompt for project type"
+            - "Setup selected template"
+            - "Initialize cline_docs"
+            - "Configure development environment"
+          project_types:
+            webapp:
+              template: "shadcn/nextjs"
+              setup:
+                - name: "Initialize Next.js with shadcn"
+                  command: "bunx --bun shadcn@latest init -d"
+                  options:
+                    - style: "Default"
+                    - tailwind: true
+                    - components: "src/components"
+                    - utils: "src/lib/utils"
+                - name: "Setup Atomic Design Structure"
+                  structure:
+                    - src:
+                        - components:
+                            - atoms: "Basic building blocks"
+                            - molecules: "Simple component combinations"
+                            - organisms: "Complex component combinations"
+                            - templates: "Page layouts"
+                            - pages: "Full page implementations"
+              component_management:
+                "#generate-component-list":
+                  description: "Generate required components list from user stories"
+                  workflow:
+                    - "Analyze user stories"
+                    - "Identify UI patterns"
+                    - "Map to shadcn components"
+                    - "Generate installation commands"
+                "#install-components":
+                  description: "Install required shadcn components"
+                  workflow:
+                    - "Read component list"
+                    - "Generate installation commands"
+                    - "Install components"
+                  command_template: "bunx --bun shadcn@latest add {component}"
+                "#organize-components":
+                  description: "Organize components by Atomic Design"
+                  workflow:
+                    - "Analyze component complexity"
+                    - "Determine atomic level"
+                    - "Place in appropriate directory"
+                  atomic_mapping:
+                    atoms:
+                      - "button"
+                      - "input"
+                      - "checkbox"
+                      - "radio"
+                    molecules:
+                      - "form"
+                      - "card"
+                      - "dropdown"
+                    organisms:
+                      - "navbar"
+                      - "sidebar"
+                      - "data-table"
+
+            website:
+              template: "static-site"
+              setup:
+                - "Configure static site generator"
+                - "Setup content structure"
+                - "Configure build system"
+
+            mobile_app:
+              template: "react-native"
+              setup:
+                - "Initialize React Native"
+                - "Setup native modules"
+                - "Configure build tools"
+
+      frontend_development:
+        epic_implementation:
+          "#implement-epic":
+            description: "Implement UI for epic (collection of user stories)"
+            workflow:
+              - "Analyze user stories in epic"
+              - "Generate component list"
+              - "Install required components"
+              - "Create page implementation"
+            steps:
+              - name: "Component Analysis"
+                command: "#generate-component-list"
+                output: "components.json"
+              - name: "Component Installation"
+                command: "#install-components"
+                input: "components.json"
+              - name: "Page Implementation"
+                template: "page-view.tsx"
+                structure:
+                  imports:
+                    - "Required components"
+                    - "Utility functions"
+                  layout:
+                    - "Page structure"
+                    - "Component composition"
+                    - "Data integration"
+
+        atomic_design:
+          organization:
+            atoms:
+              description: "Basic UI building blocks"
+              examples:
+                - "Button"
+                - "Input"
+                - "Typography"
+            molecules:
+              description: "Simple combinations of atoms"
+              examples:
+                - "Form fields"
+                - "Search bars"
+                - "Menu items"
+            organisms:
+              description: "Complex UI components"
+              examples:
+                - "Navigation bars"
+                - "Forms"
+                - "Card layouts"
+            templates:
+              description: "Page-level layouts"
+              examples:
+                - "Dashboard layout"
+                - "Article layout"
+                - "Profile layout"
+            pages:
+              description: "Complete page implementations"
+              examples:
+                - "Dashboard view"
+                - "Profile view"
+                - "Settings view"
+
+      file_organization:
+        root_cleanup:
+          description: "Organize messy root directory structure"
+          semantic_folders:
+            docs:
+              description: "Documentation files"
+              patterns: ["*.md", "*.txt", "*.pdf"]
+              exceptions: ["README.md", "LICENSE.md", "CHANGELOG.md"]
+              subfolders:
+                - guides: "User and development guides"
+                - api: "API documentation"
+                - specs: "Specifications"
+            
+            config:
+              description: "Configuration files"
+              patterns: ["*.config.*", "*.rc", "*.json", "*.yaml", "*.toml"]
+              exceptions: ["package.json", "tsconfig.json"]
+              subfolders:
+                - env: "Environment configurations"
+                - tools: "Tool configurations"
+                - build: "Build configurations"
+            
+            scripts:
+              description: "Script files"
+              patterns: ["*.sh", "*.bat", "*.ps1"]
+              subfolders:
+                - build: "Build scripts"
+                - deploy: "Deployment scripts"
+                - utils: "Utility scripts"
+            
+            assets:
+              description: "Asset files"
+              patterns: ["*.png", "*.jpg", "*.svg", "*.ico"]
+              subfolders:
+                - images: "Image files"
+                - icons: "Icon files"
+                - media: "Media files"
+            
+            build:
+              description: "Build artifacts"
+              patterns: ["*.lock", "dist/*", "build/*"]
+              subfolders:
+                - temp: "Temporary build files"
+                - dist: "Distribution files"
+                - cache: "Cache files"
+
+          root_exceptions:
+            - "README.md"
+            - "LICENSE"
+            - "package.json"
+            - "tsconfig.json"
+            - ".gitignore"
+            - ".env.example"
+            - "next.config.js"
+            - "vite.config.ts"
+
+          organization_workflow:
+            - step: "Analyze current structure"
+              actions:
+                - "Scan root directory"
+                - "Identify file types"
+                - "Map to semantic categories"
+            
+            - step: "Create folder structure"
+              actions:
+                - "Create missing semantic folders"
+                - "Ensure proper permissions"
+            
+            - step: "Organize files"
+              actions:
+                - "Move files to appropriate folders"
+                - "Update git tracking"
+                - "Maintain file history"
+            
+            - step: "Update references"
+              actions:
+                - "Scan for file references"
+                - "Update import statements"
+                - "Update documentation links"
+            
+            - step: "Generate report"
+              actions:
+                - "List moved files"
+                - "Document new structure"
+                - "Note any warnings or issues"
+
+  # SDLC Workflow Organization
+    sdlc_workflow:
+      phases:
+        planning:
+          structure:
+            docs_planning:
+              description: "Planning documentation"
+              subdirs:
+                requirements:
+                  - business: "Business requirements"
+                  - technical: "Technical requirements"
+                  - user_stories: "User stories"
+                
+                architecture:
+                  - diagrams: "Architecture diagrams"
+                  - decisions: "Architecture decisions"
+                  - specs: "Technical specifications"
+                
+                design:
+                  - wireframes: "UI wireframes"
+                  - mockups: "UI mockups"
+                  - prototypes: "Interactive prototypes"
+
+        design:
+          structure:
+            docs_design:
+              description: "Design documentation"
+              subdirs:
+                - wireframes: "UI wireframes"
+                  - mockups: "UI mockups"
+                  - prototypes: "Interactive prototypes"
+
+        development:
+          structure:
+            src:
+              description: "Development source code"
+              subdirs:
+                features:
+                  - feature1: "Feature-specific code"
+                  - feature2: "Feature-specific code"
+                  - shared: "Shared feature code"
+                
+                core:
+                  - services: "Core services"
+                  - models: "Core models"
+                  - utils: "Core utilities"
+                
+                api:
+                  - v1: "API version 1"
+                  - middleware: "API middleware"
+                  - docs: "API documentation"
+
+  # Configuration Files
+    configuration:
+      essential_files:
+        root:
+          - name: "README.md"
+            description: "Project documentation"
+          - name: "CONTRIBUTING.md"
+            description: "Contribution guidelines"
+          - name: "CHANGELOG.md"
+            description: "Version history"
+          - name: "LICENSE"
+            description: "License information"
+          - name: ".gitignore"
+            description: "Git ignore rules"
+          - name: ".env.example"
+            description: "Environment variables example"
+        
+        development:
+          - name: "package.json"
+            description: "Dependencies and scripts"
+          - name: "tsconfig.json"
+            description: "TypeScript configuration"
+          - name: ".eslintrc"
+            description: "ESLint configuration"
+          - name: ".prettierrc"
+            description: "Prettier configuration"
+          - name: "jest.config.js"
+            description: "Test configuration"
+
+  # Integration Points
+    integration_points:
+      version_control:
+        structure:
+          - .git/              # Git repository
+          - .gitignore         # Ignore rules
+          - .gitattributes     # Git attributes
+          - .github/           # GitHub specific
+      
+      continuous_integration:
+        structure:
+          - .github/workflows/ # GitHub Actions
+          - .gitlab-ci.yml     # GitLab CI
+          - jenkins/          # Jenkins configuration
+
+  # Context Management
+    context_management:
+      provider:
+          engine:
+            type: "llm"
+            model: "gpt-4"
+          storage:
+            type: "vector"
+            engine: "chromadb"
+
+      monitoring_services:
+            metrics:
+              performance:
+                - "Query response time"
+                - "System latency"
+                - "Resource usage"
+              context:
+                - "Context size"
+                - "Query latency"
+                - "Update frequency"
+                - "Cache hit rate"
+            alerts:
+              - "Size threshold exceeded"
+              - "High latency detected"
+              - "Update failures"
+              - "Security violations"
+            analytics:
+              usage_patterns:
+                - "Most accessed context"
+                - "Query patterns"
+                - "Update frequency"
+      
+      operations_services:
+        initialization:
+          project_init:
+            command: "#init-context"
+            workflow:
+                - "Setup project context"
+                - "Initialize tracking"
+                - "Configure monitoring"
+        maintenance:
+          context_update:
+            command: "#update-context"
+            workflow:
+                - "Check for changes"
+                - "Update vector store"
+                - "Sync with agents"
+                - "Update documentation"
+        provider:
+          engine:
+            type: "llm"
+            model: "gpt-4"
+          storage:
+            type: "vector"
+            engine: "chromadb"

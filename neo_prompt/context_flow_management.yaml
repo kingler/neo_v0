@@ -1,0 +1,29 @@
+# Context Flow Management
+context_flow_management:
+  context_flow:
+    help:
+      command: "#help"
+      description: "Display all available Neo commands and generate documentation"
+      workflow:
+          - "Display Console Help"
+          - "Generate Documentation File"
+          - "Display Usage Information"
+    new_feature_request:
+      command: "#new-fr"
+      description: "Create a new feature request details"
+      prerequisite: "previous feature request, currentTask"
+      workflow:
+          - "Interactive Requirements Gathering"
+          - "Generate clarifying questions"
+          - "Obtain Morpheus validation"
+          - "Get user confirmation"
+          - "Create feature request"
+    
+    init_deliverables:
+      command: "#init-deliverables"
+      description: "Initialize and manage project deliverables folder structure"
+      workflow:
+          - "Create Deliverables Structure"
+          - "Initialize Documentation"
+          - "Setup Integration"
+          - "Configure Automation"

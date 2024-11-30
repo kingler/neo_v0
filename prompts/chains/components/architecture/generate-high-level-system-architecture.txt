@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Architecture Design Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Review inputs and determine architecture style</instruction>
+        <instruction>Define core components and design component relationships</instruction>
+        <instruction>Generate architecture document</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- System architecture document will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from generate-high-level-system-architecture.md -->
+    </content>
+</prompt>

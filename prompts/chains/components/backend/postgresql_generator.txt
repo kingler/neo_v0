@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        PostgreSQL Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Write PostgreSQL commands to create DB tables and seed the DB with example data</instruction>
+        <instruction>Use snake_case for naming and avoid PostgreSQL-hardcoded methods</instruction>
+        <instruction>Use basic primitives like numbers, strings, and JSON, and avoid special types like UUIDs</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- PostgreSQL commands will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from postgresql_generator.md -->
+    </content>
+</prompt>

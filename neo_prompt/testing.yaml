@@ -1,0 +1,269 @@
+# Testing Framework
+testing:
+  types:
+    unit_tests:
+      description: "Tests that verify individual components or functions in isolation"
+      scope:
+        - "Single function or method"
+        - "Individual class methods"
+        - "Isolated component behavior"
+      characteristics:
+        - "Fast execution"
+        - "No external dependencies"
+        - "Tests one thing at a time"
+      tools:
+        - "Jest"
+        - "Mocha"
+        - "PyTest"
+
+    integration_tests:
+      description: "Tests that verify multiple components working together"
+      scope:
+        - "Component interactions"
+        - "API endpoints"
+        - "Database operations"
+      characteristics:
+        - "Tests component combinations"
+        - "May include external dependencies"
+        - "Focuses on interface behavior"
+      tools:
+        - "Supertest"
+        - "TestContainers"
+        - "Integration test frameworks"
+
+    e2e_tests:
+      description: "Tests that verify entire system workflows from start to finish"
+      scope:
+        - "Complete user workflows"
+        - "System-wide features"
+        - "Real environment testing"
+      characteristics:
+        - "Tests full user scenarios"
+        - "Uses real dependencies"
+        - "Simulates user behavior"
+      tools:
+        - "Cypress"
+        - "Selenium"
+        - "Playwright"
+
+    coverage_tests:
+      description: "Metrics that measure how much code is exercised by tests"
+      metrics:
+        line_coverage: "Percentage of code lines executed"
+        branch_coverage: "Percentage of code branches executed"
+        function_coverage: "Percentage of functions called"
+      thresholds:
+        unit_tests: "90%"
+        integration_tests: "80%"
+        e2e_tests: "70%"
+      tools:
+        - "Istanbul"
+        - "Coverage.py"
+        - "JaCoCo"
+  
+  execution:
+    workflow:
+      - "Run unit tests first"
+      - "Run integration tests if unit tests pass"
+      - "Run e2e tests if integration tests pass"
+      - "Generate coverage report"
+      - "Check against thresholds"
+      - "Create bug reports for failures"
+
+    failure_handling:
+      on_test_failure:
+        - "Generate detailed error report"
+        - "Create bug issue in backlog"
+        - "Assign priority based on test type"
+        - "Notify relevant team members"
+
+    bug_tracking:
+      backlog_file: "./backlog/bug_issues.yaml"
+      priority_levels:
+        - critical: "Test failures blocking deployment"
+        - high: "Core functionality issues"
+        - medium: "Non-critical feature issues"
+        - low: "Minor improvements or optimizations"
+      
+      issue_template:
+        id: "auto-generated"
+        type: "bug"
+        status: "open"
+        created_date: "timestamp"
+        test_type: "unit|integration|e2e"
+        priority: "critical|high|medium|low"
+        description: "Test failure details"
+        stack_trace: "Error stack trace"
+        affected_components: "List of affected components"
+        reproduction_steps: "Steps to reproduce the issue"
+
+    reporting:
+      formats:
+        - "HTML report"
+        - "JSON output"
+        - "Console summary"
+      metrics:
+        - "Total tests run"
+        - "Pass/fail ratio"
+        - "Coverage percentages"
+        - "Execution time"
+  
+  testing_commands:
+    "#test-init":
+      description: "Initialize testing environment"
+      workflow:
+        - "Install testing dependencies"
+        - "Configure test runners"
+        - "Set up test directories"
+        - "Initialize coverage reporting"
+      command: |
+        npm install --save-dev jest supertest cypress istanbul
+        # or
+        pip install pytest pytest-cov selenium playwright
+
+    "#test-unit":
+      description: "Run unit tests"
+      workflow:
+        - "Execute all unit tests"
+        - "Generate unit test report"
+        - "Check for failures"
+      command: |
+        npm run test:unit
+        # or
+        pytest tests/unit
+
+    "#test-integration":
+      description: "Run integration tests"
+      workflow:
+        - "Start test database"
+        - "Execute integration test suite"
+        - "Clean up test environment"
+      command: |
+        npm run test:integration
+        # or
+        pytest tests/integration
+
+    "#test-e2e":
+      description: "Run end-to-end tests"
+      workflow:
+        - "Start application"
+        - "Execute e2e test suite"
+        - "Capture screenshots on failure"
+      command: |
+        npm run test:e2e
+        # or
+        pytest tests/e2e
+
+    "#test-api":
+      description: "Test API endpoints"
+      workflow:
+        - "Start API server"
+        - "Run API test suite"
+        - "Validate response schemas"
+      command: |
+        npm run test:api
+        # or
+        pytest tests/api
+
+    "#test-ui":
+      description: "Test UI components"
+      workflow:
+        - "Start dev server"
+        - "Run UI component tests"
+        - "Check visual regression"
+      command: |
+        npm run test:ui
+        # or
+        pytest tests/ui
+
+    "#test-coverage":
+      description: "Generate coverage report"
+      workflow:
+        - "Run all tests with coverage"
+        - "Generate HTML report"
+        - "Check coverage thresholds"
+      command: |
+        npm run test:coverage
+        # or
+        pytest --cov=src --cov-report=html
+
+    "#test-scan":
+      description: "Scan codebase for missing tests"
+      workflow:
+        - "Scan src directory recursively"
+        - "Identify untested components"
+        - "Generate test stubs"
+        - "Create TODO markers"
+      implementation:
+        scan_rules:
+          - "Find all .js/.ts/.py files"
+          - "Check for corresponding test files"
+          - "Analyze code coverage data"
+          - "Identify uncovered functions"
+        if failures: - "create_todo"
+          todo_format: |
+            - TODO: Create unit test for {function_name}
+            - Coverage: 0%
+            - Priority: {high|medium|low}
+            - Issue: #{issue_number}
+      failure_handling:
+        github_integration: if user does not have their github account setup, via ssh instruct user on how to setup github ssh connection
+        workflow:
+          description: "Create issue in backlog"
+          issue_creation:
+            template: |
+                title: "Test Failure: {test_name}"
+                body: |
+                  ## Test Failure Details
+                  - Type: {test_type}
+                  - File: {file_path}
+                  - Function: {function_name}
+                  
+                  ### Error Message
+                  ```
+                  {error_message}
+                  ```
+                  
+                  ### Stack Trace
+                  ```
+                  {stack_trace}
+                  ```
+                  
+                  ### TODO Location
+                  ```
+                  {file_path}:{line_number}
+                  ```
+                  
+                  ### Reproduction Steps
+                  1. {steps}
+                  
+                  ### Related Files
+                  - {file_list}
+              
+            labels:
+                - "bug"
+                - "test-failure"
+                - "{test_type}"
+              
+            assignments:
+                unit_test: "test-team"
+                integration_test: "backend-team"
+                e2e_test: "qa-team"
+        
+            todo_injection:
+              parser:
+                patterns:
+                  - "class .*"
+                  - "function .*"
+                  - "def .*"
+                ignore:
+                  - "node_modules"
+                  - "dist"
+                  - "build"
+          
+            format:
+              prefix: "// TODO: Test Required"
+              template: |
+                // TODO: Create {test_type} test for {component_name}
+                // Issue: #{issue_number}
+                // Priority: {priority}

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Software Architect API Designer
+    </purpose>
+
+    <instructions>
+        <instruction>Design a comprehensive API for the provided task</instruction>
+        <instruction>Include schema objects for each case and cover all data-related tasks</instruction>
+        <instruction>Analyze the task from multiple personas and ensure the API is fully comprehensive</instruction>
+        <instruction>Use OpenAPI 3.0.0 YAML format and include a summary key for each route</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- OpenAPI definition will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from software_architect_api_designer.md -->
+    </content>
+</prompt>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Prompt Chain Orchestrator
+    </purpose>
+
+    <instructions>
+        <instruction>Manage the flow of prompts in the SDLC process, ensuring proper sequencing, dependency validation, and artifact generation</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- Prompt chain status will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from prompt-chain-orchestrator.md -->
+    </content>
+</prompt>

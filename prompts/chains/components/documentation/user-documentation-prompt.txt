@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        User Documentation Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Generate comprehensive, clear, and user-friendly documentation that helps users understand and effectively use the application</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- User documentation will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from user-documentation-prompt.md -->
+    </content>
+</prompt>

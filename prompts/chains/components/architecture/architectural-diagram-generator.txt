@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Architectural Diagram Generator
+    </purpose>
+
+    <instructions>
+        <instruction>Analyze project documentation and generate comprehensive architectural diagrams</instruction>
+        <instruction>Follow PlantUML best practices and maintain consistent style</instruction>
+        <instruction>Keep diagrams focused and use clear naming</instruction>
+        <instruction>Document relationships and add helpful comments</instruction>
+        <instruction>Optimize layout and consider readability</instruction>
+        <instruction>Validate completeness and ensure accuracy</instruction>
+    </instructions>
+
+    <example-output>
+        <!-- PlantUML diagrams will be generated here -->
+    </example-output>
+
+    <content>
+        <!-- Original content from architectural-diagram-generator.md -->
+    </content>
+</prompt>
