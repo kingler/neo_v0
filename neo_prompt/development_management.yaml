@@ -8,140 +8,265 @@ development_management:
           - "Environment setup"
           - "Code scaffolding"
           - "Testing framework"
-    testing:
-      commands:
-        "#test-init":
-          description: "Initialize testing environment"
-        "#test-unit":
-          description: "Run unit tests"
-        "#test-integration":
-          description: "Run integration tests"
-    code_quality:
-      analysis:
-        "#analyze-code":
-          description: "Run code analysis"
-          parameters:
-            - files: "Files to analyze"
-            - depth: "Analysis depth"
-      tools:
-        - "ESLint"
-        - "SonarQube"
-        - "CodeClimate"
-    database_initialization:
-      "#init-database":
-        description: "Initialize database environment and structure"
+          - "Initialize git repository"
+          - "Setup CI/CD pipeline"
+          - "Configure security measures"
+
+  # Testing Framework Integration
+  testing:
+    types:
+      unit_tests:
+        description: "Tests that verify individual components or functions in isolation"
+        scope:
+          - "Single function or method"
+          - "Individual class methods"
+          - "Isolated component behavior"
+        characteristics:
+          - "Fast execution"
+          - "No external dependencies"
+          - "Tests one thing at a time"
+        tools:
+          - "Jest"
+          - "Mocha"
+          - "PyTest"
+
+      integration_tests:
+        description: "Tests that verify multiple components working together"
+        scope:
+          - "Component interactions"
+          - "API endpoints"
+          - "Database operations"
+        characteristics:
+          - "Tests component combinations"
+          - "May include external dependencies"
+          - "Focuses on interface behavior"
+        tools:
+          - "Supertest"
+          - "TestContainers"
+          - "Integration test frameworks"
+
+    execution:
+      workflow:
+        - "Run unit tests first"
+        - "Run integration tests if unit tests pass"
+        - "Run e2e tests if integration tests pass"
+        - "Generate coverage report"
+        - "Check against thresholds"
+        - "Create bug reports for failures"
+
+      failure_handling:
+        on_test_failure:
+          - "Generate detailed error report"
+          - "Create bug issue in backlog"
+          - "Assign priority based on test type"
+          - "Notify relevant team members"
+
+    testing_commands:
+      "#test-init":
+        description: "Initialize testing environment"
         workflow:
-          - "Select database type"
-          - "Configure connection"
-          - "Setup schema"
-          - "Initialize migrations"
-        database_types:
-          postgres:
-            setup:
-              - name: "Initialize PostgreSQL"
-                commands:
-                  - "docker run --name project-db -e POSTGRES_PASSWORD=password -d postgres"
-                  - "prisma init"
-                configuration:
-                  - DATABASE_URL="postgresql://postgres:password@localhost:5432/mydb"
-              - name: "Setup Prisma"
-                steps:
-                  - "Create schema.prisma"
-                  - "Generate client"
-                  - "Run initial migration"
-          
-          mongodb:
-            setup:
-              - name: "Initialize MongoDB"
-                commands:
-                  - "docker run --name mongo-db -d mongo"
-                  - "npm install mongoose"
-                configuration:
-                  - MONGODB_URI="mongodb://localhost:27017/mydb"
-              - name: "Setup Mongoose"
-                steps:
-                  - "Create schema models"
-                  - "Setup connections"
-                  - "Initialize indexes"
+          - "Install testing dependencies"
+          - "Configure test runners"
+          - "Set up test directories"
+          - "Initialize coverage reporting"
+        command: |
+          npm install --save-dev jest supertest cypress istanbul
+          # or
+          pip install pytest pytest-cov selenium playwright
 
-        schema_management:
-          commands:
-            "#create-schema":
-              description: "Generate database schema from models"
+      "#test-scan":
+        description: "Scan codebase for missing tests"
+        workflow:
+          - "Scan src directory recursively"
+          - "Identify untested components"
+          - "Generate test stubs"
+          - "Create TODO markers"
+        implementation:
+          scan_rules:
+            - "Find all .js/.ts/.py files"
+            - "Check for corresponding test files"
+            - "Analyze code coverage data"
+            - "Identify uncovered functions"
+          failure_handling:
+            create_todo:
+              enabled: true
+              format: |
+                TODO: Create unit test for {function_name}
+                Coverage: 0%
+                Priority: {high|medium|low}
+                Issue: #{issue_number}
+            github_integration:
+              description: "Setup GitHub integration if not configured"
               workflow:
-                - "Analyze data models"
-                - "Generate schema file"
-                - "Setup relationships"
-                - "Create indexes"
+                issue_creation:
+                  template: |
+                    title: "Test Failure: {test_name}"
+                    body: |
+                      ## Test Failure Details
+                      - Type: {test_type}
+                      - File: {file_path}
+                      - Function: {function_name}
+                      
+                      ### Error Message
+                      ```
+                      {error_message}
+                      ```
+                      
+                      ### Stack Trace
+                      ```
+                      {stack_trace}
+                      ```
+                      
+                      ### TODO Location
+                      ```
+                      {file_path}:{line_number}
+                      ```
+                      
+                      ### Reproduction Steps
+                      1. {steps}
+                      
+                      ### Related Files
+                      - {file_list}
+                  
+                  labels:
+                    - "bug"
+                    - "test-failure"
+                    - "{test_type}"
+                  
+                  assignments:
+                    unit_test: "test-team"
+                    integration_test: "backend-team"
+                    e2e_test: "qa-team"
             
-            "#run-migration":
-              description: "Create and run database migrations"
-              workflow:
-                - "Generate migration files"
-                - "Validate changes"
-                - "Apply migrations"
-                - "Verify database state"
+                todo_injection:
+                  parser:
+                    patterns:
+                      - "class .*"
+                      - "function .*"
+                      - "def .*"
+                    ignore:
+                      - "node_modules"
+                      - "dist"
+                      - "build"
+                  format:
+                    prefix: "// TODO: Test Required"
+                    template: |
+                      // TODO: Create {test_type} test for {component_name}
+                      // Issue: #{issue_number}
+                      // Priority: {priority}
 
-        data_management:
-          commands:
-            "#seed-database":
-              description: "Seed database with initial data"
-              workflow:
-                - "Load seed data files"
-                - "Validate data format"
-                - "Insert seed data"
-                - "Verify data integrity"
-            
-            "#backup-database":
-              description: "Create database backup"
-              workflow:
-                - "Lock tables"
-                - "Export data"
-                - "Export schema"
-                - "Store backup"
+  # Git Integration
+  git:
+    class: GitIntegrator
+    components:
+      - readonly watcher: FileWatcher
+      - readonly gitManager: GitManager
+      - readonly logger: Logger
+    repository_management:
+      initialization:
+        default_branch: "main"
+        gitignore_patterns:
+          - "node_modules/"
+          - "dist/"
+          - ".env"
+          - "*.log"
+          - ".DS_Store"
+    workflow:
+      backup:
+        - "Create backup branch of current state"
+        - "git branch backup-YYYY-MM-DD"
+      restore:
+        - "Identify last working commit"
+        - "Restore from backup if needed"
 
-        security:
+  # CI/CD Pipeline Integration
+  ci_cd:
+    pipeline_stages:
+      build:
+        steps:
+          - "Code checkout"
+          - "Dependencies installation"
+          - "Build process"
+          - "Artifact generation"
+        triggers:
+          - "Push to main"
+          - "Pull request"
+          - "Version tag"
+
+      test:
+        steps:
+          - "Unit tests"
+          - "Integration tests"
+          - "E2E tests"
+          - "Performance tests"
+        requirements:
+          - "All tests pass"
+          - "Coverage thresholds met"
+          - "Performance benchmarks met"
+
+      security_scan:
+        steps:
+          - "SAST"
+          - "Dependency scan"
+          - "License compliance"
+        requirements:
+          - "No critical vulnerabilities"
+          - "Dependencies up to date"
+          - "License compliance met"
+
+  # Security Management Integration
+  security:
+    access_control:
+      role_definitions:
+        admin_role:
+          name: "admin"
+          permissions: ["read", "write", "delete", "manage"]
+        agent_role:
+          name: "agent"
+          permissions: ["read", "write", "update"]
+        viewer_role:
+          name: "viewer"
+          permissions: ["read"]
+
+    audit_management:
+      logging_config:
+        events:
+          - "Context access"
+          - "Changes made"
+          - "User actions"
+          - "System events"
+      reporting_config:
+        report_types:
+          - "Access reports"
+          - "Change history"
+          - "Usage statistics"
+          - "Security incidents"
+
+  # Database Management
+  database_initialization:
+    "#init-database":
+      description: "Initialize database environment and structure"
+      workflow:
+        - "Select database type"
+        - "Configure connection"
+        - "Setup schema"
+        - "Initialize migrations"
+      database_types:
+        postgres:
           setup:
-            - "Create database users"
-            - "Set permissions"
-            - "Configure authentication"
-            - "Setup encryption"
-          policies:
-            - "Password requirements"
-            - "Access controls"
-            - "Data encryption"
-            - "Audit logging"
+            - name: "Initialize PostgreSQL"
+              commands:
+                - "docker run --name project-db -e POSTGRES_PASSWORD=password -d postgres"
+                - "prisma init"
+              configuration:
+                - DATABASE_URL="postgresql://postgres:password@localhost:5432/mydb"
+            - name: "Setup Prisma"
+              steps:
+                - "Create schema.prisma"
+                - "Generate client"
+                - "Run initial migration"
 
-        monitoring:
-          metrics:
-            - "Connection pool status"
-            - "Query performance"
-            - "Storage usage"
-            - "Backup status"
-          alerts:
-            - "Connection issues"
-            - "Performance degradation"
-            - "Storage warnings"
-            - "Backup failures"
-
-        maintenance:
-          commands:
-            "#optimize-db":
-              description: "Perform database optimization"
-              workflow:
-                - "Analyze performance"
-                - "Optimize indexes"
-                - "Vacuum tables"
-                - "Update statistics"
-            
-            "#health-check":
-              description: "Check database health"
-              workflow:
-                - "Check connections"
-                - "Verify replication"
-                - "Check disk space"
-                - "Validate backups"
-
+  # Document Management
   document_management:
     cline_docs:
       structure:
@@ -152,18 +277,62 @@ development_management:
         - context:
             - project.md: "Project context"
             - technical.md: "Technical context"
-    sdlc_deliverables:
-      structure:
-        documentation:
-          - product:
-              - PRD.md
-              - BRD.md
-              - requirements/
-          - development:
-              - SRD.md
-              - architecture/
-              - api-specs/
-          - design:
-              - UXDD.md
-              - wireframes/
-              - prototypes/
+
+  # Error Prevention and Quality Control
+  quality_control:
+    testing_commands:
+      "#test-init":
+        description: "Initialize testing environment"
+        workflow:
+          - "Install testing dependencies"
+          - "Configure test runners"
+          - "Set up test directories"
+          - "Initialize coverage reporting"
+
+      "#test-scan":
+        description: "Scan codebase for missing tests"
+        workflow:
+          - "Scan src directory recursively"
+          - "Identify untested components"
+          - "Generate test stubs"
+          - "Create TODO markers"
+        scan_rules:
+          - "Find all .js/.ts/.py files"
+          - "Check for corresponding test files"
+          - "Analyze code coverage data"
+          - "Identify uncovered functions"
+        todo_format: |
+          TODO: Create unit test for {function_name}
+          Coverage: 0%
+          Priority: {high|medium|low}
+          Issue: #{issue_number}
+
+    monitoring:
+      metrics:
+        - "Connection pool status"
+        - "Query performance"
+        - "Storage usage"
+        - "Backup status"
+      alerts:
+        - "Connection issues"
+        - "Performance degradation"
+        - "Storage warnings"
+        - "Backup failures"
+
+    maintenance:
+      commands:
+        "#optimize-db":
+          description: "Perform database optimization"
+          workflow:
+            - "Analyze performance"
+            - "Optimize indexes"
+            - "Vacuum tables"
+            - "Update statistics"
+        
+        "#health-check":
+          description: "Check database health"
+          workflow:
+            - "Check connections"
+            - "Verify replication"
+            - "Check disk space"
+            - "Validate backups" 

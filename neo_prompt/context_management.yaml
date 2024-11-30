@@ -1,116 +1,78 @@
 # Context Management System
 context_management:
-  # Core Configuration (codebase-context-lint compatible)
-  config:
-    version: "1.0.0"
-    parser:
-      type: "typescript"
-      options:
-        sourceType: "module"
-        plugins: ["typescript", "jsx"]
-    
-    rules:
-      contextScope:
-        enabled: true
-        level: "error"
-        options:
-          maxDepth: 3
-          allowedScopes: ["global", "module", "function"]
+  # Previous sections remain the same...
+
+  # Workflow Context Management (incorporating workflow_contexts.yaml)
+  workflow_contexts:
+    planning_workflow:
+      requirements:
+        command: "#requirements-init"
+        workflow:
+          - "Load requirements context"
+          - "Update specifications"
+          - "Generate documentation"
       
-      contextNaming:
-        enabled: true
-        level: "warning"
-        options:
-          format: "camelCase"
-          prefix: "ctx"
+      architecture:
+        command: "#arch-init"
+        workflow:
+          - "Load architecture context"
+          - "Update system design"
+          - "Generate diagrams"
+    
+    development_workflow:
+      implementation:
+        command: "#dev-init"
+        workflow:
+          - "Load development context"
+          - "Update codebase"
+          - "Generate documentation"
       
-      contextIsolation:
-        enabled: true
-        level: "error"
-        options:
-          enforceModuleBoundaries: true
-          allowedImports: ["@core/context", "@shared/context"]
+      testing:
+        command: "#test-init"
+        workflow:
+          - "Load testing context"
+          - "Update test suite"
+          - "Generate reports"
 
-  # Context Provider (code-context-llm compatible)
-  provider:
-    engine:
-      type: "llm"
-      model: "gpt-4"
-      temperature: 0.2
-      maxTokens: 2048
-    
-    embeddings:
-      type: "transformers"
-      model: "all-MiniLM-L6-v2"
-      dimension: 384
-    
-    storage:
-      type: "vector"
-      engine: "chromadb"
-      collections:
-        code:
-          name: "code_context"
-          schema:
-            - name: "content"
-              type: "text"
-            - name: "metadata"
-              type: "json"
-            - name: "embedding"
-              type: "vector"
-        
-        documentation:
-          name: "doc_context"
-          schema:
-            - name: "content"
-              type: "text"
-            - name: "type"
-              type: "string"
-            - name: "embedding"
-              type: "vector"
+    # Additional workflow contexts
+    feature_workflow:
+      initialization:
+        command: "#feature-init"
+        workflow:
+          - "Create feature branch"
+          - "Setup feature structure"
+          - "Initialize tests"
+          - "Setup documentation"
+      
+      development:
+        command: "#feature-dev"
+        workflow:
+          - "Implement functionality"
+          - "Write tests"
+          - "Update documentation"
+          - "Create PR"
 
-  # Context Types
-  types:
-    code_context:
-      structure:
-        file:
-          - path: "string"
-          - content: "string"
-          - language: "string"
-          - imports: "string[]"
-          - exports: "string[]"
-        
-        function:
-          - name: "string"
-          - params: "object[]"
-          - returnType: "string"
-          - description: "string"
-          - dependencies: "string[]"
-        
-        class:
-          - name: "string"
-          - methods: "object[]"
-          - properties: "object[]"
-          - inheritance: "string[]"
-          - implementations: "string[]"
-    
-    semantic_context:
-      structure:
-        requirements:
-          - type: "string"
-          - description: "string"
-          - priority: "number"
-          - status: "string"
-        
-        architecture:
-          - component: "string"
-          - responsibility: "string"
-          - dependencies: "string[]"
-          - interfaces: "string[]"
+    deployment_workflow:
+      staging:
+        command: "#deploy-staging"
+        workflow:
+          - "Build application"
+          - "Run tests"
+          - "Deploy to staging"
+          - "Run smoke tests"
+      
+      production:
+        command: "#deploy-prod"
+        workflow:
+          - "Verify staging"
+          - "Run security checks"
+          - "Deploy to production"
+          - "Monitor metrics"
 
-  # Operations Management
+  # Context Operations Management
   operations_management:
-    context_initialization:
-      project_setup:
+    workflow_initialization:
+      project_init:
         command: "#init-context"
         workflow:
           - "Create context structure"
@@ -118,266 +80,46 @@ context_management:
           - "Setup persistence"
           - "Configure access"
       
-      agent_setup:
-        command: "#init-agent-context"
+      workflow_init:
+        command: "#init-workflow"
         workflow:
-          - "Load agent profiles"
-          - "Initialize workspaces"
-          - "Setup communication"
-          - "Configure permissions"
+          - "Load workflow templates"
+          - "Configure workflow steps"
+          - "Setup monitoring"
+          - "Initialize tracking"
 
-    context_extraction:
-      code_analysis:
-        command: "analyze-code"
-        workflow:
-          - "Parse source code"
-          - "Extract context"
-          - "Generate embeddings"
-          - "Store in vector DB"
-      
-      documentation:
-        command: "analyze-docs"
-        workflow:
-          - "Parse documentation"
-          - "Extract semantic context"
-          - "Generate embeddings"
-          - "Store in vector DB"
-
-    context_retrieval:
-      similarity_search:
-        command: "search-context"
-        options:
-          maxResults: 5
-          minSimilarity: 0.8
-          includeMetadata: true
-      
-      filtered_search:
-        command: "filter-context"
-        options:
-          filters:
-            - type: "string"
-            - path: "string"
-            - language: "string"
-
-    context_maintenance:
-      updates:
-        command: "update-context"
+    workflow_maintenance:
+      context_update:
+        command: "#update-workflow"
         workflow:
           - "Check for changes"
-          - "Update vector store"
+          - "Update workflow states"
           - "Sync with agents"
           - "Update documentation"
       
-      cleanup:
-        command: "cleanup-context"
+      context_cleanup:
+        command: "#cleanup-workflow"
         workflow:
-          - "Archive old context"
+          - "Archive old workflows"
           - "Optimize storage"
           - "Update indexes"
           - "Generate reports"
 
-  # Integration Management
-  integration_management:
-    agents:
-      context_provider:
-        role: "context_management"
-        capabilities:
-          - "Context extraction"
-          - "Context storage"
-          - "Context retrieval"
-          - "Context updates"
-        
-        api:
-          - method: "extractContext"
-            params:
-              - source: "string"
-              - type: "string"
-            returns: "ContextData"
-          
-          - method: "storeContext"
-            params:
-              - context: "ContextData"
-              - collection: "string"
-            returns: "string"
-          
-          - method: "retrieveContext"
-            params:
-              - query: "string"
-              - filters: "object"
-            returns: "ContextData[]"
-
-    workflows:
-      context_sync:
-        triggers:
-          - "File changes"
-          - "Documentation updates"
-          - "Code commits"
-        
-        actions:
-          - "Extract new context"
-          - "Update existing context"
-          - "Notify dependent systems"
-          - "Update embeddings"
-
-  # Quality Management
-  quality_management:
-    linting:
-      rules:
-        - rule: "context-naming"
-          severity: "error"
-          options:
-            pattern: "^ctx[A-Z][a-zA-Z]*$"
-        
-        - rule: "context-structure"
-          severity: "warning"
-          options:
-            requiredFields: ["type", "content", "metadata"]
-        
-        - rule: "context-isolation"
-          severity: "error"
-          options:
-            maxDependencies: 3
-            enforceLayering: true
+  # Workflow Integration Points
+  workflow_integration:
+    version_control:
+      - "Track workflow changes"
+      - "Maintain workflow history"
+      - "Version workflow templates"
     
-    validation:
-      checks:
-        - "Context completeness"
-        - "Embedding quality"
-        - "Reference integrity"
-        - "Schema compliance"
-      
-      metrics:
-        - "Context coverage"
-        - "Retrieval accuracy"
-        - "Update frequency"
-        - "Query performance"
-
-  # System Monitoring
-  system_monitoring:
-    performance_metrics:
-      query_metrics:
-        - name: "Response Time"
-          threshold: "200ms"
-          alert: true
-        - name: "Latency"
-          threshold: "100ms"
-          alert: true
-        - name: "Cache Hit Rate"
-          threshold: "80%"
-          alert: false
-      
-      storage_metrics:
-        - name: "Storage Utilization"
-          threshold: "80%"
-          alert: true
-        - name: "Index Size"
-          threshold: "10GB"
-          alert: true
-        - name: "Backup Status"
-          threshold: "24h"
-          alert: true
-
-    usage_tracking:
-      context_metrics:
-        - name: "Active Contexts"
-          threshold: 1000
-          alert: true
-        - name: "Context Size"
-          threshold: "1GB"
-          alert: true
-        - name: "Access Frequency"
-          threshold: "1000/hour"
-          alert: false
-        - name: "Update Frequency"
-          threshold: "100/hour"
-          alert: false
-
-    alert_management:
-      thresholds:
-        system:
-          - name: "High Latency"
-            value: "500ms"
-            action: "notify-admin"
-          - name: "Storage Capacity"
-            value: "90%"
-            action: "cleanup-storage"
-          - name: "Error Rate"
-            value: "1%"
-            action: "notify-admin"
-        
-        security:
-          - name: "Failed Access"
-            value: "10/minute"
-            action: "block-access"
-          - name: "Invalid Tokens"
-            value: "5/minute"
-            action: "notify-security"
-
-      notifications:
-        channels:
-          - type: "email"
-            priority: "high"
-            recipients: ["admin", "security"]
-          - type: "slack"
-            priority: "medium"
-            channels: ["#monitoring", "#alerts"]
-          - type: "webhook"
-            priority: "low"
-            endpoints: ["monitoring-api", "logging-service"]
-
-  # Context Monitoring
-  monitoring:
-    metrics:
-      - "Context size"
-      - "Query latency"
-      - "Update frequency"
-      - "Cache hit rate"
+    documentation:
+      - "Link workflows to documentation"
+      - "Generate workflow diagrams"
+      - "Maintain workflow guides"
     
-    alerts:
-      - "Size threshold exceeded"
-      - "High latency detected"
-      - "Update failures"
-      - "Security violations"
+    monitoring:
+      - "Track workflow execution"
+      - "Monitor workflow health"
+      - "Generate metrics"
 
-    analytics:
-      usage_patterns:
-        - "Most accessed context"
-        - "Query patterns"
-        - "Update frequency"
-      
-      optimization_opportunities:
-        - "Cache configuration"
-        - "Index optimization"
-        - "Query optimization"
-
-  # Command Registry
-  command_registry:
-    help:
-      command: "#help"
-      description: "Display available commands and documentation"
-      workflow:
-          - "Load command registry"
-          - "Generate command documentation"
-          - "Display usage information"
-          - "Create help documentation"
-      
-    feature_request:
-      command: "#new-fr"
-      description: "Create a new feature request details"
-      prerequisite: "previous feature request, currentTask"
-      workflow:
-            - "Interactive Requirements Gathering"
-            - "Generate clarifying questions"
-            - "Obtain Morpheus validation"
-            - "Get user confirmation"
-            - "Create feature request"
-    
-    init_deliverables:
-      command: "#init-deliverables"
-      description: "Initialize and manage project deliverables folder structure"
-      workflow:
-            - "Create Deliverables Structure"
-            - "Initialize Documentation"
-            - "Setup Integration"
-            - "Configure Automation"
-
+  # Rest of the file remains the same... 

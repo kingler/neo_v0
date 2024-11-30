@@ -84,6 +84,108 @@ design_management:
               - "prototype/styles.css"
               - "prototype/script.js"
 
+    component_library:
+      framework:
+        name: "Vue + Vite"
+        ui_library: "ShadCN UI"
+        theme:
+          preset: "New York"
+          color_scheme: "zinc"
+      
+      viewer_app:
+        structure:
+          src:
+            components:
+              atoms:
+                - "Button"
+                - "Input"
+                - "Label"
+                - "Checkbox"
+                - "RadioGroup"
+                - "Select"
+                - "Switch"
+                - "Textarea"
+              molecules:
+                - "FormField"
+                - "SearchBar"
+                - "NavigationItem"
+                - "Card"
+                - "Dialog"
+                - "Dropdown"
+              organisms:
+                - "Form"
+                - "NavigationBar"
+                - "CardList"
+                - "Table"
+                - "Tabs"
+              templates:
+                - "PageLayout"
+                - "SectionTemplate"
+                - "GridLayout"
+            
+            views:
+              - "ComponentGallery"
+              - "ComponentDetail"
+              - "StyleGuide"
+            
+            stores:
+              - "componentStore"
+              - "themeStore"
+            
+            utils:
+              - "themeUtils"
+              - "componentUtils"
+      
+      generation_workflow:
+        setup:
+          - name: "Initialize Vite Project"
+            command: "#init-vite-vue"
+          - name: "Install Dependencies"
+            command: "#install-deps"
+          - name: "Configure ShadCN UI"
+            command: "#setup-shadcn"
+        
+        component_extraction:
+          - name: "Parse User Stories"
+            input: "user_stories.md"
+            output: "component_requirements.json"
+          - name: "Analyze Wireframes"
+            input: "wireframes/*.svg"
+            output: "component_specs.json"
+          - name: "Generate Component List"
+            command: "#generate-components"
+        
+        theme_configuration:
+          - name: "Setup New York Theme"
+            file: "tailwind.config.js"
+          - name: "Configure Zinc Colors"
+            file: "theme/colors.ts"
+          - name: "Generate Design Tokens"
+            command: "#generate-tokens"
+        
+        viewer_implementation:
+          - name: "Create Component Gallery"
+            files:
+              - "src/views/ComponentGallery.vue"
+              - "src/components/organisms/ComponentGrid.vue"
+          - name: "Implement Component Detail View"
+            files:
+              - "src/views/ComponentDetail.vue"
+              - "src/components/organisms/ComponentPreview.vue"
+          - name: "Add Style Guide"
+            files:
+              - "src/views/StyleGuide.vue"
+              - "src/components/organisms/ColorPalette.vue"
+              - "src/components/organisms/TypographyScale.vue"
+        
+        documentation:
+          - name: "Generate Component Docs"
+            command: "#generate-docs"
+          - name: "Create Usage Examples"
+            command: "#create-examples"
+          - name: "Build Style Guide"
+            command: "#build-styleguide"
+
     commands:
       "#init-design-phase":
         description: "Initialize design phase from PRD"
@@ -130,6 +232,92 @@ design_management:
               sources:
                 - "prototype_documentation.md"
                 - "prototype_screenshots"
+
+      "#init-vite-vue":
+        description: "Initialize a new Vite + Vue project with all required dependencies"
+        workflow:
+          - "Create Vite project with Vue template"
+          - "Install Tailwind CSS and its dependencies"
+          - "Install ShadCN Vue and its dependencies"
+          - "Install utility libraries"
+          - "Install Radix UI colors"
+          - "Initialize Tailwind configuration"
+        command: |
+          # Create Vue project and install core dependencies
+          npm create vite@latest . -- --template vue
+          
+          # Install Tailwind CSS and ShadCN Vue
+          npm install -D tailwindcss postcss autoprefixer shadcn-vue
+          
+          # Initialize Tailwind
+          npx tailwindcss init -p
+          
+          # Install utility libraries
+          npm install class-variance-authority clsx tailwind-merge
+          
+          # Install Lucide icons
+          npm i lucide-vue-next
+          
+          # Install VueUse
+          npm install @vueuse/core
+          
+          # Install Radix Vue
+          npm install radix-vue
+          
+          # Install TypeScript node types
+          npm i -D @types/node
+          
+          # Install Radix colors
+          npm install @radix-ui/colors
+
+      "#install-deps":
+        description: "Install required dependencies"
+        command: |
+          npm install @shadcn/vue tailwindcss postcss autoprefixer
+          npm install -D @types/node typescript vue-tsc
+
+      "#setup-shadcn":
+        description: "Configure ShadCN UI with New York theme"
+        workflow:
+          - "Initialize ShadCN"
+          - "Configure theme"
+          - "Setup color scheme"
+        command: |
+          npx shadcn-vue@latest init
+          # Configure with:
+          # - Style: New York
+          # - Base color: zinc
+          # - CSS variables: true
+
+      "#generate-components":
+        description: "Generate component library from requirements"
+        workflow:
+          - "Parse requirements"
+          - "Generate component files"
+          - "Create component registry"
+        output:
+          - "src/components/**/*.vue"
+          - "src/components/index.ts"
+
+      "#generate-tokens":
+        description: "Generate design tokens from theme configuration"
+        workflow:
+          - "Extract theme variables"
+          - "Generate token files"
+          - "Create token documentation"
+        output:
+          - "src/theme/tokens.ts"
+          - "src/theme/tokens.css"
+
+      "#generate-docs":
+        description: "Generate component documentation"
+        workflow:
+          - "Extract component metadata"
+          - "Generate markdown docs"
+          - "Create interactive examples"
+        output:
+          - "docs/components/*.md"
+          - "src/examples/*.vue"
 
     deliverables:
       - type: "Wireframes"

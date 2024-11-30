@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Analyze implementation status and generate detailed reports
+    </purpose>
+
+    <chain-position>
+        <step>2</step>
+        <name>implementation_analysis</name>
+        <type>analysis</type>
+        <previous>prompt_chain_orchestrator</previous>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>project_files</type>
+                <format>source_files</format>
+            </source>
+            <source>
+                <type>requirements</type>
+                <format>markdown</format>
+                <from>prompt_chain_orchestrator.output</from>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "projectContext": {
+                        "requirements": ["string"],
+                        "userStories": ["string"],
+                        "techStack": {
+                            "frontend": ["string"],
+                            "backend": ["string"],
+                            "infrastructure": ["string"]
+                        }
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "implementationStatus": {
+                    "completedFeatures": [{
+                        "name": "string",
+                        "evidence": ["string"],
+                        "status": "string"
+                    }],
+                    "partialFeatures": [{
+                        "name": "string",
+                        "currentState": "string",
+                        "missing": ["string"]
+                    }],
+                    "pendingFeatures": [{
+                        "name": "string",
+                        "requirements": ["string"],
+                        "dependencies": ["string"]
+                    }]
+                }
+            }
+            ]]>
+        </schema>
+        <target>prompt_chain_orchestrator</target>
+    </output>
+
+    <commands>
+        <command>
+            <name>#analyze-impl</name>
+            <description>Start implementation analysis</description>
+        </command>
+        <command>
+            <name>#analyze-impl-status</name>
+            <description>Check analysis progress</description>
+        </command>
+    </commands>
+</prompt> 

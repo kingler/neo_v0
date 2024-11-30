@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Orchestrate document generation and analysis chains through coordinated template processing
+    </purpose>
+
+    <chain-position>
+        <step>1</step>
+        <name>prompt_chain_orchestrator</name>
+        <type>orchestration</type>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>template_files</type>
+                <format>markdown</format>
+                <path>prompts/core/templates/*</path>
+            </source>
+            <source>
+                <type>context_file</type>
+                <format>yaml</format>
+                <path>.context.yml</path>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "templateType": "string",
+                    "projectContext": {
+                        "name": "string",
+                        "phase": "string",
+                        "requirements": {}
+                    },
+                    "chainConfig": {
+                        "maxIterations": "number",
+                        "qualityThreshold": "number"
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "chainStatus": {
+                    "currentPhase": "string",
+                    "completedDocuments": ["string"],
+                    "pendingDocuments": ["string"],
+                    "blockingIssues": ["string"],
+                    "nextAction": "string"
+                }
+            }
+            ]]>
+        </schema>
+        <destinations>
+            <destination>implementation_analysis</destination>
+            <destination>document_generators</destination>
+        </destinations>
+    </output>
+
+    <document-chains>
+        <chain id="requirements">
+            <steps>
+                <step id="1">
+                    <template>BRD.md</template>
+                    <dependencies>
+                        <requires>feature_requirements.md</requires>
+                        <requires>market_analysis.md</requires>
+                    </dependencies>
+                </step>
+                <step id="2">
+                    <template>PRD.md</template>
+                    <dependencies>
+                        <requires>BRD.md</requires>
+                        <requires>technical_spec.md</requires>
+                    </dependencies>
+                </step>
+                <!-- Additional steps -->
+            </steps>
+        </chain>
+
+        <chain id="design">
+            <steps>
+                <step id="1">
+                    <template>DRD.md</template>
+                    <dependencies>
+                        <requires>PRD.md</requires>
+                        <requires>design_spec.md</requires>
+                    </dependencies>
+                </step>
+                <step id="2">
+                    <template>UXDD.md</template>
+                    <dependencies>
+                        <requires>DRD.md</requires>
+                        <requires>user_journey_map.md</requires>
+                    </dependencies>
+                </step>
+                <!-- Additional steps -->
+            </steps>
+        </chain>
+
+        <!-- Additional chains -->
+    </document-chains>
+
+    <commands>
+        <command>
+            <name>#start-chain</name>
+            <description>Start or resume a document chain</description>
+            <parameters>
+                <parameter>phase_name</parameter>
+            </parameters>
+        </command>
+        <command>
+            <name>#chain-status</name>
+            <description>Show current chain progress</description>
+        </command>
+        <command>
+            <name>#validate-chain</name>
+            <description>Validate current chain state</description>
+        </command>
+        <command>
+            <name>#generate-artifacts</name>
+            <description>Generate specific document artifacts</description>
+            <parameters>
+                <parameter>phase_name</parameter>
+            </parameters>
+        </command>
+    </commands>
+</prompt> 

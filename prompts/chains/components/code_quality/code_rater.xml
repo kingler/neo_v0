@@ -4,30 +4,70 @@
         Rate code quality and provide comprehensive analysis based on SDLC standards
     </purpose>
 
+    <chain-position>
+        <step>3</step>
+        <name>code_rater_agent</name>
+        <type>rating</type>
+        <previous>code_improver_agent</previous>
+        <next>code_generator_agent</next>
+    </chain-position>
+
+    <input>
+        <source>
+            <type>improvement_result</type>
+            <format>json</format>
+            <from>code_improver_agent.output</from>
+        </source>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "improvementResult": {
+                        "improvedCode": "string",
+                        "changes": ["string"],
+                        "metrics": {}
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "ratingReport": {
+                    "scores": {},
+                    "principleCompliance": {},
+                    "analysis": "string",
+                    "recommendations": ["string"],
+                    "thresholdsMet": "boolean",
+                    "nextAction": "string"
+                }
+            }
+            ]]>
+        </schema>
+        <target>code_generator_agent</target>
+    </output>
+
     <instructions>
-        <instruction>Evaluate code against quality metrics</instruction>
+        <instruction>Evaluate improvements against quality metrics</instruction>
         <instruction>Assess principle compliance</instruction>
         <instruction>Generate detailed rating reports</instruction>
-        <instruction>Provide actionable recommendations</instruction>
+        <instruction>Determine if quality thresholds are met</instruction>
     </instructions>
 
-    <example-output>
-        <![CDATA[
-{
-  "ratingReport": {
-    "scores": {},
-    "principleCompliance": {},
-    "analysis": "Rating analysis",
-    "recommendations": [],
-    "decision": "approve"
-  }
-}
-        ]]>
-    </example-output>
-
-    <content>
-        <![CDATA[
-        {{ Original code_rater.md content }}
-        ]]>
-    </content>
+    <quality-thresholds>
+        <threshold>
+            <metric>overall_quality</metric>
+            <minimum>0.85</minimum>
+        </threshold>
+        <threshold>
+            <metric>improvement_delta</metric>
+            <minimum>0.05</minimum>
+        </threshold>
+    </quality-thresholds>
 </prompt> 

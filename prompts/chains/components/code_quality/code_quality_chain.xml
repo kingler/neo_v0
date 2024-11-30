@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Orchestrate a continuous code quality improvement process through coordinated agent interactions
+    </purpose>
+
+    <chain-position>
+        <step>1</step>
+        <name>code_quality_chain</name>
+        <type>quality_improvement</type>
+    </chain-position>
+
+    <input>
+        <source>
+            <file>source_code/*</file>
+            <format>source_files</format>
+        </source>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "sourceCode": "string",
+                    "language": "string",
+                    "qualityThresholds": {
+                        "complexity": "number",
+                        "coverage": "number",
+                        "duplication": "number"
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "chainStatus": {
+                    "currentIteration": "number",
+                    "qualityScore": "number",
+                    "lastEvaluation": "timestamp",
+                    "improvements": [{
+                        "iteration": "number",
+                        "changes": ["string"],
+                        "qualityDelta": "number"
+                    }],
+                    "status": "string",
+                    "nextStep": "string"
+                }
+            }
+            ]]>
+        </schema>
+        <destinations>
+            <destination>implementation_chain</destination>
+            <destination>documentation_chain</destination>
+        </destinations>
+    </output>
+
+    <workflow>
+        <iteration-loop>
+            <condition>Continue until quality threshold met OR max iterations reached</condition>
+            <steps>
+                <step id="1">
+                    <agent>code_evaluation_agent</agent>
+                    <input>
+                        <source>source_code</source>
+                        <previous_output>code_generator_agent.output</previous_output>
+                    </input>
+                    <output>
+                        <type>evaluationReport</type>
+                        <target>code_improver_agent</target>
+                    </output>
+                </step>
+
+                <step id="2">
+                    <agent>code_improver_agent</agent>
+                    <input>
+                        <source>code_evaluation_agent.evaluationReport</source>
+                    </input>
+                    <output>
+                        <type>improvementResult</type>
+                        <target>code_rater_agent</target>
+                    </output>
+                </step>
+
+                <step id="3">
+                    <agent>code_rater_agent</agent>
+                    <input>
+                        <source>code_improver_agent.improvementResult</source>
+                    </input>
+                    <output>
+                        <type>ratingReport</type>
+                        <target>code_generator_agent</target>
+                    </output>
+                </step>
+
+                <step id="4">
+                    <agent>code_generator_agent</agent>
+                    <input>
+                        <source>code_rater_agent.ratingReport</source>
+                    </input>
+                    <output>
+                        <type>generatorDecision</type>
+                        <target>code_evaluation_agent</target>
+                        <example>
+                            <![CDATA[
+                            {
+                                "generatorDecision": {
+                                    "action": "continue_iteration",
+                                    "code": "// Generated code here",
+                                    "qualityMetrics": {
+                                        "scores": {},
+                                        "principles": {},
+                                        "trends": {}
+                                    },
+                                    "nextAction": "evaluate",
+                                    "targetAgent": "code_evaluation_agent"
+                                }
+                            }
+                            ]]>
+                        </example>
+                    </output>
+                </step>
+            </steps>
+        </iteration-loop>
+    </workflow>
+
+    <termination-conditions>
+        <condition>
+            <type>Quality Threshold</type>
+            <description>Code meets or exceeds target quality metrics</description>
+        </condition>
+        <condition>
+            <type>Max Iterations</type>
+            <description>Maximum improvement iterations reached</description>
+        </condition>
+        <condition>
+            <type>Diminishing Returns</type>
+            <description>Improvements become negligible between iterations</description>
+        </condition>
+    </termination-conditions>
+
+    <commands>
+        <command>
+            <name>#evaluate-code</name>
+            <description>Initiate code evaluation process</description>
+        </command>
+        <command>
+            <name>#improve-code</name>
+            <description>Apply improvements based on evaluation</description>
+        </command>
+        <command>
+            <name>#rate-code</name>
+            <description>Rate current code quality</description>
+        </command>
+        <command>
+            <name>#generate-code</name>
+            <description>Generate final improved version</description>
+        </command>
+        <command>
+            <name>#code-quality-status</name>
+            <description>Check current chain status</description>
+        </command>
+    </commands>
+</prompt> 

@@ -4,6 +4,73 @@
         Evaluate code quality based on SDLC principles and generate detailed reports
     </purpose>
 
+    <chain-position>
+        <step>1</step>
+        <name>code_evaluation_agent</name>
+        <type>evaluation</type>
+        <next>code_improver_agent</next>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>source_code</type>
+                <format>source_files</format>
+            </source>
+            <source>
+                <type>previous_iteration</type>
+                <format>json</format>
+                <from>code_generator_agent.output</from>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "sourceCode": "string",
+                    "language": "string",
+                    "previousMetrics": {
+                        "quality": "number",
+                        "principles": {
+                            "kiss": "number",
+                            "yagni": "number",
+                            "solid": "number"
+                        }
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "evaluationReport": {
+                    "summary": "string",
+                    "scores": {
+                        "quality": "number",
+                        "principles": {
+                            "kiss": "number",
+                            "yagni": "number",
+                            "solid": "number"
+                        }
+                    },
+                    "details": {
+                        "strengths": ["string"],
+                        "violations": ["string"],
+                        "suggestions": ["string"]
+                    }
+                }
+            }
+            ]]>
+        </schema>
+        <target>code_improver_agent</target>
+    </output>
+
     <instructions>
         <instruction>Analyze code against KISS, YAGNI and SOLID principles</instruction>
         <instruction>Generate comprehensive evaluation reports with metrics</instruction>
@@ -11,32 +78,18 @@
         <instruction>Follow Neo's SDLC quality standards</instruction>
     </instructions>
 
-    <example-output>
-        <![CDATA[
-{
-  "evaluationReport": {
-    "summary": "Code evaluation results",
-    "scores": {
-      "quality": 4.2,
-      "principles": {
-        "kiss": 0.85,
-        "yagni": 0.9,
-        "solid": 0.78
-      }
-    },
-    "details": {
-      "strengths": [],
-      "violations": [],
-      "suggestions": []
-    }
-  }
-}
-        ]]>
-    </example-output>
-
-    <content>
-        <![CDATA[
-        {{ Original code_evaluation_agent.md content }}
-        ]]>
-    </content>
+    <quality-metrics>
+        <metric>
+            <name>code_complexity</name>
+            <threshold>0.75</threshold>
+        </metric>
+        <metric>
+            <name>maintainability_index</name>
+            <threshold>80</threshold>
+        </metric>
+        <metric>
+            <name>test_coverage</name>
+            <threshold>0.85</threshold>
+        </metric>
+    </quality-metrics>
 </prompt> 

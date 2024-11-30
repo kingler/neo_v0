@@ -4,32 +4,64 @@
         Generate code that adheres to SDLC principles based on evaluation results
     </purpose>
 
+    <chain-position>
+        <step>4</step>
+        <name>code_generator_agent</name>
+        <type>generation</type>
+        <previous>code_rater_agent</previous>
+        <next>code_evaluation_agent</next>
+    </chain-position>
+
+    <input>
+        <source>
+            <type>rating_report</type>
+            <format>json</format>
+            <from>code_rater_agent.output</from>
+        </source>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "ratingReport": {
+                        "scores": {},
+                        "principleCompliance": {},
+                        "analysis": "string",
+                        "recommendations": ["string"],
+                        "thresholdsMet": "boolean"
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "generatorDecision": {
+                    "action": "string",
+                    "code": "string",
+                    "qualityMetrics": {
+                        "scores": {},
+                        "principles": {},
+                        "trends": {}
+                    },
+                    "nextAction": "string",
+                    "targetAgent": "string"
+                }
+            }
+            ]]>
+        </schema>
+        <target>code_evaluation_agent</target>
+    </output>
+
     <instructions>
-        <instruction>Generate code based on evaluation reports</instruction>
-        <instruction>Ensure compliance with KISS, YAGNI and SOLID</instruction>
-        <instruction>Validate against quality gates</instruction>
-        <instruction>Produce well-documented solutions</instruction>
+        <instruction>Analyze rating report and quality metrics</instruction>
+        <instruction>Decide whether to continue iteration</instruction>
+        <instruction>Generate improved code if needed</instruction>
+        <instruction>Validate against termination conditions</instruction>
     </instructions>
-
-    <example-output>
-        <![CDATA[
-{
-  "generatorDecision": {
-    "action": "output",
-    "code": "// Generated code here",
-    "qualityMetrics": {
-      "scores": {},
-      "principles": {},
-      "trends": {}
-    }
-  }
-}
-        ]]>
-    </example-output>
-
-    <content>
-        <![CDATA[
-        {{ Original code_generator_agent.md content }}
-        ]]>
-    </content>
 </prompt> 

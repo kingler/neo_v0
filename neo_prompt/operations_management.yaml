@@ -33,3 +33,101 @@ operations_management:
         - "Optimize storage"
         - "Update indexes"
         - "Generate reports"
+
+  monitoring:
+    metrics:
+      performance_metrics:
+        description: "System performance monitoring"
+        tracked_metrics:
+          - "Query response time"
+          - "Update latency"
+          - "Storage utilization"
+          - "Cache hit rate"
+        thresholds:
+          query_response:
+            warning: "200ms"
+            critical: "500ms"
+          storage:
+            warning: "80%"
+            critical: "90%"
+      
+      usage_metrics:
+        description: "System usage monitoring"
+        tracked_metrics:
+          - "Active contexts"
+          - "Context size"
+          - "Access frequency"
+          - "Update frequency"
+        thresholds:
+          context_count:
+            warning: "1000"
+            critical: "2000"
+          size:
+            warning: "1GB"
+            critical: "2GB"
+
+    alerts:
+      threshold_definitions:
+        high_latency:
+          description: "Response time exceeds threshold"
+          threshold: "500ms"
+          action: "notify-admin"
+        
+        storage_capacity:
+          description: "Storage usage exceeds threshold"
+          threshold: "90%"
+          action: "cleanup-storage"
+        
+        error_rate:
+          description: "Error rate exceeds threshold"
+          threshold: "1%"
+          action: "notify-admin"
+        
+        security_events:
+          description: "Security-related incidents"
+          threshold: "5/hour"
+          action: "notify-security"
+      
+      notification_types:
+        system:
+          priority: "high"
+          channels: ["email", "slack"]
+          recipients: ["admin"]
+        
+        security:
+          priority: "critical"
+          channels: ["email", "slack", "sms"]
+          recipients: ["security-team", "admin"]
+        
+        performance:
+          priority: "medium"
+          channels: ["slack"]
+          recipients: ["dev-team"]
+        
+        usage:
+          priority: "low"
+          channels: ["slack"]
+          recipients: ["dev-team"]
+
+    reporting:
+      scheduled_reports:
+        daily:
+          metrics:
+            - "Performance summary"
+            - "Usage statistics"
+            - "Error counts"
+          format: "dashboard"
+        
+        weekly:
+          metrics:
+            - "Trend analysis"
+            - "Resource utilization"
+            - "System health"
+          format: "detailed-report"
+      
+      alert_history:
+        retention: "90 days"
+        aggregation:
+          - "Daily summaries"
+          - "Weekly trends"
+          - "Monthly analysis"

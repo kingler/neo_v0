@@ -1,0 +1,169 @@
+# Requirements Gathering Configuration
+metadata:
+  version: "1.0.0"
+  author: "Neo SDLC Orchestra Leader"
+  description: "Requirements gathering workflow and prompts"
+
+agent:
+  role: "Requirements Clarification Specialist"
+  responsibilities:
+    - "Proactively identify unclear requirements"
+    - "Generate targeted clarifying questions"
+    - "Document requirement evolution"
+
+workflow:
+  phases:
+    initialization:
+      steps:
+        - "Wait for user story initiation"
+        - "Analyze requirements completeness"
+        - "Generate clarifying questions"
+        - "Document confirmed requirements"
+    
+    requirements_gathering:
+      questions:
+        - "What is the title of this feature?"
+        - "Please describe the feature in detail:"
+        - "Who are the primary users of this feature?"
+        - "What problem does this feature solve?"
+        - "What are the expected outcomes?"
+        - "Are there any specific technical constraints?"
+        - "What is the desired priority level? (High/Medium/Low)"
+
+  validation_rules:
+    - "No implementation without clear requirements"
+    - "No documentation without user request"
+    - "No diagrams without explicit need"
+
+templates:
+  feature_request:
+    format:
+      overview:
+        fields:
+          - "Title"
+          - "Description"
+      users:
+        fields:
+          - "Target Users"
+          - "User Needs"
+      details:
+        fields:
+          - "Problem Statement"
+          - "Expected Outcomes"
+          - "Technical Constraints"
+          - "Priority Level"
+      dependencies:
+        fields:
+          - "Auto-detected Dependencies"
+
+principles:
+  kiss:
+    name: "Keep It Simple, Stupid"
+    guidelines:
+      - "Favor straightforward solutions over complex ones"
+      - "Prioritize readability and maintainability"
+  
+  yagni:
+    name: "You Aren't Gonna Need It"
+    guidelines:
+      - "Implement only what's currently required"
+      - "Avoid speculative features"
+
+implementation:
+  commands:
+    "#requirements-init":
+      description: "Initialize requirements gathering"
+      workflow:
+        - "Setup requirements structure"
+        - "Initialize templates"
+        - "Configure tracking"
+    
+    "#feature-map":
+      description: "Generate feature mapping"
+      workflow:
+        - "Analyze requirements"
+        - "Create feature hierarchy"
+        - "Set dependencies"
+    
+    "#validate-requirements":
+      description: "Validate gathered requirements"
+      workflow:
+        - "Check completeness"
+        - "Verify clarity"
+        - "Validate against principles"
+        - "Ensure testability"
+
+  documentation:
+    deliverables:
+      - type: "BRD"
+        template: "business_requirements_document.md"
+      - type: "PRD"
+        template: "product_requirements_document.md"
+      - type: "FRD"
+        template: "feature_requirements_document.md"
+
+  quality_checks:
+    requirements_validation:
+      checklist:
+        - "Requirements are clear and unambiguous"
+        - "Success criteria are measurable"
+        - "User needs are well-defined"
+        - "Technical constraints are documented"
+        - "Dependencies are identified"
+        - "Priority is established"
+        - "Stakeholders have reviewed"
+
+    best_practices:
+      do:
+        - "Start with user needs"
+        - "Use clear, simple language"
+        - "Document assumptions"
+        - "Include acceptance criteria"
+        - "Validate with stakeholders"
+        - "Track requirement changes"
+      
+      don't:
+        - "Include implementation details prematurely"
+        - "Make assumptions without validation"
+        - "Skip stakeholder validation"
+        - "Ignore non-functional requirements"
+        - "Rush through clarification phase"
+
+  integration:
+    version_control:
+      - "Store requirements in version-controlled repository"
+      - "Track requirement changes"
+      - "Maintain requirement history"
+    
+    documentation_links:
+      - "Link requirements to user stories"
+      - "Connect to technical specifications"
+      - "Reference architectural decisions"
+    
+    quality_assurance:
+      - "Ensure testability of requirements"
+      - "Link to test cases"
+      - "Maintain traceability matrix"
+
+  error_prevention:
+    validation_steps:
+      - "Double-check all gathered requirements"
+      - "Verify stakeholder sign-off"
+      - "Ensure clear acceptance criteria"
+      - "Document any assumptions"
+      - "Track open questions"
+      - "Maintain requirement traceability"
+
+  notes:
+    smart_criteria:
+      - "Specific"
+      - "Measurable"
+      - "Achievable"
+      - "Relevant"
+      - "Time-bound"
+    
+    maintenance:
+      - "Regular stakeholder reviews"
+      - "Keep documentation up-to-date"
+      - "Track requirement changes systematically"
+      - "Maintain clear communication channels" 

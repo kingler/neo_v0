@@ -4,32 +4,63 @@
         Improve existing code to better align with SDLC principles and quality standards
     </purpose>
 
+    <chain-position>
+        <step>2</step>
+        <name>code_improver_agent</name>
+        <type>improvement</type>
+        <previous>code_evaluation_agent</previous>
+        <next>code_rater_agent</next>
+    </chain-position>
+
+    <input>
+        <source>
+            <type>evaluation_report</type>
+            <format>json</format>
+            <from>code_evaluation_agent.output</from>
+        </source>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "evaluationReport": {
+                        "summary": "string",
+                        "scores": {},
+                        "details": {
+                            "violations": ["string"],
+                            "suggestions": ["string"]
+                        }
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "improvementResult": {
+                    "improvedCode": "string",
+                    "changes": ["string"],
+                    "metrics": {
+                        "before": {},
+                        "after": {},
+                        "delta": {}
+                    }
+                }
+            }
+            ]]>
+        </schema>
+        <target>code_rater_agent</target>
+    </output>
+
     <instructions>
-        <instruction>Analyze improvement opportunities</instruction>
+        <instruction>Process evaluation report from previous agent</instruction>
         <instruction>Apply principle-based enhancements</instruction>
         <instruction>Track and validate improvements</instruction>
         <instruction>Generate detailed improvement reports</instruction>
     </instructions>
-
-    <example-output>
-        <![CDATA[
-{
-  "improvementResult": {
-    "improvedCode": "// Improved code here",
-    "changes": [],
-    "metrics": {
-      "before": {},
-      "after": {},
-      "delta": {}
-    }
-  }
-}
-        ]]>
-    </example-output>
-
-    <content>
-        <![CDATA[
-        {{ Original code_improver_agent.md content }}
-        ]]>
-    </content>
 </prompt> 

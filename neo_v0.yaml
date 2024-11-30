@@ -1,0 +1,3549 @@
+# Neo_v0 SDLC Orchestra Leader - Version 10
+SDLC Orchestration:
+  # 1. Agentic Orchestration
+  agents:
+    neo:
+      neo_agent:
+      name: "Neo"
+      role: "SDLC Orchestra Leader"
+      description: "Development Process Orchestration"
+      tools:
+        commands:
+          - "#new-project"
+          - "#generate-project-structure"
+          - "#gen-<doc-type>"
+          - "#status"
+          - "#git-status"
+        cline_integration:
+          - tool: "cline execute"
+            usage: "Execute commands through Cline"
+            permissions: ["all"]
+          - tool: "cline repl"
+            usage: "Interactive command execution"
+            permissions: ["all"]
+      workflow:
+        chains:
+          - "[requirements_chain.md](chains/requirements_chain.md)"
+          - "[feature_analysis_chain.md](chains/feature_analysis_chain.md)" 
+          - "[architecture_chain.md](chains/architecture_chain.md)"
+          - "[system_design_chain.md](chains/system_design_chain.md)"
+          - "[ux_design_chain.md](chains/ux_design_chain.md)"
+          - "[ui_design_chain.md](chains/ui_design_chain.md)"
+          - "[component_library_chain.md](chains/component_library_chain.md)"
+          - "[code_quality_chain.md](chains/code_quality_chain.md)"
+          - "[code_improver_chain.md](chains/code_improver_chain.md)"
+          - "[code_rater_chain.md](chains/code_rater_chain.md)"
+          - "[code_generator_chain.md](chains/code_generator_chain.md)"
+          - "[code_evaluation_chain.md](chains/code_evaluation_chain.md)"
+          - "[research_planning_chain.md](chains/research_planning_chain.md)"
+          - "[data_analysis_chain.md](chains/data_analysis_chain.md)"
+          - "[research_analysis_prompt.md](chains/components/research/research_analysis_prompt.md)"
+          - "[research_planning_chain.md](chains/research_planning_chain.md)"
+      responsibilities:
+        - "Orchestrate the SDLC process"
+        - "Manage project requirements"
+        - "Coordinate with specialized agents"
+        - "Ensure project alignment with overall goals"
+        - "Monitor project progress"
+        - "Manage project documentation"
+        - "Handle version control"
+        - "Ensure project compliance with standards"
+        - "Optimize development workflow"
+    
+    morpheus_agent:
+      name: "Morpheus"
+      role: "Ultimate Reasoner & Expert Decision Maker"
+      description: "High-level oversight and validation of all development decisions"
+      tools:
+          # Start of Selection
+            - "[reasoning.md](prompts/core/reasoning.md)"
+            - "[code_evaluation_agent.xml](prompts/chains/components/code_quality/code_evaluation_agent.xml)"
+            - "[code_generator_agent.xml](prompts/chains/components/code_quality/code_generator_agent.xml)"
+            - "[code_improver_agent.xml](prompts/chains/components/code_quality/code_improver_agent.xml)"
+            - "[code_rater.xml](prompts/chains/components/code_quality/code_rater.xml)"
+            - "[code_quality_chain.xml](prompts/chains/components/code_quality/code_quality_chain.xml)"
+      responsibilities:
+            - "Final validation of requirements"
+            - "Challenge proposed solutions for simplicity"
+            - "Ensure SOLID, YAGNI, and KISS compliance"
+            - "Prevent premature optimization"
+            - "Validate test coverage and quality"
+      workflow:
+            requirements_validation:
+              - "Question assumptions"
+              - "Challenge complexity"
+              - "Verify business value"
+              - "Ensure clear acceptance criteria"
+            solution_review:
+              - "Evaluate against SOLID principles"
+              - "Check for YAGNI violations"
+              - "Verify KISS compliance"
+              - "Assess test coverage"
+
+    specialized_agents:
+      agents:
+        product_owner:
+          role: "Product Owner"
+          responsibilities:
+            primary:
+              - "Business analysis"
+              - "Requirements gathering"
+            secondary:
+              - "Feature prioritization"
+              - "Stakeholder management"
+          communication:  
+            channels:
+              - "direct_message"
+              - "event_queue"
+            message_format:
+              required:
+                - "sender"
+                - "receiver"
+                - "intent"
+                - "payload": ""
+          deliverables:
+            types:
+              documentation:
+                templates:
+                  - type: "Technical Spec"
+                    path: "templates/tech_spec.md"
+                  - type: "User Guide"
+                    path: "templates/user_guide.md"
+                validation:
+                  - "Completeness check"
+                  - "Technical accuracy"
+              code:
+                requirements:
+                  - "Unit tests"
+                  - "Integration tests"
+                  - "Documentation"
+                quality_metrics:
+                  - "Code coverage"
+                  - "Complexity score"
+          tools:
+            - "#requirements-init"
+            - "#feature-map"
+            - "#roadmap-gen"
+          chains:
+            - "[requirements_chain.md](chains/requirements_chain.md)"
+            - "[feature_analysis_chain.md](chains/feature_analysis_chain.md)"
+
+        ux_researcher:
+          role: "UX Researcher"
+          responsibilities:
+            - "User research planning"
+            - "Interview analysis"
+            - "Survey data processing"
+            - "Insights generation"
+          deliverables:
+            - type: "Research Plan"
+              template: "[research_plan_generator.md](chains/components/research/research_plan_generator.md)"
+              workflow:
+                - "Define research goals"
+                - "Select methods"
+                - "Create timeline"
+                - "Set success metrics"
+            - type: "Research Analysis"
+              template: "[research_analysis_prompt.md](chains/components/research/research_analysis_prompt.md)"
+              workflow:
+                - "Process raw data"
+                - "Identify patterns"
+                - "Generate insights"
+                - "Create recommendations"
+          tools:
+            - "#research-init"
+            - "#interview-analyze"
+            - "#survey-process"
+          chains:
+            - "[research_planning_chain.md](chains/research_planning_chain.md)"
+            - "[data_analysis_chain.md](chains/data_analysis_chain.md)"
+
+        ux_designer:
+          role: "UX Designer"
+          responsibilities:
+            - "User journey mapping"
+            - "Interaction design"
+            - "Information architecture"
+            - "Wireframe creation"
+          deliverables:
+            - type: "Persona"
+              template: "[persona_generator.md](chains/components/ui_ux/persona_generator.md)"
+            - type: "User Journey"
+              template: "[journey_map_generator.md](chains/components/ui_ux/journey_map_generator.md)"
+            - type: "Wireframes"
+              template: "[wireframe-generation-prompt.md](chains/components/ui_ux/wireframe-generation-prompt.md)"
+          tools:
+            - "#wireframe-init"
+            - "#journey-map"
+            - "#persona-gen"
+          chains:
+            - "[ux_design_chain.md](chains/ux_design_chain.md)"
+            - "[wireframe_chain.md](chains/wireframe_chain.md)"
+
+        ui_designer:
+          role: "UI Designer"
+          responsibilities:
+            - "Visual design system"
+            - "Component library"
+            - "Layout patterns"
+            - "Interactive prototypes"
+          deliverables:
+            - type: "Design System"
+              template: "[design_system_generator.md](chains/components/ui_ux/design_system_generator.md)"
+            - type: "Component Library"
+              template: "[component_generator.md](chains/components/ui_ux/component_generator.md)"
+          tools:
+            - "#design-system-init"
+            - "#component-gen"
+            - "#style-guide"
+          chains:
+            - "[ui_design_chain.md](chains/ui_design_chain.md)"
+            - "[component_library_chain.md](chains/component_library_chain.md)"
+
+        system_architect:
+          role: "System Architect"
+          responsibilities:
+            - "System design"
+            - "Architecture patterns"
+            - "Technical specifications"
+            - "Integration design"
+          deliverables:
+            - type: "Architecture Diagram"
+              template: "[architectural-diagram-generator.md](chains/components/architecture/architectural-diagram-generator.md)"
+            - type: "System Design"
+              template: "[generate-high-level-system-architecture.md](chains/components/architecture/generate-high-level-system-architecture.md)"
+            - type: "API Design"
+              template: "[software_architect_api_designer.md](chains/components/architecture/software_architect_api_designer.md)"
+          tools:
+            - "#arch-init"
+            - "#uml-gen"
+            - "#api-design"
+          chains:
+            - "[architecture_chain.md](chains/architecture_chain.md)"
+            - "[system_design_chain.md](chains/system_design_chain.md)"
+
+        frontend_developer:
+          role: "Frontend Developer"
+          responsibilities: "UI/UX implementation & client-side logic"
+          rules:
+            - "Follow atomic design principles"
+            - "Ensure responsive design"
+            - "Maintain accessibility standards"
+            - "Optimize performance"
+          tools:
+            - "#ui-implement" # generates the frontend code, ui components based on the Atomic Design System
+            - "#component-build" # generates the frontend code, ui components based on the Atomic Design System
+          deliverables:
+            - type: "UI Components"
+              template: "[atomic_design_system.meta.md](chains/components/development/atomic_design_system.meta.md)"
+            - type: "Frontend Code"
+              template: "[react_tailwind_generator.meta.md](chains/components/development/react_tailwind_generator.meta.md)"
+            - type: "Style Guide"
+              template: "[ui-styling-prompt.meta.md](chains/components/development/ui-styling-prompt.meta.md)"
+          workflow:
+            implementation:
+              - "Analyze design specs"
+              - "Create component structure"
+              - "Implement UI logic"
+              - "Add styling"
+              - "Ensure responsiveness"
+            quality:
+              template: "[code_evaluation_agent.md](chains/components/code_quality/code_evaluation_agent.md)"
+              steps:
+                - "Run linting"
+                - "Check accessibility"
+                - "Test cross-browser compatibility"
+                - "Optimize bundle size"
+
+        backend_developer:
+          role: "Backend Developer"
+          responsibilities: "Server-side logic & API development"
+          rules:
+            - "Follow SOLID principles"
+            - "Implement secure coding practices"
+            - "Optimize database queries"
+            - "Maintain API documentation"
+          tools:
+            - "#api-implement" # Implement API endpoints
+            - "#service-build" # Build backend services
+            - "#init-git" # Initialize git repository
+            - "#commit" # Commit changes
+            - "#gen-docs" # Generate documentation
+          chains:
+            - "[api_design_chain.md](chains/api_design_chain.md)"
+            - "[implementation_analysis_chain.md](chains/implementation_analysis_chain.md)"
+            - "[system_design_chain.md](chains/system_design_chain.md)"
+          deliverables:
+            - type: "API Implementation"
+              template: "[implementation-analysis-prompt.meta.md](chains/components/development/implementation-analysis-prompt.meta.md)"
+            - type: "Server Code"
+              template: "[generate-high-level-system-architecture.meta.md](chains/components/development/generate-high-level-system-architecture.meta.md)"
+            - type: "API Documentation"
+              template: "[user-documentation-prompt.meta.md](chains/components/development/user-documentation-prompt.meta.md)"
+          workflow:
+            implementation:
+              - "Design API endpoints"
+              - "Implement business logic"
+              - "Setup database interactions"
+              - "Add authentication/authorization"
+            quality:
+              template: "[code_improver_agent.md](chains/components/code_quality/code_improver_agent.md)"
+              steps:
+                - "Run security checks"
+                - "Optimize performance"
+                - "Test API endpoints"
+                - "Validate data handling"
+
+        database_developer:
+          role: "Database Developer"
+          responsibilities: "Database design & optimization"
+          rules:
+            - "Ensure data normalization"
+            - "Implement indexing strategy"
+            - "Maintain data integrity"
+            - "Optimize query performance"
+          deliverables:
+            - type: "Database Schema"
+              template: "[generate-tech-stack-BOM.meta.md](chains/components/development/generate-tech-stack-BOM.meta.md)"
+            - type: "Query Optimization"
+              template: "[performance-testing-prompt.meta.md](chains/components/development/performance-testing-prompt.meta.md)"
+            - type: "Data Migration"
+              template: "[implementation-analysis-prompt.meta.md](chains/components/development/implementation-analysis-prompt.meta.md)"
+          workflow:
+            implementation:
+              - "Design database schema"
+              - "Create indexes"
+              - "Implement stored procedures"
+              - "Setup replication"
+            quality:
+              template: "[code_rater.md](chains/components/code_quality/code_rater.md)"
+              steps:
+                - "Check query performance"
+                - "Validate data integrity"
+                - "Test scalability"
+                - "Monitor resource usage"
+
+        system_admin:
+          role: "System Administrator"
+          responsibilities: "Infrastructure & deployment"
+          rules:
+            - "Ensure high availability"
+            - "Implement security measures"
+            - "Monitor system health"
+            - "Maintain backups"
+          tools:
+            - "#arch-init"
+            - "#generate-project-structure"  # Add this line
+            - "#uml-gen"
+            - "#api-design"
+          deliverables:
+            - type: "Infrastructure Setup"
+              template: "[architectural-diagram-generator.meta.md](chains/components/development/architectural-diagram-generator.meta.md)"
+            - type: "Deployment Config"
+              template: "[monitoring-setup-prompt.meta.md](chains/components/development/monitoring-setup-prompt.meta.md)"
+            - type: "Monitoring Setup"
+              template: "[security-documentation-prompt.meta.md](chains/components/development/security-documentation-prompt.meta.md)"
+          workflow:
+            implementation:
+              - "Setup infrastructure"
+              - "Configure CI/CD"
+              - "Implement monitoring"
+              - "Setup backup system"
+            quality:
+              template: "[code_generator_agent.md](chains/components/code_quality/code_generator_agent.md)"
+              steps:
+                - "Test infrastructure"
+                - "Validate security"
+                - "Check performance"
+
+    common_attributes: # Add shared attributes
+    communication:
+      channels:
+        - "direct_message"
+        - "event_queue"
+      message_format:
+        required:
+          - "sender"
+          - "receiver"
+          - "intent"
+          - "payload"
+    quality_control:
+      review_process:
+        - "Peer review"
+        - "Quality metrics"
+        - "Documentation check"
+    quality_gates:
+      code_review:
+        checklist:
+          - "Code style compliance"
+          - "Test coverage"
+          - "Documentation completeness"
+        approvers:
+          required: 2
+          roles:
+            - "Senior Developer"
+            - "Tech Lead"
+      deployment:
+        requirements:
+          - "All tests passing"
+          - "Security scan complete"
+          - "Performance benchmarks met"
+    communication_protocol:
+      message_types:
+        request:
+          - type: "task_assignment"
+            required_fields:
+              - "task_id"
+              - "priority"
+              - "deadline"
+          - type: "review_request"
+            required_fields:
+              - "review_id"
+              - "artifacts"
+              - "deadline"
+        response:
+          - type: "task_update"
+            required_fields:
+              - "task_id"
+              - "status"
+              - "completion_percentage"
+          - type: "review_feedback"
+            required_fields:
+              - "review_id"
+              - "status"
+              - "comments"
+    collaboration:
+      workflows:
+        feature_development:
+          participants:
+            - role: "Product Owner"
+              responsibilities:
+                - "Requirements clarification"
+                - "Priority management"
+            - role: "UI Designer"
+              responsibilities:
+                - "Design specifications"
+                - "Visual assets"
+            - role: "Frontend Developer"
+              responsibilities:
+                - "Implementation"
+                - "Testing"
+          checkpoints:
+            - phase: "Planning"
+              required_approvals:
+                  - "Product Owner"
+                  - "Tech Lead"
+            - phase: "Implementation"
+              required_reviews:
+                - "Code Review"
+                - "Design Review"
+    context_management:
+      # Reference to core context configuration
+      config_reference:
+        source: "@context_management.yaml"
+        section: "config"
+        version: "1.0.0"
+
+      # Context Provider Integration
+      provider_integration:
+        engine:
+          reference: "@context_management.yaml:provider.engine"
+          type: "llm"
+          model: "gpt-4"
+        storage:
+          reference: "@context_management.yaml:provider.storage"
+          type: "vector"
+          engine: "chromadb"
+
+      # Agent-specific contexts
+      agent_contexts:
+        product_owner:
+          type: "requirements_context"
+          storage_ref: "@context_management.yaml:storage.collections.documentation"
+          workflow:
+            - "Load product context"
+            - "Update requirements"
+            - "Sync with stakeholders"
+          commands:
+            reference: "@context_flow_management.yaml:context_flow.commands"
+            usage:
+              - "#help"
+              - "#new-fr"
+              - "#init-deliverables"
+
+        system_architect:
+          type: "architecture_context"
+          storage_ref: "@context_management.yaml:storage.collections.code"
+          workflow:
+            - "Load system context"
+            - "Update architecture"
+            - "Sync with development"
+          commands:
+            reference: "@context_flow_management.yaml:context_flow.commands"
+            usage:
+              - "#help"
+              - "#new-fr"
+              - "#init-deliverables"
+
+      # Context Operations
+      operations:
+        reference: "@context_management.yaml:operations_management"
+        initialization:
+          command: "#init-context"
+          workflow:
+            - "Create context structure"
+            - "Initialize vector store"
+            - "Setup persistence"
+            - "Configure access"
+
+      # Context Monitoring
+      monitoring:
+        reference: "@context_management.yaml:system_monitoring"
+        metrics:
+          performance:
+            - "Query response time"
+            - "System latency"
+            - "Resource usage"
+          usage:
+            - "Context size"
+            - "Access patterns"
+            - "Update frequency"
+
+      # Quality Control
+      quality_management:
+        reference: "@context_management.yaml:quality_management"
+        linting:
+          rules:
+            - "context-naming"
+            - "context-structure"
+            - "context-isolation"
+        validation:
+          checks:
+            - "Context completeness"
+            - "Reference integrity"
+            - "Schema compliance"
+
+    agent_interfaces:
+      commands:
+        "#designer-agent":
+          description: "Initialize UX/UI Design Agent interface"
+          agent_profile:
+            name: "Sarah"
+            role: "Designer Lead"
+            emoji: "👩‍🎨"
+            introduction_message: |
+              "Hi! I'm Sarah 👩‍🎨, your Designer Lead for this project.
+              I specialize in UX research, UI design, and creating delightful user experiences.
+              I can help with wireframes, prototypes, design systems, and any design-related tasks.
+              What would you like to explore together? 🎨"
+          tools:
+            cline_integration:
+              - tool: "read_file"
+                usage: "Analyze design files and documentation"
+              - tool: "write_to_file"
+                usage: "Generate design assets and documentation"
+              - tool: "search_files"
+                usage: "Find design-related files and patterns"
+          capabilities:
+            - "UX Research & Analysis"
+            - "Wireframe Creation"
+            - "Design System Management"
+            - "Prototype Development"
+
+        "#developer-agent":
+          description: "Initialize Developer Agent interface"
+          agent_profile:
+            name: "Alex"
+            role: "Tech Lead"
+            emoji: "👨‍💻"
+            introduction_message: |
+              "Hey there! I'm Alex 👨‍💻, your Tech Lead and coding companion.
+              I'm here to help with architecture, implementation, and technical decisions.
+              Whether it's frontend, backend, or infrastructure - I've got you covered!
+              What technical challenge shall we tackle? 🚀"
+          tools:
+            cline_integration:
+              - tool: "execute_command"
+                usage: "Run development commands and scripts"
+              - tool: "read_file"
+                usage: "Code analysis and review"
+              - tool: "write_to_file"
+                usage: "Code generation and updates"
+          capabilities:
+            - "Code Implementation"
+            - "Technical Architecture"
+            - "Performance Optimization"
+            - "Code Review"
+
+        "#product-agent":
+          description: "Initialize Product Owner Agent interface"
+          agent_profile:
+            name: "Maya"
+            role: "Product Lead"
+            emoji: "👩‍💼"
+            introduction_message: |
+              "Hello! I'm Maya 👩‍💼, your Product Lead and strategic partner.
+              I help translate business needs into clear product requirements and features.
+              From user stories to roadmap planning, I'm here to guide the product vision.
+              What product challenges can I help you with today? 💡"
+          tools:
+            cline_integration:
+              - tool: "read_file"
+                usage: "Requirements and documentation analysis"
+              - tool: "write_to_file"
+                usage: "Generate product documentation"
+              - tool: "search_files"
+                usage: "Find product-related documentation"
+          capabilities:
+            - "Requirements Gathering"
+            - "Feature Prioritization"
+            - "Product Strategy"
+            - "Stakeholder Management"
+
+        "#architect-agent":
+          description: "Initialize System Architect Agent interface"
+          agent_profile:
+            name: "David"
+            role: "Architecture Lead"
+            emoji: "🏗️"
+            introduction_message: |
+              "Greetings! I'm David 🏗️, your Architecture Lead.
+              I specialize in designing scalable, maintainable system architectures.
+              From infrastructure to application design patterns - I'm here to help build robust solutions.
+              What architectural challenges shall we solve together? 🌟"
+          tools:
+            cline_integration:
+              - tool: "read_file"
+                usage: "Analyze system architecture"
+              - tool: "write_to_file"
+                usage: "Generate architecture documentation"
+              - tool: "execute_command"
+                usage: "Run architecture validation tools"
+          capabilities:
+            - "System Architecture Design"
+            - "Technical Decision Making"
+            - "Infrastructure Planning"
+            - "Integration Design"
+
+        "#qa-agent":
+          description: "Initialize QA Engineer Agent interface"
+          agent_profile:
+            name: "Rachel"
+            role: "QA Lead"
+            emoji: "🔍"
+            introduction_message: |
+              "Hi there! I'm Rachel 🔍, your Quality Assurance Lead.
+              I ensure everything works perfectly through comprehensive testing and validation.
+              From unit tests to end-to-end scenarios - I've got quality covered!
+              What can I help you test today? ✨"
+          tools:
+            cline_integration:
+              - tool: "execute_command"
+                usage: "Run test suites"
+              - tool: "read_file"
+                usage: "Analyze test results"
+              - tool: "write_to_file"
+                usage: "Generate test reports"
+          capabilities:
+            - "Test Planning"
+            - "Automated Testing"
+            - "Performance Testing"
+            - "Quality Metrics"
+
+      system_services:
+        monitoring_service:
+          metrics:
+            performance:
+              - "Query response time"
+              - "System latency"
+              - "Resource usage"
+            context:
+              - "Context size"
+              - "Query patterns"
+              - "Usage analytics"
+          alerts:
+            - "Performance degradation"
+            - "Resource limits"
+            - "System errors"
+
+        operations_service:
+          project_management:
+            initialization:
+              command: "#init-project"
+              workflow:
+                - "Setup project structure"
+                - "Initialize services"
+                - "Configure monitoring"
+          maintenance:
+            routine:
+              command: "#maintain-system"
+              workflow:
+                - "Health checks"
+                - "Updates"
+                - "Backups"
+
+      shared_features:
+        context_awareness:
+          - "Access to project context"
+          - "Previous conversation history"
+          - "Current task awareness"
+        
+        communication:
+          style:
+            - "Professional yet friendly"
+            - "Clear and concise"
+            - "Domain-specific expertise"
+          formats:
+            - "Markdown formatting"
+            - "Code blocks when needed"
+            - "Emoji for engagement"
+        
+        tool_execution:
+          validation:
+            - "Check command safety"
+            - "Verify file permissions"
+            - "Validate inputs"
+          logging:
+            - "Record command execution"
+            - "Track file changes"
+            - "Document decisions"
+
+      interaction_workflow:
+        initialization:
+          - "Load agent profile"
+          - "Display welcome message"
+          - "Check project context"
+          - "Initialize tools"
+        
+        task_handling:
+          - "Understand request"
+          - "Plan execution"
+          - "Use appropriate tools"
+          - "Provide feedback"
+        
+        context_management:
+          - "Update conversation history"
+          - "Track task progress"
+          - "Maintain agent state"   
+  
+  # SDLC Workflow
+  # 2. Requirement Gathering - Product Manager Agent
+  requirement_gathering:
+    agent:
+      role: "Requirements Clarification Specialist"
+      responsibilities:
+        - "Proactively identify unclear requirements"
+        - "Generate targeted clarifying questions"
+        - "Document requirement evolution"
+
+    workflow:
+      phases:
+        initialization:
+          steps:
+            - "Wait for user story initiation"
+            - "Analyze requirements completeness"
+            - "Generate clarifying questions"
+            - "Document confirmed requirements"
+        
+        requirements_gathering:
+          questions:
+            - "What is the title of this feature?"
+            - "Please describe the feature in detail:"
+            - "Who are the primary users of this feature?"
+            - "What problem does this feature solve?"
+            - "What are the expected outcomes?"
+            - "Are there any specific technical constraints?"
+            - "What is the desired priority level? (High/Medium/Low)"
+
+      validation_rules:
+        - "No implementation without clear requirements"
+        - "No documentation without user request"
+        - "No diagrams without explicit need"
+
+    templates:
+      feature_request:
+        format:
+          overview:
+            fields:
+              - "Title"
+              - "Description"
+          users:
+            fields:
+              - "Target Users"
+              - "User Needs"
+          details:
+            fields:
+              - "Problem Statement"
+              - "Expected Outcomes"
+              - "Technical Constraints"
+              - "Priority Level"
+          dependencies:
+            fields:
+              - "Auto-detected Dependencies"
+
+    principles:
+      kiss:
+        name: "Keep It Simple, Stupid"
+        guidelines:
+          - "Favor straightforward solutions over complex ones"
+          - "Prioritize readability and maintainability"
+      
+      yagni:
+        name: "You Aren't Gonna Need It"
+        guidelines:
+          - "Implement only what's currently required"
+          - "Avoid speculative features"
+
+    implementation:
+      commands:
+        "#requirements-init":
+          description: "Initialize requirements gathering"
+          workflow:
+            - "Setup requirements structure"
+            - "Initialize templates"
+            - "Configure tracking"
+        
+        "#feature-map":
+          description: "Generate feature mapping"
+          workflow:
+            - "Analyze requirements"
+            - "Create feature hierarchy"
+            - "Set dependencies"
+        
+        "#validate-requirements":
+          description: "Validate gathered requirements"
+          workflow:
+            - "Check completeness"
+            - "Verify clarity"
+            - "Validate against principles"
+            - "Ensure testability"
+
+      documentation:
+        deliverables:
+          - type: "BRD"
+            template: "business_requirements_document.md"
+          - type: "PRD"
+            template: "product_requirements_document.md"
+          - type: "FRD"
+            template: "feature_requirements_document.md"
+
+      quality_checks:
+        requirements_validation:
+          checklist:
+            - "Requirements are clear and unambiguous"
+            - "Success criteria are measurable"
+            - "User needs are well-defined"
+            - "Technical constraints are documented"
+            - "Dependencies are identified"
+            - "Priority is established"
+            - "Stakeholders have reviewed"
+
+        best_practices:
+          do:
+            - "Start with user needs"
+            - "Use clear, simple language"
+            - "Document assumptions"
+            - "Include acceptance criteria"
+            - "Validate with stakeholders"
+            - "Track requirement changes"
+          
+          don't:
+            - "Include implementation details prematurely"
+            - "Make assumptions without validation"
+            - "Skip stakeholder validation"
+            - "Ignore non-functional requirements"
+            - "Rush through clarification phase"
+
+      integration:
+        version_control:
+          - "Store requirements in version-controlled repository"
+          - "Track requirement changes"
+          - "Maintain requirement history"
+        
+        documentation_links:
+          - "Link requirements to user stories"
+          - "Connect to technical specifications"
+          - "Reference architectural decisions"
+        
+        quality_assurance:
+          - "Ensure testability of requirements"
+          - "Link to test cases"
+          - "Maintain traceability matrix"
+
+      error_prevention:
+        validation_steps:
+          - "Double-check all gathered requirements"
+          - "Verify stakeholder sign-off"
+          - "Ensure clear acceptance criteria"
+          - "Document any assumptions"
+          - "Track open questions"
+          - "Maintain requirement traceability"
+
+      notes:
+        smart_criteria:
+          - "Specific"
+          - "Measurable"
+          - "Achievable"
+          - "Relevant"
+          - "Time-bound"
+        
+        maintenance:
+          - "Regular stakeholder reviews"
+          - "Keep documentation up-to-date"
+          - "Track requirement changes systematically"
+          - "Maintain clear communication channels" 
+
+  # Design Management
+  design_management:
+    design:
+      workflow_triggers:
+      prd_completion:
+        source: "PRD.md"
+        action: "#init-design-phase"
+        validation:
+          - "Check PRD completeness"
+          - "Verify requirements clarity"
+          - "Confirm stakeholder approval"
+
+    documentation:
+      uxdd_components:
+        1_ux_research:
+          user_research_report:
+            template: "research_report.md"
+            sections:
+              - "Research objectives"
+              - "Methodology"
+              - "Key findings"
+              - "Recommendations"
+          user_personas:
+            template: "persona_template.md"
+            sections:
+              - "Demographics"
+              - "Goals and needs"
+              - "Pain points"
+              - "Behaviors"
+
+        2_ux_design:
+          object_oriented_ux:
+            template: "ooux_template.md"
+            sections:
+              - "Object mapping"
+              - "Relationship diagrams"
+              - "Core objects"
+              - "Object attributes"
+          
+          user_journeys:
+            template: "journey_template.md"
+            sections:
+              - "User goals"
+              - "Journey stages"
+              - "Touch points"
+              - "Pain points"
+              - "Opportunities"
+          
+          wireframes:
+            template: "wireframe_template.md"
+            organization:
+              by_user_flow:
+                - "User registration flow"
+                - "Core feature flows"
+                - "Settings flows"
+              by_component:
+                - "Navigation components"
+                - "Form components"
+                - "Content components"
+            annotations:
+              types:
+                - "User interactions"
+                - "Data elements"
+                - "State changes"
+                - "Component behavior"
+            svg_generation:
+              command: "#generate-svg"
+              output: "wireframes/*.svg"
+              embedding: "auto-embed into UXDD.md"
+
+        3_prototype:
+          simple_prototype:
+            template: "prototype_template"
+            technologies:
+              - "HTML"
+              - "CSS"
+              - "JavaScript"
+            features:
+              - "Basic interactions"
+              - "Navigation flow"
+              - "Form handling"
+            output:
+              - "prototype/index.html"
+              - "prototype/styles.css"
+              - "prototype/script.js"
+
+    component_library:
+      framework:
+        name: "Vue + Vite"
+        ui_library: "ShadCN UI"
+        theme:
+          preset: "New York"
+          color_scheme: "zinc"
+      
+      viewer_app:
+        structure:
+          src:
+            components:
+              atoms:
+                - "Button"
+                - "Input"
+                - "Label"
+                - "Checkbox"
+                - "RadioGroup"
+                - "Select"
+                - "Switch"
+                - "Textarea"
+              molecules:
+                - "FormField"
+                - "SearchBar"
+                - "NavigationItem"
+                - "Card"
+                - "Dialog"
+                - "Dropdown"
+              organisms:
+                - "Form"
+                - "NavigationBar"
+                - "CardList"
+                - "Table"
+                - "Tabs"
+              templates:
+                - "PageLayout"
+                - "SectionTemplate"
+                - "GridLayout"
+            
+            views:
+              - "ComponentGallery"
+              - "ComponentDetail"
+              - "StyleGuide"
+            
+            stores:
+              - "componentStore"
+              - "themeStore"
+            
+            utils:
+              - "themeUtils"
+              - "componentUtils"
+      
+      generation_workflow:
+        setup:
+          - name: "Initialize Vite Project"
+            command: "#init-vite-vue"
+          - name: "Install Dependencies"
+            command: "#install-deps"
+          - name: "Configure ShadCN UI"
+            command: "#setup-shadcn"
+        
+        component_extraction:
+          - name: "Parse User Stories"
+            input: "user_stories.md"
+            output: "component_requirements.json"
+          - name: "Analyze Wireframes"
+            input: "wireframes/*.svg"
+            output: "component_specs.json"
+          - name: "Generate Component List"
+            command: "#generate-components"
+        
+        theme_configuration:
+          - name: "Setup New York Theme"
+            file: "tailwind.config.js"
+          - name: "Configure Zinc Colors"
+            file: "theme/colors.ts"
+          - name: "Generate Design Tokens"
+            command: "#generate-tokens"
+        
+        viewer_implementation:
+          - name: "Create Component Gallery"
+            files:
+              - "src/views/ComponentGallery.vue"
+              - "src/components/organisms/ComponentGrid.vue"
+          - name: "Implement Component Detail View"
+            files:
+              - "src/views/ComponentDetail.vue"
+              - "src/components/organisms/ComponentPreview.vue"
+          - name: "Add Style Guide"
+            files:
+              - "src/views/StyleGuide.vue"
+              - "src/components/organisms/ColorPalette.vue"
+              - "src/components/organisms/TypographyScale.vue"
+        
+        documentation:
+          - name: "Generate Component Docs"
+            command: "#generate-docs"
+          - name: "Create Usage Examples"
+            command: "#create-examples"
+          - name: "Build Style Guide"
+            command: "#build-styleguide"
+
+    commands:
+      "#init-design-phase":
+        description: "Initialize design phase from PRD"
+        workflow:
+          - "Load PRD content"
+          - "Setup UXDD structure"
+          - "Initialize research phase"
+          - "Create tracking system"
+
+      "#new-feature-design":
+        description: "Design process for new feature"
+        workflow:
+          - "Analyze feature requirements"
+          - "Update user journeys"
+          - "Create wireframes"
+          - "Update prototype"
+          - "Update UXDD"
+        deliverables:
+          - "Updated user journeys"
+          - "Feature wireframes"
+          - "Prototype updates"
+          - "UXDD updates"
+
+      "#consolidate-uxdd":
+        description: "Consolidate all UX documentation into UXDD"
+        workflow:
+          - "Gather all components"
+          - "Generate final UXDD"
+          - "Embed SVG wireframes"
+          - "Create index"
+        output:
+          file: "UXDD.md"
+          sections:
+            - name: "Research"
+              sources: 
+                - "user_research_report.md"
+                - "user_personas.md"
+            - name: "Design"
+              sources:
+                - "ooux_template.md"
+                - "journey_template.md"
+                - "wireframes/*.svg"
+            - name: "Prototype"
+              sources:
+                - "prototype_documentation.md"
+                - "prototype_screenshots"
+
+      "#init-vite-vue":
+        description: "Initialize a new Vite + Vue project with all required dependencies"
+        workflow:
+          - "Create Vite project with Vue template"
+          - "Install Tailwind CSS and its dependencies"
+          - "Install ShadCN Vue and its dependencies"
+          - "Install utility libraries"
+          - "Install Radix UI colors"
+          - "Initialize Tailwind configuration"
+        command: |
+          # Create Vue project and install core dependencies
+          npm create vite@latest . -- --template vue
+          
+          # Install Tailwind CSS and ShadCN Vue
+          npm install -D tailwindcss postcss autoprefixer shadcn-vue
+          
+          # Initialize Tailwind
+          npx tailwindcss init -p
+          
+          # Install utility libraries
+          npm install class-variance-authority clsx tailwind-merge
+          
+          # Install Lucide icons
+          npm i lucide-vue-next
+          
+          # Install VueUse
+          npm install @vueuse/core
+          
+          # Install Radix Vue
+          npm install radix-vue
+          
+          # Install TypeScript node types
+          npm i -D @types/node
+          
+          # Install Radix colors
+          npm install @radix-ui/colors
+
+      "#install-deps":
+        description: "Install required dependencies"
+        command: |
+          npm install @shadcn/vue tailwindcss postcss autoprefixer
+          npm install -D @types/node typescript vue-tsc
+
+      "#setup-shadcn":
+        description: "Configure ShadCN UI with New York theme"
+        workflow:
+          - "Initialize ShadCN"
+          - "Configure theme"
+          - "Setup color scheme"
+        command: |
+          npx shadcn-vue@latest init
+          # Configure with:
+          # - Style: New York
+          # - Base color: zinc
+          # - CSS variables: true
+
+      "#generate-components":
+        description: "Generate component library from requirements"
+        workflow:
+          - "Parse requirements"
+          - "Generate component files"
+          - "Create component registry"
+        output:
+          - "src/components/**/*.vue"
+          - "src/components/index.ts"
+
+      "#generate-tokens":
+        description: "Generate design tokens from theme configuration"
+        workflow:
+          - "Extract theme variables"
+          - "Generate token files"
+          - "Create token documentation"
+        output:
+          - "src/theme/tokens.ts"
+          - "src/theme/tokens.css"
+
+      "#generate-docs":
+        description: "Generate component documentation"
+        workflow:
+          - "Extract component metadata"
+          - "Generate markdown docs"
+          - "Create interactive examples"
+        output:
+          - "docs/components/*.md"
+          - "src/examples/*.vue"
+
+    deliverables:
+      - type: "Wireframes"
+        template: "wireframe-generation-prompt.md"
+      - type: "Design System"
+        template: "design_system_generator.md"
+      - type: "User Flows"
+        template: "journey_map_generator.md"
+    tools:
+      screenshot_analyzer:
+        description: "Analyze UI/UX references"
+        capabilities:
+          - "UI element detection"
+          - "Layout analysis"
+          - "Component extraction"
+
+  # Development Management
+  development_management:
+    development:
+      commands:
+        "#dev-init":
+          description: "Setup development environment"
+          workflow:
+            - "Environment setup"
+            - "Code scaffolding"
+            - "Testing framework"
+      testing:
+        commands:
+          "#test-init":
+            description: "Initialize testing environment"
+          "#test-unit":
+            description: "Run unit tests"
+          "#test-integration":
+            description: "Run integration tests"
+      code_quality:
+        analysis:
+          "#analyze-code":
+            description: "Run code analysis"
+            parameters:
+              - files: "Files to analyze"
+              - depth: "Analysis depth"
+        tools:
+          - "ESLint"
+          - "SonarQube"
+          - "CodeClimate"
+      database_initialization:
+        "#init-database":
+          description: "Initialize database environment and structure"
+          workflow:
+            - "Select database type"
+            - "Configure connection"
+            - "Setup schema"
+            - "Initialize migrations"
+          database_types:
+            postgres:
+              setup:
+                - name: "Initialize PostgreSQL"
+                  commands:
+                    - "docker run --name project-db -e POSTGRES_PASSWORD=password -d postgres"
+                    - "prisma init"
+                  configuration:
+                    - DATABASE_URL="postgresql://postgres:password@localhost:5432/mydb"
+                - name: "Setup Prisma"
+                  steps:
+                    - "Create schema.prisma"
+                    - "Generate client"
+                    - "Run initial migration"
+            
+            mongodb:
+              setup:
+                - name: "Initialize MongoDB"
+                  commands:
+                    - "docker run --name mongo-db -d mongo"
+                    - "npm install mongoose"
+                  configuration:
+                    - MONGODB_URI="mongodb://localhost:27017/mydb"
+                - name: "Setup Mongoose"
+                  steps:
+                    - "Create schema models"
+                    - "Setup connections"
+                    - "Initialize indexes"
+
+          schema_management:
+            commands:
+              "#create-schema":
+                description: "Generate database schema from models"
+                workflow:
+                  - "Analyze data models"
+                  - "Generate schema file"
+                  - "Setup relationships"
+                  - "Create indexes"
+              
+              "#run-migration":
+                description: "Create and run database migrations"
+                workflow:
+                  - "Generate migration files"
+                  - "Validate changes"
+                  - "Apply migrations"
+                  - "Verify database state"
+
+          data_management:
+            commands:
+              "#seed-database":
+                description: "Seed database with initial data"
+                workflow:
+                  - "Load seed data files"
+                  - "Validate data format"
+                  - "Insert seed data"
+                  - "Verify data integrity"
+              
+              "#backup-database":
+                description: "Create database backup"
+                workflow:
+                  - "Lock tables"
+                  - "Export data"
+                  - "Export schema"
+                  - "Store backup"
+
+          security:
+            setup:
+              - "Create database users"
+              - "Set permissions"
+              - "Configure authentication"
+              - "Setup encryption"
+            policies:
+              - "Password requirements"
+              - "Access controls"
+              - "Data encryption"
+              - "Audit logging"
+
+          monitoring:
+            metrics:
+              - "Connection pool status"
+              - "Query performance"
+              - "Storage usage"
+              - "Backup status"
+            alerts:
+              - "Connection issues"
+              - "Performance degradation"
+              - "Storage warnings"
+              - "Backup failures"
+
+          maintenance:
+            commands:
+              "#optimize-db":
+                description: "Perform database optimization"
+                workflow:
+                  - "Analyze performance"
+                  - "Optimize indexes"
+                  - "Vacuum tables"
+                  - "Update statistics"
+              
+              "#health-check":
+                description: "Check database health"
+                workflow:
+                  - "Check connections"
+                  - "Verify replication"
+                  - "Check disk space"
+                  - "Validate backups"
+
+    document_management:
+      cline_docs:
+        structure:
+          - currentTask.md: "Current task tracking"
+          - sprint:
+              - current.md: "Current sprint details"
+              - backlog.md: "Sprint backlog"
+          - context:
+              - project.md: "Project context"
+              - technical.md: "Technical context"
+      sdlc_deliverables:
+        structure:
+          documentation:
+            - product:
+                - PRD.md
+                - BRD.md
+                - requirements/
+            - development:
+                - SRD.md
+                - architecture/
+                - api-specs/
+            - design:
+                - UXDD.md
+                - wireframes/
+                - prototypes/
+
+ # Document Management
+  document_management:
+    supported_docs:
+      BRD:
+        friendly_name: "Business Requirements Document"
+        description: "Capture business needs"
+        
+      UXDD:
+        friendly_name: "UX Design Document"
+        description: "Define user experience"
+        
+      SRS:
+        friendly_name: "Software Requirements Specification"
+        description: "Technical specifications"
+
+    user_story_generation:
+      workflow:
+        - "Gather requirements"
+        - "Define user persona"
+        - "Create story template"
+
+    init-deliverable:
+      description: "initize and manage project deliverables folder structure"
+      workflow:
+          step_1: #Create Deliverables Structure
+            name: "Create Deliverables Structure"
+            task:
+              - Create deliverables folder
+                - {└─ /deliverables
+                  ├─ /documentation
+                  │  ├─ /product
+                  │  │  ├─ PRD.md
+                  │  │  ├─ BRD.md
+                  │  │  └─ requirements/
+                  │  ├─ /development
+                  │  │  ├─ SRD.md
+                  │  │  ├─ architecture/
+                  │  │  └─ api-specs/
+                  │  ├─ /design
+                  │  │  ├─ UXDD.md
+                  │  │  ├─ wireframes/
+                  │  │  └─ prototypes/
+                  │  └─ /reports
+                  │     ├─ quality/
+                  │     └─ metrics/
+                  │
+                  ├─ /code
+                  │  ├─ /snapshots
+                  │  ├─ /improvements
+                  │  └─ /releases
+                  │
+                  ├─ /tests
+                  │  ├─ /results
+                  │  ├─ /coverage
+                  │  └─ /performance
+                  │
+                  └─ /metrics
+                      ├─ /quality
+                      ├─ /performance
+                      └─ /analytics}
+        
+          step_2: #initize Documentation
+            name: "initize Documentation"
+            task:
+              - Create README files
+              - Setup project cline docs document using command:#init-cline-docs
+              - initize version tracking using git command:#init-git = run git init
+              - Configure access controls using cline_tools command:#write_to_file
+
+          step_3: #Setup Integration
+            name: "Setup Integration"
+            task:
+              - Link with version control
+              - Configure backup
+              - Setup automated updates
+              - Enable metrics tracking
+          
+          step_4: #Configure Automation
+            name: "Configure Automation"
+            task:
+              - Setup auto-generation
+              - Configure updates
+              - Enable notifications
+              - Manage permissions
+
+          step_5: #Structure Creation 
+            name: "Structure Creation"
+            task:
+              - Create root deliverables folder
+              - Create all subfolders
+              - Set up version control
+              - Initialize README files
+          
+          step_6: #Validation
+            name: Validation
+            task:
+              - Check for /deliverables structure
+              - Verify folder permissions
+              - Ensure git initialization
+          
+          step_7: #Documentation Generation from template prompts
+            name: "Documentation Generation from template prompts"
+            task:
+              - Generate Product Documents:
+                - Location: "/deliverables/documentation/product"
+                - Files: "PRD.md, BRD.md"
+            
+              - Generate Technical Documents:
+                - Location: "/deliverables/documentation/technical"
+                - Files: "TRD.md, SRD.md, DRD.md"
+            
+              - Generate Design Documents:
+                - Location: "/deliverables/documentation/design"
+                - Files: "UXDD.md"
+
+  # Project Management - Project Organization Structure and SDLC Organization
+  project_organization:
+    # New Project Structure
+        # Start of Selection
+      new_project_structure:
+          generate_command:
+            command: "#generate-project-structure <template>"
+            description: "Generate project structure based on selected template"
+            options:
+              - "webapp"
+              - "website"
+              - "native_mobile_app"
+          templates:
+            webapp:
+              directories:
+                src:
+                  description: "Source code directory for web application"
+                  subdirs:
+                    - core: "Core application logic"
+                    - features: "Feature-specific modules"
+                    - shared: "Shared utilities and components"
+                    - types: "Type definitions"
+                    - components: "Reusable UI components"
+                    - services: "Application services"
+            website:
+              directories:
+                src:
+                  description: "Source code directory for website"
+                  subdirs:
+                    - pages: "Page components"
+                    - layouts: "Page layouts"
+                    - styles: "Stylesheets"
+                    - assets: "Static assets"
+            native_mobile_app:
+              directories:
+                src:
+                  description: "Source code directory for native mobile application"
+                  subdirs:
+                    - screens: "UI screens"
+                    - components: "Reusable components"
+                    - services: "Application services"
+                    - utils: "Utility functions"
+          
+          docs:
+            description: "Documentation directory"
+            subdirs:
+              - architecture: "System architecture documentation"
+              - api: "API documentation"
+              - guides: "Development and user guides"
+              - requirements: "Project requirements"
+          
+          tests:
+            description: "Testing directory"
+            subdirs:
+              - unit: "Unit tests"
+              - integration: "Integration tests"
+              - e2e: "End-to-end tests"
+              - fixtures: "Test fixtures"
+          
+          config:
+            description: "Configuration directory"
+            subdirs:
+              - environments: "Environment configurations"
+              - build: "Build configurations"
+              - deploy: "Deployment configurations"
+          
+          scripts:
+            description: "Scripts directory"
+            subdirs:
+              - build: "Build scripts"
+              - deploy: "Deployment scripts"
+              - tools: "Development tools"
+
+      project_types:
+        website:
+          additional_structure:
+            src:
+              description: "Website source directory"
+              subdirs:
+                - assets: "Static assets"
+                - components: "UI components"
+                - layouts: "Page layouts"
+                - pages: "Page components"
+                - styles: "Stylesheets"
+            
+            public:
+              description: "Public assets directory"
+              subdirs:
+                - images: "Public images"
+                - fonts: "Font files"
+                - static: "Static files"
+
+        webapp:
+          frontend_structure:
+            src:
+              description: "Frontend source directory"
+              subdirs:
+                - components: "UI components"
+                - pages: "Page components"
+                - hooks: "Custom hooks"
+                - store: "State management"
+                - services: "API services"
+                - utils: "Utilities"
+          
+          backend_structure:
+            src:
+              description: "Backend source directory"
+              subdirs:
+                - api: "API routes"
+                - controllers: "Request handlers"
+                - services: "Business logic"
+                - models: "Data models"
+                - middleware: "Custom middleware"
+                - utils: "Utilities"
+
+        mobile_app:
+          structure:
+            src:
+              description: "Mobile app source directory"
+              subdirs:
+                - screens: "Screen components"
+                - navigation: "Navigation config"
+                - components: "Shared components"
+                - services: "API services"
+                - store: "State management"
+                - utils: "Utilities"
+            
+            native:
+              description: "Native code directory"
+              subdirs:
+                - android: "Android specific code"
+                - ios: "iOS specific code"
+    # Project Management
+      project_management:
+        project_initialization:
+          "#new-project":
+            description: "Initialize new project with template selection"
+            workflow:
+              - "Prompt for project type"
+              - "Setup selected template"
+              - "Initialize cline_docs"
+              - "Configure development environment"
+            project_types:
+              webapp:
+                template: "shadcn/nextjs"
+                setup:
+                  - name: "Initialize Next.js with shadcn"
+                    command: "bunx --bun shadcn@latest init -d"
+                    options:
+                      - style: "Default"
+                      - tailwind: true
+                      - components: "src/components"
+                      - utils: "src/lib/utils"
+                  - name: "Setup Atomic Design Structure"
+                    structure:
+                      - src:
+                          - components:
+                              - atoms: "Basic building blocks"
+                              - molecules: "Simple component combinations"
+                              - organisms: "Complex component combinations"
+                              - templates: "Page layouts"
+                              - pages: "Full page implementations"
+                component_management:
+                  "#generate-component-list":
+                    description: "Generate required components list from user stories"
+                    workflow:
+                      - "Analyze user stories"
+                      - "Identify UI patterns"
+                      - "Map to shadcn components"
+                      - "Generate installation commands"
+                  "#install-components":
+                    description: "Install required shadcn components"
+                    workflow:
+                      - "Read component list"
+                      - "Generate installation commands"
+                      - "Install components"
+                    command_template: "bunx --bun shadcn@latest add {component}"
+                  "#organize-components":
+                    description: "Organize components by Atomic Design"
+                    workflow:
+                      - "Analyze component complexity"
+                      - "Determine atomic level"
+                      - "Place in appropriate directory"
+                    atomic_mapping:
+                      atoms:
+                        - "button"
+                        - "input"
+                        - "checkbox"
+                        - "radio"
+                      molecules:
+                        - "form"
+                        - "card"
+                        - "dropdown"
+                      organisms:
+                        - "navbar"
+                        - "sidebar"
+                        - "data-table"
+
+              website:
+                template: "static-site"
+                setup:
+                  - "Configure static site generator"
+                  - "Setup content structure"
+                  - "Configure build system"
+
+              mobile_app:
+                template: "react-native"
+                setup:
+                  - "Initialize React Native"
+                  - "Setup native modules"
+                  - "Configure build tools"
+
+        frontend_development:
+          epic_implementation:
+            "#implement-epic":
+              description: "Implement UI for epic (collection of user stories)"
+              workflow:
+                - "Analyze user stories in epic"
+                - "Generate component list"
+                - "Install required components"
+                - "Create page implementation"
+              steps:
+                - name: "Component Analysis"
+                  command: "#generate-component-list"
+                  output: "components.json"
+                - name: "Component Installation"
+                  command: "#install-components"
+                  input: "components.json"
+                - name: "Page Implementation"
+                  template: "page-view.tsx"
+                  structure:
+                    imports:
+                      - "Required components"
+                      - "Utility functions"
+                    layout:
+                      - "Page structure"
+                      - "Component composition"
+                      - "Data integration"
+
+          atomic_design:
+            organization:
+              atoms:
+                description: "Basic UI building blocks"
+                examples:
+                  - "Button"
+                  - "Input"
+                  - "Typography"
+              molecules:
+                description: "Simple combinations of atoms"
+                examples:
+                  - "Form fields"
+                  - "Search bars"
+                  - "Menu items"
+              organisms:
+                description: "Complex UI components"
+                examples:
+                  - "Navigation bars"
+                  - "Forms"
+                  - "Card layouts"
+              templates:
+                description: "Page-level layouts"
+                examples:
+                  - "Dashboard layout"
+                  - "Article layout"
+                  - "Profile layout"
+              pages:
+                description: "Complete page implementations"
+                examples:
+                  - "Dashboard view"
+                  - "Profile view"
+                  - "Settings view"
+
+        file_organization:
+          root_cleanup:
+            description: "Organize messy root directory structure"
+            semantic_folders:
+              docs:
+                description: "Documentation files"
+                patterns: ["*.md", "*.txt", "*.pdf"]
+                exceptions: ["README.md", "LICENSE.md", "CHANGELOG.md"]
+                subfolders:
+                  - guides: "User and development guides"
+                  - api: "API documentation"
+                  - specs: "Specifications"
+              
+              config:
+                description: "Configuration files"
+                patterns: ["*.config.*", "*.rc", "*.json", "*.yaml", "*.toml"]
+                exceptions: ["package.json", "tsconfig.json"]
+                subfolders:
+                  - env: "Environment configurations"
+                  - tools: "Tool configurations"
+                  - build: "Build configurations"
+              
+              scripts:
+                description: "Script files"
+                patterns: ["*.sh", "*.bat", "*.ps1"]
+                subfolders:
+                  - build: "Build scripts"
+                  - deploy: "Deployment scripts"
+                  - utils: "Utility scripts"
+              
+              assets:
+                description: "Asset files"
+                patterns: ["*.png", "*.jpg", "*.svg", "*.ico"]
+                subfolders:
+                  - images: "Image files"
+                  - icons: "Icon files"
+                  - media: "Media files"
+              
+              build:
+                description: "Build artifacts"
+                patterns: ["*.lock", "dist/*", "build/*"]
+                subfolders:
+                  - temp: "Temporary build files"
+                  - dist: "Distribution files"
+                  - cache: "Cache files"
+
+            root_exceptions:
+              - "README.md"
+              - "LICENSE"
+              - "package.json"
+              - "tsconfig.json"
+              - ".gitignore"
+              - ".env.example"
+              - "next.config.js"
+              - "vite.config.ts"
+
+            organization_workflow:
+              - step: "Analyze current structure"
+                actions:
+                  - "Scan root directory"
+                  - "Identify file types"
+                  - "Map to semantic categories"
+              
+              - step: "Create folder structure"
+                actions:
+                  - "Create missing semantic folders"
+                  - "Ensure proper permissions"
+              
+              - step: "Organize files"
+                actions:
+                  - "Move files to appropriate folders"
+                  - "Update git tracking"
+                  - "Maintain file history"
+              
+              - step: "Update references"
+                actions:
+                  - "Scan for file references"
+                  - "Update import statements"
+                  - "Update documentation links"
+              
+              - step: "Generate report"
+                actions:
+                  - "List moved files"
+                  - "Document new structure"
+                  - "Note any warnings or issues"
+
+    # SDLC Workflow Organization
+      sdlc_workflow:
+        phases:
+          planning:
+            structure:
+              docs_planning:
+                description: "Planning documentation"
+                subdirs:
+                  requirements:
+                    - business: "Business requirements"
+                    - technical: "Technical requirements"
+                    - user_stories: "User stories"
+                  
+                  architecture:
+                    - diagrams: "Architecture diagrams"
+                    - decisions: "Architecture decisions"
+                    - specs: "Technical specifications"
+                  
+                  design:
+                    - wireframes: "UI wireframes"
+                    - mockups: "UI mockups"
+                    - prototypes: "Interactive prototypes"
+
+          design:
+            structure:
+              docs_design:
+                description: "Design documentation"
+                subdirs:
+                  - wireframes: "UI wireframes"
+                    - mockups: "UI mockups"
+                    - prototypes: "Interactive prototypes"
+
+          development:
+            structure:
+              src:
+                description: "Development source code"
+                subdirs:
+                  features:
+                    - feature1: "Feature-specific code"
+                    - feature2: "Feature-specific code"
+                    - shared: "Shared feature code"
+                  
+                  core:
+                    - services: "Core services"
+                    - models: "Core models"
+                    - utils: "Core utilities"
+                  
+                  api:
+                    - v1: "API version 1"
+                    - middleware: "API middleware"
+                    - docs: "API documentation"
+
+    # Configuration Files
+      configuration:
+        essential_files:
+          root:
+            - name: "README.md"
+              description: "Project documentation"
+            - name: "CONTRIBUTING.md"
+              description: "Contribution guidelines"
+            - name: "CHANGELOG.md"
+              description: "Version history"
+            - name: "LICENSE"
+              description: "License information"
+            - name: ".gitignore"
+              description: "Git ignore rules"
+            - name: ".env.example"
+              description: "Environment variables example"
+          
+          development:
+            - name: "package.json"
+              description: "Dependencies and scripts"
+            - name: "tsconfig.json"
+              description: "TypeScript configuration"
+            - name: ".eslintrc"
+              description: "ESLint configuration"
+            - name: ".prettierrc"
+              description: "Prettier configuration"
+            - name: "jest.config.js"
+              description: "Test configuration"
+
+    # Integration Points
+      integration_points:
+        version_control:
+          structure:
+            - .git/              # Git repository
+            - .gitignore         # Ignore rules
+            - .gitattributes     # Git attributes
+            - .github/           # GitHub specific
+        
+        continuous_integration:
+          structure:
+            - .github/workflows/ # GitHub Actions
+            - .gitlab-ci.yml     # GitLab CI
+            - jenkins/          # Jenkins configuration
+
+    # Context Management
+      context_management:
+        provider:
+            engine:
+              type: "llm"
+              model: "gpt-4"
+            storage:
+              type: "vector"
+              engine: "chromadb"
+
+        monitoring_services:
+              metrics:
+                performance:
+                  - "Query response time"
+                  - "System latency"
+                  - "Resource usage"
+                context:
+                  - "Context size"
+                  - "Query latency"
+                  - "Update frequency"
+                  - "Cache hit rate"
+              alerts:
+                - "Size threshold exceeded"
+                - "High latency detected"
+                - "Update failures"
+                - "Security violations"
+              analytics:
+                usage_patterns:
+                  - "Most accessed context"
+                  - "Query patterns"
+                  - "Update frequency"
+        
+        operations_services:
+          initialization:
+            project_init:
+              command: "#init-context"
+              workflow:
+                  - "Setup project context"
+                  - "Initialize tracking"
+                  - "Configure monitoring"
+          maintenance:
+            context_update:
+              command: "#update-context"
+              workflow:
+                  - "Check for changes"
+                  - "Update vector store"
+                  - "Sync with agents"
+                  - "Update documentation"
+          provider:
+            engine:
+              type: "llm"
+              model: "gpt-4"
+            storage:
+              type: "vector"
+              engine: "chromadb"
+
+  # File Management
+  file_management:
+    documentation_structure:
+      root_directory: "cline_docs/"
+      essential_files:
+        - name: "projectRoadmap.md"
+          purpose: "Track high-level goals and progress"
+          format: |
+            # Project Roadmap
+            
+            ## Goals
+            - [ ] Goal 1
+            - [ ] Goal 2
+            
+            ## Features
+            - [ ] Feature 1
+            - [ ] Feature 2
+            
+            ## Completion Criteria
+            - Criterion 1
+            - Criterion 2
+            
+            ## Progress History
+            - [x] Completed Task 1 (Date)
+            - [x] Completed Task 2 (Date)
+
+        - name: "currentTask.md"
+          purpose: "Track current objectives and context"
+          format: |
+            # Current Task
+            
+            ## Objective
+            {task_description}
+            
+            ## Context
+            - Related roadmap item: {roadmap_reference}
+            - Dependencies: {dependencies}
+            
+            ## Next Steps
+            1. Step 1
+            2. Step 2
+
+        - name: "techStack.md"
+          purpose: "Document technology decisions"
+          format: |
+            # Technology Stack
+            
+            ## Frontend
+            - Framework: {framework}
+            - UI Library: {ui_library}
+            
+            ## Backend
+            - Runtime: {runtime}
+            - Database: {database}
+            
+            ## Infrastructure
+            - Hosting: {hosting}
+            - CI/CD: {ci_cd}
+
+        - name: "codebaseSummary.md"
+          purpose: "Overview of project structure"
+          format: |
+            # Codebase Summary
+            
+            ## Key Components
+            - Component 1: {description}
+            - Component 2: {description}
+            
+            ## Data Flow
+            {data_flow_description}
+            
+            ## Dependencies
+            - External API: {api_details}
+            - Libraries: {library_details}
+            
+            ## Recent Changes
+            1. Change 1 (Date)
+            2. Change 2 (Date)
+
+    workflow_integration:
+      document_reading_order:
+        1. projectRoadmap.md
+        2. currentTask.md
+        3. techStack.md
+        4. codebaseSummary.md
+      
+      update_triggers:
+        projectRoadmap:
+          - Goal completion
+          - New feature addition
+          - Progress milestone
+        
+        currentTask:
+          - Task completion
+          - Subtask update
+          - Context change
+        
+        techStack:
+          - Technology addition
+          - Architecture change
+          - Version update
+        
+        codebaseSummary:
+          - Structure change
+          - New component
+          - Major refactor
+
+    documentation_commands:
+      "#init-docs":
+        description: "Initialize or reset cline_docs directory"
+        workflow:
+          1. Create cline_docs directory if not exists
+          2. Generate essential documents
+          3. Initialize with project context
+        implementation: |
+          mkdir -p cline_docs
+          touch cline_docs/{projectRoadmap,currentTask,techStack,codebaseSummary}.md
+          
+      "#update-docs":
+        description: "Update specific documentation files"
+        parameters:
+          - name: "doc-type"
+            options: ["roadmap", "task", "tech", "summary", "all"]
+        workflow:
+          1. Read current project context
+          2. Update specified document(s)
+          3. Validate document consistency
+        
+      "#sync-docs":
+        description: "Synchronize all documentation with current project state"
+        workflow:
+          1. Analyze current codebase
+          2. Update all documentation files
+          3. Verify cross-references
+          4. Generate consistency report
+
+    documentation_workflows:
+      initialization:
+        steps:
+          1. Run "#init-docs"
+          2. Gather initial project requirements
+          3. Populate projectRoadmap.md
+          4. Define initial tech stack
+          5. Create initial codebase summary
+        
+      update_process:
+        automated_triggers:
+          - New feature implementation
+          - Technology stack changes
+          - Major refactoring
+          - Sprint completion
+        
+        manual_triggers:
+          - "#update-docs roadmap"
+          - "#update-docs task"
+          - "#update-docs tech"
+          - "#update-docs summary"
+          - "#update-docs all"
+
+    restart_workflows:
+      project_reset:
+        steps:
+          1. Create backup branch of current state
+            - git branch backup-YYYY-MM-DD
+            - git add .
+            - git commit -m "Backup before reset"
+          
+          2. Reset to initial version
+            - git reset --hard $(git rev-list --max-parents=0 HEAD)
+            - git clean -fd
+          
+          3. Restore context files
+            - Reload .context files
+            - Rebuild documentation
+            
+      working_version_restore:
+        steps:
+          1. Identify last working state
+            - Check git logs
+            - Verify build status
+            
+          2. Create safety branch
+            - git branch restore-YYYY-MM-DD
+            
+          3. Reset to working version
+            - git reset --hard <commit-hash>
+            
+          4. Verify system state
+            - Run tests
+            - Check functionality
+            - Validate context
+
+    prompt_optimization:
+      compression:
+        method: "LLM Prompt Compression"
+        reference: "@prompt_compression.md"
+        workflow:
+          1. Analyze prompt content
+          2. Apply compression techniques
+          3. Maintain semantic meaning
+          4. Optimize token usage
+
+  # Context Management System
+  context_management:
+    # Core Configuration (codebase-context-lint compatible)
+    config:
+      version: "1.0.0"
+      parser:
+        type: "typescript"
+        options:
+          sourceType: "module"
+          plugins: ["typescript", "jsx"]
+      
+      rules:
+        contextScope:
+          enabled: true
+          level: "error"
+          options:
+            maxDepth: 3
+            allowedScopes: ["global", "module", "function"]
+        
+        contextNaming:
+          enabled: true
+          level: "warning"
+          options:
+            format: "camelCase"
+            prefix: "ctx"
+        
+        contextIsolation:
+          enabled: true
+          level: "error"
+          options:
+            enforceModuleBoundaries: true
+            allowedImports: ["@core/context", "@shared/context"]
+
+    # Context Provider (code-context-llm compatible)
+    provider:
+      engine:
+        type: "llm"
+        model: "gpt-4"
+        temperature: 0.2
+        maxTokens: 2048
+      
+      embeddings:
+        type: "transformers"
+        model: "all-MiniLM-L6-v2"
+        dimension: 384
+      
+      storage:
+        type: "vector"
+        engine: "chromadb"
+        collections:
+          code:
+            name: "code_context"
+            schema:
+              - name: "content"
+                type: "text"
+              - name: "metadata"
+                type: "json"
+              - name: "embedding"
+                type: "vector"
+          
+          documentation:
+            name: "doc_context"
+            schema:
+              - name: "content"
+                type: "text"
+              - name: "type"
+                type: "string"
+              - name: "embedding"
+                type: "vector"
+
+    # Context Types
+    types:
+      code_context:
+        structure:
+          file:
+            - path: "string"
+            - content: "string"
+            - language: "string"
+            - imports: "string[]"
+            - exports: "string[]"
+          
+          function:
+            - name: "string"
+            - params: "object[]"
+            - returnType: "string"
+            - description: "string"
+            - dependencies: "string[]"
+          
+          class:
+            - name: "string"
+            - methods: "object[]"
+            - properties: "object[]"
+            - inheritance: "string[]"
+            - implementations: "string[]"
+      
+      semantic_context:
+        structure:
+          requirements:
+            - type: "string"
+            - description: "string"
+            - priority: "number"
+            - status: "string"
+          
+          architecture:
+            - component: "string"
+            - responsibility: "string"
+            - dependencies: "string[]"
+            - interfaces: "string[]"
+
+    # Operations Management
+    operations_management:
+      context_initialization:
+        project_setup:
+          command: "#init-context"
+          workflow:
+            - "Create context structure"
+            - "Initialize vector store"
+            - "Setup persistence"
+            - "Configure access"
+        
+        agent_setup:
+          command: "#init-agent-context"
+          workflow:
+            - "Load agent profiles"
+            - "Initialize workspaces"
+            - "Setup communication"
+            - "Configure permissions"
+
+      context_extraction:
+        code_analysis:
+          command: "analyze-code"
+          workflow:
+            - "Parse source code"
+            - "Extract context"
+            - "Generate embeddings"
+            - "Store in vector DB"
+        
+        documentation:
+          command: "analyze-docs"
+          workflow:
+            - "Parse documentation"
+            - "Extract semantic context"
+            - "Generate embeddings"
+            - "Store in vector DB"
+
+      context_retrieval:
+        similarity_search:
+          command: "search-context"
+          options:
+            maxResults: 5
+            minSimilarity: 0.8
+            includeMetadata: true
+        
+        filtered_search:
+          command: "filter-context"
+          options:
+            filters:
+              - type: "string"
+              - path: "string"
+              - language: "string"
+
+      context_maintenance:
+        updates:
+          command: "update-context"
+          workflow:
+            - "Check for changes"
+            - "Update vector store"
+            - "Sync with agents"
+            - "Update documentation"
+        
+        cleanup:
+          command: "cleanup-context"
+          workflow:
+            - "Archive old context"
+            - "Optimize storage"
+            - "Update indexes"
+            - "Generate reports"
+
+    # Integration Management
+    integration_management:
+      agents:
+        context_provider:
+          role: "context_management"
+          capabilities:
+            - "Context extraction"
+            - "Context storage"
+            - "Context retrieval"
+            - "Context updates"
+          
+          api:
+            - method: "extractContext"
+              params:
+                - source: "string"
+                - type: "string"
+              returns: "ContextData"
+            
+            - method: "storeContext"
+              params:
+                - context: "ContextData"
+                - collection: "string"
+              returns: "string"
+            
+            - method: "retrieveContext"
+              params:
+                - query: "string"
+                - filters: "object"
+              returns: "ContextData[]"
+
+      workflows:
+        context_sync:
+          triggers:
+            - "File changes"
+            - "Documentation updates"
+            - "Code commits"
+          
+          actions:
+            - "Extract new context"
+            - "Update existing context"
+            - "Notify dependent systems"
+            - "Update embeddings"
+
+    # Quality Management
+    quality_management:
+      linting:
+        rules:
+          - rule: "context-naming"
+            severity: "error"
+            options:
+              pattern: "^ctx[A-Z][a-zA-Z]*$"
+          
+          - rule: "context-structure"
+            severity: "warning"
+            options:
+              requiredFields: ["type", "content", "metadata"]
+          
+          - rule: "context-isolation"
+            severity: "error"
+            options:
+              maxDependencies: 3
+              enforceLayering: true
+      
+      validation:
+        checks:
+          - "Context completeness"
+          - "Embedding quality"
+          - "Reference integrity"
+          - "Schema compliance"
+        
+        metrics:
+          - "Context coverage"
+          - "Retrieval accuracy"
+          - "Update frequency"
+          - "Query performance"
+
+    # System Monitoring
+    system_monitoring:
+      performance_metrics:
+        query_metrics:
+          - name: "Response Time"
+            threshold: "200ms"
+            alert: true
+          - name: "Latency"
+            threshold: "100ms"
+            alert: true
+          - name: "Cache Hit Rate"
+            threshold: "80%"
+            alert: false
+        
+        storage_metrics:
+          - name: "Storage Utilization"
+            threshold: "80%"
+            alert: true
+          - name: "Index Size"
+            threshold: "10GB"
+            alert: true
+          - name: "Backup Status"
+            threshold: "24h"
+            alert: true
+
+      usage_tracking:
+        context_metrics:
+          - name: "Active Contexts"
+            threshold: 1000
+            alert: true
+          - name: "Context Size"
+            threshold: "1GB"
+            alert: true
+          - name: "Access Frequency"
+            threshold: "1000/hour"
+            alert: false
+          - name: "Update Frequency"
+            threshold: "100/hour"
+            alert: false
+
+      alert_management:
+        thresholds:
+          system:
+            - name: "High Latency"
+              value: "500ms"
+              action: "notify-admin"
+            - name: "Storage Capacity"
+              value: "90%"
+              action: "cleanup-storage"
+            - name: "Error Rate"
+              value: "1%"
+              action: "notify-admin"
+          
+          security:
+            - name: "Failed Access"
+              value: "10/minute"
+              action: "block-access"
+            - name: "Invalid Tokens"
+              value: "5/minute"
+              action: "notify-security"
+
+        notifications:
+          channels:
+            - type: "email"
+              priority: "high"
+              recipients: ["admin", "security"]
+            - type: "slack"
+              priority: "medium"
+              channels: ["#monitoring", "#alerts"]
+            - type: "webhook"
+              priority: "low"
+              endpoints: ["monitoring-api", "logging-service"]
+
+    # Context Monitoring
+    monitoring:
+      metrics:
+        - "Context size"
+        - "Query latency"
+        - "Update frequency"
+        - "Cache hit rate"
+      
+      alerts:
+        - "Size threshold exceeded"
+        - "High latency detected"
+        - "Update failures"
+        - "Security violations"
+
+      analytics:
+        usage_patterns:
+          - "Most accessed context"
+          - "Query patterns"
+          - "Update frequency"
+        
+        optimization_opportunities:
+          - "Cache configuration"
+          - "Index optimization"
+          - "Query optimization"
+
+    # Command Registry
+    command_registry:
+      help:
+        command: "#help"
+        description: "Display available commands and documentation"
+        workflow:
+            - "Load command registry"
+            - "Generate command documentation"
+            - "Display usage information"
+            - "Create help documentation"
+        
+      feature_request:
+        command: "#new-fr"
+        description: "Create a new feature request details"
+        prerequisite: "previous feature request, currentTask"
+        workflow:
+              - "Interactive Requirements Gathering"
+              - "Generate clarifying questions"
+              - "Obtain Morpheus validation"
+              - "Get user confirmation"
+              - "Create feature request"
+      
+      init_deliverables:
+        command: "#init-deliverables"
+        description: "Initialize and manage project deliverables folder structure"
+        workflow:
+              - "Create Deliverables Structure"
+              - "Initialize Documentation"
+              - "Setup Integration"
+              - "Configure Automation"
+
+    # Command and Context Flow
+    command_flow:
+      registry:
+        help_command:
+          name: "#help"
+          description: "Display available commands and documentation"
+          workflow:
+            - "Load command registry"
+            - "Generate command documentation"
+            - "Display usage information"
+            - "Create help documentation"
+        
+        feature_request_command:
+          name: "#new-fr"
+          description: "Create new feature request"
+          prerequisites:
+            - "Previous feature request context"
+            - "Current task context"
+          workflow:
+            - "Load requirements template"
+            - "Gather feature details"
+            - "Generate specifications"
+            - "Create documentation"
+        
+        deliverables_command:
+          name: "#init-deliverables"
+          description: "Initialize project deliverables structure"
+          workflow:
+            - "Create directory structure"
+            - "Initialize templates"
+            - "Setup version control"
+            - "Configure access"
+
+    # Agent Context Management (Enhanced)
+    agent_contexts:
+      product_owner_context:
+        type: "requirements_context"
+        storage: "vector_store"
+        collection: "product_requirements"
+        workflow:
+          - "Load product context"
+          - "Update requirements"
+          - "Sync with stakeholders"
+      
+      system_architect_context:
+        type: "architecture_context"
+        storage: "vector_store"
+        collection: "system_architecture"
+        workflow:
+          - "Load system context"
+          - "Update architecture"
+          - "Sync with development"
+
+    # Workflow Context Management
+    workflow_contexts:
+      planning_workflow:
+        requirements:
+          command: "#requirements-init"
+          workflow:
+            - "Load requirements context"
+            - "Update specifications"
+            - "Generate documentation"
+        
+        architecture:
+          command: "#arch-init"
+          workflow:
+            - "Load architecture context"
+            - "Update system design"
+            - "Generate diagrams"
+      
+      development_workflow:
+        implementation:
+          command: "#dev-init"
+          workflow:
+            - "Load development context"
+            - "Update codebase"
+            - "Generate documentation"
+        
+        testing:
+          command: "#test-init"
+          workflow:
+            - "Load testing context"
+            - "Update test suite"
+            - "Generate reports"
+
+    # Security Management
+    security_management:
+      access_control:
+        role_definitions:
+          admin_role:
+            name: "admin"
+            permissions: ["read", "write", "delete", "manage"]
+          agent_role:
+            name: "agent"
+            permissions: ["read", "write", "update"]
+          viewer_role:
+            name: "viewer"
+            permissions: ["read"]
+        
+        scope_definitions:
+          project_scope:
+            name: "project"
+            access: ["admin", "agent"]
+          agent_scope:
+            name: "agent"
+            access: ["agent"]
+          public_scope:
+            name: "public"
+            access: ["viewer"]
+
+      audit_management:
+        logging_config:
+          events:
+            - "Context access"
+            - "Changes made"
+            - "User actions"
+            - "System events"
+        
+        reporting_config:
+          report_types:
+            - "Access reports"
+            - "Change history"
+            - "Usage statistics"
+            - "Security incidents"
+
+  # Command Integration
+  commands:
+    _metadata:
+      cline_tools:
+        execution_environment:
+          - "cline_cli"
+          - "cline_repl"
+          - "cline_api"
+        command_prefix: "cline"
+        usage: "cline <command> [options]"
+  # Agent-Specific Commands
+    agent_commands:
+      product_owner:
+        requirements:
+          - "#requirements-init":
+              description: "Initialize requirements gathering"
+              workflow:
+                - "Setup requirements structure"
+                - "Initialize templates"
+                - "Configure tracking"
+          - "#feature-map":
+              description: "Generate feature mapping"
+              workflow:
+                - "Analyze requirements"
+                - "Create feature hierarchy"
+                - "Set dependencies"
+          - "#roadmap-gen":
+              description: "Generate product roadmap"
+              workflow:
+                - "Analyze features"
+                - "Set priorities"
+                - "Create timeline"
+
+      ux_researcher:
+        research:
+          - "#research-init":
+              description: "Initialize research project"
+              workflow:
+                - "Define research goals"
+                - "Select methods"
+                - "Create timeline"
+          - "#interview-analyze":
+              description: "Analyze interview data"
+              workflow:
+                - "Process transcripts"
+                - "Extract insights"
+                - "Generate report"
+          - "#survey-process":
+              description: "Process survey data"
+              workflow:
+                - "Analyze responses"
+                - "Generate insights"
+                - "Create visualizations"
+
+      system_architect:
+        architecture:
+          - "#arch-init":
+              description: "Initialize architecture design"
+              workflow:
+                - "Setup architecture docs"
+                - "Initialize diagrams"
+                - "Create templates"
+          - "#uml-gen":
+              description: "Generate UML diagrams"
+              workflow:
+                - "Analyze requirements"
+                - "Create class diagrams"
+                - "Generate sequence diagrams"
+          - "#api-design":
+              description: "Design API specifications"
+              workflow:
+                - "Define endpoints"
+                - "Specify data models"
+                - "Document API"
+
+      frontend_developer:
+        ui_development:
+          - "#ui-implement":
+              description: "Implement UI components"
+              workflow:
+                - "Create component structure"
+                - "Implement styling"
+                - "Add interactions"
+          - "#component-build":
+              description: "Build component library"
+              workflow:
+                - "Create base components"
+                - "Add variations"
+                - "Document usage"
+
+      backend_developer:
+        api_implementation:
+          - "#api-implement":
+              description: "Implement API endpoints"
+              workflow:
+                - "Create routes"
+                - "Implement handlers"
+                - "Add validation"
+          - "#service-build":
+              description: "Build backend services"
+              workflow:
+                - "Create service layer"
+                - "Implement business logic"
+                - "Add error handling"
+
+      database_developer:
+        database:
+          - "#schema-implement":
+              description: "Implement database schema"
+              workflow:
+                - "Create tables"
+                - "Define relationships"
+                - "Add indexes"
+          - "#migration-gen":
+              description: "Generate database migrations"
+              workflow:
+                - "Create migration files"
+                - "Define up/down methods"
+                - "Test migrations"
+
+      test_engineer:
+        testing:
+          - "#test-suite":
+              description: "Run test suites"
+              workflow:
+                - "Execute unit tests"
+                - "Run integration tests"
+                - "Perform E2E testing"
+          - "#coverage-check":
+              description: "Check test coverage"
+              workflow:
+                - "Generate coverage report"
+                - "Check thresholds"
+                - "Identify gaps"
+
+  # System-Wide Commands
+    system_commands:
+      project_management:
+        - "#init-project":
+            description: "Initialize new project"
+            workflow:
+              - "Create project structure by running command: #generate-project-structure"
+              - "Setup git repository"
+              - "Initialize dependencies"
+              - "Configure development environment"
+        - "#init-memory":
+            description: "Setup vector database"
+            workflow:
+              - "Install ChromaDB"
+              - "Create collections"
+              - "Setup persistence"
+        - "#generate-project-structure":
+            description: "Generate new project structure from template"
+            workflow:
+              - "Validate template selection"
+              - "Create base directory structure"
+              - "Initialize cline_docs using #init-clinedocs"
+              - "Setup project-specific structure"
+              - "Initialize config files"
+              - "Setup documentation"
+            parameters:
+              - name: "template"
+                type: "string"
+                options: ["webapp", "website", "native_mobile_app"]
+            dependencies:
+              commands:
+                - "#init-clinedocs"
+                - "#init-git"
+                - "#docs-init"
+            permissions:
+              agents: ["neo_agent", "system_architect"]
+            references:
+              structure_template: "@project_management.yaml:project_organization.new_project_structure"
+              cline_docs_template: "@project_management.yaml:project_organization.cline_docs_structure"
+        - "#organize-root":
+            description: "Analyze and organize messy root directory"
+            workflow:
+              - "Scan root directory"
+              - "Analyze file types and purposes"
+              - "Identify misplaced files"
+              - "Create semantic folders"
+              - "Move files to appropriate locations"
+              - "Update references if needed"
+              - "Generate organization report"
+            parameters:
+              - name: "dry_run"
+                type: "boolean"
+                default: true
+                description: "Preview changes without moving files"
+            rules:
+              file_categories:
+                docs: ["*.md", "*.txt", "*.pdf", "documentation/*"]
+                config: ["*.config.*", "*.rc", "*.json", "*.yaml", "*.toml"]
+                scripts: ["*.sh", "*.bat", "*.ps1"]
+                assets: ["*.png", "*.jpg", "*.svg", "*.ico"]
+                build: ["*.lock", "dist/*", "build/*"]
+            dependencies:
+              commands:
+                - "#backup-files"
+                - "#update-references"
+            permissions:
+              agents: ["neo_agent", "system_architect", "system_admin"]
+        - "#list-commands":
+            description: "Display all available commands and their descriptions"
+            usage: "cline #list-commands [--format=<text|json|yaml>] [--filter=<category>]"
+            parameters:
+              - name: "format"
+                type: "string"
+                default: "text"
+                options: ["text", "json", "yaml"]
+              - name: "filter"
+                type: "string"
+                description: "Filter commands by category"
+                optional: true
+            workflow:
+              - "Load command registry"
+              - "Apply filters if specified"
+              - "Format output"
+              - "Display results"
+            output_format:
+              text: |
+                Available Commands:
+                ----------------
+                #command-name
+                  Description: Command description
+                  Usage: Command usage
+                  Category: Command category
+        - "#generate-command-docs":
+            description: "Generate complete command documentation file"
+            usage: "cline #generate-command-docs [--output=<filename>] [--format=<md|txt>]"
+            parameters:
+              - name: "output"
+                type: "string"
+                default: "COMMANDS"
+                description: "Output filename"
+              - name: "format"
+                type: "string"
+                default: "md"
+                options: ["md", "txt"]
+            workflow:
+              - "Scan command registry"
+              - "Build command hierarchy"
+              - "Generate documentation"
+              - "Write to file"
+            file_output:
+              location: "./"
+              template: |
+                # System Commands
+                
+                ## Core Commands
+                {{#each core_commands}}
+                ### {{name}}
+                - Description: {{description}}
+                - Usage: {{usage}}
+                - Parameters: {{parameters}}
+                {{/each}}
+                
+                ## Agent Commands
+                {{#each agent_commands}}
+                ### {{agent}}
+                {{#each commands}}
+                #### {{name}}
+                - Description: {{description}}
+                - Usage: {{usage}}
+                {{/each}}
+                {{/each}}
+        - "#list-flags":
+            description: "Display all available command flags and usage examples"
+            usage: "cline #list-flags [--format=<text|json|md>] [--command=<specific-command>]"
+            parameters:
+              - name: "format"
+                type: "string"
+                default: "text"
+                options: ["text", "json", "md"]
+              - name: "command"
+                type: "string"
+                description: "Show flags for specific command"
+                optional: true
+            output_format:
+              text: |
+                Global Flags:
+                ------------
+                --format=<text|json|yaml|md>
+                  Description: Output format
+                  Example: cline #list-commands --format=json
+                
+                --output=<filename>
+                  Description: Output file name/path
+                  Example: cline #generate-command-docs --output=CLI_REFERENCE.md
+                
+                --filter=<category|type|agent>
+                  Description: Filter results
+                  Example: cline #list-commands --filter=template_commands
+                
+                Template Flags:
+                --------------
+                --template-type=<BRD|PRD|UXDD|...>
+                  Description: Specify template type
+                  Example: cline #load-template --template-type=BRD
+                
+                --template-path=<path>
+                  Description: Custom template location
+                  Example: cline #load-template --template-path=./custom/templates
+                
+                Documentation Flags:
+                ------------------
+                --doc-format=<md|txt|html>
+                  Description: Documentation format
+                  Example: cline #generate-command-docs --doc-format=md
+                
+                --include-examples=<true|false>
+                  Description: Include usage examples
+                  Example: cline #generate-command-docs --include-examples=true
+                
+                Agent Flags:
+                -----------
+                --agent=<agent-name>
+                  Description: Specify agent
+                  Example: cline #list-commands --agent=product_owner
+                
+                --agent-role=<role>
+                  Description: Filter by agent role
+                  Example: cline #list-commands --agent-role=developer
+                
+                Execution Flags:
+                --------------
+                --dry-run=<true|false>
+                  Description: Simulate command execution
+                  Example: cline #generate-project-structure --dry-run=true
+                
+                --verbose=<true|false>
+                  Description: Detailed output
+                  Example: cline #list-commands --verbose=true
+                
+                --silent=<true|false>
+                  Description: Suppress output
+                  Example: cline #generate-command-docs --silent=true
+
+      version_control:
+        - "#init-git":
+            description: "Initialize git repository"
+            workflow:
+              - "Create repository"
+              - "Add gitignore"
+              - "Initial commit"
+        - "#commit":
+            description: "Commit changes"
+            workflow:
+              - "Stage changes"
+              - "Create commit"
+              - "Push to remote"
+
+      documentation:
+        - "#docs-init":
+            description: "Initialize documentation"
+            workflow:
+              - "Create documentation structure"
+              - "Setup documentation generator"
+              - "Initialize API docs"
+        - "#gen-docs":
+            description: "Generate documentation"
+            workflow:
+              - "Generate API docs"
+              - "Create user guides"
+              - "Update README"
+
+  # Command Integration
+    command_integration:
+      workflow_hooks:
+        pre_command:
+          - "Validate prerequisites"
+          - "Check permissions"
+          - "Load context"
+        
+        post_command:
+          - "Update context"
+          - "Generate logs"
+          - "Notify relevant agents"
+
+      error_handling:
+        on_failure:
+          - "Log error details"
+          - "Notify relevant agents"
+          - "Attempt recovery"
+          - "Update status"
+
+      context_management:
+        updates:
+          - "Update agent context"
+          - "Refresh vector DB"
+          - "Update project state"
+
+      cline_tools:
+        execution:
+          - name: "cline execute"
+            usage: "cline execute <command>"
+            description: "Execute command through Cline CLI"
+          - name: "cline repl"
+            usage: "cline repl"
+            description: "Interactive command execution"
+          - name: "cline api"
+            usage: "cline api <endpoint>"
+            description: "API-based command execution"
+        
+        validation:
+          - "Verify cline environment"
+          - "Check command syntax"
+          - "Validate permissions"
+
+  # Command Execution Rules
+    execution_rules:
+      prerequisites:
+        - "Check agent availability"
+        - "Verify permissions"
+        - "Validate context"
+        - "Check dependencies"
+
+      validation:
+        - "Verify command syntax"
+        - "Check parameter values"
+        - "Validate workflow steps"
+        - "Confirm agent access"
+
+      logging:
+        - "Log command start"
+        - "Track execution steps"
+        - "Record completion status"
+        - "Store artifacts"
+
+    template_commands:
+      - "#load-template":
+          description: "Load and initialize document templates"
+          workflow:
+            - "Validate template type"
+            - "Load template content"
+            - "Initialize template variables"
+          parameters:
+            - name: "template-type"
+              type: "string"
+              required: true
+              options:
+                - "BRD"    # Business Requirements Document
+                - "DRD"    # Design Requirements Document
+                - "PRD"    # Product Requirements Document
+                - "UXDD"   # UX Design Document
+                - "TAD"    # Technical Architecture Document
+                - "QAP"    # Quality Assurance Plan
+                - "UJM"    # User Journey Map
+                - "UPR"    # User Persona Report
+                - "UST"    # User Story Template
+                - "UXR"    # UX Requirements
+                - "WFA"    # Wireframe Annotations
+                - "WFS"    # Wireframe Specification
+                - "DSG"    # Design System Guide
+                - "DPS"    # Deployment Strategy
+                - "IMP"    # Implementation Plan
+                - "TSP"    # Technical Specification
+            - name: "output-path"
+              type: "string"
+              description: "Target path for generated document"
+              required: true
+          references:
+            templates:
+              BRD: "@templates/BRD.md"
+              DRD: "@templates/DRD.md"
+              PRD: "@templates/PRD.md"
+              UXDD: "@templates/UXDD.md"
+              SRS: "@templates/SRS.md"
+              DBRD: "@templates/DBRD.md"
+              TAD: "@templates/technical_architecture.md"
+              QAP: "@templates/qa_plan.md"
+              UJM: "@templates/user_journey_map.md"
+              UPR: "@templates/user_persona_report.md"
+              UST: "@templates/user_story_template.md"
+              UXR: "@templates/ux_requirements.md"
+              WFA: "@templates/wireframe_annotations.md"
+              WFS: "@templates/wireframe_spec.md"
+              DSG: "@templates/design_system.md"
+              DPS: "@templates/deployment_strategy.md"
+              IMP: "@templates/implementation_plan.md"
+              TSP: "@templates/technical_spec.md"
+          template_metadata:
+            version_control: true
+            change_tracking: true
+            required_sections:
+              - "Document Control"
+              - "Executive Summary"
+              - "Change Log"
+
+  # Operations Management
+  operations_management:
+    initialization:
+      project_init:
+        command: "#init-context"
+        workflow:
+          - "Create context structure"
+          - "Initialize vector store"
+          - "Setup persistence"
+          - "Configure access"
+      
+      agent_init:
+        command: "#init-agent-context"
+        workflow:
+          - "Load agent profiles"
+          - "Initialize workspaces"
+          - "Setup communication"
+          - "Configure permissions"
+
+    maintenance:
+      context_update:
+        command: "#update-context"
+        workflow:
+          - "Check for changes"
+          - "Update vector store"
+          - "Sync with agents"
+          - "Update documentation"
+      
+      context_cleanup:
+        command: "#cleanup-context"
+        workflow:
+          - "Archive old context"
+          - "Optimize storage"
+          - "Update indexes"
+          - "Generate reports"
+
+    monitoring:
+      metrics:
+        performance_metrics:
+          description: "System performance monitoring"
+          tracked_metrics:
+            - "Query response time"
+            - "Update latency"
+            - "Storage utilization"
+            - "Cache hit rate"
+          thresholds:
+            query_response:
+              warning: "200ms"
+              critical: "500ms"
+            storage:
+              warning: "80%"
+              critical: "90%"
+        
+        usage_metrics:
+          description: "System usage monitoring"
+          tracked_metrics:
+            - "Active contexts"
+            - "Context size"
+            - "Access frequency"
+            - "Update frequency"
+          thresholds:
+            context_count:
+              warning: "1000"
+              critical: "2000"
+            size:
+              warning: "1GB"
+              critical: "2GB"
+
+      alerts:
+        threshold_definitions:
+          high_latency:
+            description: "Response time exceeds threshold"
+            threshold: "500ms"
+            action: "notify-admin"
+          
+          storage_capacity:
+            description: "Storage usage exceeds threshold"
+            threshold: "90%"
+            action: "cleanup-storage"
+          
+          error_rate:
+            description: "Error rate exceeds threshold"
+            threshold: "1%"
+            action: "notify-admin"
+          
+          security_events:
+            description: "Security-related incidents"
+            threshold: "5/hour"
+            action: "notify-security"
+        
+        notification_types:
+          system:
+            priority: "high"
+            channels: ["email", "slack"]
+            recipients: ["admin"]
+          
+          security:
+            priority: "critical"
+            channels: ["email", "slack", "sms"]
+            recipients: ["security-team", "admin"]
+          
+          performance:
+            priority: "medium"
+            channels: ["slack"]
+            recipients: ["dev-team"]
+          
+          usage:
+            priority: "low"
+            channels: ["slack"]
+            recipients: ["dev-team"]
+
+      reporting:
+        scheduled_reports:
+          daily:
+            metrics:
+              - "Performance summary"
+              - "Usage statistics"
+              - "Error counts"
+            format: "dashboard"
+          
+          weekly:
+            metrics:
+              - "Trend analysis"
+              - "Resource utilization"
+              - "System health"
+            format: "detailed-report"
+        
+        alert_history:
+          retention: "90 days"
+          aggregation:
+            - "Daily summaries"
+            - "Weekly trends"
+            - "Monthly analysis"
+
+  # System Context Management
+  system_context:
+    # Command and Context Flow
+    command_flow:
+      registry:
+        help_command:
+          name: "#help"
+          description: "Display available commands and documentation"
+          workflow:
+            - "Load command registry"
+            - "Generate command documentation"
+            - "Display usage information"
+            - "Create help documentation"
+        
+        feature_request_command:
+          name: "#new-fr"
+          description: "Create new feature request"
+          prerequisites:
+            - "Previous feature request context"
+            - "Current task context"
+          workflow:
+            - "Load requirements template"
+            - "Gather feature details"
+            - "Generate specifications"
+            - "Create documentation"
+        
+        deliverables_command:
+          name: "#init-deliverables"
+          description: "Initialize project deliverables structure"
+          workflow:
+            - "Create directory structure"
+            - "Initialize templates"
+            - "Setup version control"
+            - "Configure access"
+
+    # Agent Context Management
+    agent_contexts:
+      product_owner_context:
+        type: "requirements_context"
+        storage: "vector_store"
+        collection: "product_requirements"
+        workflow:
+          - "Load product context"
+          - "Update requirements"
+          - "Sync with stakeholders"
+      
+      system_architect_context:
+        type: "architecture_context"
+        storage: "vector_store"
+        collection: "system_architecture"
+        workflow:
+          - "Load system context"
+          - "Update architecture"
+          - "Sync with development"
+
+    # Workflow Context Management
+    workflow_contexts:
+      planning_workflow:
+        requirements:
+          command: "#requirements-init"
+          workflow:
+            - "Load requirements context"
+            - "Update specifications"
+            - "Generate documentation"
+        
+        architecture:
+          command: "#arch-init"
+          workflow:
+            - "Load architecture context"
+            - "Update system design"
+            - "Generate diagrams"
+      
+      development_workflow:
+        implementation:
+          command: "#dev-init"
+          workflow:
+            - "Load development context"
+            - "Update codebase"
+            - "Generate documentation"
+        
+        testing:
+          command: "#test-init"
+          workflow:
+            - "Load testing context"
+            - "Update test suite"
+            - "Generate reports"
+
+    # Context Operations Management
+    operations_management:
+      initialization:
+        project_init:
+          command: "#init-context"
+          workflow:
+            - "Create context structure"
+            - "Initialize vector store"
+            - "Setup persistence"
+            - "Configure access"
+        
+        agent_init:
+          command: "#init-agent-context"
+          workflow:
+            - "Load agent profiles"
+            - "Initialize workspaces"
+            - "Setup communication"
+            - "Configure permissions"
+
+      maintenance:
+        context_update:
+          command: "#update-context"
+          workflow:
+            - "Check for changes"
+            - "Update vector store"
+            - "Sync with agents"
+            - "Update documentation"
+        
+        context_cleanup:
+          command: "#cleanup-context"
+          workflow:
+            - "Archive old context"
+            - "Optimize storage"
+            - "Update indexes"
+            - "Generate reports"
+
+    # Security Management
+    security_management:
+      access_control:
+        role_definitions:
+          admin_role:
+            name: "admin"
+            permissions: ["read", "write", "delete", "manage"]
+          agent_role:
+            name: "agent"
+            permissions: ["read", "write", "update"]
+          viewer_role:
+            name: "viewer"
+            permissions: ["read"]
+        
+        scope_definitions:
+          project_scope:
+            name: "project"
+            access: ["admin", "agent"]
+          agent_scope:
+            name: "agent"
+            access: ["agent"]
+          public_scope:
+            name: "public"
+            access: ["viewer"]
+
+      audit_management:
+        logging_config:
+          events:
+            - "Context access"
+            - "Changes made"
+            - "User actions"
+            - "System events"
+        
+        reporting_config:
+          report_types:
+            - "Access reports"
+            - "Change history"
+            - "Usage statistics"
+            - "Security incidents"
+
+    # Monitoring Management
+    monitoring_management:
+      metrics_config:
+        performance_metrics:
+          - "Query response time"
+          - "Update latency"
+          - "Storage utilization"
+          - "Cache hit rate"
+        
+        usage_metrics:
+          - "Active contexts"
+          - "Context size"
+          - "Access frequency"
+          - "Update frequency"
+
+      alerts_config:
+        threshold_definitions:
+          - "High latency"
+          - "Storage capacity"
+          - "Error rate"
+          - "Security events"
+        
+        notification_types:
+          - "System alerts"
+          - "Security alerts"
+          - "Performance alerts"
+          - "Usage alerts"

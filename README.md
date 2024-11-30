@@ -581,3 +581,184 @@ triggers:
 
 ## License
 MIT License - see LICENSE file for details
+
+## Design System Management
+
+### Component Library Structure
+The system implements an atomic design pattern with the following hierarchy:
+
+```
+src/
+  components/
+    atoms/
+      - Button
+      - Input
+      - Label
+      - Checkbox
+      - RadioGroup
+      - Select
+      - Switch
+      - Textarea
+    molecules/
+      - FormField
+      - SearchBar
+      - NavigationItem
+      - Card
+      - Dialog
+      - Dropdown
+    organisms/
+      - Form
+      - NavigationBar
+      - CardList
+      - Table
+      - Tabs
+    templates/
+      - PageLayout
+      - SectionTemplate
+      - GridLayout
+```
+
+### Component Generation Workflow
+- **Project Setup**
+  - Vite + Vue initialization
+  - ShadCN UI configuration with New York theme
+  - Tailwind CSS integration
+  - Dependency management
+- **Component Extraction**
+  - User story analysis
+  - Wireframe parsing
+  - Automated component generation
+- **Theme Configuration**
+  - New York theme setup
+  - Zinc color scheme
+  - Design token generation
+
+## Project Organization
+
+### File Structure Management
+The system provides automated organization of project files into semantic folders:
+
+- **docs/** - Documentation files
+  - guides/ - User and development guides
+  - api/ - API documentation
+  - specs/ - Specifications
+- **config/** - Configuration files
+  - env/ - Environment configurations
+  - tools/ - Tool configurations
+  - build/ - Build configurations
+- **scripts/** - Script files
+  - build/ - Build scripts
+  - deploy/ - Deployment scripts
+  - utils/ - Utility scripts
+- **assets/** - Asset files
+  - images/ - Image files
+  - icons/ - Icon files
+  - media/ - Media files
+
+### Documentation System
+
+#### Essential Documentation
+The system maintains core documentation files:
+
+1. **projectRoadmap.md**
+   ```markdown
+   # Project Roadmap
+   
+   ## Goals
+   - [ ] Goal 1
+   - [ ] Goal 2
+   
+   ## Features
+   - [ ] Feature 1
+   - [ ] Feature 2
+   
+   ## Completion Criteria
+   - Criterion 1
+   - Criterion 2
+   ```
+
+2. **currentTask.md**
+   ```markdown
+   # Current Task
+   
+   ## Objective
+   {task_description}
+   
+   ## Context
+   - Related roadmap item: {roadmap_reference}
+   - Dependencies: {dependencies}
+   ```
+
+3. **techStack.md**
+   ```markdown
+   # Technology Stack
+   
+   ## Frontend
+   - Framework: {framework}
+   - UI Library: {ui_library}
+   
+   ## Backend
+   - Runtime: {runtime}
+   - Database: {database}
+   ```
+
+#### Documentation Commands
+```bash
+# Initialize Documentation
+#init-docs      # Create and initialize documentation structure
+
+# Update Documentation
+#update-docs <doc-type>   # Update specific documentation (roadmap|task|tech|summary|all)
+
+# Synchronize Documentation
+#sync-docs      # Sync all documentation with current project state
+```
+
+## Context Management
+
+### Monitoring Services
+- **Performance Metrics**
+  - Query response time
+  - System latency
+  - Resource usage
+- **Context Metrics**
+  - Context size
+  - Query latency
+  - Update frequency
+  - Cache hit rate
+- **Analytics**
+  - Usage patterns
+  - Query patterns
+  - Access frequency
+
+### Operations Services
+```bash
+# Initialize Context
+#init-context   # Setup project context and monitoring
+
+# Update Context
+#update-context # Sync context with current state
+```
+
+## Command System
+
+### Global Command Flags
+```bash
+# Format Flags
+--format=<text|json|yaml|md>   # Output format
+--output=<filename>            # Output file
+--filter=<category|type|agent> # Filter results
+
+# Template Flags
+--template-type=<BRD|PRD|UXDD> # Template type
+--template-path=<path>         # Custom template location
+
+# Documentation Flags
+--doc-format=<md|txt|html>     # Documentation format
+--include-examples=<true|false> # Include examples
+
+# Execution Flags
+--dry-run=<true|false>         # Simulate execution
+--verbose=<true|false>         # Detailed output
+--silent=<true|false>          # Suppress output
+```
