@@ -1607,6 +1607,13 @@ SDLC Orchestration:
                 - static: "Static files"
 
         webapp:
+          name: "Next.js Web Application"
+          template: "next14-shadcn-starter"
+          commands:
+            pnpm: "pnpm create next-app -e https://github.com/BikrantJung/next14-shadcn-starter"
+            npm: "npx create-next-app -e https://github.com/BikrantJung/next14-shadcn-starter"
+            yarn: "yarn create next-app -e https://github.com/BikrantJung/next14-shadcn-starter"
+            bun: "bunx create-next-app -e https://github.com/BikrantJung/next14-shadcn-starter"
           frontend_structure:
             src:
               description: "Frontend source directory"
@@ -1900,9 +1907,11 @@ SDLC Orchestration:
               docs_design:
                 description: "Design documentation"
                 subdirs:
-                  - wireframes: "UI wireframes"
-                    - mockups: "UI mockups"
-                    - prototypes: "Interactive prototypes"
+                  wireframes:
+                    description: "UI wireframes"
+                    contents:
+                      mockups: "UI mockups"
+                      prototypes: "Interactive prototypes"
 
           development:
             structure:
@@ -2744,6 +2753,36 @@ SDLC Orchestration:
           - "cline_api"
         command_prefix: "cline"
         usage: "cline <command> [options]"
+  
+    initialization:
+      "#start":
+        description: "Initialize Neo and begin the development process"
+        workflow:
+          - "Display welcome message"
+          - "Role selection"
+          - "Project type selection"
+          - "Initialize project context"
+        start_sequence:
+          greeting: "Welcome! 👋 I'm Neo, your AI Development Orchestra Leader. I'm here to help bring your software project to life. Let's create something amazing together."
+          role_selection:
+            prompt: |
+              To get started, please let me know your role:
+              1. Product Owner
+              2. UX Designer
+              3. Software Engineer
+              4. Website Developer
+              5. Web Application Developer
+            validation:
+              type: "numeric"
+              options: [1, 2, 3, 4, 5]
+          project_setup:
+            if_website_developer:
+              prompt: "Would you like to initialize a new website project using the JustCoded starter kit?"
+              on_confirm: "execute_website_setup"
+            if_webapp_developer:
+              prompt: "Would you like to initialize a new Next.js 14+ application with shadcn/ui?"
+              on_confirm: "execute_webapp_setup"
+  
   # Agent-Specific Commands
     agent_commands:
       product_owner:
@@ -3547,3 +3586,27 @@ SDLC Orchestration:
           - "Security alerts"
           - "Performance alerts"
           - "Usage alerts"
+
+  
+
+  sdlc_process:
+    requirements_phase:
+      initial_requirements:
+        prompt: "generate-initial-project-requirements.md"
+        outputs:
+          - "product_manager_prd.md"
+          - "feature_requirement_document-frd.md"
+          - "database_requirement_doc-drd.md"
+
+  artifact_rules:
+  deliverables:
+    1_business_requirements:
+      - "business_requirement_documentation_brd.md"
+    2_product_requirements:
+      - "product_requirement_documentation_prd.md"
+    3_user_experience:
+      - "user_experience_design_documentation_uxdd.md"
+    4_software_requirements:
+      - "software_requirement_documentation_srd.md"
+    5_development_requirements:
+      - "development_requirement_documentation_drd.md"

@@ -762,3 +762,109 @@ The system maintains core documentation files:
 --verbose=<true|false>         # Detailed output
 --silent=<true|false>          # Suppress output
 ```
+
+## Documentation Portal
+
+### Neo Project Site
+The system includes a documentation portal that provides a centralized view of all SDLC documentation:
+
+```bash
+# Initialize Documentation Portal
+npm run init-docs-portal
+
+# Structure
+neo_project_site/
+├── src/
+│   ├── pages/
+│   │   ├── requirements/        # Requirements documentation
+│   │   │   ├── business/       # BRD and related docs
+│   │   │   ├── product/        # PRD and related docs
+│   │   │   └── technical/      # SRD and related docs
+│   │   │
+│   │   ├── design/             # Design documentation
+│   │   │   ├── ux/            # UXDD and wireframes
+│   │   │   ├── system/        # Design system
+│   │   │   └── components/    # Component library
+│   │   │
+│   │   ├── architecture/       # Architecture documentation
+│   │   │   ├── technical/     # Technical architecture
+│   │   │   ├── database/      # Database design
+│   │   │   └── api/          # API documentation
+│   │   │
+│   │   └── development/        # Development documentation
+│   │       ├── guides/        # Development guides
+│   │       ├── standards/     # Coding standards
+│   │       └── workflows/     # Development workflows
+│   │
+│   ├── components/            # Shared components
+│   │   ├── Navigation/       # Navigation components
+│   │   ├── DocViewer/       # Documentation viewer
+│   │   └── DesignSystem/    # Design system components
+│   │
+│   └── utils/                # Utility functions
+│       ├── mdx/             # MDX processing
+│       ├── search/          # Search functionality
+│       └── navigation/      # Navigation utilities
+```
+
+### Design System View
+The design system section provides a comprehensive view of:
+
+1. **Atomic Design Structure**
+   - Atoms: Basic UI components
+   - Molecules: Component combinations
+   - Organisms: Complex components
+   - Templates: Page layouts
+   - Pages: Full implementations
+
+2. **User Story Mapping**
+   ```
+   Component Categories:
+   ├── User Interaction
+   │   ├── Forms
+   │   ├── Navigation
+   │   └── Actions
+   │
+   ├── Data Display
+   │   ├── Lists
+   │   ├── Tables
+   │   └── Charts
+   │
+   └── Layout
+       ├── Containers
+       ├── Grids
+       └── Cards
+   ```
+
+### Features
+- **Interactive Documentation**: MDX-powered interactive documentation
+- **Live Component Preview**: Real-time component visualization
+- **Search Functionality**: Full-text search across all documentation
+- **Version Control**: Documentation version tracking
+- **Auto-Generation**: Automatic updates from SDLC processes
+- **Design System Integration**: Live design system documentation
+- **API Documentation**: Interactive API documentation
+- **User Story Mapping**: Visual user story organization
+
+### Usage
+```bash
+# Install dependencies
+npm install
+
+# Start documentation portal
+npm run docs:dev
+
+# Build for production
+npm run docs:build
+
+# Deploy documentation
+npm run docs:deploy
+```
+
+### Integration
+The documentation portal automatically integrates with:
+- Generated SDLC documentation
+- Design system components
+- API specifications
+- User story mapping
+- Development workflows

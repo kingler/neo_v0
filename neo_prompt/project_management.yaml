@@ -507,3 +507,30 @@ project_organization:
           storage:
             type: "vector"
             engine: "chromadb"
+
+    documentation_portal:
+      description: "Project documentation site"
+      template: "@neo_project_site"
+      structure:
+        src:
+          pages:
+            requirements:
+              - business: "Business requirements documentation"
+              - technical: "Technical specifications"
+              - user_stories: "User story documentation"
+            design:
+              - system: "Design system documentation"
+              - components: "Component library documentation"
+              - wireframes: "UI/UX wireframes"
+            architecture:
+              - diagrams: "System architecture diagrams"
+              - api: "API documentation"
+              - infrastructure: "Infrastructure documentation"
+        
+        components:
+          - atomic_design:
+              atoms: "Basic UI components"
+              molecules: "Composite components"
+              organisms: "Complex components"
+              templates: "Page templates"
+              pages: "Full page implementations"

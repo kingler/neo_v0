@@ -8,6 +8,14 @@ Commands:
         - "cline_api"
       command_prefix: "cline"
       usage: "cline <command> [options]"
+      execution_types:
+        self_prompt:
+          description: "Commands to be executed through internal prompt chain"
+          indicator: "self_prompt"
+        
+        terminal:
+          description: "Commands to be executed in bash terminal"
+          indicator: "terminal_required"
 
   # Project Type Commands (from use_case_commands.yaml)
   project_type_commands:
@@ -194,18 +202,53 @@ Commands:
   # System Commands
   system_commands:
     project_management:
-      - "#init-project"
-      - "#init-memory"
-      - "#generate-project-structure"
-      - "#organize-root"
+      - name: "#init-project"
+        execution: "self_prompt"
+        
+      - name: "#init-memory"
+        execution: "self_prompt"
+        
+      - name: "#generate-project-structure"
+        execution: "terminal_required"
+        
+      - name: "#organize-root"
+        execution: "terminal_required"
+      - "#init-project-site"
 
     version_control:
-      - "#init-git"
-      - "#commit"
+      - name: "#init-git"
+        execution: "terminal_required"
+        
+      - name: "#commit"
+        execution: "terminal_required"
 
     documentation:
-      - "#docs-init"
-      - "#gen-docs"
+      - name: "#docs-init"
+        execution: "self_prompt"
+        
+      - name: "#gen-docs"
+        execution: "self_prompt"
+      - "#init-project-site":
+        description: "Initialize documentation portal using neo_project_site template"
+        workflow:
+          - "Clone template repository"
+          - "Configure documentation structure"
+          - "Setup navigation schema"
+          - "Initialize content directories"
+        template_repo: "https://github.com/kingler/neo_project_site.git"
+        setup:
+          - name: "Clone Repository"
+            command: "git clone https://github.com/kingler/neo_project_site.git"
+          - name: "Install Dependencies"
+            command: "npm install"
+          - name: "Configure Documentation"
+            structure:
+              - src/pages:
+                  - requirements/
+                  - architecture/
+                  - design/
+                  - development/
+                  - api/
 
   # Command Integration
   command_integration:

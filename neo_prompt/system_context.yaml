@@ -33,6 +33,15 @@ system_context:
           - "Setup version control"
           - "Configure access"
 
+    execution_router:
+      description: "Route commands to appropriate execution method"
+      workflow:
+        - "Analyze command type"
+        - "Check execution rules"
+        - "Route to self-prompt or terminal"
+        - "Monitor execution"
+        - "Handle completion"
+
   # Agent Context Management
   agent_contexts:
     product_owner_context:
@@ -188,3 +197,93 @@ system_context:
         - "Security alerts"
         - "Performance alerts"
         - "Usage alerts"
+
+  # Command Execution Rules
+  command_execution:
+    self_prompting_rules:
+      default_behavior: "self_prompt"  # Default to self-prompting
+      
+      execution_types:
+        self_prompt:
+          description: "Execute command through internal prompt chain"
+          trigger_conditions:
+            - "Command requires context analysis"
+            - "Command involves agent coordination"
+            - "Command generates documentation"
+            - "Command requires reasoning"
+          workflow:
+            - "Parse command intent"
+            - "Load relevant context"
+            - "Generate execution plan"
+            - "Execute through prompt chain"
+            - "Update system context"
+        
+        terminal:
+          description: "Execute command through bash terminal"
+          trigger_conditions:
+            - "Command explicitly marked as terminal_required"
+            - "Command involves file system operations"
+            - "Command requires external tools"
+            - "Command needs system access"
+          workflow:
+            - "Validate terminal access"
+            - "Check command safety"
+            - "Execute in terminal"
+            - "Capture output"
+            - "Update context"
+
+      command_mappings:
+        self_prompt_commands:
+          - "#new-fr"          # Feature requests require context
+          - "#requirements-init"  # Requirements analysis
+          - "#arch-init"       # Architecture planning
+          - "#design-system"   # Design system generation
+          - "#analyze-code"    # Code analysis
+          - "#gen-docs"        # Documentation generation
+        
+        terminal_commands:
+          - "#init-git"        # Git operations
+          - "#commit"          # Git operations
+          - "#install-deps"    # Package installation
+          - "#build"           # Project building
+          - "#test"           # Running tests
+          - "#deploy"         # Deployment operations
+
+      execution_context:
+        validation:
+          - "Check command type"
+          - "Verify execution permissions"
+          - "Validate prerequisites"
+          - "Check system state"
+        
+        logging:
+          - "Record execution method"
+          - "Log command outcome"
+          - "Track context updates"
+          - "Monitor system changes"
+
+      safety_checks:
+        self_prompt:
+          - "Validate agent permissions"
+          - "Check context boundaries"
+          - "Verify prompt chain integrity"
+          - "Ensure context consistency"
+        
+        terminal:
+          - "Validate command safety"
+          - "Check file permissions"
+          - "Verify system access"
+          - "Ensure reversibility"
+
+      error_handling:
+        self_prompt:
+          - "Capture prompt errors"
+          - "Attempt context recovery"
+          - "Notify relevant agents"
+          - "Update execution state"
+        
+        terminal:
+          - "Capture terminal errors"
+          - "Rollback changes if needed"
+          - "Log system state"
+          - "Alert system admin"

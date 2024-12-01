@@ -331,6 +331,7 @@ Specialized Agents:
         - "#generate-project-structure"  # Add this line
         - "#uml-gen"
         - "#api-design"
+        - "#init-project-site"
       deliverables:
         - type: "Infrastructure Setup"
           template: "[architectural-diagram-generator.meta.md](chains/components/development/architectural-diagram-generator.meta.md)"
@@ -338,12 +339,18 @@ Specialized Agents:
           template: "[monitoring-setup-prompt.meta.md](chains/components/development/monitoring-setup-prompt.meta.md)"
         - type: "Monitoring Setup"
           template: "[security-documentation-prompt.meta.md](chains/components/development/security-documentation-prompt.meta.md)"
+        - type: "Documentation Portal"
+          template: "[documentation_portal_setup.meta.md](chains/components/development/documentation_portal_setup.meta.md)"
       workflow:
         implementation:
           - "Setup infrastructure"
           - "Configure CI/CD"
           - "Implement monitoring"
           - "Setup backup system"
+          - "Initialize neo_project_site"
+          - "Configure documentation structure"
+          - "Setup navigation schema"
+          - "Deploy documentation portal"
         quality:
           template: "[code_generator_agent.md](chains/components/code_quality/code_generator_agent.md)"
           steps:
