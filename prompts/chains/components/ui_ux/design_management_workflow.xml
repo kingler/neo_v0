@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow>
+    <purpose>
+        Define the comprehensive UX design process workflow and integration points
+    </purpose>
+
+    <context>
+        <description>
+            This workflow orchestrates the complete UX design process within the SDLC,
+            defining relationships and data flow between all design prompts.
+        </description>
+    </context>
+
+    <process_chain>
+        <phase name="requirements_analysis">
+            <input>Product Requirements Document</input>
+            <prompts>
+                <prompt>ux_site_map_document.xml</prompt>
+                <prompt>screenshot_analyzer.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>Site structure</output>
+                <output>Navigation flows</output>
+                <output>Design patterns</output>
+            </outputs>
+        </phase>
+
+        <phase name="design_system_setup">
+            <input>Design patterns and requirements</input>
+            <prompts>
+                <prompt>svg_component_library.xml</prompt>
+                <prompt>layout_design_workspace.xml</prompt>
+                <prompt>ui-styling-prompt.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>Component library</output>
+                <output>Design workspace</output>
+                <output>Style system</output>
+            </outputs>
+        </phase>
+
+        <phase name="wireframe_development">
+            <input>Design system components</input>
+            <prompts>
+                <prompt>design_wireframe_development_prompt.xml</prompt>
+                <prompt>wireframe_commands.xml</prompt>
+                <prompt>wireframe-generation-prompt.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>Wireframe layouts</output>
+                <output>Component specs</output>
+                <output>Interaction flows</output>
+            </outputs>
+        </phase>
+
+        <phase name="design_validation">
+            <input>Wireframes and components</input>
+            <prompts>
+                <prompt>wireframe_validation.xml</prompt>
+                <prompt>wireframe_integration_guide.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>Validation reports</output>
+                <output>Integration specs</output>
+                <output>Design documentation</output>
+            </outputs>
+        </phase>
+
+        <phase name="implementation">
+            <input>Validated design system</input>
+            <prompts>
+                <prompt>react_tailwind_generator.xml</prompt>
+                <prompt>component_generator.xml</prompt>
+                <prompt>layout_designer.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>React components</output>
+                <output>Layout templates</output>
+                <output>Style implementations</output>
+            </outputs>
+        </phase>
+    </process_chain>
+
+    <integration_points>
+        <point name="requirements_to_design">
+            <source>PRD</source>
+            <target>UX Design System</target>
+            <data_flow>
+                <item>User requirements</item>
+                <item>Feature specifications</item>
+                <item>Design constraints</item>
+            </data_flow>
+            <prompts>
+                <prompt>ux_site_map_document.xml</prompt>
+                <prompt>screenshot_analyzer.xml</prompt>
+            </prompts>
+        </point>
+
+        <point name="design_to_components">
+            <source>Design System</source>
+            <target>Component Library</target>
+            <data_flow>
+                <item>Design tokens</item>
+                <item>Component specs</item>
+                <item>Style guides</item>
+            </data_flow>
+            <prompts>
+                <prompt>svg_component_library.xml</prompt>
+                <prompt>layout_design_workspace.xml</prompt>
+            </prompts>
+        </point>
+
+        <point name="components_to_wireframes">
+            <source>Component Library</source>
+            <target>Wireframe Development</target>
+            <data_flow>
+                <item>Component library</item>
+                <item>Layout patterns</item>
+                <item>Interaction models</item>
+            </data_flow>
+            <prompts>
+                <prompt>wireframe_commands.xml</prompt>
+                <prompt>design_wireframe_development_prompt.xml</prompt>
+            </prompts>
+        </point>
+
+        <point name="wireframes_to_validation">
+            <source>Wireframe Development</source>
+            <target>Design Validation</target>
+            <data_flow>
+                <item>Wireframe specs</item>
+                <item>Component usage</item>
+                <item>Design patterns</item>
+            </data_flow>
+            <prompts>
+                <prompt>wireframe_validation.xml</prompt>
+                <prompt>wireframe_integration_guide.xml</prompt>
+            </prompts>
+        </point>
+
+        <point name="validation_to_implementation">
+            <source>Design Validation</source>
+            <target>Implementation</target>
+            <data_flow>
+                <item>Validated designs</item>
+                <item>Component specs</item>
+                <item>Style guides</item>
+            </data_flow>
+            <prompts>
+                <prompt>react_tailwind_generator.xml</prompt>
+                <prompt>component_generator.xml</prompt>
+            </prompts>
+        </point>
+    </integration_points>
+
+    <validation>
+        <phase_validations>
+            <validation phase="requirements_analysis">
+                <criteria>
+                    <criterion>Requirements coverage</criterion>
+                    <criterion>Design constraints</criterion>
+                    <criterion>User needs alignment</criterion>
+                </criteria>
+            </validation>
+            <validation phase="design_system_setup">
+                <criteria>
+                    <criterion>Component completeness</criterion>
+                    <criterion>Style system coverage</criterion>
+                    <criterion>Workspace configuration</criterion>
+                </criteria>
+            </validation>
+            <validation phase="wireframe_development">
+                <criteria>
+                    <criterion>Design consistency</criterion>
+                    <criterion>Component usage</criterion>
+                    <criterion>Pattern adherence</criterion>
+                </criteria>
+            </validation>
+            <validation phase="design_validation">
+                <criteria>
+                    <criterion>Design standards</criterion>
+                    <criterion>Integration readiness</criterion>
+                    <criterion>Documentation quality</criterion>
+                </criteria>
+            </validation>
+            <validation phase="implementation">
+                <criteria>
+                    <criterion>Code quality</criterion>
+                    <criterion>Component fidelity</criterion>
+                    <criterion>Style accuracy</criterion>
+                </criteria>
+            </validation>
+        </phase_validations>
+    </validation>
+
+    <documentation>
+        <sections>
+            <section>Process overview</section>
+            <section>Phase details</section>
+            <section>Integration points</section>
+            <section>Validation criteria</section>
+            <section>Best practices</section>
+        </sections>
+        <deliverables>
+            <deliverable>Process documentation</deliverable>
+            <deliverable>Integration guides</deliverable>
+            <deliverable>Validation reports</deliverable>
+            <deliverable>Implementation specs</deliverable>
+        </deliverables>
+    </documentation>
+</workflow> 

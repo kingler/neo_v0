@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<workflow>
+    <purpose>
+        Define the comprehensive documentation process workflow and integration points
+    </purpose>
+
+    <context>
+        <description>
+            This workflow orchestrates the complete documentation process within the SDLC,
+            defining relationships and data flow between documentation prompts.
+        </description>
+    </context>
+
+    <process_chain>
+        <phase name="project_documentation">
+            <input>Project Implementation</input>
+            <prompts>
+                <prompt>generate-project-README.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>Project README</output>
+                <output>Installation guides</output>
+                <output>Development guides</output>
+            </outputs>
+        </phase>
+
+        <phase name="user_documentation">
+            <input>Feature implementation</input>
+            <prompts>
+                <prompt>user-documentation-prompt.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>User guides</output>
+                <output>Feature documentation</output>
+                <output>Support materials</output>
+            </outputs>
+        </phase>
+
+        <phase name="security_documentation">
+            <input>Security implementation</input>
+            <prompts>
+                <prompt>security-documentation-prompt.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>Security policies</output>
+                <output>Implementation guides</output>
+                <output>Compliance docs</output>
+            </outputs>
+        </phase>
+
+        <phase name="release_documentation">
+            <input>Version changes</input>
+            <prompts>
+                <prompt>release-notes-prompt.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>Release notes</output>
+                <output>Migration guides</output>
+                <output>Change logs</output>
+            </outputs>
+        </phase>
+
+        <phase name="monitoring_documentation">
+            <input>System monitoring</input>
+            <prompts>
+                <prompt>monitoring-setup-prompt.xml</prompt>
+            </prompts>
+            <outputs>
+                <output>Monitoring guides</output>
+                <output>Alert documentation</output>
+                <output>Response procedures</output>
+            </outputs>
+        </phase>
+    </process_chain>
+
+    <integration_points>
+        <point name="project_to_user">
+            <source>Project Documentation</source>
+            <target>User Documentation</target>
+            <data_flow>
+                <item>Project structure</item>
+                <item>Feature overview</item>
+                <item>Installation steps</item>
+            </data_flow>
+            <prompts>
+                <prompt>generate-project-README.xml</prompt>
+                <prompt>user-documentation-prompt.xml</prompt>
+            </prompts>
+        </point>
+
+        <point name="user_to_security">
+            <source>User Documentation</source>
+            <target>Security Documentation</target>
+            <data_flow>
+                <item>Feature access</item>
+                <item>User workflows</item>
+                <item>Data handling</item>
+            </data_flow>
+            <prompts>
+                <prompt>user-documentation-prompt.xml</prompt>
+                <prompt>security-documentation-prompt.xml</prompt>
+            </prompts>
+        </point>
+
+        <point name="security_to_monitoring">
+            <source>Security Documentation</source>
+            <target>Monitoring Documentation</target>
+            <data_flow>
+                <item>Security metrics</item>
+                <item>Alert thresholds</item>
+                <item>Response procedures</item>
+            </data_flow>
+            <prompts>
+                <prompt>security-documentation-prompt.xml</prompt>
+                <prompt>monitoring-setup-prompt.xml</prompt>
+            </prompts>
+        </point>
+
+        <point name="monitoring_to_release">
+            <source>Monitoring Documentation</source>
+            <target>Release Documentation</target>
+            <data_flow>
+                <item>System changes</item>
+                <item>Configuration updates</item>
+                <item>Monitoring adjustments</item>
+            </data_flow>
+            <prompts>
+                <prompt>monitoring-setup-prompt.xml</prompt>
+                <prompt>release-notes-prompt.xml</prompt>
+            </prompts>
+        </point>
+
+        <point name="release_to_project">
+            <source>Release Documentation</source>
+            <target>Project Documentation</target>
+            <data_flow>
+                <item>Version updates</item>
+                <item>Feature changes</item>
+                <item>Upgrade steps</item>
+            </data_flow>
+            <prompts>
+                <prompt>release-notes-prompt.xml</prompt>
+                <prompt>generate-project-README.xml</prompt>
+            </prompts>
+        </point>
+    </integration_points>
+
+    <validation>
+        <phase_validations>
+            <validation phase="project_documentation">
+                <criteria>
+                    <criterion>Project coverage</criterion>
+                    <criterion>Setup clarity</criterion>
+                    <criterion>Development guidance</criterion>
+                </criteria>
+            </validation>
+            <validation phase="user_documentation">
+                <criteria>
+                    <criterion>Feature coverage</criterion>
+                    <criterion>Usage clarity</criterion>
+                    <criterion>Support completeness</criterion>
+                </criteria>
+            </validation>
+            <validation phase="security_documentation">
+                <criteria>
+                    <criterion>Security coverage</criterion>
+                    <criterion>Policy completeness</criterion>
+                    <criterion>Compliance alignment</criterion>
+                </criteria>
+            </validation>
+            <validation phase="monitoring_documentation">
+                <criteria>
+                    <criterion>Metrics coverage</criterion>
+                    <criterion>Alert clarity</criterion>
+                    <criterion>Response completeness</criterion>
+                </criteria>
+            </validation>
+            <validation phase="release_documentation">
+                <criteria>
+                    <criterion>Change coverage</criterion>
+                    <criterion>Migration clarity</criterion>
+                    <criterion>Version accuracy</criterion>
+                </criteria>
+            </validation>
+        </phase_validations>
+    </validation>
+
+    <documentation>
+        <sections>
+            <section>Process overview</section>
+            <section>Phase details</section>
+            <section>Integration points</section>
+            <section>Validation criteria</section>
+            <section>Best practices</section>
+        </sections>
+        <deliverables>
+            <deliverable>Process documentation</deliverable>
+            <deliverable>Integration guides</deliverable>
+            <deliverable>Validation reports</deliverable>
+            <deliverable>Documentation standards</deliverable>
+        </deliverables>
+    </documentation>
+</workflow> 

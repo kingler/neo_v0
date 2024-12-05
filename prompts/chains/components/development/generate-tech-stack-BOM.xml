@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt_chain>
+    <metadata>
+        <name>Technology Stack Bill of Materials Generator</name>
+        <description>Generates a comprehensive Bill of Materials (BOM) for project technology stack including dependencies, versions, and compatibility analysis</description>
+        <version>1.0.0</version>
+        <category>development</category>
+        <tags>
+            <tag>tech-stack</tag>
+            <tag>dependencies</tag>
+            <tag>bill-of-materials</tag>
+            <tag>compatibility</tag>
+        </tags>
+    </metadata>
+
+    <input_validation>
+        <required_fields>
+            <field name="project_type" type="string">
+                <validation>
+                    <enum>
+                        <value>web-application</value>
+                        <value>mobile-app</value>
+                        <value>api-service</value>
+                        <value>cli-tool</value>
+                        <value>library</value>
+                    </enum>
+                </validation>
+            </field>
+            <field name="primary_language" type="string">
+                <validation>
+                    <pattern>[a-zA-Z\+\#]+</pattern>
+                </validation>
+            </field>
+            <field name="target_platform" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <items_enum>
+                        <value>web</value>
+                        <value>ios</value>
+                        <value>android</value>
+                        <value>windows</value>
+                        <value>linux</value>
+                        <value>macos</value>
+                        <value>cross-platform</value>
+                    </items_enum>
+                </validation>
+            </field>
+        </required_fields>
+        <optional_fields>
+            <field name="framework_preferences" type="array" />
+            <field name="excluded_technologies" type="array" />
+            <field name="performance_requirements" type="object" />
+            <field name="security_requirements" type="object" />
+        </optional_fields>
+    </input_validation>
+
+    <state_management>
+        <variables>
+            <variable name="selected_components" type="array" initial_value="[]" />
+            <variable name="compatibility_matrix" type="object" initial_value="{}" />
+            <variable name="security_audit_complete" type="boolean" initial_value="false" />
+        </variables>
+        <categories>
+            <category name="frontend">
+                <components>
+                    <component>UI Framework</component>
+                    <component>State Management</component>
+                    <component>UI Components</component>
+                    <component>Build Tools</component>
+                </components>
+            </category>
+            <category name="backend">
+                <components>
+                    <component>Server Framework</component>
+                    <component>Database</component>
+                    <component>Authentication</component>
+                    <component>API Layer</component>
+                </components>
+            </category>
+            <category name="infrastructure">
+                <components>
+                    <component>CI/CD Tools</component>
+                    <component>Monitoring</component>
+                    <component>Logging</component>
+                    <component>Cloud Services</component>
+                </components>
+            </category>
+            <category name="testing">
+                <components>
+                    <component>Unit Testing</component>
+                    <component>Integration Testing</component>
+                    <component>E2E Testing</component>
+                    <component>Performance Testing</component>
+                </components>
+            </category>
+        </categories>
+    </state_management>
+
+    <processing>
+        <steps>
+            <step order="1">
+                <action>Analyze project requirements</action>
+                <validation>
+                    <condition>All required fields are valid</condition>
+                    <error_message>Invalid or incomplete project requirements</error_message>
+                </validation>
+            </step>
+            <step order="2">
+                <action>Generate core technology recommendations</action>
+                <validation>
+                    <condition>All core components have recommendations</condition>
+                    <error_message>Incomplete core technology recommendations</error_message>
+                </validation>
+            </step>
+            <step order="3">
+                <action>Perform compatibility analysis</action>
+                <validation>
+                    <condition>No version conflicts detected</condition>
+                    <error_message>Version compatibility issues detected</error_message>
+                </validation>
+            </step>
+            <step order="4">
+                <action>Generate security assessment</action>
+                <validation>
+                    <condition>No critical vulnerabilities</condition>
+                    <error_message>Security vulnerabilities detected in components</error_message>
+                </validation>
+            </step>
+        </steps>
+    </processing>
+
+    <output_validation>
+        <requirements>
+            <requirement>All core technology categories are covered</requirement>
+            <requirement>Version compatibility is verified</requirement>
+            <requirement>Security requirements are met</requirement>
+            <requirement>Performance requirements are satisfied</requirement>
+        </requirements>
+        <metrics>
+            <metric name="coverage_score" type="percentage">
+                <threshold>95</threshold>
+                <description>Percentage of required technology categories covered</description>
+            </metric>
+            <metric name="compatibility_score" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of components with verified compatibility</description>
+            </metric>
+            <metric name="security_score" type="percentage">
+                <threshold>90</threshold>
+                <description>Security assessment score for selected components</description>
+            </metric>
+            <metric name="pass_fail" type="boolean">
+                <conditions>
+                    <condition>All required components selected</condition>
+                    <condition>No compatibility issues</condition>
+                    <condition>Security requirements met</condition>
+                </conditions>
+            </metric>
+        </metrics>
+    </output_validation>
+
+    <error_handling>
+        <error type="invalid_input">
+            <message>Invalid input parameters provided</message>
+            <action>Log error and request corrected input</action>
+        </error>
+        <error type="compatibility_conflict">
+            <message>Version conflicts detected between components</message>
+            <action>Suggest alternative versions or components</action>
+        </error>
+        <error type="security_vulnerability">
+            <message>Security vulnerabilities found in selected components</message>
+            <action>Provide alternative secure components or version upgrades</action>
+        </error>
+        <error type="incomplete_coverage">
+            <message>Not all required technology categories are covered</message>
+            <action>Identify missing categories and suggest components</action>
+        </error>
+    </error_handling>
+
+    <output_format>
+        <bom_template>
+            <component>
+                <name>string</name>
+                <version>string</version>
+                <category>string</category>
+                <description>string</description>
+                <license>string</license>
+                <dependencies>array</dependencies>
+                <security_score>float</security_score>
+                <compatibility_notes>string</compatibility_notes>
+                <alternatives>array</alternatives>
+            </component>
+            <metadata>
+                <generated_date>timestamp</generated_date>
+                <total_components>integer</total_components>
+                <security_summary>object</security_summary>
+                <compatibility_matrix>object</compatibility_matrix>
+            </metadata>
+        </bom_template>
+    </output_format>
+</prompt_chain> 

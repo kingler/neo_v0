@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt_chain>
+    <metadata>
+        <name>Business Generation Document Generator</name>
+        <description>Generates comprehensive business model and strategy documentation with market analysis and validation</description>
+        <version>1.0.0</version>
+        <category>product_management</category>
+        <tags>
+            <tag>business-model</tag>
+            <tag>strategy</tag>
+            <tag>market-analysis</tag>
+            <tag>revenue-model</tag>
+        </tags>
+    </metadata>
+
+    <input_validation>
+        <required_fields>
+            <field name="business_info" type="object">
+                <validation>
+                    <required_sections>
+                        <section>business_name</section>
+                        <section>owner_info</section>
+                        <section>industry</section>
+                        <section>naics_code</section>
+                    </required_sections>
+                </validation>
+            </field>
+            <field name="market_analysis" type="object">
+                <validation>
+                    <required_sections>
+                        <section>target_market</section>
+                        <section>competition</section>
+                        <section>market_size</section>
+                        <section>trends</section>
+                    </required_sections>
+                </validation>
+            </field>
+            <field name="business_model" type="object">
+                <validation>
+                    <required_sections>
+                        <section>value_proposition</section>
+                        <section>revenue_streams</section>
+                        <section>cost_structure</section>
+                        <section>key_resources</section>
+                    </required_sections>
+                </validation>
+            </field>
+        </required_fields>
+        <optional_fields>
+            <field name="growth_strategy" type="object" />
+            <field name="risk_analysis" type="object" />
+            <field name="financial_projections" type="object" />
+        </optional_fields>
+    </input_validation>
+
+    <state_management>
+        <variables>
+            <variable name="business_doc_version" type="string" initial_value="1.0.0" />
+            <variable name="market_validation_status" type="object" initial_value="{}" />
+            <variable name="strategy_validation_complete" type="boolean" initial_value="false" />
+        </variables>
+        <business_categories>
+            <category name="market_analysis">
+                <attributes>
+                    <attribute>market_segment</attribute>
+                    <attribute>size</attribute>
+                    <attribute>growth_rate</attribute>
+                    <attribute>competition</attribute>
+                </attributes>
+            </category>
+            <category name="business_model">
+                <attributes>
+                    <attribute>model_type</attribute>
+                    <attribute>revenue_streams</attribute>
+                    <attribute>cost_structure</attribute>
+                    <attribute>margins</attribute>
+                </attributes>
+            </category>
+            <category name="strategy">
+                <attributes>
+                    <attribute>approach</attribute>
+                    <attribute>timeline</attribute>
+                    <attribute>milestones</attribute>
+                    <attribute>metrics</attribute>
+                </attributes>
+            </category>
+            <category name="risk_management">
+                <attributes>
+                    <attribute>risk_type</attribute>
+                    <attribute>probability</attribute>
+                    <attribute>impact</attribute>
+                    <attribute>mitigation</attribute>
+                </attributes>
+            </category>
+        </business_categories>
+    </state_management>
+
+    <processing>
+        <steps>
+            <step order="1">
+                <action>Analyze business information</action>
+                <validation>
+                    <condition>Business information is complete and valid</condition>
+                    <error_message>Incomplete business information</error_message>
+                </validation>
+            </step>
+            <step order="2">
+                <action>Validate market analysis</action>
+                <validation>
+                    <condition>Market analysis is comprehensive</condition>
+                    <error_message>Incomplete market analysis</error_message>
+                </validation>
+            </step>
+            <step order="3">
+                <action>Define business model</action>
+                <validation>
+                    <condition>Business model is well-defined</condition>
+                    <error_message>Incomplete business model</error_message>
+                </validation>
+            </step>
+            <step order="4">
+                <action>Develop strategy</action>
+                <validation>
+                    <condition>Strategy is comprehensive and feasible</condition>
+                    <error_message>Strategy development incomplete</error_message>
+                </validation>
+            </step>
+            <step order="5">
+                <action>Risk assessment</action>
+                <validation>
+                    <condition>Risks identified and analyzed</condition>
+                    <error_message>Risk assessment incomplete</error_message>
+                </validation>
+            </step>
+        </steps>
+    </processing>
+
+    <output_validation>
+        <requirements>
+            <requirement>Complete business model defined</requirement>
+            <requirement>Market analysis validated</requirement>
+            <requirement>Strategy developed</requirement>
+            <requirement>Risks assessed</requirement>
+        </requirements>
+        <metrics>
+            <metric name="market_analysis_coverage" type="percentage">
+                <threshold>95</threshold>
+                <description>Percentage of market aspects analyzed</description>
+            </metric>
+            <metric name="model_completeness" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of business model components defined</description>
+            </metric>
+            <metric name="risk_coverage" type="percentage">
+                <threshold>90</threshold>
+                <description>Percentage of risk areas assessed</description>
+            </metric>
+            <metric name="pass_fail" type="boolean">
+                <conditions>
+                    <condition>Market analysis complete</condition>
+                    <condition>Business model validated</condition>
+                    <condition>Strategy defined</condition>
+                </conditions>
+            </metric>
+        </metrics>
+    </output_validation>
+
+    <error_handling>
+        <error type="invalid_input">
+            <message>Invalid business information</message>
+            <action>Log error and request valid input</action>
+        </error>
+        <error type="market_validation_failure">
+            <message>Market analysis validation failed</message>
+            <action>Review analysis and update</action>
+        </error>
+        <error type="model_validation_failure">
+            <message>Business model validation failed</message>
+            <action>Review model and update</action>
+        </error>
+        <error type="strategy_gap">
+            <message>Strategy gaps identified</message>
+            <action>Address gaps and complete strategy</action>
+        </error>
+    </error_handling>
+
+    <output_format>
+        <business_doc_template>
+            <section name="business_overview">
+                <business_info>
+                    <name>string</name>
+                    <owner>object</owner>
+                    <industry>string</industry>
+                    <naics_code>string</naics_code>
+                </business_info>
+                <market_position>object</market_position>
+                <value_proposition>string</value_proposition>
+            </section>
+            <section name="market_analysis">
+                <target_market>object</target_market>
+                <competition>array</competition>
+                <market_size>object</market_size>
+                <trends>array</trends>
+            </section>
+            <section name="business_model">
+                <model_type>string</model_type>
+                <revenue_streams>array</revenue_streams>
+                <cost_structure>object</cost_structure>
+                <key_resources>array</key_resources>
+            </section>
+            <section name="strategy">
+                <approach>string</approach>
+                <timeline>object</timeline>
+                <milestones>array</milestones>
+                <metrics>object</metrics>
+            </section>
+            <metadata>
+                <version>string</version>
+                <last_updated>timestamp</last_updated>
+                <validation_status>object</validation_status>
+                <review_status>object</review_status>
+            </metadata>
+        </business_doc_template>
+    </output_format>
+</prompt_chain> 

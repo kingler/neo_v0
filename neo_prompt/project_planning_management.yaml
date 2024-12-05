@@ -1,0 +1,229 @@
+# Project Planning Management
+project_planning_management:
+  commands:
+    "#plan-init":
+      description: "Initialize project planning workflow"
+      workflow:
+        - "Story generation"
+        - "Story analysis"
+        - "Story decomposition"
+        - "Implementation analysis"
+        - "Story implementation"
+
+  # Story Management Integration
+  story_management:
+    types:
+      story_generation:
+        description: "Sprint story generation"
+        scope:
+          - "Feature requirements"
+          - "Technical dependencies"
+          - "Implementation priorities"
+          - "Sprint capacity"
+        characteristics:
+          - "Clarity"
+          - "Implementability"
+          - "Testability"
+        tools:
+          - "#gen-sprint-stories"
+          - "#analyze-dependencies"
+          - "#validate-stories"
+
+      story_analysis:
+        description: "User story analysis"
+        scope:
+          - "Story breakdown"
+          - "Technical feasibility"
+          - "Acceptance criteria"
+          - "Dependencies"
+        characteristics:
+          - "Completeness"
+          - "Technical accuracy"
+          - "Validation coverage"
+        tools:
+          - "#analyze-story"
+          - "#validate-criteria"
+          - "#check-dependencies"
+
+    execution:
+      workflow:
+        - "Generate stories"
+        - "Analyze stories"
+        - "Decompose stories"
+        - "Validate stories"
+        - "Track implementation"
+
+      failure_handling:
+        on_validation_failure:
+          - "Generate validation report"
+          - "Identify story issues"
+          - "Schedule review"
+          - "Update stories"
+
+    story_commands:
+      "#gen-sprint-stories":
+        description: "Generate Sprint Stories"
+        workflow:
+          - "Analyze requirements"
+          - "Map dependencies"
+          - "Generate stories"
+          - "Validate stories"
+        template: "sprint-story-generation-prompt.xml"
+
+      "#analyze-story":
+        description: "Analyze User Story"
+        workflow:
+          - "Break down story"
+          - "Check feasibility"
+          - "Validate criteria"
+          - "Map dependencies"
+        template: "story-analysis-prompt.xml"
+
+  # Implementation Management Integration
+  implementation_management:
+    types:
+      implementation_analysis:
+        description: "Implementation analysis"
+        scope:
+          - "Technical requirements"
+          - "Dependencies"
+          - "Implementation steps"
+          - "Testing needs"
+        characteristics:
+          - "Accuracy"
+          - "Completeness"
+          - "Feasibility"
+        tools:
+          - "#analyze-implementation"
+          - "#check-tech-stack"
+          - "#validate-steps"
+
+    execution:
+      workflow:
+        - "Analyze requirements"
+        - "Check dependencies"
+        - "Plan implementation"
+        - "Validate approach"
+        - "Track progress"
+
+      failure_handling:
+        on_analysis_issues:
+          - "Review requirements"
+          - "Update analysis"
+          - "Verify approach"
+          - "Update plan"
+
+    implementation_commands:
+      "#analyze-implementation":
+        description: "Analyze Implementation Approach"
+        workflow:
+          - "Review requirements"
+          - "Check dependencies"
+          - "Plan steps"
+          - "Validate plan"
+        template: "implementation-analysis-prompt.xml"
+
+  # Story Decomposition Integration
+  decomposition_management:
+    types:
+      story_decomposition:
+        description: "Story decomposition"
+        scope:
+          - "Task breakdown"
+          - "Technical tasks"
+          - "Testing tasks"
+          - "Documentation tasks"
+        characteristics:
+          - "Atomicity"
+          - "Clarity"
+          - "Completeness"
+        tools:
+          - "#decompose-story"
+          - "#validate-tasks"
+          - "#check-coverage"
+
+    execution:
+      workflow:
+        - "Break down story"
+        - "Define tasks"
+        - "Map dependencies"
+        - "Validate tasks"
+        - "Track progress"
+
+      failure_handling:
+        on_decomposition_issues:
+          - "Review breakdown"
+          - "Update tasks"
+          - "Verify coverage"
+          - "Update plan"
+
+    decomposition_commands:
+      "#decompose-story":
+        description: "Decompose User Story"
+        workflow:
+          - "Break down story"
+          - "Define tasks"
+          - "Map dependencies"
+          - "Validate tasks"
+        template: "story-decomposition-orchestrator.xml"
+
+  # Story Implementation Integration
+  story_implementation:
+    types:
+      implementation_tracking:
+        description: "Implementation tracking"
+        scope:
+          - "Task progress"
+          - "Technical issues"
+          - "Testing status"
+          - "Documentation status"
+        characteristics:
+          - "Accuracy"
+          - "Timeliness"
+          - "Completeness"
+        tools:
+          - "#track-implementation"
+          - "#validate-progress"
+          - "#check-completion"
+
+    execution:
+      workflow:
+        - "Track tasks"
+        - "Monitor progress"
+        - "Validate work"
+        - "Update status"
+        - "Report completion"
+
+      failure_handling:
+        on_implementation_issues:
+          - "Review progress"
+          - "Update status"
+          - "Address issues"
+          - "Update plan"
+
+    implementation_commands:
+      "#implement-story":
+        description: "Implement User Story"
+        workflow:
+          - "Start implementation"
+          - "Track progress"
+          - "Validate work"
+          - "Complete story"
+        template: "user-story-implementation.xml"
+
+  # Integration Points
+  integration:
+    development:
+      - "Technical requirements"
+      - "Implementation steps"
+      - "Testing needs"
+    
+    planning:
+      - "Story generation"
+      - "Task breakdown"
+      - "Progress tracking"
+    
+    quality:
+      - "Validation criteria"
+      - "Testing coverage"
+      - "Implementation quality" 

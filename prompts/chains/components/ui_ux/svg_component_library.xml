@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate and maintain an SVG component library for wireframes and design assets
+    </purpose>
+
+    <context>
+        <description>
+            This prompt manages a library of SVG components for wireframes and design assets,
+            ensuring consistent visual representation and reusability across the design system.
+        </description>
+    </context>
+
+    <inputs>
+        <input name="component_specs" type="object">
+            <description>Component specifications and requirements</description>
+        </input>
+        <input name="design_tokens" type="object">
+            <description>Design system tokens for styling</description>
+        </input>
+        <input name="category" type="string">
+            <description>Component category (ui, icon, illustration)</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="component_definition">
+            <action>Define SVG component structure</action>
+            <elements>
+                <element>Viewbox settings</element>
+                <element>Base shapes</element>
+                <element>Path definitions</element>
+                <element>Style attributes</element>
+            </elements>
+        </step>
+
+        <step name="style_implementation">
+            <action>Implement component styling</action>
+            <styles>
+                <style>Fill colors</style>
+                <style>Stroke properties</style>
+                <style>Opacity values</style>
+                <style>Transform attributes</style>
+            </styles>
+        </step>
+
+        <step name="optimization">
+            <action>Optimize SVG output</action>
+            <tasks>
+                <task>Remove unnecessary attributes</task>
+                <task>Optimize paths</task>
+                <task>Minify output</task>
+                <task>Validate markup</task>
+            </tasks>
+        </step>
+
+        <step name="variants">
+            <action>Generate component variants</action>
+            <types>
+                <type>Size variations</type>
+                <type>Style variations</type>
+                <type>State variations</type>
+                <type>Theme variations</type>
+            </types>
+        </step>
+
+        <step name="documentation">
+            <action>Generate component documentation</action>
+            <sections>
+                <section>Usage guidelines</section>
+                <section>Available variants</section>
+                <section>Implementation examples</section>
+                <section>Customization options</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>SVG standards compliance</criterion>
+            <criterion>Design system consistency</criterion>
+            <criterion>Browser compatibility</criterion>
+            <criterion>Performance optimization</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="components/svg/${category}/${ComponentName}.svg">SVG component</file>
+            <file path="components/svg/${category}/${ComponentName}.react.tsx">React component</file>
+            <file path="components/svg/${category}/${ComponentName}.docs.mdx">Documentation</file>
+            <file path="components/svg/${category}/${ComponentName}.stories.tsx">Storybook stories</file>
+        </files>
+    </output>
+</prompt> 

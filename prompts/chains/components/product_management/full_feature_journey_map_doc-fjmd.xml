@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt_chain>
+    <metadata>
+        <name>Feature Journey Map Document Generator</name>
+        <description>Generates comprehensive feature journey maps with user flows, interactions, and experience validation</description>
+        <version>1.0.0</version>
+        <category>product_management</category>
+        <tags>
+            <tag>feature-journey</tag>
+            <tag>user-flows</tag>
+            <tag>interactions</tag>
+            <tag>experience-mapping</tag>
+        </tags>
+    </metadata>
+
+    <input_validation>
+        <required_fields>
+            <field name="features" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <name>string</name>
+                        <description>string</description>
+                        <user_type>string</user_type>
+                        <interaction_points>array</interaction_points>
+                    </item_schema>
+                </validation>
+            </field>
+            <field name="user_personas" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <type>string</type>
+                        <goals>array</goals>
+                        <pain_points>array</pain_points>
+                        <expectations>array</expectations>
+                    </item_schema>
+                </validation>
+            </field>
+            <field name="interaction_flows" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <start_point>string</start_point>
+                        <end_point>string</end_point>
+                        <steps>array</steps>
+                        <touchpoints>array</touchpoints>
+                    </item_schema>
+                </validation>
+            </field>
+        </required_fields>
+        <optional_fields>
+            <field name="edge_cases" type="array" />
+            <field name="error_flows" type="array" />
+            <field name="success_metrics" type="object" />
+        </optional_fields>
+    </input_validation>
+
+    <state_management>
+        <variables>
+            <variable name="journey_map_version" type="string" initial_value="1.0.0" />
+            <variable name="flow_validation_status" type="object" initial_value="{}" />
+            <variable name="experience_validation_complete" type="boolean" initial_value="false" />
+        </variables>
+        <journey_categories>
+            <category name="primary_flows">
+                <attributes>
+                    <attribute>user_type</attribute>
+                    <attribute>goal</attribute>
+                    <attribute>steps</attribute>
+                    <attribute>success_criteria</attribute>
+                </attributes>
+            </category>
+            <category name="interaction_points">
+                <attributes>
+                    <attribute>type</attribute>
+                    <attribute>description</attribute>
+                    <attribute>expected_outcome</attribute>
+                    <attribute>validation_method</attribute>
+                </attributes>
+            </category>
+            <category name="user_experience">
+                <attributes>
+                    <attribute>touchpoint</attribute>
+                    <attribute>emotion</attribute>
+                    <attribute>feedback</attribute>
+                    <attribute>improvement_areas</attribute>
+                </attributes>
+            </category>
+            <category name="error_handling">
+                <attributes>
+                    <attribute>error_type</attribute>
+                    <attribute>recovery_flow</attribute>
+                    <attribute>user_guidance</attribute>
+                    <attribute>prevention</attribute>
+                </attributes>
+            </category>
+        </journey_categories>
+    </state_management>
+
+    <processing>
+        <steps>
+            <step order="1">
+                <action>Analyze feature requirements</action>
+                <validation>
+                    <condition>Features are properly defined</condition>
+                    <error_message>Incomplete feature definitions</error_message>
+                </validation>
+            </step>
+            <step order="2">
+                <action>Map user flows</action>
+                <validation>
+                    <condition>All flows are properly mapped</condition>
+                    <error_message>Incomplete flow mapping</error_message>
+                </validation>
+            </step>
+            <step order="3">
+                <action>Define interaction points</action>
+                <validation>
+                    <condition>Interaction points are well-defined</condition>
+                    <error_message>Missing interaction points</error_message>
+                </validation>
+            </step>
+            <step order="4">
+                <action>Validate user experience</action>
+                <validation>
+                    <condition>Experience validation complete</condition>
+                    <error_message>Experience validation incomplete</error_message>
+                </validation>
+            </step>
+            <step order="5">
+                <action>Generate journey maps</action>
+                <validation>
+                    <condition>All journey maps are complete</condition>
+                    <error_message>Incomplete journey maps</error_message>
+                </validation>
+            </step>
+        </steps>
+    </processing>
+
+    <output_validation>
+        <requirements>
+            <requirement>All user flows documented</requirement>
+            <requirement>Interaction points defined</requirement>
+            <requirement>Experience validated</requirement>
+            <requirement>Error flows handled</requirement>
+        </requirements>
+        <metrics>
+            <metric name="flow_coverage" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of features with complete flow mapping</description>
+            </metric>
+            <metric name="interaction_coverage" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of interaction points documented</description>
+            </metric>
+            <metric name="experience_validation" type="percentage">
+                <threshold>95</threshold>
+                <description>Percentage of flows with experience validation</description>
+            </metric>
+            <metric name="pass_fail" type="boolean">
+                <conditions>
+                    <condition>All flows mapped</condition>
+                    <condition>Experience validated</condition>
+                    <condition>Error handling complete</condition>
+                </conditions>
+            </metric>
+        </metrics>
+    </output_validation>
+
+    <error_handling>
+        <error type="invalid_input">
+            <message>Invalid feature or flow definition</message>
+            <action>Log error and request valid input</action>
+        </error>
+        <error type="flow_validation_failure">
+            <message>Flow validation failed</message>
+            <action>Review flow and update mapping</action>
+        </error>
+        <error type="experience_validation_failure">
+            <message>Experience validation failed</message>
+            <action>Review experience points and update</action>
+        </error>
+        <error type="incomplete_mapping">
+            <message>Journey mapping incomplete</message>
+            <action>Identify gaps and complete mapping</action>
+        </error>
+    </error_handling>
+
+    <output_format>
+        <journey_map_template>
+            <feature>
+                <name>string</name>
+                <description>string</description>
+                <user_type>string</user_type>
+                <flows>
+                    <flow>
+                        <start_point>string</start_point>
+                        <steps>array</steps>
+                        <end_point>string</end_point>
+                        <success_criteria>array</success_criteria>
+                    </flow>
+                </flows>
+                <interaction_points>
+                    <point>
+                        <type>string</type>
+                        <description>string</description>
+                        <expected_outcome>string</expected_outcome>
+                        <validation>object</validation>
+                    </point>
+                </interaction_points>
+                <error_flows>
+                    <flow>
+                        <error_type>string</error_type>
+                        <recovery_steps>array</recovery_steps>
+                        <prevention>string</prevention>
+                    </flow>
+                </error_flows>
+            </feature>
+            <metadata>
+                <version>string</version>
+                <last_updated>timestamp</last_updated>
+                <validation_status>object</validation_status>
+                <coverage_metrics>object</coverage_metrics>
+            </metadata>
+        </journey_map_template>
+    </output_format>
+</prompt_chain> 

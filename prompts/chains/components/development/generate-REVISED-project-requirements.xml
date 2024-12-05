@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt_chain>
+    <metadata>
+        <name>Revised Project Requirements Generator</name>
+        <description>Generates revised project requirements based on feedback, changes, and project evolution</description>
+        <version>1.0.0</version>
+        <category>development</category>
+        <tags>
+            <tag>requirements</tag>
+            <tag>revision</tag>
+            <tag>project-management</tag>
+            <tag>change-management</tag>
+        </tags>
+    </metadata>
+
+    <input_validation>
+        <required_fields>
+            <field name="original_requirements_doc" type="string">
+                <validation>
+                    <min_length>10</min_length>
+                    <format>markdown|xml|json</format>
+                </validation>
+            </field>
+            <field name="change_requests" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <id>string</id>
+                        <type>enum[feature|bug|enhancement|security|performance]</type>
+                        <description>string</description>
+                        <priority>integer[1-5]</priority>
+                    </item_schema>
+                </validation>
+            </field>
+            <field name="stakeholder_feedback" type="array">
+                <validation>
+                    <min_items>0</min_items>
+                    <item_schema>
+                        <stakeholder>string</stakeholder>
+                        <feedback>string</feedback>
+                        <category>string</category>
+                    </item_schema>
+                </validation>
+            </field>
+        </required_fields>
+        <optional_fields>
+            <field name="project_constraints" type="object" />
+            <field name="timeline_changes" type="object" />
+            <field name="budget_changes" type="object" />
+            <field name="resource_changes" type="object" />
+        </optional_fields>
+    </input_validation>
+
+    <state_management>
+        <variables>
+            <variable name="requirements_version" type="string" initial_value="1.0.0" />
+            <variable name="change_log" type="array" initial_value="[]" />
+            <variable name="impact_analysis_complete" type="boolean" initial_value="false" />
+        </variables>
+        <requirement_categories>
+            <category name="functional">
+                <attributes>
+                    <attribute>priority</attribute>
+                    <attribute>complexity</attribute>
+                    <attribute>status</attribute>
+                    <attribute>dependencies</attribute>
+                </attributes>
+            </category>
+            <category name="non_functional">
+                <attributes>
+                    <attribute>type</attribute>
+                    <attribute>metric</attribute>
+                    <attribute>threshold</attribute>
+                    <attribute>validation_method</attribute>
+                </attributes>
+            </category>
+            <category name="technical">
+                <attributes>
+                    <attribute>domain</attribute>
+                    <attribute>constraints</attribute>
+                    <attribute>dependencies</attribute>
+                    <attribute>risks</attribute>
+                </attributes>
+            </category>
+            <category name="business">
+                <attributes>
+                    <attribute>value_proposition</attribute>
+                    <attribute>stakeholders</attribute>
+                    <attribute>success_criteria</attribute>
+                    <attribute>roi_metrics</attribute>
+                </attributes>
+            </category>
+        </requirement_categories>
+    </state_management>
+
+    <processing>
+        <steps>
+            <step order="1">
+                <action>Analyze original requirements</action>
+                <validation>
+                    <condition>Original requirements are valid and complete</condition>
+                    <error_message>Invalid or incomplete original requirements</error_message>
+                </validation>
+            </step>
+            <step order="2">
+                <action>Process change requests</action>
+                <validation>
+                    <condition>All change requests are valid and categorized</condition>
+                    <error_message>Invalid change requests detected</error_message>
+                </validation>
+            </step>
+            <step order="3">
+                <action>Perform impact analysis</action>
+                <validation>
+                    <condition>Impact analysis covers all affected areas</condition>
+                    <error_message>Incomplete impact analysis</error_message>
+                </validation>
+            </step>
+            <step order="4">
+                <action>Generate revised requirements</action>
+                <validation>
+                    <condition>All requirements are consistent and complete</condition>
+                    <error_message>Inconsistent or incomplete revised requirements</error_message>
+                </validation>
+            </step>
+            <step order="5">
+                <action>Validate traceability</action>
+                <validation>
+                    <condition>All requirements are traceable to changes</condition>
+                    <error_message>Traceability gaps detected</error_message>
+                </validation>
+            </step>
+        </steps>
+    </processing>
+
+    <output_validation>
+        <requirements>
+            <requirement>All changes are properly documented</requirement>
+            <requirement>Requirements remain consistent</requirement>
+            <requirement>Impact analysis is complete</requirement>
+            <requirement>Traceability is maintained</requirement>
+        </requirements>
+        <metrics>
+            <metric name="change_coverage" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of change requests addressed in revision</description>
+            </metric>
+            <metric name="requirement_consistency" type="percentage">
+                <threshold>95</threshold>
+                <description>Consistency between original and revised requirements</description>
+            </metric>
+            <metric name="traceability_score" type="percentage">
+                <threshold>100</threshold>
+                <description>Traceability of requirements to changes</description>
+            </metric>
+            <metric name="pass_fail" type="boolean">
+                <conditions>
+                    <condition>All changes properly integrated</condition>
+                    <condition>No consistency conflicts</condition>
+                    <condition>Complete traceability maintained</condition>
+                </conditions>
+            </metric>
+        </metrics>
+    </output_validation>
+
+    <error_handling>
+        <error type="invalid_input">
+            <message>Invalid input requirements or changes provided</message>
+            <action>Log error and request valid input</action>
+        </error>
+        <error type="consistency_conflict">
+            <message>Conflicts detected between requirements</message>
+            <action>Identify conflicts and suggest resolutions</action>
+        </error>
+        <error type="traceability_gap">
+            <message>Traceability gaps detected in requirements</message>
+            <action>Identify gaps and establish missing links</action>
+        </error>
+        <error type="incomplete_impact">
+            <message>Impact analysis is incomplete</message>
+            <action>Identify missing impact areas and complete analysis</action>
+        </error>
+    </error_handling>
+
+    <output_format>
+        <requirement_template>
+            <id>string</id>
+            <version>string</version>
+            <category>string</category>
+            <description>string</description>
+            <priority>integer</priority>
+            <status>string</status>
+            <changes>
+                <change>
+                    <id>string</id>
+                    <type>string</type>
+                    <description>string</description>
+                    <rationale>string</rationale>
+                    <impact>object</impact>
+                </change>
+            </changes>
+            <dependencies>array</dependencies>
+            <validation_criteria>array</validation_criteria>
+            <traceability>
+                <source>string</source>
+                <related_requirements>array</related_requirements>
+                <change_requests>array</change_requests>
+            </traceability>
+        </requirement_template>
+        <metadata>
+            <revision_date>timestamp</revision_date>
+            <revision_number>string</revision_number>
+            <approved_by>array</approved_by>
+            <change_summary>object</change_summary>
+        </metadata>
+    </output_format>
+</prompt_chain> 

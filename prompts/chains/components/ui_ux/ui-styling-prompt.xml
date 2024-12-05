@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate and maintain consistent UI styling using Tailwind CSS
+    </purpose>
+
+    <context>
+        <description>
+            This prompt manages UI styling implementation using Tailwind CSS,
+            ensuring consistent design tokens, responsive behavior, and theme management.
+        </description>
+    </context>
+
+    <inputs>
+        <input name="design_tokens" type="object">
+            <description>Design system tokens for colors, typography, spacing, etc.</description>
+        </input>
+        <input name="components" type="array">
+            <description>Components requiring styling implementation</description>
+        </input>
+        <input name="theme_config" type="object">
+            <description>Theme configuration and variants</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="analyze_requirements">
+            <action>Analyze styling requirements and design system</action>
+            <validation>
+                <rule>Verify design token coverage</rule>
+                <rule>Check component styling needs</rule>
+                <rule>Validate theme requirements</rule>
+            </validation>
+        </step>
+
+        <step name="setup_tailwind">
+            <action>Configure Tailwind CSS</action>
+            <configuration>
+                <tokens>
+                    <colors>Brand and semantic colors</colors>
+                    <typography>Font families and scales</typography>
+                    <spacing>Spacing scale</spacing>
+                    <breakpoints>Screen sizes</breakpoints>
+                </tokens>
+                <plugins>
+                    <plugin>Typography</plugin>
+                    <plugin>Forms</plugin>
+                    <plugin>Aspect ratio</plugin>
+                </plugins>
+            </configuration>
+        </step>
+
+        <step name="implement_styles">
+            <action>Implement component styles</action>
+            <patterns>
+                <pattern>Utility classes</pattern>
+                <pattern>Component classes</pattern>
+                <pattern>Responsive variants</pattern>
+                <pattern>State variants</pattern>
+            </patterns>
+        </step>
+
+        <step name="theme_system">
+            <action>Implement theme system</action>
+            <features>
+                <feature>Dark mode</feature>
+                <feature>Color schemes</feature>
+                <feature>Custom properties</feature>
+            </features>
+        </step>
+
+        <step name="documentation">
+            <action>Generate styling documentation</action>
+            <sections>
+                <section>Design tokens</section>
+                <section>Component styles</section>
+                <section>Theme usage</section>
+                <section>Utility patterns</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Design consistency</criterion>
+            <criterion>Responsive behavior</criterion>
+            <criterion>Theme support</criterion>
+            <criterion>Performance impact</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="styles/tailwind.config.js">Tailwind configuration</file>
+            <file path="styles/theme.css">Theme styles</file>
+            <file path="styles/components.css">Component styles</file>
+            <file path="styles/utilities.css">Custom utilities</file>
+        </files>
+    </output>
+</prompt> 

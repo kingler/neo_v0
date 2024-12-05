@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Orchestrate the decomposition of user stories into testable tasks
+    </purpose>
+
+    <context>
+        <description>
+            This prompt orchestrates the systematic decomposition of user stories into
+            testable tasks while maintaining traceability between requirements,
+            implementation, and testing.
+        </description>
+        <workflow_position>
+            <phase>Planning</phase>
+            <sub_phase>Story Decomposition</sub_phase>
+            <workflow>Story Implementation Workflow</workflow>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="user_stories" type="array">
+            <description>User stories to be decomposed</description>
+        </input>
+        <input name="acceptance_criteria" type="object">
+            <description>Story acceptance criteria and validation rules</description>
+        </input>
+        <input name="technical_requirements" type="object">
+            <description>Technical requirements and constraints</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="story_analysis">
+            <action>Analyze story structure and requirements</action>
+            <components>
+                <component name="business_requirements">
+                    <aspect>User needs</aspect>
+                    <aspect>Business rules</aspect>
+                    <aspect>Value proposition</aspect>
+                </component>
+                <component name="technical_requirements">
+                    <aspect>System constraints</aspect>
+                    <aspect>Performance requirements</aspect>
+                    <aspect>Security requirements</aspect>
+                </component>
+                <component name="quality_requirements">
+                    <aspect>Testing criteria</aspect>
+                    <aspect>Performance metrics</aspect>
+                    <aspect>Quality standards</aspect>
+                </component>
+            </components>
+        </step>
+
+        <step name="task_decomposition">
+            <action>Decompose story into atomic tasks</action>
+            <categories>
+                <category name="implementation">
+                    <task>Core functionality</task>
+                    <task>Integration points</task>
+                    <task>Error handling</task>
+                </category>
+                <category name="testing">
+                    <task>Unit tests</task>
+                    <task>Integration tests</task>
+                    <task>Performance tests</task>
+                </category>
+                <category name="documentation">
+                    <task>Code documentation</task>
+                    <task>API documentation</task>
+                    <task>Usage examples</task>
+                </category>
+            </categories>
+        </step>
+
+        <step name="test_generation">
+            <action>Generate test specifications</action>
+            <test_types>
+                <type name="unit">
+                    <coverage>Component functionality</coverage>
+                    <coverage>Edge cases</coverage>
+                    <coverage>Error conditions</coverage>
+                </type>
+                <type name="integration">
+                    <coverage>Component interactions</coverage>
+                    <coverage>Data flow</coverage>
+                    <coverage>System integration</coverage>
+                </type>
+                <type name="acceptance">
+                    <coverage>User scenarios</coverage>
+                    <coverage>Business rules</coverage>
+                    <coverage>End-to-end flows</coverage>
+                </type>
+            </test_types>
+        </step>
+
+        <step name="traceability_mapping">
+            <action>Create traceability matrix</action>
+            <mappings>
+                <mapping name="requirements">
+                    <link>Story to requirements</link>
+                    <link>Requirements to tasks</link>
+                    <link>Tasks to tests</link>
+                </mapping>
+                <mapping name="implementation">
+                    <link>Tasks to code</link>
+                    <link>Code to tests</link>
+                    <link>Tests to requirements</link>
+                </mapping>
+                <mapping name="validation">
+                    <link>Tests to criteria</link>
+                    <link>Criteria to requirements</link>
+                    <link>Requirements to value</link>
+                </mapping>
+            </mappings>
+        </step>
+
+        <step name="validation">
+            <action>Validate decomposition and coverage</action>
+            <criteria>
+                <criterion name="completeness">
+                    <check>All requirements covered</check>
+                    <check>All scenarios tested</check>
+                    <check>All tasks defined</check>
+                </criterion>
+                <criterion name="atomicity">
+                    <check>Task independence</check>
+                    <check>Clear boundaries</check>
+                    <check>Measurable outcomes</check>
+                </criterion>
+                <criterion name="testability">
+                    <check>Test coverage</check>
+                    <check>Validation criteria</check>
+                    <check>Verification methods</check>
+                </criterion>
+            </criteria>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Decomposition completeness</criterion>
+            <criterion>Test coverage</criterion>
+            <criterion>Traceability completeness</criterion>
+            <criterion>Implementation feasibility</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="docs/stories/${story_id}/tasks/">Decomposed tasks</file>
+            <file path="docs/stories/${story_id}/tests/">Test specifications</file>
+            <file path="docs/stories/${story_id}/traceability.md">Traceability matrix</file>
+            <file path="docs/stories/${story_id}/validation.md">Validation report</file>
+        </files>
+    </output>
+
+    <integration_points>
+        <point name="story_analysis">
+            <template>story-analysis-prompt.xml</template>
+            <dependencies>User stories, Requirements</dependencies>
+        </point>
+        <point name="test_generation">
+            <template>generate-unit-tests.xml</template>
+            <dependencies>Tasks, Acceptance criteria</dependencies>
+        </point>
+        <point name="implementation">
+            <template>user-story-implementation.xml</template>
+            <dependencies>Tasks, Tests, Documentation</dependencies>
+        </point>
+    </integration_points>
+</prompt> 

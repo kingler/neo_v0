@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate well-structured sprint user stories that ensure proper context, technical dependencies, and implementation priorities for systematic development.
+    </purpose>
+
+    <chain-position>
+        <step>4</step>
+        <name>sprint_story_generator</name>
+        <type>planning</type>
+        <previous>requirements_analysis</previous>
+        <next>implementation_chain</next>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>project_requirements</type>
+                <format>markdown</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>previous_sprint_stories</type>
+                <format>json</format>
+                <required>false</required>
+            </source>
+            <source>
+                <type>implementation_status</type>
+                <format>json</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>tech_stack</type>
+                <format>yaml</format>
+                <required>true</required>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "sprint_context": {
+                        "number": "number",
+                        "duration": "number",
+                        "capacity": "number",
+                        "focus_areas": ["string"]
+                    },
+                    "previous_sprint": {
+                        "completed_stories": ["string"],
+                        "carried_over": ["string"],
+                        "velocity": "number"
+                    },
+                    "technical_context": {
+                        "dependencies": ["string"],
+                        "constraints": ["string"],
+                        "priorities": ["string"]
+                    },
+                    "requirements_status": {
+                        "implemented": ["string"],
+                        "pending": ["string"],
+                        "blocked": ["string"]
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+        <validation>
+            <rules>
+                <rule>
+                    <type>context_completeness</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>dependency_validation</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>capacity_check</type>
+                    <severity>warning</severity>
+                </rule>
+            </rules>
+        </validation>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "sprint_stories": [{
+                    "id": "string",
+                    "title": "string",
+                    "description": "string",
+                    "acceptance_criteria": ["string"],
+                    "dependencies": ["string"],
+                    "technical_notes": ["string"],
+                    "priority": "number",
+                    "estimate": "number",
+                    "implementation_order": "number"
+                }],
+                "sprint_plan": {
+                    "total_points": "number",
+                    "critical_path": ["string"],
+                    "risk_areas": ["string"],
+                    "dependencies_graph": "object"
+                },
+                "validation": {
+                    "passed": "boolean",
+                    "issues": ["string"],
+                    "warnings": ["string"]
+                }
+            }
+            ]]>
+        </schema>
+        <destinations>
+            <destination>implementation_chain</destination>
+            <destination>story_analysis_chain</destination>
+        </destinations>
+    </output>
+
+    <workflow>
+        <steps>
+            <step id="1">
+                <name>analyze_context</name>
+                <description>Analyze sprint context and requirements</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <consistency>true</consistency>
+                </validation>
+            </step>
+            <step id="2">
+                <name>generate_stories</name>
+                <description>Generate sprint user stories</description>
+                <outputs>
+                    <output>
+                        <type>user_stories</type>
+                        <description>Sprint-specific user stories</description>
+                    </output>
+                </outputs>
+            </step>
+            <step id="3">
+                <name>analyze_dependencies</name>
+                <description>Analyze and map story dependencies</description>
+                <validation>
+                    <dependency_graph>true</dependency_graph>
+                    <technical_feasibility>true</technical_feasibility>
+                </validation>
+            </step>
+            <step id="4">
+                <name>prioritize_stories</name>
+                <description>Prioritize and sequence stories</description>
+                <validation>
+                    <capacity_fit>true</capacity_fit>
+                    <dependency_order>true</dependency_order>
+                </validation>
+            </step>
+            <step id="5">
+                <name>validate_sprint</name>
+                <description>Validate sprint plan and stories</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <feasibility>true</feasibility>
+                    <risk_assessment>true</risk_assessment>
+                </validation>
+            </step>
+        </steps>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>
+                <type>story_completeness</type>
+                <description>Stories have all required elements</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>dependency_resolution</type>
+                <description>All dependencies are properly mapped</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>capacity_fit</type>
+                <description>Sprint plan fits team capacity</description>
+                <severity>warning</severity>
+            </criterion>
+            <criterion>
+                <type>technical_feasibility</type>
+                <description>Stories are technically feasible</description>
+                <severity>error</severity>
+            </criterion>
+        </criteria>
+    </validation>
+
+    <commands>
+        <command>
+            <name>/generate-sprint-stories</name>
+            <description>Generate stories for next sprint</description>
+            <parameters>
+                <parameter>
+                    <name>sprint_number</name>
+                    <description>Sprint number to generate stories for</description>
+                </parameter>
+                <parameter>
+                    <name>capacity</name>
+                    <description>Team capacity in story points</description>
+                </parameter>
+            </parameters>
+        </command>
+        <command>
+            <name>/sprint-stories-status</name>
+            <description>Check story generation status</description>
+        </command>
+        <command>
+            <name>/validate-sprint-plan</name>
+            <description>Validate sprint plan feasibility</description>
+        </command>
+    </commands>
+</prompt> 

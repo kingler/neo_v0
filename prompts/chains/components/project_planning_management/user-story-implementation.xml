@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Guide the systematic implementation of user stories
+    </purpose>
+
+    <context>
+        <description>
+            This prompt guides the systematic implementation of user stories through
+            a structured workflow that ensures stable, incremental development with
+            proper dependency management and validation.
+        </description>
+        <workflow_position>
+            <phase>Implementation</phase>
+            <sub_phase>Story Development</sub_phase>
+            <workflow>Story Implementation Workflow</workflow>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="user_story" type="object">
+            <description>User story to be implemented</description>
+        </input>
+        <input name="tech_stack" type="object">
+            <description>Project technology stack information</description>
+        </input>
+        <input name="dependencies" type="object">
+            <description>Current dependencies and versions</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="preparation">
+            <action>Prepare implementation environment</action>
+            <tasks>
+                <task name="dependency_check">
+                    <check>Version compatibility</check>
+                    <check>Package conflicts</check>
+                    <check>Security vulnerabilities</check>
+                </task>
+                <task name="environment_setup">
+                    <check>Development tools</check>
+                    <check>Build configuration</check>
+                    <check>Test framework</check>
+                </task>
+                <task name="code_analysis">
+                    <check>Static analysis</check>
+                    <check>Code quality</check>
+                    <check>Style compliance</check>
+                </task>
+            </tasks>
+        </step>
+
+        <step name="implementation">
+            <action>Implement story functionality</action>
+            <phases>
+                <phase name="core_implementation">
+                    <task>Core functionality</task>
+                    <task>Business logic</task>
+                    <task>Data handling</task>
+                </phase>
+                <phase name="integration">
+                    <task>Component integration</task>
+                    <task>Service integration</task>
+                    <task>API integration</task>
+                </phase>
+                <phase name="testing">
+                    <task>Unit tests</task>
+                    <task>Integration tests</task>
+                    <task>Performance tests</task>
+                </phase>
+            </phases>
+        </step>
+
+        <step name="validation">
+            <action>Validate implementation</action>
+            <criteria>
+                <criterion name="functionality">
+                    <check>Feature completeness</check>
+                    <check>Business rules</check>
+                    <check>Error handling</check>
+                </criterion>
+                <criterion name="quality">
+                    <check>Code quality</check>
+                    <check>Test coverage</check>
+                    <check>Performance metrics</check>
+                </criterion>
+                <criterion name="compliance">
+                    <check>Coding standards</check>
+                    <check>Security requirements</check>
+                    <check>Documentation</check>
+                </criterion>
+            </criteria>
+        </step>
+
+        <step name="documentation">
+            <action>Generate implementation documentation</action>
+            <sections>
+                <section name="technical">
+                    <content>Architecture overview</content>
+                    <content>Component design</content>
+                    <content>Integration points</content>
+                </section>
+                <section name="usage">
+                    <content>API documentation</content>
+                    <content>Usage examples</content>
+                    <content>Configuration guide</content>
+                </section>
+                <section name="maintenance">
+                    <content>Deployment guide</content>
+                    <content>Monitoring setup</content>
+                    <content>Troubleshooting</content>
+                </section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Implementation completeness</criterion>
+            <criterion>Code quality</criterion>
+            <criterion>Test coverage</criterion>
+            <criterion>Documentation quality</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="src/${feature_path}/">Implementation files</file>
+            <file path="tests/${feature_path}/">Test files</file>
+            <file path="docs/implementation/${story_id}/">Documentation files</file>
+            <file path="docs/validation/${story_id}.md">Validation report</file>
+        </files>
+    </output>
+
+    <integration_points>
+        <point name="story_decomposition">
+            <template>story-decomposition-orchestrator.xml</template>
+            <dependencies>Story tasks, Test specifications</dependencies>
+        </point>
+        <point name="code_quality">
+            <template>code_quality_chain.xml</template>
+            <dependencies>Implementation, Tests</dependencies>
+        </point>
+        <point name="documentation">
+            <template>documentation_chain.xml</template>
+            <dependencies>Implementation, Tests, Validation</dependencies>
+        </point>
+    </integration_points>
+</prompt> 

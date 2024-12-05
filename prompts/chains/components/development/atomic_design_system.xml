@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Implement a systematic Atomic Design System ensuring consistent component architecture, reusable patterns, and maintainable code structure across the application.
+    </purpose>
+
+    <chain-position>
+        <step>3</step>
+        <name>atomic_design_system</name>
+        <type>ui_architecture</type>
+        <previous>wireframe_generation</previous>
+        <next>implementation_chain</next>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>ux_design_doc</type>
+                <format>markdown</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>component_diagrams</type>
+                <format>plantuml</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>layout_specs</type>
+                <format>json</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>wireframes</type>
+                <format>svg</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>design_tokens</type>
+                <format>json</format>
+                <required>true</required>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "design_system": {
+                        "name": "string",
+                        "version": "string",
+                        "tokens": {
+                            "colors": ["string"],
+                            "typography": ["string"],
+                            "spacing": ["string"],
+                            "shadows": ["string"]
+                        }
+                    },
+                    "components": {
+                        "atoms": ["string"],
+                        "molecules": ["string"],
+                        "organisms": ["string"],
+                        "templates": ["string"],
+                        "pages": ["string"]
+                    },
+                    "implementation": {
+                        "framework": "string",
+                        "styling": "string",
+                        "patterns": ["string"]
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+        <validation>
+            <rules>
+                <rule>
+                    <type>design_tokens_exist</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>component_hierarchy</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>pattern_consistency</type>
+                    <severity>warning</severity>
+                </rule>
+            </rules>
+        </validation>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "components": {
+                    "atoms": [{
+                        "name": "string",
+                        "type": "string",
+                        "props": ["string"],
+                        "variants": ["string"],
+                        "usage": "string"
+                    }],
+                    "molecules": [{
+                        "name": "string",
+                        "atoms": ["string"],
+                        "props": ["string"],
+                        "behavior": "string"
+                    }],
+                    "organisms": [{
+                        "name": "string",
+                        "components": ["string"],
+                        "layout": "string",
+                        "state": "string"
+                    }],
+                    "templates": [{
+                        "name": "string",
+                        "layout": "string",
+                        "organisms": ["string"],
+                        "variants": ["string"]
+                    }]
+                },
+                "documentation": {
+                    "usage": ["string"],
+                    "patterns": ["string"],
+                    "examples": ["string"]
+                },
+                "validation": {
+                    "passed": "boolean",
+                    "issues": ["string"],
+                    "warnings": ["string"]
+                }
+            }
+            ]]>
+        </schema>
+        <destinations>
+            <destination>implementation_chain</destination>
+            <destination>documentation_chain</destination>
+        </destinations>
+    </output>
+
+    <workflow>
+        <steps>
+            <step id="1">
+                <name>analyze_design</name>
+                <description>Analyze design system requirements and patterns</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <consistency>true</consistency>
+                </validation>
+            </step>
+            <step id="2">
+                <name>create_atoms</name>
+                <description>Create atomic components</description>
+                <outputs>
+                    <output>
+                        <type>base_components</type>
+                        <description>Fundamental UI elements</description>
+                    </output>
+                </outputs>
+            </step>
+            <step id="3">
+                <name>compose_molecules</name>
+                <description>Compose molecular components</description>
+                <validation>
+                    <atom_usage>true</atom_usage>
+                    <composition>true</composition>
+                </validation>
+            </step>
+            <step id="4">
+                <name>build_organisms</name>
+                <description>Build organism components</description>
+                <validation>
+                    <component_integration>true</component_integration>
+                    <state_management>true</state_management>
+                </validation>
+            </step>
+            <step id="5">
+                <name>create_templates</name>
+                <description>Create page templates</description>
+                <validation>
+                    <layout_consistency>true</layout_consistency>
+                    <responsiveness>true</responsiveness>
+                </validation>
+            </step>
+        </steps>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>
+                <type>component_hierarchy</type>
+                <description>Proper atomic design hierarchy</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>pattern_consistency</type>
+                <description>Consistent design patterns</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>token_usage</type>
+                <description>Consistent use of design tokens</description>
+                <severity>warning</severity>
+            </criterion>
+            <criterion>
+                <type>documentation_quality</type>
+                <description>Complete component documentation</description>
+                <severity>warning</severity>
+            </criterion>
+        </criteria>
+    </validation>
+
+    <commands>
+        <command>
+            <name>/create-component</name>
+            <description>Create a new component</description>
+            <parameters>
+                <parameter>
+                    <name>type</name>
+                    <description>Component type (atom/molecule/organism/template)</description>
+                </parameter>
+                <parameter>
+                    <name>name</name>
+                    <description>Component name</description>
+                </parameter>
+            </parameters>
+        </command>
+        <command>
+            <name>/component-status</name>
+            <description>Check component creation status</description>
+        </command>
+        <command>
+            <name>/validate-components</name>
+            <description>Validate component hierarchy</description>
+        </command>
+    </commands>
+</prompt> 

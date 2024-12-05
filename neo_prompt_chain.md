@@ -4,7 +4,7 @@ This chain manages the Neo prompt process through a series of specialized agents
 
 ## Chain Components
 
-1-Agent Contexts
+1 Agent Contexts:
 `${fs.readFileSync('neo_prompt/agent_contexts.yaml', 'utf8')}`
 
 2 Agents:

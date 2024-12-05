@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Analyze and validate user stories for implementation readiness
+    </purpose>
+
+    <context>
+        <description>
+            This prompt analyzes user stories to ensure they are properly defined,
+            technically feasible, and ready for implementation.
+        </description>
+        <workflow_position>
+            <phase>Planning</phase>
+            <predecessor>Story Generation</predecessor>
+            <successor>Story Decomposition</successor>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="user_story" type="object">
+            <description>User story details and requirements</description>
+        </input>
+        <input name="project_context" type="object">
+            <description>Project requirements and constraints</description>
+        </input>
+        <input name="tech_stack" type="object">
+            <description>Technology stack information</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="story_validation">
+            <action>Validate story structure and content</action>
+            <criteria>
+                <criterion name="format">
+                    <check>User role defined</check>
+                    <check>Action specified</check>
+                    <check>Benefit stated</check>
+                </criterion>
+                <criterion name="clarity">
+                    <check>Clear objective</check>
+                    <check>Unambiguous requirements</check>
+                    <check>Measurable outcome</check>
+                </criterion>
+                <criterion name="completeness">
+                    <check>All requirements captured</check>
+                    <check>Acceptance criteria defined</check>
+                    <check>Dependencies identified</check>
+                </criterion>
+            </criteria>
+        </step>
+
+        <step name="technical_analysis">
+            <action>Analyze technical feasibility</action>
+            <aspects>
+                <aspect name="architecture">
+                    <check>System compatibility</check>
+                    <check>Component integration</check>
+                    <check>Performance impact</check>
+                </aspect>
+                <aspect name="implementation">
+                    <check>Technical complexity</check>
+                    <check>Resource requirements</check>
+                    <check>Time constraints</check>
+                </aspect>
+                <aspect name="dependencies">
+                    <check>External services</check>
+                    <check>Third-party tools</check>
+                    <check>System dependencies</check>
+                </aspect>
+            </aspects>
+        </step>
+
+        <step name="acceptance_criteria">
+            <action>Validate acceptance criteria</action>
+            <validation>
+                <category name="functional">
+                    <criteria>Feature behavior</criteria>
+                    <criteria>User interactions</criteria>
+                    <criteria>Data handling</criteria>
+                </category>
+                <category name="technical">
+                    <criteria>Performance metrics</criteria>
+                    <criteria>Security requirements</criteria>
+                    <criteria>Quality standards</criteria>
+                </category>
+                <category name="business">
+                    <criteria>Value delivery</criteria>
+                    <criteria>User satisfaction</criteria>
+                    <criteria>Business rules</criteria>
+                </category>
+            </validation>
+        </step>
+
+        <step name="dependency_mapping">
+            <action>Map story dependencies</action>
+            <dependencies>
+                <type name="technical">
+                    <item>System components</item>
+                    <item>External services</item>
+                    <item>Infrastructure</item>
+                </type>
+                <type name="functional">
+                    <item>Other stories</item>
+                    <item>Features</item>
+                    <item>Business rules</item>
+                </type>
+                <type name="resource">
+                    <item>Team skills</item>
+                    <item>Tools</item>
+                    <item>Time constraints</item>
+                </type>
+            </dependencies>
+        </step>
+
+        <step name="documentation">
+            <action>Generate analysis documentation</action>
+            <sections>
+                <section>Story analysis</section>
+                <section>Technical feasibility</section>
+                <section>Acceptance criteria</section>
+                <section>Dependencies</section>
+                <section>Recommendations</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Story completeness</criterion>
+            <criterion>Technical feasibility</criterion>
+            <criterion>Acceptance criteria clarity</criterion>
+            <criterion>Dependency identification</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="docs/stories/${story_id}/analysis.md">Story analysis</file>
+            <file path="docs/stories/${story_id}/technical.md">Technical assessment</file>
+            <file path="docs/stories/${story_id}/criteria.md">Acceptance criteria</file>
+            <file path="docs/stories/${story_id}/dependencies.md">Dependency map</file>
+        </files>
+    </output>
+</prompt> 

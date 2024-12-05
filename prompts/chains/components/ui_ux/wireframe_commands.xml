@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Define command interface for wireframe generation and management
+    </purpose>
+
+    <context>
+        <description>
+            This prompt defines the command interface for generating and managing wireframes,
+            providing a structured approach to wireframe creation within the UX design process.
+        </description>
+        <workflow_position>
+            <phase>Design Development</phase>
+            <predecessor>UX Sitemap</predecessor>
+            <successor>Wireframe Integration</successor>
+        </workflow_position>
+    </context>
+
+    <commands>
+        <command name="#init-wireframe">
+            <description>Initialize new wireframe project</description>
+            <parameters>
+                <param name="project_name" type="string">Project identifier</param>
+                <param name="template" type="string">Base template to use</param>
+            </parameters>
+            <workflow>
+                <step>Create project structure</step>
+                <step>Initialize templates</step>
+                <step>Setup configuration</step>
+            </workflow>
+        </command>
+
+        <command name="#gen-component">
+            <description>Generate wireframe component</description>
+            <parameters>
+                <param name="component_name" type="string">Component identifier</param>
+                <param name="type" type="string">Component type (atom/molecule/organism)</param>
+            </parameters>
+            <workflow>
+                <step>Create component structure</step>
+                <step>Generate SVG template</step>
+                <step>Add to component library</step>
+            </workflow>
+        </command>
+
+        <command name="#gen-layout">
+            <description>Generate wireframe layout</description>
+            <parameters>
+                <param name="layout_name" type="string">Layout identifier</param>
+                <param name="template" type="string">Layout template to use</param>
+            </parameters>
+            <workflow>
+                <step>Create layout structure</step>
+                <step>Setup grid system</step>
+                <step>Add component placeholders</step>
+            </workflow>
+        </command>
+
+        <command name="#gen-flow">
+            <description>Generate user flow diagram</description>
+            <parameters>
+                <param name="flow_name" type="string">Flow identifier</param>
+                <param name="steps" type="array">Flow steps</param>
+            </parameters>
+            <workflow>
+                <step>Create flow structure</step>
+                <step>Add flow steps</step>
+                <step>Generate connections</step>
+            </workflow>
+        </command>
+
+        <command name="#export-wireframes">
+            <description>Export wireframe artifacts</description>
+            <parameters>
+                <param name="format" type="string">Export format (svg/png/pdf)</param>
+                <param name="target" type="string">Export target directory</param>
+            </parameters>
+            <workflow>
+                <step>Prepare assets</step>
+                <step>Generate exports</step>
+                <step>Create documentation</step>
+            </workflow>
+        </command>
+    </commands>
+
+    <integration>
+        <dependencies>
+            <dependency>SVG Component Library</dependency>
+            <dependency>Layout Designer</dependency>
+            <dependency>Wireframe Generator</dependency>
+        </dependencies>
+        <outputs>
+            <output>Component wireframes</output>
+            <output>Layout wireframes</output>
+            <output>Flow diagrams</output>
+            <output>Documentation</output>
+        </outputs>
+    </integration>
+
+    <validation>
+        <criteria>
+            <criterion>Command syntax</criterion>
+            <criterion>Parameter validation</criterion>
+            <criterion>Workflow integrity</criterion>
+            <criterion>Output consistency</criterion>
+        </criteria>
+    </validation>
+
+    <documentation>
+        <sections>
+            <section>Command reference</section>
+            <section>Parameter guide</section>
+            <section>Workflow steps</section>
+            <section>Integration points</section>
+            <section>Best practices</section>
+        </sections>
+    </documentation>
+</prompt> 

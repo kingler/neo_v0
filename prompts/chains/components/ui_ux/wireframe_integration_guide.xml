@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Guide the integration of wireframes with other design system components
+    </purpose>
+
+    <context>
+        <description>
+            This prompt provides guidance for integrating wireframes with other design artifacts,
+            ensuring consistency and maintainability across the design system.
+        </description>
+        <workflow_position>
+            <phase>Design Integration</phase>
+            <predecessor>Wireframe Commands</predecessor>
+            <successor>Design System Implementation</successor>
+        </workflow_position>
+    </context>
+
+    <integration_points>
+        <point name="component_library">
+            <description>Integration with SVG component library</description>
+            <requirements>
+                <requirement>Component consistency</requirement>
+                <requirement>Style inheritance</requirement>
+                <requirement>Version control</requirement>
+            </requirements>
+            <workflow>
+                <step>Import components</step>
+                <step>Apply styles</step>
+                <step>Validate integration</step>
+            </workflow>
+        </point>
+
+        <point name="design_system">
+            <description>Integration with design system tokens</description>
+            <requirements>
+                <requirement>Token mapping</requirement>
+                <requirement>Style consistency</requirement>
+                <requirement>Theme support</requirement>
+            </requirements>
+            <workflow>
+                <step>Map design tokens</step>
+                <step>Apply theme variables</step>
+                <step>Validate consistency</step>
+            </workflow>
+        </point>
+
+        <point name="development">
+            <description>Integration with development workflow</description>
+            <requirements>
+                <requirement>Asset optimization</requirement>
+                <requirement>Build process</requirement>
+                <requirement>Documentation</requirement>
+            </requirements>
+            <workflow>
+                <step>Optimize assets</step>
+                <step>Configure build</step>
+                <step>Generate docs</step>
+            </workflow>
+        </point>
+    </integration_points>
+
+    <best_practices>
+        <practice name="version_control">
+            <description>Version control guidelines</description>
+            <guidelines>
+                <guideline>Use semantic versioning</guideline>
+                <guideline>Maintain changelog</guideline>
+                <guideline>Document breaking changes</guideline>
+            </guidelines>
+        </practice>
+
+        <practice name="documentation">
+            <description>Documentation standards</description>
+            <guidelines>
+                <guideline>Document integration points</guideline>
+                <guideline>Provide usage examples</guideline>
+                <guideline>Include troubleshooting</guideline>
+            </guidelines>
+        </practice>
+
+        <practice name="testing">
+            <description>Testing requirements</description>
+            <guidelines>
+                <guideline>Visual regression testing</guideline>
+                <guideline>Integration testing</guideline>
+                <guideline>Performance testing</guideline>
+            </guidelines>
+        </practice>
+    </best_practices>
+
+    <validation>
+        <criteria>
+            <criterion>Integration completeness</criterion>
+            <criterion>Documentation quality</criterion>
+            <criterion>Testing coverage</criterion>
+            <criterion>Performance impact</criterion>
+        </criteria>
+        <checkpoints>
+            <checkpoint>Component integration</checkpoint>
+            <checkpoint>Style consistency</checkpoint>
+            <checkpoint>Build process</checkpoint>
+            <checkpoint>Documentation</checkpoint>
+        </checkpoints>
+    </validation>
+
+    <documentation>
+        <sections>
+            <section>Integration overview</section>
+            <section>Setup guide</section>
+            <section>Best practices</section>
+            <section>Troubleshooting</section>
+            <section>API reference</section>
+        </sections>
+        <examples>
+            <example>Component integration</example>
+            <example>Style mapping</example>
+            <example>Build configuration</example>
+        </examples>
+    </documentation>
+</prompt> 

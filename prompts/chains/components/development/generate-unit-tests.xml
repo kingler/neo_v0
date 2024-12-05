@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive unit tests that ensure code quality, functionality, and maintainability through systematic test coverage and validation.
+    </purpose>
+
+    <chain-position>
+        <step>2</step>
+        <name>unit_test_generator</name>
+        <type>testing</type>
+        <previous>code_quality_chain</previous>
+        <next>implementation_chain</next>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>source_code</type>
+                <format>source_files</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>test_requirements</type>
+                <format>json</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>code_coverage_report</type>
+                <format>json</format>
+                <required>false</required>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "test_context": {
+                        "component": "string",
+                        "language": "string",
+                        "framework": "string",
+                        "coverage_requirements": {
+                            "minimum": "number",
+                            "target": "number"
+                        }
+                    },
+                    "test_requirements": {
+                        "unit_tests": {
+                            "functionality": ["string"],
+                            "edge_cases": ["string"],
+                            "error_handling": ["string"]
+                        },
+                        "mocking": {
+                            "dependencies": ["string"],
+                            "external_services": ["string"]
+                        },
+                        "assertions": {
+                            "required_checks": ["string"],
+                            "validation_rules": ["string"]
+                        }
+                    },
+                    "existing_coverage": {
+                        "percentage": "number",
+                        "uncovered_paths": ["string"]
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+        <validation>
+            <rules>
+                <rule>
+                    <type>source_exists</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>framework_compatibility</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>coverage_threshold</type>
+                    <severity>warning</severity>
+                </rule>
+            </rules>
+        </validation>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "generated_tests": [{
+                    "name": "string",
+                    "description": "string",
+                    "type": "string",
+                    "code": "string",
+                    "assertions": ["string"],
+                    "mocks": [{
+                        "target": "string",
+                        "behavior": "string"
+                    }]
+                }],
+                "coverage_analysis": {
+                    "percentage": "number",
+                    "uncovered_paths": ["string"],
+                    "critical_paths": {
+                        "covered": ["string"],
+                        "uncovered": ["string"]
+                    }
+                },
+                "validation": {
+                    "passed": "boolean",
+                    "issues": ["string"],
+                    "warnings": ["string"]
+                }
+            }
+            ]]>
+        </schema>
+        <destinations>
+            <destination>implementation_chain</destination>
+            <destination>code_quality_chain</destination>
+        </destinations>
+    </output>
+
+    <workflow>
+        <steps>
+            <step id="1">
+                <name>analyze_source</name>
+                <description>Analyze source code and identify test requirements</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <compatibility>true</compatibility>
+                </validation>
+            </step>
+            <step id="2">
+                <name>generate_test_cases</name>
+                <description>Generate comprehensive test cases</description>
+                <outputs>
+                    <output>
+                        <type>unit_tests</type>
+                        <description>Core functionality tests</description>
+                    </output>
+                    <output>
+                        <type>edge_case_tests</type>
+                        <description>Edge case and error handling tests</description>
+                    </output>
+                    <output>
+                        <type>integration_tests</type>
+                        <description>Component integration tests</description>
+                    </output>
+                </outputs>
+            </step>
+            <step id="3">
+                <name>implement_mocks</name>
+                <description>Implement necessary mocks and stubs</description>
+                <validation>
+                    <dependency_coverage>true</dependency_coverage>
+                    <isolation>true</isolation>
+                </validation>
+            </step>
+            <step id="4">
+                <name>validate_coverage</name>
+                <description>Validate test coverage and quality</description>
+                <validation>
+                    <coverage>
+                        <minimum>80</minimum>
+                        <critical_paths>100</critical_paths>
+                    </coverage>
+                </validation>
+            </step>
+        </steps>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>
+                <type>test_coverage</type>
+                <description>Meets minimum coverage requirements</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>assertion_completeness</type>
+                <description>All required assertions are implemented</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>mock_completeness</type>
+                <description>All required dependencies are properly mocked</description>
+                <severity>warning</severity>
+            </criterion>
+            <criterion>
+                <type>edge_case_coverage</type>
+                <description>Edge cases and error conditions are tested</description>
+                <severity>warning</severity>
+            </criterion>
+        </criteria>
+    </validation>
+
+    <commands>
+        <command>
+            <name>/generate-tests</name>
+            <description>Generate unit tests for specified component</description>
+            <parameters>
+                <parameter>
+                    <name>component</name>
+                    <description>Component to generate tests for</description>
+                </parameter>
+                <parameter>
+                    <name>coverage</name>
+                    <description>Minimum coverage requirement</description>
+                    <default>80</default>
+                </parameter>
+            </parameters>
+        </command>
+        <command>
+            <name>/test-status</name>
+            <description>Check test generation status</description>
+        </command>
+        <command>
+            <name>/validate-tests</name>
+            <description>Validate generated tests</description>
+        </command>
+    </commands>
+</prompt> 

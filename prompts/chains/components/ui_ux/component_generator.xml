@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate React components based on design specifications and wireframes
+    </purpose>
+
+    <context>
+        <description>
+            This prompt generates React components following Atomic Design principles and best practices,
+            integrating with Tailwind CSS for styling and ensuring type safety with TypeScript.
+        </description>
+    </context>
+
+    <inputs>
+        <input name="design_specs" type="object">
+            <description>Design specifications including layout, styling, and behavior</description>
+        </input>
+        <input name="component_type" type="string">
+            <description>Type of component to generate (atom, molecule, organism, template)</description>
+        </input>
+        <input name="dependencies" type="array">
+            <description>Required dependencies and imports</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="analyze_requirements">
+            <action>Analyze component requirements and specifications</action>
+            <validation>
+                <rule>Verify all required props and types</rule>
+                <rule>Check styling requirements</rule>
+                <rule>Validate component hierarchy</rule>
+            </validation>
+        </step>
+
+        <step name="generate_structure">
+            <action>Create component file structure</action>
+            <templates>
+                <template name="component">
+                    <code>
+                        import React from 'react';
+                        import { cn } from '@/lib/utils';
+                        
+                        interface ${ComponentName}Props {
+                            // Props interface
+                        }
+                        
+                        export const ${ComponentName}: React.FC<${ComponentName}Props> = ({
+                            // Props destructuring
+                        }) => {
+                            return (
+                                // Component JSX
+                            );
+                        };
+                    </code>
+                </template>
+            </templates>
+        </step>
+
+        <step name="implement_styling">
+            <action>Add Tailwind CSS classes and styling</action>
+            <guidelines>
+                <rule>Use utility-first approach</rule>
+                <rule>Maintain consistent spacing</rule>
+                <rule>Follow responsive design patterns</rule>
+            </guidelines>
+        </step>
+
+        <step name="add_functionality">
+            <action>Implement component logic and behavior</action>
+            <patterns>
+                <pattern>State management</pattern>
+                <pattern>Event handling</pattern>
+                <pattern>Side effects</pattern>
+            </patterns>
+        </step>
+
+        <step name="documentation">
+            <action>Generate component documentation</action>
+            <sections>
+                <section>Usage examples</section>
+                <section>Props documentation</section>
+                <section>Styling guidelines</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>TypeScript compliance</criterion>
+            <criterion>Accessibility standards</criterion>
+            <criterion>Performance optimization</criterion>
+            <criterion>Code style consistency</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="components/${type}/${ComponentName}.tsx">Component implementation</file>
+            <file path="components/${type}/${ComponentName}.test.tsx">Component tests</file>
+            <file path="components/${type}/${ComponentName}.stories.tsx">Storybook stories</file>
+        </files>
+    </output>
+</prompt> 

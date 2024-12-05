@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive high-level system architecture that establishes clear component structure, relationships, and technical foundations based on project requirements.
+    </purpose>
+
+    <chain-position>
+        <step>2</step>
+        <name>system_architecture_generator</name>
+        <type>architecture</type>
+        <previous>initial_requirements</previous>
+        <next>tech_stack_selection</next>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>project_requirements</type>
+                <format>json</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>technical_constraints</type>
+                <format>yaml</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>integration_points</type>
+                <format>json</format>
+                <required>false</required>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "system_context": {
+                        "scale": "string",
+                        "performance_requirements": {
+                            "throughput": "number",
+                            "latency": "number",
+                            "availability": "number"
+                        },
+                        "security_requirements": ["string"],
+                        "compliance_requirements": ["string"]
+                    },
+                    "functional_domains": {
+                        "core_domains": ["string"],
+                        "supporting_domains": ["string"],
+                        "integration_domains": ["string"]
+                    },
+                    "technical_requirements": {
+                        "scalability": ["string"],
+                        "reliability": ["string"],
+                        "maintainability": ["string"],
+                        "security": ["string"]
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+        <validation>
+            <rules>
+                <rule>
+                    <type>requirements_coverage</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>architectural_principles</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>technical_feasibility</type>
+                    <severity>warning</severity>
+                </rule>
+            </rules>
+        </validation>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "architecture": {
+                    "overview": {
+                        "style": "string",
+                        "patterns": ["string"],
+                        "principles": ["string"]
+                    },
+                    "components": [{
+                        "name": "string",
+                        "type": "string",
+                        "responsibility": "string",
+                        "interfaces": ["string"],
+                        "dependencies": ["string"],
+                        "scalability_aspects": ["string"]
+                    }],
+                    "interfaces": [{
+                        "name": "string",
+                        "type": "string",
+                        "protocol": "string",
+                        "data_format": "string",
+                        "security_aspects": ["string"]
+                    }],
+                    "data_architecture": {
+                        "stores": ["string"],
+                        "flows": ["string"],
+                        "persistence": ["string"]
+                    },
+                    "cross_cutting": {
+                        "security": ["string"],
+                        "monitoring": ["string"],
+                        "logging": ["string"],
+                        "caching": ["string"]
+                    }
+                },
+                "technical_decisions": [{
+                    "area": "string",
+                    "decision": "string",
+                    "rationale": "string",
+                    "alternatives": ["string"],
+                    "constraints": ["string"]
+                }],
+                "validation": {
+                    "passed": "boolean",
+                    "issues": ["string"],
+                    "warnings": ["string"]
+                }
+            }
+            ]]>
+        </schema>
+        <destinations>
+            <destination>tech_stack_selection_chain</destination>
+            <destination>implementation_chain</destination>
+        </destinations>
+    </output>
+
+    <workflow>
+        <steps>
+            <step id="1">
+                <name>analyze_requirements</name>
+                <description>Analyze requirements and constraints</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <consistency>true</consistency>
+                </validation>
+            </step>
+            <step id="2">
+                <name>define_architecture_style</name>
+                <description>Define architectural style and patterns</description>
+                <outputs>
+                    <output>
+                        <type>architecture_overview</type>
+                        <description>High-level architectural decisions</description>
+                    </output>
+                </outputs>
+            </step>
+            <step id="3">
+                <name>design_components</name>
+                <description>Design system components and interfaces</description>
+                <validation>
+                    <cohesion>true</cohesion>
+                    <coupling>true</coupling>
+                    <responsibility>true</responsibility>
+                </validation>
+            </step>
+            <step id="4">
+                <name>define_data_architecture</name>
+                <description>Define data architecture and flows</description>
+                <validation>
+                    <data_consistency>true</data_consistency>
+                    <scalability>true</scalability>
+                </validation>
+            </step>
+            <step id="5">
+                <name>cross_cutting_concerns</name>
+                <description>Address cross-cutting concerns</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <integration>true</integration>
+                </validation>
+            </step>
+        </steps>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>
+                <type>requirements_coverage</type>
+                <description>Architecture addresses all requirements</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>architectural_principles</type>
+                <description>Adheres to architectural principles</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>component_design</type>
+                <description>Components are well-designed and cohesive</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>scalability</type>
+                <description>Architecture supports scalability requirements</description>
+                <severity>warning</severity>
+            </criterion>
+        </criteria>
+    </validation>
+
+    <commands>
+        <command>
+            <name>/generate-architecture</name>
+            <description>Generate system architecture</description>
+            <parameters>
+                <parameter>
+                    <name>style</name>
+                    <description>Architectural style (microservices/monolithic/etc)</description>
+                </parameter>
+                <parameter>
+                    <name>scale</name>
+                    <description>Target scale of the system</description>
+                </parameter>
+            </parameters>
+        </command>
+        <command>
+            <name>/architecture-status</name>
+            <description>Check architecture generation status</description>
+        </command>
+        <command>
+            <name>/validate-architecture</name>
+            <description>Validate generated architecture</description>
+        </command>
+    </commands>
+</prompt> 

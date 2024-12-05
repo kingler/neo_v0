@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Guide the development of wireframes following atomic design principles
+    </purpose>
+
+    <context>
+        <description>
+            This prompt guides the systematic development of wireframes using atomic design methodology,
+            ensuring consistent component hierarchy and design system alignment.
+        </description>
+        <workflow_position>
+            <phase>Design Development</phase>
+            <predecessor>UX Sitemap</predecessor>
+            <successor>Component Development</successor>
+        </workflow_position>
+    </context>
+
+    <atomic_design>
+        <level name="atoms">
+            <description>Basic building blocks of the interface</description>
+            <components>
+                <component>Buttons</component>
+                <component>Input fields</component>
+                <component>Icons</component>
+                <component>Typography</component>
+                <component>Colors</component>
+            </components>
+            <guidelines>
+                <guideline>Keep components simple</guideline>
+                <guideline>Ensure reusability</guideline>
+                <guideline>Maintain consistency</guideline>
+            </guidelines>
+        </level>
+
+        <level name="molecules">
+            <description>Groups of atoms working together</description>
+            <components>
+                <component>Form groups</component>
+                <component>Search bars</component>
+                <component>Navigation items</component>
+                <component>Card headers</component>
+            </components>
+            <guidelines>
+                <guideline>Logical grouping</guideline>
+                <guideline>Clear purpose</guideline>
+                <guideline>Consistent behavior</guideline>
+            </guidelines>
+        </level>
+
+        <level name="organisms">
+            <description>Complex UI components</description>
+            <components>
+                <component>Navigation bars</component>
+                <component>Forms</component>
+                <component>Card lists</component>
+                <component>Content sections</component>
+            </components>
+            <guidelines>
+                <guideline>Modular design</guideline>
+                <guideline>Clear hierarchy</guideline>
+                <guideline>Responsive behavior</guideline>
+            </guidelines>
+        </level>
+
+        <level name="templates">
+            <description>Page-level structures</description>
+            <components>
+                <component>Page layouts</component>
+                <component>Grid systems</component>
+                <component>Content templates</component>
+            </components>
+            <guidelines>
+                <guideline>Consistent layout</guideline>
+                <guideline>Clear content areas</guideline>
+                <guideline>Responsive grid</guideline>
+            </guidelines>
+        </level>
+    </atomic_design>
+
+    <development_process>
+        <phase name="planning">
+            <steps>
+                <step>Analyze requirements</step>
+                <step>Identify components</step>
+                <step>Plan hierarchy</step>
+            </steps>
+        </phase>
+
+        <phase name="design">
+            <steps>
+                <step>Create atoms</step>
+                <step>Build molecules</step>
+                <step>Compose organisms</step>
+                <step>Design templates</step>
+            </steps>
+        </phase>
+
+        <phase name="validation">
+            <steps>
+                <step>Review hierarchy</step>
+                <step>Test responsiveness</step>
+                <step>Validate patterns</step>
+            </steps>
+        </phase>
+
+        <phase name="documentation">
+            <steps>
+                <step>Document components</step>
+                <step>Create examples</step>
+                <step>Write guidelines</step>
+            </steps>
+        </phase>
+    </development_process>
+
+    <validation>
+        <criteria>
+            <criterion>Component hierarchy</criterion>
+            <criterion>Design consistency</criterion>
+            <criterion>Pattern usage</criterion>
+            <criterion>Documentation quality</criterion>
+        </criteria>
+        <checkpoints>
+            <checkpoint>Atomic structure</checkpoint>
+            <checkpoint>Component relationships</checkpoint>
+            <checkpoint>Design system alignment</checkpoint>
+            <checkpoint>Documentation completeness</checkpoint>
+        </checkpoints>
+    </validation>
+
+    <documentation>
+        <sections>
+            <section>Development process</section>
+            <section>Component hierarchy</section>
+            <section>Design patterns</section>
+            <section>Implementation guide</section>
+            <section>Best practices</section>
+        </sections>
+        <examples>
+            <example>Atomic components</example>
+            <example>Component composition</example>
+            <example>Template usage</example>
+        </examples>
+    </documentation>
+</prompt> 

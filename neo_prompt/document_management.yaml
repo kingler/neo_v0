@@ -1,0 +1,231 @@
+# Document Management
+document_management:
+  commands:
+    "#docs-init":
+      description: "Initialize documentation workflow"
+      workflow:
+        - "Project documentation"
+        - "User documentation"
+        - "Security documentation"
+        - "Release documentation"
+        - "Monitoring documentation"
+
+  # Documentation Integration
+  documentation:
+    types:
+      project_docs:
+        description: "Core project documentation"
+        scope:
+          - "README"
+          - "Installation guides"
+          - "Development guides"
+          - "Contributing guides"
+        characteristics:
+          - "Clarity"
+          - "Completeness"
+          - "Maintainability"
+        tools:
+          - "Markdown"
+          - "Documentation generators"
+          - "Version control"
+
+      user_docs:
+        description: "End-user documentation"
+        scope:
+          - "User guides"
+          - "API documentation"
+          - "Feature guides"
+          - "Troubleshooting"
+        characteristics:
+          - "Accessibility"
+          - "Usability"
+          - "Searchability"
+        tools:
+          - "Documentation platform"
+          - "Search integration"
+          - "Version management"
+
+    execution:
+      workflow:
+        - "Analyze requirements"
+        - "Create structure"
+        - "Generate content"
+        - "Review documentation"
+        - "Publish docs"
+        - "Maintain versions"
+
+      failure_handling:
+        on_validation_failure:
+          - "Generate validation report"
+          - "Identify documentation gaps"
+          - "Schedule review"
+          - "Update content"
+
+    documentation_commands:
+      "#gen-readme":
+        description: "Generate Project README"
+        workflow:
+          - "Analyze project"
+          - "Extract core info"
+          - "Generate structure"
+          - "Create content"
+        template: "generate-project-README.xml"
+
+      "#gen-user-docs":
+        description: "Generate User Documentation"
+        workflow:
+          - "Analyze features"
+          - "Create guides"
+          - "Add examples"
+          - "Review content"
+        template: "user-documentation-prompt.xml"
+
+  # Security Documentation Integration
+  security_docs:
+    types:
+      security_guides:
+        description: "Security documentation"
+        scope:
+          - "Security policies"
+          - "Implementation guides"
+          - "Best practices"
+          - "Compliance docs"
+        characteristics:
+          - "Accuracy"
+          - "Completeness"
+          - "Compliance"
+        tools:
+          - "Policy generators"
+          - "Compliance checkers"
+          - "Documentation tools"
+
+    execution:
+      workflow:
+        - "Analyze requirements"
+        - "Create policies"
+        - "Document controls"
+        - "Review compliance"
+        - "Publish docs"
+        - "Update guides"
+
+      failure_handling:
+        on_security_issues:
+          - "Review policies"
+          - "Update documentation"
+          - "Verify compliance"
+          - "Update guides"
+
+    security_commands:
+      "#gen-security-docs":
+        description: "Generate Security Documentation"
+        workflow:
+          - "Analyze security"
+          - "Create policies"
+          - "Document controls"
+          - "Review compliance"
+        template: "security-documentation-prompt.xml"
+
+  # Release Documentation Integration
+  release_docs:
+    types:
+      release_notes:
+        description: "Release documentation"
+        scope:
+          - "Version changes"
+          - "New features"
+          - "Bug fixes"
+          - "Breaking changes"
+        characteristics:
+          - "Clarity"
+          - "Completeness"
+          - "Accuracy"
+        tools:
+          - "Release note generator"
+          - "Change tracker"
+          - "Version manager"
+
+    execution:
+      workflow:
+        - "Collect changes"
+        - "Categorize updates"
+        - "Generate notes"
+        - "Review content"
+        - "Publish release"
+
+      failure_handling:
+        on_release_issues:
+          - "Review changes"
+          - "Update notes"
+          - "Verify content"
+          - "Update docs"
+
+    release_commands:
+      "#gen-release-notes":
+        description: "Generate Release Notes"
+        workflow:
+          - "Collect changes"
+          - "Format notes"
+          - "Add details"
+          - "Review content"
+        template: "release-notes-prompt.xml"
+
+  # Monitoring Documentation Integration
+  monitoring_docs:
+    types:
+      monitoring_guides:
+        description: "Monitoring documentation"
+        scope:
+          - "Metrics setup"
+          - "Alert configuration"
+          - "Dashboard setup"
+          - "Response procedures"
+        characteristics:
+          - "Clarity"
+          - "Actionability"
+          - "Maintainability"
+        tools:
+          - "Monitoring platforms"
+          - "Alert systems"
+          - "Documentation tools"
+
+    execution:
+      workflow:
+        - "Define metrics"
+        - "Setup monitoring"
+        - "Configure alerts"
+        - "Document procedures"
+        - "Review setup"
+
+      failure_handling:
+        on_monitoring_issues:
+          - "Review setup"
+          - "Update configs"
+          - "Test alerts"
+          - "Update docs"
+
+    monitoring_commands:
+      "#gen-monitoring-docs":
+        description: "Generate Monitoring Documentation"
+        workflow:
+          - "Define metrics"
+          - "Document setup"
+          - "Add procedures"
+          - "Review content"
+        template: "monitoring-setup-prompt.xml"
+
+  # Integration Points
+  integration:
+    development:
+      - "API documentation"
+      - "Code examples"
+      - "Setup guides"
+    
+    operations:
+      - "Deployment docs"
+      - "Monitoring guides"
+      - "Security policies"
+    
+    maintenance:
+      - "Update procedures"
+      - "Version control"
+      - "Review cycles" 

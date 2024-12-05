@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate a modern, interactive single-page website showcasing PlantUML diagrams with comprehensive system visualization.
+    </purpose>
+
+    <output_template>
+        <html_wrapper>
+            <template_path>templates/plantuml_viewer.html</template_path>
+            <styles>
+                <file>styles/modern-ui.css</file>
+                <file>styles/diagram-viewer.css</file>
+            </styles>
+            <scripts>
+                <file>scripts/diagram-interaction.js</file>
+                <file>scripts/zoom-pan.js</file>
+                <file>scripts/filter-search.js</file>
+            </scripts>
+        </html_wrapper>
+    </output_template>
+
+    <diagram_categories>
+        <!-- UML Diagrams -->
+        <category name="uml_diagrams">
+            <diagram type="sequence">
+                <name>Sequence Diagram</name>
+                <description>Visualize interaction flows between components</description>
+                <template>templates/sequence.puml</template>
+                <features>
+                    <feature>Participant lifelines</feature>
+                    <feature>Message flows</feature>
+                    <feature>Activation boxes</feature>
+                    <feature>Notes and comments</feature>
+                </features>
+            </diagram>
+
+            <diagram type="class">
+                <name>Class Diagram</name>
+                <description>Show system structure and relationships</description>
+                <template>templates/class.puml</template>
+                <features>
+                    <feature>Class definitions</feature>
+                    <feature>Inheritance</feature>
+                    <feature>Associations</feature>
+                    <feature>Methods and attributes</feature>
+                </features>
+            </diagram>
+
+            <!-- Add other UML diagram types -->
+            <diagram type="component">...</diagram>
+            <diagram type="deployment">...</diagram>
+            <diagram type="state">...</diagram>
+            <diagram type="activity">...</diagram>
+            <diagram type="usecase">...</diagram>
+            <diagram type="timing">...</diagram>
+        </category>
+
+        <!-- Non-UML Diagrams -->
+        <category name="non_uml_diagrams">
+            <diagram type="mindmap">...</diagram>
+            <diagram type="gantt">...</diagram>
+            <diagram type="network">...</diagram>
+            <diagram type="er">...</diagram>
+            <diagram type="archimate">...</diagram>
+            <diagram type="ui_mockup">...</diagram>
+        </category>
+    </diagram_categories>
+
+    <ui_components>
+        <component name="navigation">
+            <type>sidebar</type>
+            <features>
+                <feature>Category filtering</feature>
+                <feature>Search functionality</feature>
+                <feature>Diagram tree view</feature>
+            </features>
+        </component>
+
+        <component name="viewer">
+            <type>main-content</type>
+            <features>
+                <feature>Zoom controls</feature>
+                <feature>Pan navigation</feature>
+                <feature>Full-screen mode</feature>
+                <feature>Export options</feature>
+            </features>
+        </component>
+
+        <component name="details">
+            <type>side-panel</type>
+            <features>
+                <feature>Diagram metadata</feature>
+                <feature>Source code view</feature>
+                <feature>Documentation</feature>
+            </features>
+        </component>
+    </ui_components>
+
+    <styling>
+        <themes>
+            <theme name="light">
+                <colors>
+                    <primary>#2563eb</primary>
+                    <secondary>#64748b</secondary>
+                    <background>#ffffff</background>
+                    <text>#1e293b</text>
+                </colors>
+            </theme>
+            <theme name="dark">
+                <colors>
+                    <primary>#3b82f6</primary>
+                    <secondary>#94a3b8</secondary>
+                    <background>#0f172a</background>
+                    <text>#e2e8f0</text>
+                </colors>
+            </theme>
+        </themes>
+    </styling>
+
+    <interactivity>
+        <features>
+            <feature>
+                <name>diagram_filtering</name>
+                <description>Filter diagrams by type, category, or search</description>
+            </feature>
+            <feature>
+                <name>zoom_pan</name>
+                <description>Interactive zoom and pan controls</description>
+            </feature>
+            <feature>
+                <name>source_view</name>
+                <description>Toggle between diagram and source code view</description>
+            </feature>
+            <feature>
+                <name>export_options</name>
+                <description>Export diagrams in various formats (PNG, SVG, PDF)</description>
+            </feature>
+        </features>
+    </interactivity>
+
+    <output_formats>
+        <format>
+            <type>PNG</type>
+            <dpi>300</dpi>
+        </format>
+        <format>
+            <type>SVG</type>
+            <options>
+                <interactive>true</interactive>
+            </options>
+        </format>
+        <format>
+            <type>PDF</type>
+            <quality>high</quality>
+        </format>
+        <format>
+            <type>ASCII_ART</type>
+            <for>sequence_diagrams</for>
+        </format>
+    </output_formats>
+
+    <documentation>
+        <sections>
+            <section>
+                <name>Overview</name>
+                <content>System architecture visualization</content>
+            </section>
+            <section>
+                <name>Components</name>
+                <content>Detailed component documentation</content>
+            </section>
+            <section>
+                <name>Interactions</name>
+                <content>System interaction flows</content>
+            </section>
+        </sections>
+    </documentation>
+</prompt> 

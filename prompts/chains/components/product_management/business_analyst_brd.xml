@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt_chain>
+    <metadata>
+        <name>Business Requirements Document Generator</name>
+        <description>Generates comprehensive business requirements documentation with stakeholder analysis and market validation</description>
+        <version>1.0.0</version>
+        <category>product_management</category>
+        <tags>
+            <tag>business-analysis</tag>
+            <tag>requirements</tag>
+            <tag>stakeholders</tag>
+            <tag>market-analysis</tag>
+        </tags>
+    </metadata>
+
+    <input_validation>
+        <required_fields>
+            <field name="business_context" type="object">
+                <validation>
+                    <min_length>100</min_length>
+                    <required_sections>
+                        <section>overview</section>
+                        <section>objectives</section>
+                        <section>stakeholders</section>
+                        <section>market_analysis</section>
+                    </required_sections>
+                </validation>
+            </field>
+            <field name="stakeholders" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <role>string</role>
+                        <requirements>array</requirements>
+                        <impact_level>enum[high|medium|low]</impact_level>
+                    </item_schema>
+                </validation>
+            </field>
+            <field name="market_requirements" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <category>string</category>
+                        <priority>integer[1-5]</priority>
+                        <description>string</description>
+                    </item_schema>
+                </validation>
+            </field>
+        </required_fields>
+        <optional_fields>
+            <field name="constraints" type="object" />
+            <field name="assumptions" type="array" />
+            <field name="dependencies" type="array" />
+        </optional_fields>
+    </input_validation>
+
+    <state_management>
+        <variables>
+            <variable name="brd_version" type="string" initial_value="1.0.0" />
+            <variable name="stakeholder_approval_status" type="object" initial_value="{}" />
+            <variable name="market_validation_complete" type="boolean" initial_value="false" />
+        </variables>
+        <requirement_categories>
+            <category name="business_objectives">
+                <attributes>
+                    <attribute>priority</attribute>
+                    <attribute>timeline</attribute>
+                    <attribute>success_criteria</attribute>
+                    <attribute>metrics</attribute>
+                </attributes>
+            </category>
+            <category name="stakeholder_needs">
+                <attributes>
+                    <attribute>stakeholder_type</attribute>
+                    <attribute>requirements</attribute>
+                    <attribute>impact</attribute>
+                    <attribute>priority</attribute>
+                </attributes>
+            </category>
+            <category name="market_requirements">
+                <attributes>
+                    <attribute>market_segment</attribute>
+                    <attribute>needs</attribute>
+                    <attribute>competition</attribute>
+                    <attribute>differentiation</attribute>
+                </attributes>
+            </category>
+            <category name="constraints">
+                <attributes>
+                    <attribute>type</attribute>
+                    <attribute>description</attribute>
+                    <attribute>impact</attribute>
+                    <attribute>mitigation</attribute>
+                </attributes>
+            </category>
+        </requirement_categories>
+    </state_management>
+
+    <processing>
+        <steps>
+            <step order="1">
+                <action>Analyze business context</action>
+                <validation>
+                    <condition>Business context is complete and valid</condition>
+                    <error_message>Incomplete or invalid business context</error_message>
+                </validation>
+            </step>
+            <step order="2">
+                <action>Process stakeholder requirements</action>
+                <validation>
+                    <condition>All stakeholder requirements are documented</condition>
+                    <error_message>Missing stakeholder requirements</error_message>
+                </validation>
+            </step>
+            <step order="3">
+                <action>Analyze market requirements</action>
+                <validation>
+                    <condition>Market requirements are validated</condition>
+                    <error_message>Invalid market requirements</error_message>
+                </validation>
+            </step>
+            <step order="4">
+                <action>Generate BRD document</action>
+                <validation>
+                    <condition>All sections are complete and consistent</condition>
+                    <error_message>Incomplete BRD sections</error_message>
+                </validation>
+            </step>
+            <step order="5">
+                <action>Validate with stakeholders</action>
+                <validation>
+                    <condition>Stakeholder approval received</condition>
+                    <error_message>Pending stakeholder approval</error_message>
+                </validation>
+            </step>
+        </steps>
+    </processing>
+
+    <output_validation>
+        <requirements>
+            <requirement>All business objectives documented</requirement>
+            <requirement>Stakeholder needs addressed</requirement>
+            <requirement>Market requirements validated</requirement>
+            <requirement>Constraints identified</requirement>
+        </requirements>
+        <metrics>
+            <metric name="stakeholder_coverage" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of stakeholders whose requirements are documented</description>
+            </metric>
+            <metric name="market_validation" type="percentage">
+                <threshold>90</threshold>
+                <description>Percentage of market requirements validated</description>
+            </metric>
+            <metric name="requirement_completeness" type="percentage">
+                <threshold>95</threshold>
+                <description>Percentage of requirements with complete documentation</description>
+            </metric>
+            <metric name="pass_fail" type="boolean">
+                <conditions>
+                    <condition>All stakeholders approved</condition>
+                    <condition>Market validation complete</condition>
+                    <condition>All sections documented</condition>
+                </conditions>
+            </metric>
+        </metrics>
+    </output_validation>
+
+    <error_handling>
+        <error type="invalid_input">
+            <message>Invalid business context or requirements</message>
+            <action>Log error and request valid input</action>
+        </error>
+        <error type="stakeholder_rejection">
+            <message>Stakeholder approval not received</message>
+            <action>Document feedback and revise requirements</action>
+        </error>
+        <error type="market_validation_failure">
+            <message>Market requirements not validated</message>
+            <action>Review market analysis and update requirements</action>
+        </error>
+        <error type="incomplete_documentation">
+            <message>BRD sections incomplete</message>
+            <action>Identify missing sections and complete documentation</action>
+        </error>
+    </error_handling>
+
+    <output_format>
+        <brd_template>
+            <section name="executive_summary">
+                <content>string</content>
+                <stakeholders>array</stakeholders>
+                <approval_status>object</approval_status>
+            </section>
+            <section name="business_objectives">
+                <objectives>array</objectives>
+                <success_criteria>array</success_criteria>
+                <metrics>array</metrics>
+            </section>
+            <section name="stakeholder_analysis">
+                <stakeholders>array</stakeholders>
+                <requirements>array</requirements>
+                <impact_analysis>object</impact_analysis>
+            </section>
+            <section name="market_requirements">
+                <requirements>array</requirements>
+                <validation>object</validation>
+                <competition>array</competition>
+            </section>
+            <metadata>
+                <version>string</version>
+                <last_updated>timestamp</last_updated>
+                <approvals>array</approvals>
+                <status>string</status>
+            </metadata>
+        </brd_template>
+    </output_format>
+</prompt_chain> 

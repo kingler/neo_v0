@@ -1,335 +1,211 @@
 # Design Management
 design_management:
+  commands:
+    "#design-init":
+      description: "Initialize design management workflow"
+      workflow:
+        - "UX sitemap creation"
+        - "Wireframe generation"
+        - "Component design"
+        - "Layout design"
+        - "Style system implementation"
+
+  # UX/UI Design Integration
   design:
-    workflow_triggers:
-      prd_completion:
-        source: "PRD.md"
-        action: "#init-design-phase"
-        validation:
-          - "Check PRD completeness"
-          - "Verify requirements clarity"
-          - "Confirm stakeholder approval"
+    types:
+      wireframe_generation:
+        description: "Low-fidelity wireframe creation"
+        scope:
+          - "Component layout"
+          - "User flows"
+          - "Interaction patterns"
+          - "Responsive design"
+        characteristics:
+          - "Clear hierarchy"
+          - "Consistent patterns"
+          - "User-centric design"
+        tools:
+          - "SVG generator"
+          - "Component library"
+          - "Layout designer"
 
-    documentation:
-      uxdd_components:
-        1_ux_research:
-          user_research_report:
-            template: "research_report.md"
-            sections:
-              - "Research objectives"
-              - "Methodology"
-              - "Key findings"
-              - "Recommendations"
-          user_personas:
-            template: "persona_template.md"
-            sections:
-              - "Demographics"
-              - "Goals and needs"
-              - "Pain points"
-              - "Behaviors"
+      component_design:
+        description: "Atomic design system components"
+        scope:
+          - "Atoms"
+          - "Molecules"
+          - "Organisms"
+          - "Templates"
+        characteristics:
+          - "Reusability"
+          - "Consistency"
+          - "Accessibility"
+        tools:
+          - "React components"
+          - "Tailwind styles"
+          - "Design tokens"
 
-        2_ux_design:
-          object_oriented_ux:
-            template: "ooux_template.md"
-            sections:
-              - "Object mapping"
-              - "Relationship diagrams"
-              - "Core objects"
-              - "Object attributes"
-          
-          user_journeys:
-            template: "journey_template.md"
-            sections:
-              - "User goals"
-              - "Journey stages"
-              - "Touch points"
-              - "Pain points"
-              - "Opportunities"
-          
-          wireframes:
-            template: "wireframe_template.md"
-            organization:
-              by_user_flow:
-                - "User registration flow"
-                - "Core feature flows"
-                - "Settings flows"
-              by_component:
-                - "Navigation components"
-                - "Form components"
-                - "Content components"
-            annotations:
-              types:
-                - "User interactions"
-                - "Data elements"
-                - "State changes"
-                - "Component behavior"
-            svg_generation:
-              command: "#generate-svg"
-              output: "wireframes/*.svg"
-              embedding: "auto-embed into UXDD.md"
+    execution:
+      workflow:
+        - "Analyze requirements"
+        - "Create sitemap"
+        - "Generate wireframes"
+        - "Design components"
+        - "Implement styles"
+        - "Validate design"
 
-        3_prototype:
-          simple_prototype:
-            template: "prototype_template"
-            technologies:
-              - "HTML"
-              - "CSS"
-              - "JavaScript"
-            features:
-              - "Basic interactions"
-              - "Navigation flow"
-              - "Form handling"
-            output:
-              - "prototype/index.html"
-              - "prototype/styles.css"
-              - "prototype/script.js"
+      failure_handling:
+        on_validation_failure:
+          - "Generate validation report"
+          - "Identify design issues"
+          - "Schedule design review"
+          - "Update documentation"
 
-    component_library:
-      framework:
-        name: "Vue + Vite"
-        ui_library: "ShadCN UI"
-        theme:
-          preset: "New York"
-          color_scheme: "zinc"
-      
-      viewer_app:
-        structure:
-          src:
-            components:
-              atoms:
-                - "Button"
-                - "Input"
-                - "Label"
-                - "Checkbox"
-                - "RadioGroup"
-                - "Select"
-                - "Switch"
-                - "Textarea"
-              molecules:
-                - "FormField"
-                - "SearchBar"
-                - "NavigationItem"
-                - "Card"
-                - "Dialog"
-                - "Dropdown"
-              organisms:
-                - "Form"
-                - "NavigationBar"
-                - "CardList"
-                - "Table"
-                - "Tabs"
-              templates:
-                - "PageLayout"
-                - "SectionTemplate"
-                - "GridLayout"
-            
-            views:
-              - "ComponentGallery"
-              - "ComponentDetail"
-              - "StyleGuide"
-            
-            stores:
-              - "componentStore"
-              - "themeStore"
-            
-            utils:
-              - "themeUtils"
-              - "componentUtils"
-      
-      generation_workflow:
-        setup:
-          - name: "Initialize Vite Project"
-            command: "#init-vite-vue"
-          - name: "Install Dependencies"
-            command: "#install-deps"
-          - name: "Configure ShadCN UI"
-            command: "#setup-shadcn"
-        
-        component_extraction:
-          - name: "Parse User Stories"
-            input: "user_stories.md"
-            output: "component_requirements.json"
-          - name: "Analyze Wireframes"
-            input: "wireframes/*.svg"
-            output: "component_specs.json"
-          - name: "Generate Component List"
-            command: "#generate-components"
-        
-        theme_configuration:
-          - name: "Setup New York Theme"
-            file: "tailwind.config.js"
-          - name: "Configure Zinc Colors"
-            file: "theme/colors.ts"
-          - name: "Generate Design Tokens"
-            command: "#generate-tokens"
-        
-        viewer_implementation:
-          - name: "Create Component Gallery"
-            files:
-              - "src/views/ComponentGallery.vue"
-              - "src/components/organisms/ComponentGrid.vue"
-          - name: "Implement Component Detail View"
-            files:
-              - "src/views/ComponentDetail.vue"
-              - "src/components/organisms/ComponentPreview.vue"
-          - name: "Add Style Guide"
-            files:
-              - "src/views/StyleGuide.vue"
-              - "src/components/organisms/ColorPalette.vue"
-              - "src/components/organisms/TypographyScale.vue"
-        
-        documentation:
-          - name: "Generate Component Docs"
-            command: "#generate-docs"
-          - name: "Create Usage Examples"
-            command: "#create-examples"
-          - name: "Build Style Guide"
-            command: "#build-styleguide"
-
-    commands:
-      "#init-design-phase":
-        description: "Initialize design phase from PRD"
+    design_commands:
+      "#gen-sitemap":
+        description: "Generate UX Sitemap"
         workflow:
-          - "Load PRD content"
-          - "Setup UXDD structure"
-          - "Initialize research phase"
-          - "Create tracking system"
+          - "Analyze user flows"
+          - "Map interactions"
+          - "Document structure"
+          - "Validate navigation"
+        template: "ux_site_map_document.xml"
 
-      "#new-feature-design":
-        description: "Design process for new feature"
+      "#gen-wireframes":
+        description: "Generate Wireframes"
         workflow:
-          - "Analyze feature requirements"
-          - "Update user journeys"
-          - "Create wireframes"
-          - "Update prototype"
-          - "Update UXDD"
-        deliverables:
-          - "Updated user journeys"
-          - "Feature wireframes"
-          - "Prototype updates"
-          - "UXDD updates"
+          - "Create layouts"
+          - "Define components"
+          - "Map interactions"
+          - "Validate flows"
+        template: "wireframe-generation-prompt.xml"
 
-      "#consolidate-uxdd":
-        description: "Consolidate all UX documentation into UXDD"
+  # Component Design Integration
+  component_design:
+    types:
+      react_components:
+        description: "React component generation"
+        scope:
+          - "Component structure"
+          - "Props interface"
+          - "State management"
+          - "Event handling"
+        characteristics:
+          - "Type safety"
+          - "Performance"
+          - "Accessibility"
+        tools:
+          - "React"
+          - "TypeScript"
+          - "Tailwind CSS"
+
+      layout_design:
+        description: "Layout system design"
+        scope:
+          - "Grid system"
+          - "Spacing rules"
+          - "Responsive design"
+        characteristics:
+          - "Consistency"
+          - "Flexibility"
+          - "Maintainability"
+        tools:
+          - "Layout designer"
+          - "Grid system"
+          - "Spacing tokens"
+
+    execution:
+      workflow:
+        - "Analyze requirements"
+        - "Design components"
+        - "Implement styles"
+        - "Test interactions"
+        - "Document usage"
+        - "Validate design"
+
+      failure_handling:
+        on_design_issues:
+          - "Identify problems"
+          - "Review design system"
+          - "Update components"
+          - "Validate changes"
+
+    component_commands:
+      "#gen-component":
+        description: "Generate React Component"
         workflow:
-          - "Gather all components"
-          - "Generate final UXDD"
-          - "Embed SVG wireframes"
-          - "Create index"
-        output:
-          file: "UXDD.md"
-          sections:
-            - name: "Research"
-              sources: 
-                - "user_research_report.md"
-                - "user_personas.md"
-            - name: "Design"
-              sources:
-                - "ooux_template.md"
-                - "journey_template.md"
-                - "wireframes/*.svg"
-            - name: "Prototype"
-              sources:
-                - "prototype_documentation.md"
-                - "prototype_screenshots"
+          - "Define structure"
+          - "Implement logic"
+          - "Add styles"
+          - "Write tests"
+        template: "component_generator.xml"
 
-      "#init-vite-vue":
-        description: "Initialize a new Vite + Vue project with all required dependencies"
+      "#gen-layout":
+        description: "Generate Layout Design"
         workflow:
-          - "Create Vite project with Vue template"
-          - "Install Tailwind CSS and its dependencies"
-          - "Install ShadCN Vue and its dependencies"
-          - "Install utility libraries"
-          - "Install Radix UI colors"
-          - "Initialize Tailwind configuration"
-        command: |
-          # Create Vue project and install core dependencies
-          npm create vite@latest . -- --template vue
-          
-          # Install Tailwind CSS and ShadCN Vue
-          npm install -D tailwindcss postcss autoprefixer shadcn-vue
-          
-          # Initialize Tailwind
-          npx tailwindcss init -p
-          
-          # Install utility libraries
-          npm install class-variance-authority clsx tailwind-merge
-          
-          # Install Lucide icons
-          npm i lucide-vue-next
-          
-          # Install VueUse
-          npm install @vueuse/core
-          
-          # Install Radix Vue
-          npm install radix-vue
-          
-          # Install TypeScript node types
-          npm i -D @types/node
-          
-          # Install Radix colors
-          npm install @radix-ui/colors
+          - "Define grid"
+          - "Set spacing"
+          - "Add responsiveness"
+          - "Document usage"
+        template: "layout_designer.xml"
 
-      "#install-deps":
-        description: "Install required dependencies"
-        command: |
-          npm install @shadcn/vue tailwindcss postcss autoprefixer
-          npm install -D @types/node typescript vue-tsc
+  # Style System Integration
+  style_system:
+    types:
+      design_tokens:
+        description: "Design token system"
+        scope:
+          - "Colors"
+          - "Typography"
+          - "Spacing"
+          - "Breakpoints"
+        characteristics:
+          - "Consistency"
+          - "Maintainability"
+          - "Scalability"
+        tools:
+          - "Token generator"
+          - "Style guide"
+          - "Theme system"
 
-      "#setup-shadcn":
-        description: "Configure ShadCN UI with New York theme"
+    execution:
+      workflow:
+        - "Define tokens"
+        - "Create system"
+        - "Implement styles"
+        - "Document usage"
+        - "Validate system"
+
+      failure_handling:
+        on_style_issues:
+          - "Review tokens"
+          - "Update system"
+          - "Test changes"
+          - "Update docs"
+
+    style_commands:
+      "#gen-styles":
+        description: "Generate Style System"
         workflow:
-          - "Initialize ShadCN"
-          - "Configure theme"
-          - "Setup color scheme"
-        command: |
-          npx shadcn-vue@latest init
-          # Configure with:
-          # - Style: New York
-          # - Base color: zinc
-          # - CSS variables: true
+          - "Create tokens"
+          - "Build system"
+          - "Add utilities"
+          - "Document usage"
+        template: "ui-styling-prompt.xml"
 
-      "#generate-components":
-        description: "Generate component library from requirements"
-        workflow:
-          - "Parse requirements"
-          - "Generate component files"
-          - "Create component registry"
-        output:
-          - "src/components/**/*.vue"
-          - "src/components/index.ts"
-
-      "#generate-tokens":
-        description: "Generate design tokens from theme configuration"
-        workflow:
-          - "Extract theme variables"
-          - "Generate token files"
-          - "Create token documentation"
-        output:
-          - "src/theme/tokens.ts"
-          - "src/theme/tokens.css"
-
-      "#generate-docs":
-        description: "Generate component documentation"
-        workflow:
-          - "Extract component metadata"
-          - "Generate markdown docs"
-          - "Create interactive examples"
-        output:
-          - "docs/components/*.md"
-          - "src/examples/*.vue"
-
-    deliverables:
-      - type: "Wireframes"
-        template: "wireframe-generation-prompt.md"
-      - type: "Design System"
-        template: "design_system_generator.md"
-      - type: "User Flows"
-        template: "journey_map_generator.md"
-    tools:
-      screenshot_analyzer:
-        description: "Analyze UI/UX references"
-        capabilities:
-          - "UI element detection"
-          - "Layout analysis"
-          - "Component extraction"
+  # Integration Points
+  integration:
+    development:
+      - "Component implementation"
+      - "Style system usage"
+      - "Layout patterns"
+    
+    product:
+      - "User flows"
+      - "Interaction patterns"
+      - "Experience design"
+    
+    quality:
+      - "Design consistency"
+      - "Accessibility"
+      - "Performance"

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Design and generate responsive layouts for desktop applications
+    </purpose>
+
+    <context>
+        <description>
+            This prompt analyzes requirements and generates layout specifications
+            following responsive design principles and grid-based systems.
+        </description>
+    </context>
+
+    <inputs>
+        <input name="layout_requirements" type="object">
+            <description>Layout requirements including sections, components, and responsive behavior</description>
+        </input>
+        <input name="design_tokens" type="object">
+            <description>Design system tokens for spacing, breakpoints, and grid</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="analyze_layout">
+            <action>Analyze layout requirements and structure</action>
+            <questions>
+                <question>What are the required sections?</question>
+                <question>How should components be distributed?</question>
+                <question>What are the responsive breakpoints?</question>
+            </questions>
+        </step>
+
+        <step name="define_grid">
+            <action>Define grid system and spacing</action>
+            <specifications>
+                <grid>
+                    <columns>12-column system</columns>
+                    <gutters>Consistent spacing</gutters>
+                    <margins>Responsive margins</margins>
+                </grid>
+                <spacing>
+                    <scale>4px, 8px, 16px, 24px, 32px, 48px, 64px</scale>
+                    <usage>Consistent vertical rhythm</usage>
+                </spacing>
+            </specifications>
+        </step>
+
+        <step name="create_layout">
+            <action>Generate layout structure</action>
+            <components>
+                <component>Container definitions</component>
+                <component>Grid layouts</component>
+                <component>Flex containers</component>
+                <component>Spacing utilities</component>
+            </components>
+        </step>
+
+        <step name="responsive_design">
+            <action>Implement responsive behavior</action>
+            <breakpoints>
+                <point name="sm">640px</point>
+                <point name="md">768px</point>
+                <point name="lg">1024px</point>
+                <point name="xl">1280px</point>
+                <point name="2xl">1536px</point>
+            </breakpoints>
+        </step>
+
+        <step name="documentation">
+            <action>Generate layout documentation</action>
+            <sections>
+                <section>Grid system usage</section>
+                <section>Responsive behavior</section>
+                <section>Component placement</section>
+                <section>Spacing guidelines</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Grid consistency</criterion>
+            <criterion>Responsive behavior</criterion>
+            <criterion>Spacing consistency</criterion>
+            <criterion>Component alignment</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="layouts/${LayoutName}.tsx">Layout implementation</file>
+            <file path="layouts/${LayoutName}.css">Layout styles</file>
+            <file path="layouts/${LayoutName}.docs.mdx">Layout documentation</file>
+        </files>
+    </output>
+</prompt> 

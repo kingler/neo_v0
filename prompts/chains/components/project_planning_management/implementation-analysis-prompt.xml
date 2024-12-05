@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Analyze implementation status and requirements for project features
+    </purpose>
+
+    <context>
+        <description>
+            This prompt analyzes implementation status and requirements to ensure
+            proper planning and execution of project features.
+        </description>
+        <workflow_position>
+            <phase>Planning</phase>
+            <predecessor>Story Analysis</predecessor>
+            <successor>Implementation</successor>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="project_requirements" type="object">
+            <description>Project requirements and specifications</description>
+        </input>
+        <input name="tech_stack" type="object">
+            <description>Technology stack documentation</description>
+        </input>
+        <input name="implementation_artifacts" type="array">
+            <description>Previous implementation artifacts</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="requirements_analysis">
+            <action>Analyze project requirements and status</action>
+            <tasks>
+                <task>Review project state</task>
+                <task>Identify completed features</task>
+                <task>List pending features</task>
+                <task>Map dependencies</task>
+            </tasks>
+        </step>
+
+        <step name="technical_analysis">
+            <action>Analyze technical requirements</action>
+            <components>
+                <component name="architecture">
+                    <aspect>System design</aspect>
+                    <aspect>Component structure</aspect>
+                    <aspect>Integration points</aspect>
+                </component>
+                <component name="infrastructure">
+                    <aspect>Development environment</aspect>
+                    <aspect>Deployment needs</aspect>
+                    <aspect>Scaling requirements</aspect>
+                </component>
+                <component name="dependencies">
+                    <aspect>External services</aspect>
+                    <aspect>Libraries</aspect>
+                    <aspect>Tools</aspect>
+                </component>
+            </components>
+        </step>
+
+        <step name="implementation_planning">
+            <action>Plan implementation approach</action>
+            <sections>
+                <section name="features">
+                    <content>Feature breakdown</content>
+                    <content>Implementation steps</content>
+                    <content>Technical requirements</content>
+                </section>
+                <section name="dependencies">
+                    <content>Technical dependencies</content>
+                    <content>Service dependencies</content>
+                    <content>Integration needs</content>
+                </section>
+                <section name="timeline">
+                    <content>Implementation phases</content>
+                    <content>Milestones</content>
+                    <content>Dependencies</content>
+                </section>
+            </sections>
+        </step>
+
+        <step name="risk_assessment">
+            <action>Assess implementation risks</action>
+            <categories>
+                <category name="technical">
+                    <risk>Technology constraints</risk>
+                    <risk>Integration challenges</risk>
+                    <risk>Performance issues</risk>
+                </category>
+                <category name="resource">
+                    <risk>Skill requirements</risk>
+                    <risk>Time constraints</risk>
+                    <risk>Tool availability</risk>
+                </category>
+                <category name="external">
+                    <risk>Service dependencies</risk>
+                    <risk>Third-party integrations</risk>
+                    <risk>Platform limitations</risk>
+                </category>
+            </categories>
+        </step>
+
+        <step name="documentation">
+            <action>Generate implementation documentation</action>
+            <documents>
+                <document name="analysis_report">
+                    <section>Status overview</section>
+                    <section>Technical requirements</section>
+                    <section>Implementation plan</section>
+                </document>
+                <document name="risk_report">
+                    <section>Risk assessment</section>
+                    <section>Mitigation strategies</section>
+                    <section>Contingency plans</section>
+                </document>
+            </documents>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Requirements coverage</criterion>
+            <criterion>Technical feasibility</criterion>
+            <criterion>Risk assessment</criterion>
+            <criterion>Documentation completeness</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="docs/implementation/analysis.md">Implementation analysis</file>
+            <file path="docs/implementation/requirements.md">Technical requirements</file>
+            <file path="docs/implementation/risks.md">Risk assessment</file>
+            <file path="docs/implementation/plan.md">Implementation plan</file>
+        </files>
+    </output>
+</prompt> 

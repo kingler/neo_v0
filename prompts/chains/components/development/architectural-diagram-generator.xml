@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive PlantUML diagrams that visualize system architecture, component relationships, user flows, state machines, and business processes.
+    </purpose>
+
+    <chain-position>
+        <step>1</step>
+        <name>architectural_diagram_generator</name>
+        <type>architecture_design</type>
+        <next>implementation_analysis</next>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>ux_sitemap</type>
+                <format>markdown</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>wireframe_specs</type>
+                <format>json</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>tech_stack_bom</type>
+                <format>yaml</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>project_requirements</type>
+                <format>markdown</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>implementation_status</type>
+                <format>json</format>
+                <required>false</required>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "project_context": {
+                        "name": "string",
+                        "phase": "string",
+                        "requirements": {
+                            "functional": ["string"],
+                            "technical": ["string"]
+                        }
+                    },
+                    "diagram_requirements": {
+                        "types": ["sequence", "state", "activity", "component", "usecase"],
+                        "scope": {
+                            "components": ["string"],
+                            "interactions": ["string"],
+                            "states": ["string"]
+                        }
+                    },
+                    "technical_context": {
+                        "stack": {
+                            "frontend": ["string"],
+                            "backend": ["string"],
+                            "infrastructure": ["string"]
+                        },
+                        "integrations": ["string"]
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+        <validation>
+            <rules>
+                <rule>
+                    <type>prerequisites_exist</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>schema_validation</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>scope_completeness</type>
+                    <severity>warning</severity>
+                </rule>
+            </rules>
+        </validation>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "diagrams": [{
+                    "type": "string",
+                    "content": "string",
+                    "description": "string",
+                    "components": ["string"],
+                    "relationships": [{
+                        "from": "string",
+                        "to": "string",
+                        "type": "string"
+                    }]
+                }],
+                "documentation": {
+                    "overview": "string",
+                    "components": [{
+                        "name": "string",
+                        "description": "string",
+                        "responsibilities": ["string"]
+                    }],
+                    "relationships": [{
+                        "description": "string",
+                        "components": ["string"],
+                        "interaction": "string"
+                    }]
+                },
+                "validation": {
+                    "completeness": "boolean",
+                    "issues": ["string"],
+                    "warnings": ["string"]
+                }
+            }
+            ]]>
+        </schema>
+        <destinations>
+            <destination>implementation_analysis</destination>
+            <destination>documentation_chain</destination>
+        </destinations>
+    </output>
+
+    <workflow>
+        <steps>
+            <step id="1">
+                <name>analyze_requirements</name>
+                <description>Analyze project requirements and technical context</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <consistency>true</consistency>
+                </validation>
+            </step>
+            <step id="2">
+                <name>generate_diagrams</name>
+                <description>Generate PlantUML diagrams for each required type</description>
+                <outputs>
+                    <output>
+                        <type>sequence_diagrams</type>
+                        <description>User flow and interaction diagrams</description>
+                    </output>
+                    <output>
+                        <type>state_diagrams</type>
+                        <description>System state transitions</description>
+                    </output>
+                    <output>
+                        <type>component_diagrams</type>
+                        <description>System component relationships</description>
+                    </output>
+                </outputs>
+            </step>
+            <step id="3">
+                <name>validate_diagrams</name>
+                <description>Validate diagram completeness and accuracy</description>
+                <validation>
+                    <coverage>
+                        <components>true</components>
+                        <interactions>true</interactions>
+                        <states>true</states>
+                    </coverage>
+                </validation>
+            </step>
+            <step id="4">
+                <name>generate_documentation</name>
+                <description>Generate comprehensive documentation</description>
+                <outputs>
+                    <output>
+                        <type>technical_documentation</type>
+                        <description>Component and relationship documentation</description>
+                    </output>
+                </outputs>
+            </step>
+        </steps>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>
+                <type>diagram_completeness</type>
+                <description>All required diagram types are generated</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>component_coverage</type>
+                <description>All system components are represented</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>relationship_clarity</type>
+                <description>Component relationships are clearly defined</description>
+                <severity>warning</severity>
+            </criterion>
+            <criterion>
+                <type>documentation_quality</type>
+                <description>Documentation is comprehensive and clear</description>
+                <severity>warning</severity>
+            </criterion>
+        </criteria>
+    </validation>
+
+    <commands>
+        <command>
+            <name>/generate-diagrams</name>
+            <description>Generate architecture diagrams</description>
+            <parameters>
+                <parameter>
+                    <name>type</name>
+                    <description>Type of diagram to generate</description>
+                    <options>["sequence", "state", "component", "activity", "usecase"]</options>
+                </parameter>
+            </parameters>
+        </command>
+        <command>
+            <name>/diagram-status</name>
+            <description>Check diagram generation status</description>
+        </command>
+        <command>
+            <name>/validate-diagrams</name>
+            <description>Validate generated diagrams</description>
+        </command>
+    </commands>
+</prompt> 

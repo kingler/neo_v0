@@ -1,0 +1,210 @@
+# Product Management
+product_management:
+  commands:
+    "#product-init":
+      description: "Initialize product management workflow"
+      workflow:
+        - "Business requirements analysis"
+        - "Product requirements documentation"
+        - "Feature journey mapping"
+        - "Business ontology definition"
+        - "Market analysis integration"
+
+  # Business Analysis Integration
+  business_analysis:
+    types:
+      brd_generation:
+        description: "Business Requirements Document generation"
+        scope:
+          - "Business objectives"
+          - "Stakeholder analysis"
+          - "Market requirements"
+          - "Success criteria"
+        characteristics:
+          - "Comprehensive analysis"
+          - "Stakeholder alignment"
+          - "Market validation"
+        tools:
+          - "Business analyst templates"
+          - "Market analysis tools"
+          - "Stakeholder mapping"
+
+      business_ontology:
+        description: "Business domain and concept mapping"
+        scope:
+          - "Domain concepts"
+          - "Business relationships"
+          - "Process flows"
+        characteristics:
+          - "Clear concept definitions"
+          - "Relationship mapping"
+          - "Process integration"
+        tools:
+          - "Ontology mappers"
+          - "Relationship analyzers"
+          - "Process modelers"
+
+    execution:
+      workflow:
+        - "Analyze business requirements"
+        - "Generate BRD documentation"
+        - "Map business ontology"
+        - "Validate with stakeholders"
+        - "Create feature journeys"
+        - "Document product requirements"
+
+      failure_handling:
+        on_validation_failure:
+          - "Generate validation report"
+          - "Identify gaps in requirements"
+          - "Schedule stakeholder review"
+          - "Update documentation"
+
+    business_commands:
+      "#gen-brd":
+        description: "Generate Business Requirements Document"
+        workflow:
+          - "Gather business inputs"
+          - "Analyze requirements"
+          - "Generate documentation"
+          - "Validate with stakeholders"
+        template: "business_analyst_brd.md"
+
+      "#gen-ontology":
+        description: "Generate Business Ontology"
+        workflow:
+          - "Map domain concepts"
+          - "Define relationships"
+          - "Document processes"
+          - "Validate mappings"
+        template: "svbr_business_ontology_prompt.md"
+
+  # Product Requirements Integration
+  product_requirements:
+    types:
+      prd_generation:
+        description: "Product Requirements Document generation"
+        scope:
+          - "Product features"
+          - "Technical requirements"
+          - "User stories"
+          - "Acceptance criteria"
+        characteristics:
+          - "Feature completeness"
+          - "Technical accuracy"
+          - "User focus"
+        tools:
+          - "PRD templates"
+          - "Feature mapping"
+          - "User story generation"
+
+      journey_mapping:
+        description: "Feature journey mapping"
+        scope:
+          - "User flows"
+          - "Feature interactions"
+          - "Experience mapping"
+        characteristics:
+          - "User-centric design"
+          - "Flow visualization"
+          - "Interaction mapping"
+        tools:
+          - "Journey mappers"
+          - "Flow designers"
+          - "Experience trackers"
+
+    execution:
+      workflow:
+        - "Define product vision"
+        - "Map user journeys"
+        - "Document features"
+        - "Create acceptance criteria"
+        - "Generate PRD"
+        - "Validate requirements"
+
+      failure_handling:
+        on_requirement_gaps:
+          - "Identify missing requirements"
+          - "Schedule feature review"
+          - "Update documentation"
+          - "Validate changes"
+
+    product_commands:
+      "#gen-prd":
+        description: "Generate Product Requirements Document"
+        workflow:
+          - "Analyze product vision"
+          - "Document features"
+          - "Define requirements"
+          - "Create specifications"
+        template: "product_manager_prd.md"
+
+      "#gen-journey":
+        description: "Generate Feature Journey Map"
+        workflow:
+          - "Map user flows"
+          - "Document interactions"
+          - "Create journey maps"
+          - "Validate experiences"
+        template: "full_feature_journey_map_doc-fjmd.md"
+
+  # Business Generation Integration
+  business_generation:
+    types:
+      business_model:
+        description: "Business model and strategy generation"
+        scope:
+          - "Business model"
+          - "Revenue streams"
+          - "Market strategy"
+        characteristics:
+          - "Market alignment"
+          - "Revenue focus"
+          - "Strategic planning"
+        tools:
+          - "Business templates"
+          - "Strategy generators"
+          - "Market analyzers"
+
+    execution:
+      workflow:
+        - "Analyze market"
+        - "Define business model"
+        - "Create strategy"
+        - "Document plan"
+        - "Validate approach"
+
+      failure_handling:
+        on_strategy_gaps:
+          - "Identify market gaps"
+          - "Review competition"
+          - "Update strategy"
+          - "Validate changes"
+
+    generation_commands:
+      "#gen-business":
+        description: "Generate Business Model"
+        workflow:
+          - "Gather business inputs"
+          - "Analyze market"
+          - "Create model"
+          - "Document strategy"
+        template: "business_gen_prompt.md"
+        example: "business_gen_prompt_example.md"
+
+  # Integration Points
+  integration:
+    development:
+      - "Feature specifications"
+      - "Technical requirements"
+      - "Implementation guidelines"
+    
+    architecture:
+      - "System requirements"
+      - "Technical constraints"
+      - "Integration points"
+    
+    quality:
+      - "Acceptance criteria"
+      - "Quality requirements"
+      - "Validation rules" 

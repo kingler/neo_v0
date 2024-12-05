@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive project README documentation
+    </purpose>
+
+    <context>
+        <description>
+            This prompt analyzes project files and documentation to generate
+            a comprehensive README that effectively communicates project details.
+        </description>
+        <workflow_position>
+            <phase>Documentation</phase>
+            <predecessor>Project Setup</predecessor>
+            <successor>User Documentation</successor>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="project_files" type="array">
+            <description>Project source files and documentation</description>
+        </input>
+        <input name="dependencies" type="object">
+            <description>Project dependencies and requirements</description>
+        </input>
+        <input name="configuration" type="object">
+            <description>Project configuration and build settings</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="project_analysis">
+            <action>Analyze project structure and components</action>
+            <tasks>
+                <task>Scan project files</task>
+                <task>Identify core technologies</task>
+                <task>Map dependencies</task>
+                <task>Extract configuration</task>
+            </tasks>
+        </step>
+
+        <step name="content_generation">
+            <action>Generate README content sections</action>
+            <sections>
+                <section name="overview">
+                    <content>Project purpose and capabilities</content>
+                    <subsections>
+                        <item>Introduction</item>
+                        <item>Key features</item>
+                        <item>Technology stack</item>
+                    </subsections>
+                </section>
+                <section name="installation">
+                    <content>Setup and installation instructions</content>
+                    <subsections>
+                        <item>Prerequisites</item>
+                        <item>Installation steps</item>
+                        <item>Configuration</item>
+                    </subsections>
+                </section>
+                <section name="usage">
+                    <content>Usage instructions and examples</content>
+                    <subsections>
+                        <item>Basic usage</item>
+                        <item>Examples</item>
+                        <item>API reference</item>
+                    </subsections>
+                </section>
+                <section name="development">
+                    <content>Development guidelines</content>
+                    <subsections>
+                        <item>Setup</item>
+                        <item>Testing</item>
+                        <item>Contributing</item>
+                    </subsections>
+                </section>
+            </sections>
+        </step>
+
+        <step name="code_examples">
+            <action>Generate code examples and snippets</action>
+            <categories>
+                <category name="installation">
+                    <example>Package installation</example>
+                    <example>Environment setup</example>
+                </category>
+                <category name="usage">
+                    <example>Basic implementation</example>
+                    <example>Common patterns</example>
+                </category>
+                <category name="development">
+                    <example>Testing setup</example>
+                    <example>Build process</example>
+                </category>
+            </categories>
+        </step>
+
+        <step name="documentation_review">
+            <action>Review and validate documentation</action>
+            <checks>
+                <check>Content completeness</check>
+                <check>Code accuracy</check>
+                <check>Link validity</check>
+                <check>Format consistency</check>
+            </checks>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Content completeness</criterion>
+            <criterion>Technical accuracy</criterion>
+            <criterion>Code correctness</criterion>
+            <criterion>Documentation clarity</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="README.md">Main README document</file>
+            <file path="docs/installation.md">Detailed installation guide</file>
+            <file path="docs/development.md">Development guide</file>
+            <file path="docs/api.md">API documentation</file>
+        </files>
+    </output>
+</prompt> 

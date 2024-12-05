@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate and plan user stories for sprint execution
+    </purpose>
+
+    <context>
+        <description>
+            This prompt generates and plans user stories for sprint execution,
+            ensuring proper prioritization, estimation, and technical feasibility.
+        </description>
+        <workflow_position>
+            <phase>Planning</phase>
+            <sub_phase>Sprint Preparation</sub_phase>
+            <workflow>Post-Scaffolding Sprint Workflow</workflow>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="implementation_status" type="object">
+            <description>Current implementation status report</description>
+        </input>
+        <input name="project_requirements" type="array">
+            <description>Project requirements list</description>
+        </input>
+        <input name="previous_sprint" type="object">
+            <description>Previous sprint's user stories and outcomes</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="status_analysis">
+            <action>Analyze current implementation status</action>
+            <aspects>
+                <aspect name="progress">
+                    <metric>Completed features</metric>
+                    <metric>In-progress features</metric>
+                    <metric>Pending features</metric>
+                </aspect>
+                <aspect name="dependencies">
+                    <metric>Technical dependencies</metric>
+                    <metric>Feature dependencies</metric>
+                    <metric>External dependencies</metric>
+                </aspect>
+                <aspect name="blockers">
+                    <metric>Technical blockers</metric>
+                    <metric>Resource constraints</metric>
+                    <metric>External blockers</metric>
+                </aspect>
+            </aspects>
+        </step>
+
+        <step name="story_generation">
+            <action>Generate sprint stories</action>
+            <categories>
+                <category name="features">
+                    <type>New features</type>
+                    <type>Feature enhancements</type>
+                    <type>Feature fixes</type>
+                </category>
+                <category name="technical">
+                    <type>Technical debt</type>
+                    <type>Infrastructure</type>
+                    <type>Performance</type>
+                </category>
+                <category name="maintenance">
+                    <type>Bug fixes</type>
+                    <type>Documentation</type>
+                    <type>Testing</type>
+                </category>
+            </categories>
+        </step>
+
+        <step name="prioritization">
+            <action>Prioritize sprint stories</action>
+            <factors>
+                <factor name="business_value">
+                    <metric>User impact</metric>
+                    <metric>Business goals</metric>
+                    <metric>Market needs</metric>
+                </factor>
+                <factor name="technical_priority">
+                    <metric>Dependencies</metric>
+                    <metric>Technical risk</metric>
+                    <metric>Implementation complexity</metric>
+                </factor>
+                <factor name="resource_availability">
+                    <metric>Team capacity</metric>
+                    <metric>Skill requirements</metric>
+                    <metric>External resources</metric>
+                </factor>
+            </factors>
+        </step>
+
+        <step name="estimation">
+            <action>Estimate story effort</action>
+            <aspects>
+                <aspect name="complexity">
+                    <metric>Technical complexity</metric>
+                    <metric>Integration complexity</metric>
+                    <metric>Testing complexity</metric>
+                </aspect>
+                <aspect name="effort">
+                    <metric>Development effort</metric>
+                    <metric>Testing effort</metric>
+                    <metric>Documentation effort</metric>
+                </aspect>
+                <aspect name="risks">
+                    <metric>Technical risks</metric>
+                    <metric>Integration risks</metric>
+                    <metric>Timeline risks</metric>
+                </aspect>
+            </aspects>
+        </step>
+
+        <step name="sprint_planning">
+            <action>Plan sprint execution</action>
+            <components>
+                <component name="capacity">
+                    <metric>Team velocity</metric>
+                    <metric>Available resources</metric>
+                    <metric>Time constraints</metric>
+                </component>
+                <component name="dependencies">
+                    <metric>Story dependencies</metric>
+                    <metric>Resource dependencies</metric>
+                    <metric>External dependencies</metric>
+                </component>
+                <component name="milestones">
+                    <metric>Sprint goals</metric>
+                    <metric>Deliverables</metric>
+                    <metric>Success criteria</metric>
+                </component>
+            </components>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Story completeness</criterion>
+            <criterion>Priority alignment</criterion>
+            <criterion>Estimation accuracy</criterion>
+            <criterion>Sprint feasibility</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="docs/sprints/${sprint_id}/stories.md">Sprint stories</file>
+            <file path="docs/sprints/${sprint_id}/plan.md">Sprint plan</file>
+            <file path="docs/sprints/${sprint_id}/estimates.md">Story estimates</file>
+            <file path="docs/sprints/${sprint_id}/dependencies.md">Dependency map</file>
+        </files>
+    </output>
+
+    <integration_points>
+        <point name="implementation_analysis">
+            <template>implementation-analysis-prompt.xml</template>
+            <dependencies>Status report, Requirements</dependencies>
+        </point>
+        <point name="story_analysis">
+            <template>story-analysis-prompt.xml</template>
+            <dependencies>Generated stories, Requirements</dependencies>
+        </point>
+        <point name="sprint_planning">
+            <template>sprint_planning_chain.xml</template>
+            <dependencies>Stories, Estimates, Dependencies</dependencies>
+        </point>
+    </integration_points>
+</prompt> 

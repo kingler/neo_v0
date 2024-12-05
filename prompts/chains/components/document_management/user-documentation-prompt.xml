@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive user documentation and guides
+    </purpose>
+
+    <context>
+        <description>
+            This prompt creates user-facing documentation that helps users understand
+            and effectively use the application's features and capabilities.
+        </description>
+        <workflow_position>
+            <phase>User Documentation</phase>
+            <predecessor>Feature Implementation</predecessor>
+            <successor>Documentation Publishing</successor>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="feature_requirements" type="object">
+            <description>Feature requirements and specifications</description>
+        </input>
+        <input name="ui_specifications" type="object">
+            <description>User interface specifications and flows</description>
+        </input>
+        <input name="implemented_features" type="array">
+            <description>List of implemented features and capabilities</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="content_planning">
+            <action>Plan documentation structure and content</action>
+            <sections>
+                <section name="getting_started">
+                    <content>Quick start guide</content>
+                    <content>Key features overview</content>
+                    <content>System requirements</content>
+                </section>
+                <section name="user_guides">
+                    <content>Feature documentation</content>
+                    <content>Usage instructions</content>
+                    <content>Best practices</content>
+                </section>
+                <section name="tutorials">
+                    <content>Step-by-step guides</content>
+                    <content>Common workflows</content>
+                    <content>Examples</content>
+                </section>
+            </sections>
+        </step>
+
+        <step name="feature_documentation">
+            <action>Document individual features</action>
+            <components>
+                <component name="overview">
+                    <content>Feature description</content>
+                    <content>Use cases</content>
+                    <content>Benefits</content>
+                </component>
+                <component name="usage">
+                    <content>Step-by-step instructions</content>
+                    <content>Configuration options</content>
+                    <content>Examples</content>
+                </component>
+                <component name="troubleshooting">
+                    <content>Common issues</content>
+                    <content>Solutions</content>
+                    <content>Best practices</content>
+                </component>
+            </components>
+        </step>
+
+        <step name="ui_documentation">
+            <action>Document user interface elements</action>
+            <elements>
+                <element name="navigation">
+                    <content>Menu structure</content>
+                    <content>Navigation paths</content>
+                    <content>Shortcuts</content>
+                </element>
+                <element name="forms">
+                    <content>Input fields</content>
+                    <content>Validation rules</content>
+                    <content>Error messages</content>
+                </element>
+                <element name="interactions">
+                    <content>Actions</content>
+                    <content>Responses</content>
+                    <content>Feedback</content>
+                </element>
+            </elements>
+        </step>
+
+        <step name="workflow_documentation">
+            <action>Document common workflows</action>
+            <workflows>
+                <workflow name="basic">
+                    <step>Initial setup</step>
+                    <step>Configuration</step>
+                    <step>Basic usage</step>
+                </workflow>
+                <workflow name="advanced">
+                    <step>Advanced features</step>
+                    <step>Customization</step>
+                    <step>Integration</step>
+                </workflow>
+                <workflow name="maintenance">
+                    <step>Updates</step>
+                    <step>Backups</step>
+                    <step>Troubleshooting</step>
+                </workflow>
+            </workflows>
+        </step>
+
+        <step name="support_documentation">
+            <action>Create support documentation</action>
+            <materials>
+                <material name="faq">
+                    <content>Common questions</content>
+                    <content>Answers</content>
+                    <content>Related topics</content>
+                </material>
+                <material name="troubleshooting">
+                    <content>Issue identification</content>
+                    <content>Resolution steps</content>
+                    <content>Prevention tips</content>
+                </material>
+                <material name="contact">
+                    <content>Support channels</content>
+                    <content>Contact information</content>
+                    <content>Response times</content>
+                </material>
+            </materials>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Content completeness</criterion>
+            <criterion>Technical accuracy</criterion>
+            <criterion>User friendliness</criterion>
+            <criterion>Documentation clarity</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="docs/user/getting-started.md">Getting started guide</file>
+            <file path="docs/user/features/">Feature documentation</file>
+            <file path="docs/user/tutorials/">Tutorial guides</file>
+            <file path="docs/user/faq.md">FAQ document</file>
+            <file path="docs/user/troubleshooting.md">Troubleshooting guide</file>
+        </files>
+    </output>
+</prompt> 

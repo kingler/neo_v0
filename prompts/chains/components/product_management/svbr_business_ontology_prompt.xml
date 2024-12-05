@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt_chain>
+    <metadata>
+        <name>SBVR Business Ontology Generator</name>
+        <description>Generates comprehensive business ontology using Semantics of Business Vocabulary and Rules (SBVR) standards</description>
+        <version>1.0.0</version>
+        <category>product_management</category>
+        <tags>
+            <tag>business-ontology</tag>
+            <tag>domain-modeling</tag>
+            <tag>semantic-rules</tag>
+            <tag>business-vocabulary</tag>
+        </tags>
+    </metadata>
+
+    <input_validation>
+        <required_fields>
+            <field name="domain_concepts" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <name>string</name>
+                        <definition>string</definition>
+                        <category>string</category>
+                        <attributes>array</attributes>
+                    </item_schema>
+                </validation>
+            </field>
+            <field name="business_rules" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <type>enum[operational|structural|derivation]</type>
+                        <description>string</description>
+                        <conditions>array</conditions>
+                        <actions>array</actions>
+                    </item_schema>
+                </validation>
+            </field>
+            <field name="semantic_relationships" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <source>string</source>
+                        <target>string</target>
+                        <type>string</type>
+                        <cardinality>string</cardinality>
+                    </item_schema>
+                </validation>
+            </field>
+        </required_fields>
+        <optional_fields>
+            <field name="business_processes" type="array" />
+            <field name="constraints" type="array" />
+            <field name="axioms" type="array" />
+        </optional_fields>
+    </input_validation>
+
+    <state_management>
+        <variables>
+            <variable name="ontology_version" type="string" initial_value="1.0.0" />
+            <variable name="validation_status" type="object" initial_value="{}" />
+            <variable name="consistency_check_complete" type="boolean" initial_value="false" />
+        </variables>
+        <ontology_categories>
+            <category name="concepts">
+                <attributes>
+                    <attribute>name</attribute>
+                    <attribute>definition</attribute>
+                    <attribute>properties</attribute>
+                    <attribute>relationships</attribute>
+                </attributes>
+            </category>
+            <category name="rules">
+                <attributes>
+                    <attribute>type</attribute>
+                    <attribute>conditions</attribute>
+                    <attribute>actions</attribute>
+                    <attribute>constraints</attribute>
+                </attributes>
+            </category>
+            <category name="relationships">
+                <attributes>
+                    <attribute>source</attribute>
+                    <attribute>target</attribute>
+                    <attribute>type</attribute>
+                    <attribute>properties</attribute>
+                </attributes>
+            </category>
+            <category name="processes">
+                <attributes>
+                    <attribute>name</attribute>
+                    <attribute>steps</attribute>
+                    <attribute>actors</attribute>
+                    <attribute>rules</attribute>
+                </attributes>
+            </category>
+        </ontology_categories>
+    </state_management>
+
+    <processing>
+        <steps>
+            <step order="1">
+                <action>Analyze domain concepts</action>
+                <validation>
+                    <condition>All concepts properly defined</condition>
+                    <error_message>Incomplete concept definitions</error_message>
+                </validation>
+            </step>
+            <step order="2">
+                <action>Process business rules</action>
+                <validation>
+                    <condition>Rules are well-formed and consistent</condition>
+                    <error_message>Invalid business rules</error_message>
+                </validation>
+            </step>
+            <step order="3">
+                <action>Map semantic relationships</action>
+                <validation>
+                    <condition>Relationships are valid and complete</condition>
+                    <error_message>Invalid semantic relationships</error_message>
+                </validation>
+            </step>
+            <step order="4">
+                <action>Validate ontology consistency</action>
+                <validation>
+                    <condition>Ontology is consistent and complete</condition>
+                    <error_message>Ontology consistency check failed</error_message>
+                </validation>
+            </step>
+            <step order="5">
+                <action>Generate OWL representation</action>
+                <validation>
+                    <condition>OWL generation successful</condition>
+                    <error_message>OWL generation failed</error_message>
+                </validation>
+            </step>
+        </steps>
+    </processing>
+
+    <output_validation>
+        <requirements>
+            <requirement>All concepts properly defined</requirement>
+            <requirement>Business rules validated</requirement>
+            <requirement>Relationships mapped</requirement>
+            <requirement>Ontology consistency verified</requirement>
+        </requirements>
+        <metrics>
+            <metric name="concept_coverage" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of domain concepts covered</description>
+            </metric>
+            <metric name="rule_consistency" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of business rules validated</description>
+            </metric>
+            <metric name="relationship_completeness" type="percentage">
+                <threshold>95</threshold>
+                <description>Percentage of relationships properly mapped</description>
+            </metric>
+            <metric name="pass_fail" type="boolean">
+                <conditions>
+                    <condition>All concepts defined</condition>
+                    <condition>Rules validated</condition>
+                    <condition>Relationships complete</condition>
+                </conditions>
+            </metric>
+        </metrics>
+    </output_validation>
+
+    <error_handling>
+        <error type="invalid_input">
+            <message>Invalid concept or rule definition</message>
+            <action>Log error and request valid input</action>
+        </error>
+        <error type="consistency_violation">
+            <message>Ontology consistency violation detected</message>
+            <action>Identify conflicts and resolve</action>
+        </error>
+        <error type="relationship_error">
+            <message>Invalid semantic relationship</message>
+            <action>Review and correct relationship</action>
+        </error>
+        <error type="owl_generation_failure">
+            <message>OWL generation failed</message>
+            <action>Review ontology and retry generation</action>
+        </error>
+    </error_handling>
+
+    <output_format>
+        <ontology_template>
+            <concepts>
+                <concept>
+                    <name>string</name>
+                    <definition>string</definition>
+                    <properties>array</properties>
+                    <relationships>array</relationships>
+                </concept>
+            </concepts>
+            <rules>
+                <rule>
+                    <type>string</type>
+                    <description>string</description>
+                    <conditions>array</conditions>
+                    <actions>array</actions>
+                </rule>
+            </rules>
+            <relationships>
+                <relationship>
+                    <source>string</source>
+                    <target>string</target>
+                    <type>string</type>
+                    <properties>object</properties>
+                </relationship>
+            </relationships>
+            <metadata>
+                <version>string</version>
+                <last_updated>timestamp</last_updated>
+                <validation_status>object</validation_status>
+                <consistency_check>object</consistency_check>
+            </metadata>
+        </ontology_template>
+    </output_format>
+</prompt_chain> 

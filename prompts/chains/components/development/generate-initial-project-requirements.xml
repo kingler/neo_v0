@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive initial project requirements that establish clear architectural foundations, technical constraints, and implementation guidelines.
+    </purpose>
+
+    <chain-position>
+        <step>1</step>
+        <name>initial_requirements_generator</name>
+        <type>requirements</type>
+        <next>architecture_design</next>
+    </chain-position>
+
+    <input>
+        <sources>
+            <source>
+                <type>project_brief</type>
+                <format>markdown</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>stakeholder_inputs</type>
+                <format>json</format>
+                <required>true</required>
+            </source>
+            <source>
+                <type>technical_constraints</type>
+                <format>yaml</format>
+                <required>false</required>
+            </source>
+        </sources>
+        <requirements>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "project_context": {
+                        "name": "string",
+                        "description": "string",
+                        "objectives": ["string"],
+                        "constraints": ["string"]
+                    },
+                    "stakeholder_needs": {
+                        "business": ["string"],
+                        "user": ["string"],
+                        "technical": ["string"]
+                    },
+                    "system_boundaries": {
+                        "in_scope": ["string"],
+                        "out_of_scope": ["string"],
+                        "future_considerations": ["string"]
+                    },
+                    "technical_context": {
+                        "constraints": ["string"],
+                        "dependencies": ["string"],
+                        "integration_points": ["string"]
+                    }
+                }
+                ]]>
+            </schema>
+        </requirements>
+        <validation>
+            <rules>
+                <rule>
+                    <type>context_completeness</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>scope_clarity</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>technical_feasibility</type>
+                    <severity>warning</severity>
+                </rule>
+            </rules>
+        </validation>
+    </input>
+
+    <output>
+        <format>json</format>
+        <schema>
+            <![CDATA[
+            {
+                "requirements": {
+                    "functional": [{
+                        "id": "string",
+                        "category": "string",
+                        "description": "string",
+                        "priority": "number",
+                        "dependencies": ["string"],
+                        "acceptance_criteria": ["string"]
+                    }],
+                    "non_functional": [{
+                        "id": "string",
+                        "type": "string",
+                        "description": "string",
+                        "metrics": {
+                            "target": "number",
+                            "minimum": "number"
+                        }
+                    }],
+                    "technical": [{
+                        "id": "string",
+                        "category": "string",
+                        "description": "string",
+                        "constraints": ["string"],
+                        "dependencies": ["string"]
+                    }]
+                },
+                "architecture_impacts": {
+                    "components": ["string"],
+                    "integrations": ["string"],
+                    "constraints": ["string"]
+                },
+                "validation": {
+                    "passed": "boolean",
+                    "issues": ["string"],
+                    "warnings": ["string"]
+                }
+            }
+            ]]>
+        </schema>
+        <destinations>
+            <destination>architecture_design_chain</destination>
+            <destination>tech_stack_selection_chain</destination>
+        </destinations>
+    </output>
+
+    <workflow>
+        <steps>
+            <step id="1">
+                <name>analyze_context</name>
+                <description>Analyze project context and stakeholder needs</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <consistency>true</consistency>
+                </validation>
+            </step>
+            <step id="2">
+                <name>define_boundaries</name>
+                <description>Define system boundaries and scope</description>
+                <outputs>
+                    <output>
+                        <type>scope_definition</type>
+                        <description>Clear system boundaries and scope</description>
+                    </output>
+                </outputs>
+            </step>
+            <step id="3">
+                <name>generate_requirements</name>
+                <description>Generate comprehensive requirements</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <clarity>true</clarity>
+                    <testability>true</testability>
+                </validation>
+            </step>
+            <step id="4">
+                <name>analyze_impacts</name>
+                <description>Analyze architectural impacts</description>
+                <validation>
+                    <technical_feasibility>true</technical_feasibility>
+                    <constraint_compatibility>true</constraint_compatibility>
+                </validation>
+            </step>
+            <step id="5">
+                <name>validate_requirements</name>
+                <description>Validate requirements quality</description>
+                <validation>
+                    <completeness>true</completeness>
+                    <consistency>true</consistency>
+                    <feasibility>true</feasibility>
+                </validation>
+            </step>
+        </steps>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>
+                <type>requirements_completeness</type>
+                <description>All required aspects are covered</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>requirements_clarity</type>
+                <description>Requirements are clear and unambiguous</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>technical_feasibility</type>
+                <description>Requirements are technically feasible</description>
+                <severity>error</severity>
+            </criterion>
+            <criterion>
+                <type>scope_definition</type>
+                <description>System boundaries are clearly defined</description>
+                <severity>warning</severity>
+            </criterion>
+        </criteria>
+    </validation>
+
+    <commands>
+        <command>
+            <name>/generate-requirements</name>
+            <description>Generate initial project requirements</description>
+            <parameters>
+                <parameter>
+                    <name>project_name</name>
+                    <description>Name of the project</description>
+                </parameter>
+                <parameter>
+                    <name>detail_level</name>
+                    <description>Level of detail required (high/medium/low)</description>
+                    <default>high</default>
+                </parameter>
+            </parameters>
+        </command>
+        <command>
+            <name>/requirements-status</name>
+            <description>Check requirements generation status</description>
+        </command>
+        <command>
+            <name>/validate-requirements</name>
+            <description>Validate generated requirements</description>
+        </command>
+    </commands>
+</prompt> 

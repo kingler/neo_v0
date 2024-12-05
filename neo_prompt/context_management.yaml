@@ -1,13 +1,51 @@
 # Context Management System
 context_management:
-  # Previous sections remain the same...
+  # Core Configuration
+  config:
+    version: "5.0.0"
+    parser:
+      type: "typescript"
+      options:
+        sourceType: "module"
+        plugins: ["typescript", "jsx"]
+    
+    rules:
+      contextScope:
+        enabled: true
+        level: "error"
+        options:
+          maxDepth: 3
+          allowedScopes: ["global", "module", "function"]
 
-  # Workflow Context Management (incorporating workflow_contexts.yaml)
+  # Context Provider Configuration
+  provider:
+    engine:
+      type: "llm"
+      model: "gpt-4"
+      temperature: 0.2
+      maxTokens: 2048
+    
+    storage:
+      type: "vector"
+      engine: "chromadb"
+      collections:
+        code:
+          name: "code_context"
+          schema:
+            - name: "content"
+              type: "text"
+            - name: "metadata"
+              type: "json"
+            - name: "embedding"
+              type: "vector"
+
+  # Workflow Context Management
   workflow_contexts:
     planning_workflow:
       requirements:
         command: "#requirements-init"
         workflow:
+          - "Generate code knowledge graph"
           - "Load requirements context"
           - "Update specifications"
           - "Generate documentation"
@@ -15,6 +53,7 @@ context_management:
       architecture:
         command: "#arch-init"
         workflow:
+          - "Generate code knowledge graph"
           - "Load architecture context"
           - "Update system design"
           - "Generate diagrams"
@@ -23,6 +62,7 @@ context_management:
       implementation:
         command: "#dev-init"
         workflow:
+          - "Generate code knowledge graph"
           - "Load development context"
           - "Update codebase"
           - "Generate documentation"
@@ -30,15 +70,16 @@ context_management:
       testing:
         command: "#test-init"
         workflow:
+          - "Generate code knowledge graph"
           - "Load testing context"
           - "Update test suite"
           - "Generate reports"
 
-    # Additional workflow contexts
     feature_workflow:
       initialization:
         command: "#feature-init"
         workflow:
+          - "Generate code knowledge graph"
           - "Create feature branch"
           - "Setup feature structure"
           - "Initialize tests"
@@ -47,27 +88,11 @@ context_management:
       development:
         command: "#feature-dev"
         workflow:
+          - "Generate code knowledge graph"
           - "Implement functionality"
           - "Write tests"
           - "Update documentation"
           - "Create PR"
-
-    deployment_workflow:
-      staging:
-        command: "#deploy-staging"
-        workflow:
-          - "Build application"
-          - "Run tests"
-          - "Deploy to staging"
-          - "Run smoke tests"
-      
-      production:
-        command: "#deploy-prod"
-        workflow:
-          - "Verify staging"
-          - "Run security checks"
-          - "Deploy to production"
-          - "Monitor metrics"
 
   # Context Operations Management
   operations_management:
@@ -77,12 +102,30 @@ context_management:
         workflow:
           - "Create context structure"
           - "Initialize vector store"
+          - "Generate code knowledge graph"
           - "Setup persistence"
           - "Configure access"
+      
+      code_knowledge_graph:
+        command: "#generate-knowledge-graph"
+        workflow:
+          - "Analyze project structure"
+          - "Generate dependency graph"
+          - "Optimize for LLM context"
+          - "Save knowledge graph"
+          - "Update context metadata"
+        hooks:
+          pre_workflow:
+            - "Check for existing graph"
+            - "Validate project structure"
+          post_workflow:
+            - "Update context metadata"
+            - "Notify dependent workflows"
       
       workflow_init:
         command: "#init-workflow"
         workflow:
+          - "Generate code knowledge graph"
           - "Load workflow templates"
           - "Configure workflow steps"
           - "Setup monitoring"
@@ -92,6 +135,7 @@ context_management:
       context_update:
         command: "#update-workflow"
         workflow:
+          - "Generate code knowledge graph"
           - "Check for changes"
           - "Update workflow states"
           - "Sync with agents"
@@ -104,22 +148,104 @@ context_management:
           - "Optimize storage"
           - "Update indexes"
           - "Generate reports"
+          - "Update knowledge graph"
 
-  # Workflow Integration Points
-  workflow_integration:
-    version_control:
-      - "Track workflow changes"
-      - "Maintain workflow history"
-      - "Version workflow templates"
+  # Knowledge Graph Integration
+  knowledge_graph_integration:
+    triggers:
+      - "New file creation"
+      - "File modification"
+      - "Dependency changes"
+      - "Project structure changes"
     
-    documentation:
-      - "Link workflows to documentation"
-      - "Generate workflow diagrams"
-      - "Maintain workflow guides"
+    update_events:
+      file_changes:
+        - "Source code modifications"
+        - "Component additions/removals"
+        - "Dependency updates"
+      
+      project_changes:
+        - "New feature branches"
+        - "Merge operations"
+        - "Project restructuring"
     
-    monitoring:
-      - "Track workflow execution"
-      - "Monitor workflow health"
-      - "Generate metrics"
+    optimization_rules:
+      - "Remove unused nodes"
+      - "Compress repeated patterns"
+      - "Prioritize active components"
+      - "Cache frequent queries"
 
-  # Rest of the file remains the same... 
+  # Context Types and Schemas
+  types:
+    code_context:
+      structure:
+        file:
+          - path: "string"
+          - content: "string"
+          - language: "string"
+          - imports: "string[]"
+          - exports: "string[]"
+        
+        function:
+          - name: "string"
+          - params: "object[]"
+          - returnType: "string"
+          - description: "string"
+          - dependencies: "string[]"
+        
+        class:
+          - name: "string"
+          - methods: "object[]"
+          - properties: "object[]"
+          - inheritance: "string[]"
+          - implementations: "string[]"
+
+  # System Monitoring
+  monitoring:
+    metrics:
+      - name: "Graph Generation Time"
+        threshold: "30s"
+        alert: true
+      - name: "Context Query Latency"
+        threshold: "200ms"
+        alert: true
+      - name: "Storage Usage"
+        threshold: "80%"
+        alert: true
+    
+    alerts:
+      channels:
+        - type: "console"
+          priority: "high"
+        - type: "log"
+          priority: "medium"
+    
+    analytics:
+      usage_patterns:
+        - "Most accessed components"
+        - "Query patterns"
+        - "Update frequency"
+      optimization_metrics:
+        - "Cache hit rate"
+        - "Query performance"
+        - "Storage efficiency"
+
+  # Security Management
+  security:
+    access_control:
+      roles:
+        admin:
+          permissions: ["read", "write", "execute", "manage"]
+        developer:
+          permissions: ["read", "write", "execute"]
+        viewer:
+          permissions: ["read"]
+    
+    audit:
+      logging:
+        - "Graph generation events"
+        - "Context access"
+        - "System changes"
+      retention:
+        logs: "30d"
+        graphs: "7d"

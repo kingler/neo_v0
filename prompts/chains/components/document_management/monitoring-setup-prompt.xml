@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive monitoring setup documentation
+    </purpose>
+
+    <context>
+        <description>
+            This prompt creates detailed documentation for system monitoring setup,
+            including metrics configuration, alerting, and response procedures.
+        </description>
+        <workflow_position>
+            <phase>Operations Documentation</phase>
+            <predecessor>System Implementation</predecessor>
+            <successor>Maintenance Documentation</successor>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="system_architecture" type="object">
+            <description>System architecture and components</description>
+        </input>
+        <input name="monitoring_config" type="object">
+            <description>Monitoring tools and configurations</description>
+        </input>
+        <input name="alert_rules" type="array">
+            <description>Alert definitions and thresholds</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="system_analysis">
+            <action>Analyze system components and requirements</action>
+            <components>
+                <component>Infrastructure services</component>
+                <component>Application services</component>
+                <component>Database systems</component>
+                <component>Network services</component>
+            </components>
+        </step>
+
+        <step name="metrics_definition">
+            <action>Define monitoring metrics</action>
+            <categories>
+                <category name="system_metrics">
+                    <metric>CPU usage</metric>
+                    <metric>Memory utilization</metric>
+                    <metric>Disk usage</metric>
+                    <metric>Network traffic</metric>
+                </category>
+                <category name="application_metrics">
+                    <metric>Response times</metric>
+                    <metric>Error rates</metric>
+                    <metric>Request counts</metric>
+                    <metric>Active users</metric>
+                </category>
+                <category name="business_metrics">
+                    <metric>Transaction rates</metric>
+                    <metric>Success rates</metric>
+                    <metric>User engagement</metric>
+                    <metric>Revenue metrics</metric>
+                </category>
+            </categories>
+        </step>
+
+        <step name="alert_configuration">
+            <action>Document alert configuration</action>
+            <configurations>
+                <alerts>
+                    <alert name="high_severity">
+                        <threshold>Critical system issues</threshold>
+                        <response>Immediate action required</response>
+                    </alert>
+                    <alert name="medium_severity">
+                        <threshold>Performance degradation</threshold>
+                        <response>Investigation needed</response>
+                    </alert>
+                    <alert name="low_severity">
+                        <threshold>Warning conditions</threshold>
+                        <response>Monitoring required</response>
+                    </alert>
+                </alerts>
+                <notifications>
+                    <channel>Email notifications</channel>
+                    <channel>SMS alerts</channel>
+                    <channel>Chat integrations</channel>
+                    <channel>Ticketing system</channel>
+                </notifications>
+            </configurations>
+        </step>
+
+        <step name="dashboard_setup">
+            <action>Document dashboard configuration</action>
+            <dashboards>
+                <dashboard name="system_overview">
+                    <panels>
+                        <panel>System health</panel>
+                        <panel>Resource usage</panel>
+                        <panel>Error rates</panel>
+                    </panels>
+                </dashboard>
+                <dashboard name="application_metrics">
+                    <panels>
+                        <panel>Service status</panel>
+                        <panel>Performance metrics</panel>
+                        <panel>User metrics</panel>
+                    </panels>
+                </dashboard>
+                <dashboard name="business_metrics">
+                    <panels>
+                        <panel>Transaction overview</panel>
+                        <panel>User engagement</panel>
+                        <panel>Revenue metrics</panel>
+                    </panels>
+                </dashboard>
+            </dashboards>
+        </step>
+
+        <step name="response_procedures">
+            <action>Document incident response procedures</action>
+            <procedures>
+                <procedure name="incident_management">
+                    <step>Alert verification</step>
+                    <step>Impact assessment</step>
+                    <step>Response actions</step>
+                    <step>Resolution tracking</step>
+                </procedure>
+                <procedure name="escalation">
+                    <step>Team notification</step>
+                    <step>Stakeholder communication</step>
+                    <step>Progress tracking</step>
+                    <step>Resolution confirmation</step>
+                </procedure>
+            </procedures>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Metric coverage</criterion>
+            <criterion>Alert configuration</criterion>
+            <criterion>Dashboard setup</criterion>
+            <criterion>Response procedures</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="docs/monitoring/overview.md">Monitoring overview</file>
+            <file path="docs/monitoring/metrics.md">Metrics documentation</file>
+            <file path="docs/monitoring/alerts.md">Alert configuration</file>
+            <file path="docs/monitoring/dashboards.md">Dashboard setup</file>
+            <file path="docs/monitoring/procedures.md">Response procedures</file>
+        </files>
+    </output>
+</prompt> 

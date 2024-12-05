@@ -17,11 +17,11 @@ Commands:
           description: "Commands to be executed in bash terminal"
           indicator: "terminal_required"
 
-  # Project Type Commands (from use_case_commands.yaml)
+  ## Project Type Commands (from use_case_commands.yaml)
   project_type_commands:
     website:
       initialization:
-        "#init-website":
+        "/init-website":
           description: "Initialize website project"
           workflow:
             - "Setup static site generator"
@@ -30,14 +30,14 @@ Commands:
             - "Setup deployment pipeline"
       templates:
         - type: "Landing Page"
-          command: "#gen-landing"
+          command: "/gen-landing"
           components:
             - "Hero section"
             - "Features grid"
             - "Testimonials"
             - "Contact form"
         - type: "Blog"
-          command: "#gen-blog"
+          command: "/gen-blog"
           components:
             - "Post listing"
             - "Categories"
@@ -46,7 +46,7 @@ Commands:
 
     webapp:
       initialization:
-        "#init-webapp":
+        "/init-webapp":
           description: "Initialize web application"
           workflow:
             - "Setup frontend framework"
@@ -55,7 +55,7 @@ Commands:
             - "Setup authentication"
       architecture:
         frontend:
-          "#init-frontend":
+          "/init-frontend":
             framework_options:
               - "React"
               - "Vue"
@@ -65,7 +65,7 @@ Commands:
               - "State management"
               - "Routing system"
         backend:
-          "#init-backend":
+          "/init-backend":
             framework_options:
               - "Node.js/Express"
               - "Python/Django"
@@ -77,7 +77,7 @@ Commands:
 
     mobile_app:
       initialization:
-        "#init-mobile":
+        "/init-mobile":
           description: "Initialize mobile application"
           workflow:
             - "Setup mobile framework"
@@ -86,79 +86,79 @@ Commands:
             - "Setup build pipeline"
       platform_setup:
         cross_platform:
-          "#init-react-native":
+          "/init-react-native":
             setup:
               - "React Native configuration"
               - "Native modules"
               - "Navigation system"
-          "#init-flutter":
+          "/init-flutter":
             setup:
               - "Flutter configuration"
               - "Widget structure"
               - "State management"
         native:
-          "#init-ios":
+          "/init-ios":
             setup:
               - "iOS project structure"
               - "CocoaPods setup"
               - "Swift configuration"
-          "#init-android":
+          "/init-android":
             setup:
               - "Android project structure"
               - "Gradle configuration"
               - "Kotlin setup"
 
-  # Original Commands
+  ## Original Commands
   agent_commands:
     product_owner:
       requirements:
-        - "#requirements-init"
-        - "#feature-map"
-        - "#roadmap-gen"
+        - "/requirements-init"
+        - "/feature-map"
+        - "/roadmap-gen"
 
     ux_researcher:
       research:
-        - "#research-init"
-        - "#interview-analyze"
-        - "#survey-process"
+        - "/research-init"
+        - "/interview-analyze"
+        - "/survey-process"
 
     system_architect:
       architecture:
-        - "#arch-init"
-        - "#uml-gen"
-        - "#api-design"
+        - "/arch-init"
+        - "/uml-gen"
+        - "/api-design"
 
     frontend_developer:
       ui_development:
-        - "#ui-implement"
-        - "#component-build"
+        - "/ui-implement"
+        - "/component-build"
 
     backend_developer:
       api_implementation:
-        - "#api-implement"
-        - "#service-build"
+        - "/api-implement"
+        - "/service-build"
 
     database_developer:
       database:
-        - "#schema-implement"
-        - "#migration-gen"
+        - "/schema-implement"
+        - "/migration-gen"
 
     test_engineer:
       testing:
-        - "#test-suite"
-        - "#coverage-check"
+        - "/test-suite"
+        - "/coverage-check"
 
-  # Development Workflow Commands
+  ## Development Workflow Commands
   development_workflows:
     feature_development:
-      "#feature-start":
+      "/feature-start":
         workflow:
           - "Create feature branch"
           - "Setup feature structure"
           - "Initialize tests"
           - "Update documentation"
       
-      "#feature-implement":
+      "/feature-implement":
         workflow:
           - "Implement functionality"
           - "Write tests"
@@ -167,7 +167,7 @@ Commands:
 
     testing:
       unit_testing:
-        "#test-unit":
+        "/test-unit":
           workflow:
             - "Generate test cases"
             - "Implement tests"
@@ -175,7 +175,7 @@ Commands:
             - "Generate coverage"
       
       integration_testing:
-        "#test-integration":
+        "/test-integration":
           workflow:
             - "Setup test environment"
             - "Run integration tests"
@@ -184,7 +184,7 @@ Commands:
 
     deployment:
       staging:
-        "#deploy-staging":
+        "/deploy-staging":
           workflow:
             - "Build application"
             - "Run tests"
@@ -192,43 +192,43 @@ Commands:
             - "Run smoke tests"
       
       production:
-        "#deploy-prod":
+        "/deploy-prod":
           workflow:
             - "Verify staging"
             - "Run security checks"
             - "Deploy to production"
             - "Monitor metrics"
 
-  # System Commands
+  ## System Commands
   system_commands:
     project_management:
-      - name: "#init-project"
+      - name: "/init-project"
         execution: "self_prompt"
         
-      - name: "#init-memory"
+      - name: "/init-memory"
         execution: "self_prompt"
         
-      - name: "#generate-project-structure"
+      - name: "/generate-project-structure"
         execution: "terminal_required"
         
-      - name: "#organize-root"
+      - name: "/organize-root"
         execution: "terminal_required"
-      - "#init-project-site"
+      - "/init-project-site"
 
     version_control:
-      - name: "#init-git"
+      - name: "/init-git"
         execution: "terminal_required"
         
-      - name: "#commit"
+      - name: "/commit"
         execution: "terminal_required"
 
     documentation:
-      - name: "#docs-init"
+      - name: "/docs-init"
         execution: "self_prompt"
         
-      - name: "#gen-docs"
+      - name: "/gen-docs"
         execution: "self_prompt"
-      - "#init-project-site":
+      - "/init-project-site":
         description: "Initialize documentation portal using neo_project_site template"
         workflow:
           - "Clone template repository"
@@ -250,7 +250,7 @@ Commands:
                   - development/
                   - api/
 
-  # Command Integration
+  ## Command Integration
   command_integration:
     workflow_hooks:
       pre_command:
@@ -268,4 +268,109 @@ Commands:
         - "Log error details"
         - "Notify relevant agents"
         - "Attempt recovery"
-        - "Update status" 
+        - "Update status"
+
+  ## UML Generation Commands
+  uml_commands:
+    "/gen-uml":
+      description: "Generate UML diagrams using PlantUML"
+      template: "@generate-PlantUML-diagram.md"
+      diagram_types:
+        class:
+          command: "/gen-uml-class"
+          description: "Generate class diagram"
+          workflow:
+            - "Analyze class structure"
+            - "Identify relationships"
+            - "Generate PlantUML syntax"
+          options:
+            depth: [1, 2, 3]
+            include_methods: [true, false]
+            include_attributes: [true, false]
+
+        component:
+          command: "/gen-uml-component"
+          description: "Generate component diagram"
+          workflow:
+            - "Identify system components"
+            - "Map dependencies"
+            - "Generate PlantUML syntax"
+          options:
+            depth: [1, 2, 3]
+            show_interfaces: [true, false]
+            group_by_module: [true, false]
+
+        sequence:
+          command: "/gen-uml-sequence"
+          description: "Generate sequence diagram"
+          workflow:
+            - "Define actors"
+            - "Map interactions"
+            - "Generate PlantUML syntax"
+          options:
+            include_returns: [true, false]
+            show_activation: [true, false]
+            group_lifelines: [true, false]
+
+        activity:
+          command: "/gen-uml-activity"
+          description: "Generate activity diagram"
+          workflow:
+            - "Define start point"
+            - "Map process flow"
+            - "Generate PlantUML syntax"
+          options:
+            show_swimlanes: [true, false]
+            include_conditions: [true, false]
+            show_parallel: [true, false]
+
+        usecase:
+          command: "/gen-uml-usecase"
+          description: "Generate use case diagram"
+          workflow:
+            - "Identify actors"
+            - "Define use cases"
+            - "Generate PlantUML syntax"
+          options:
+            show_extensions: [true, false]
+            group_by_actor: [true, false]
+            include_notes: [true, false]
+
+        deployment:
+          command: "/gen-uml-deployment"
+          description: "Generate deployment diagram"
+          workflow:
+            - "Map infrastructure"
+            - "Define nodes"
+            - "Generate PlantUML syntax"
+          options:
+            show_artifacts: [true, false]
+            include_versions: [true, false]
+            show_dependencies: [true, false]
+
+        state:
+          command: "/gen-uml-state"
+          description: "Generate state diagram"
+          workflow:
+            - "Define states"
+            - "Map transitions"
+            - "Generate PlantUML syntax"
+          options:
+            show_actions: [true, false]
+            include_guards: [true, false]
+            nested_states: [true, false]
+
+      global_options:
+        theme: ["plain", "monochrome", "cerulean", "blueprint"]
+        output_format: ["svg", "png", "pdf"]
+        include_title: [true, false]
+        add_legend: [true, false]
+        show_stereotypes: [true, false]
+
+      integration:
+        documentation_site:
+          auto_update: true
+          output_path: "neo_project_site/src/pages/architecture/diagrams"
+          navigation:
+            section: "Architecture"
+            subsection: "System Diagrams"

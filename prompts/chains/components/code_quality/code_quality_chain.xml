@@ -11,10 +11,17 @@
     </chain-position>
 
     <input>
-        <source>
-            <file>source_code/*</file>
-            <format>source_files</format>
-        </source>
+        <sources>
+            <source>
+                <type>source_code</type>
+                <format>source_files</format>
+            </source>
+            <source>
+                <type>previous_iteration</type>
+                <format>json</format>
+                <from>code_generator_agent.output</from>
+            </source>
+        </sources>
         <requirements>
             <format>json</format>
             <schema>
@@ -22,15 +29,57 @@
                 {
                     "sourceCode": "string",
                     "language": "string",
+                    "previousMetrics": {
+                        "status": {
+                            "passed": "boolean",
+                            "critical_failures": ["string"],
+                            "blocking_issues": ["string"],
+                            "warnings": ["string"]
+                        },
+                        "quality": "number",
+                        "principles": {
+                            "kiss": "number",
+                            "yagni": "number",
+                            "solid": "number"
+                        }
+                    },
                     "qualityThresholds": {
+                        "critical": {
+                            "security": "boolean",
+                            "performance": "boolean",
+                            "reliability": "boolean",
+                            "test_coverage": "boolean",
+                            "code_style": "boolean"
+                        },
                         "complexity": "number",
                         "coverage": "number",
                         "duplication": "number"
+                    },
+                    "metadata": {
+                        "iteration": "number",
+                        "timestamp": "string",
+                        "chainContext": "object"
                     }
                 }
                 ]]>
             </schema>
         </requirements>
+        <validation>
+            <rules>
+                <rule>
+                    <type>schema_validation</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>source_exists</type>
+                    <severity>error</severity>
+                </rule>
+                <rule>
+                    <type>metrics_range</type>
+                    <severity>warning</severity>
+                </rule>
+            </rules>
+        </validation>
     </input>
 
     <output>
@@ -39,16 +88,29 @@
             <![CDATA[
             {
                 "chainStatus": {
+                    "passed": "boolean",
+                    "critical_issues": ["string"],
+                    "blocking_issues": ["string"],
+                    "warnings": ["string"],
                     "currentIteration": "number",
                     "qualityScore": "number",
                     "lastEvaluation": "timestamp",
                     "improvements": [{
                         "iteration": "number",
                         "changes": ["string"],
-                        "qualityDelta": "number"
+                        "qualityDelta": "number",
+                        "resolved_issues": ["string"]
                     }],
                     "status": "string",
-                    "nextStep": "string"
+                    "nextStep": "string",
+                    "failureReasons": ["string"],
+                    "pass_criteria_met": {
+                        "security": "boolean",
+                        "performance": "boolean",
+                        "reliability": "boolean",
+                        "test_coverage": "boolean",
+                        "code_style": "boolean"
+                    }
                 }
             }
             ]]>
@@ -61,7 +123,7 @@
 
     <workflow>
         <iteration-loop>
-            <condition>Continue until quality threshold met OR max iterations reached</condition>
+            <condition>Continue until all critical quality gates pass OR max iterations reached</condition>
             <steps>
                 <step id="1">
                     <agent>code_evaluation_agent</agent>
@@ -73,6 +135,46 @@
                         <type>evaluationReport</type>
                         <target>code_improver_agent</target>
                     </output>
+                    <test>
+                        <type>unit_test</type>
+                        <requirements>
+                            <coverage>
+                                <minimum>90</minimum>
+                                <critical_paths>100</critical_paths>
+                            </coverage>
+                            <pass_criteria>
+                                <critical>
+                                    <security>true</security>
+                                    <performance>true</performance>
+                                    <reliability>true</reliability>
+                                    <test_coverage>true</test_coverage>
+                                    <code_style>true</code_style>
+                                </critical>
+                                <quality_score>
+                                    <minimum>0.85</minimum>
+                                </quality_score>
+                            </pass_criteria>
+                            <cases>
+                                <case>
+                                    <name>critical_validation</name>
+                                    <description>Verify all critical quality gates pass</description>
+                                    <priority>high</priority>
+                                </case>
+                                <case>
+                                    <name>evaluation_accuracy</name>
+                                    <description>Verify evaluation metrics accuracy</description>
+                                </case>
+                                <case>
+                                    <name>code_analysis</name>
+                                    <description>Test code analysis functionality</description>
+                                </case>
+                                <case>
+                                    <name>report_generation</name>
+                                    <description>Validate evaluation report format</description>
+                                </case>
+                            </cases>
+                        </requirements>
+                    </test>
                 </step>
 
                 <step id="2">
@@ -95,6 +197,50 @@
                         <type>ratingReport</type>
                         <target>code_generator_agent</target>
                     </output>
+                    <test>
+                        <type>unit_test</type>
+                        <requirements>
+                            <coverage>
+                                <minimum>90</minimum>
+                                <critical_paths>100</critical_paths>
+                            </coverage>
+                            <pass_criteria>
+                                <critical>
+                                    <security>true</security>
+                                    <performance>true</performance>
+                                    <reliability>true</reliability>
+                                    <test_coverage>true</test_coverage>
+                                    <code_style>true</code_style>
+                                </critical>
+                                <quality_score>
+                                    <minimum>0.85</minimum>
+                                </quality_score>
+                            </pass_criteria>
+                            <cases>
+                                <case>
+                                    <name>critical_validation</name>
+                                    <description>Verify all critical quality gates pass</description>
+                                    <priority>high</priority>
+                                </case>
+                                <case>
+                                    <name>rating_accuracy</name>
+                                    <description>Verify rating calculations</description>
+                                </case>
+                                <case>
+                                    <name>metrics_validation</name>
+                                    <description>Test metrics validation logic</description>
+                                </case>
+                                <case>
+                                    <name>threshold_checks</name>
+                                    <description>Validate quality threshold checks</description>
+                                </case>
+                                <case>
+                                    <name>report_format</name>
+                                    <description>Test rating report structure</description>
+                                </case>
+                            </cases>
+                        </requirements>
+                    </test>
                 </step>
 
                 <step id="4">
@@ -130,38 +276,63 @@
 
     <termination-conditions>
         <condition>
+            <type>Pass Status</type>
+            <description>Code passes all critical quality gates</description>
+            <priority>1</priority>
+            <requirements>
+                <requirement>All critical tests pass</requirement>
+                <requirement>No security vulnerabilities</requirement>
+                <requirement>Performance meets thresholds</requirement>
+                <requirement>Test coverage meets minimum</requirement>
+                <requirement>Code style standards met</requirement>
+            </requirements>
+            <validation>
+                <critical_gates>
+                    <security>true</security>
+                    <performance>true</performance>
+                    <reliability>true</reliability>
+                    <test_coverage>true</test_coverage>
+                    <code_style>true</code_style>
+                </critical_gates>
+                <blocking_issues>0</blocking_issues>
+            </validation>
+        </condition>
+        <condition>
             <type>Quality Threshold</type>
             <description>Code meets or exceeds target quality metrics</description>
+            <priority>2</priority>
         </condition>
         <condition>
             <type>Max Iterations</type>
             <description>Maximum improvement iterations reached</description>
+            <priority>3</priority>
         </condition>
         <condition>
             <type>Diminishing Returns</type>
             <description>Improvements become negligible between iterations</description>
+            <priority>4</priority>
         </condition>
     </termination-conditions>
 
     <commands>
         <command>
-            <name>#evaluate-code</name>
+            <name>/evaluate-code</name>
             <description>Initiate code evaluation process</description>
         </command>
         <command>
-            <name>#improve-code</name>
+            <name>/improve-code</name>
             <description>Apply improvements based on evaluation</description>
         </command>
         <command>
-            <name>#rate-code</name>
+            <name>/rate-code</name>
             <description>Rate current code quality</description>
         </command>
         <command>
-            <name>#generate-code</name>
+            <name>/generate-code</name>
             <description>Generate final improved version</description>
         </command>
         <command>
-            <name>#code-quality-status</name>
+            <name>/code-quality-status</name>
             <description>Check current chain status</description>
         </command>
     </commands>

@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt_chain>
+    <metadata>
+        <name>Product Requirements Document Generator</name>
+        <description>Generates comprehensive product requirements documentation with feature specifications and technical requirements</description>
+        <version>1.0.0</version>
+        <category>product_management</category>
+        <tags>
+            <tag>product-requirements</tag>
+            <tag>features</tag>
+            <tag>specifications</tag>
+            <tag>technical-requirements</tag>
+        </tags>
+    </metadata>
+
+    <input_validation>
+        <required_fields>
+            <field name="product_vision" type="object">
+                <validation>
+                    <min_length>50</min_length>
+                    <required_sections>
+                        <section>overview</section>
+                        <section>target_users</section>
+                        <section>key_features</section>
+                        <section>success_metrics</section>
+                    </required_sections>
+                </validation>
+            </field>
+            <field name="features" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <name>string</name>
+                        <priority>integer[1-5]</priority>
+                        <description>string</description>
+                        <acceptance_criteria>array</acceptance_criteria>
+                    </item_schema>
+                </validation>
+            </field>
+            <field name="technical_requirements" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <item_schema>
+                        <category>string</category>
+                        <requirements>array</requirements>
+                        <constraints>array</constraints>
+                    </item_schema>
+                </validation>
+            </field>
+        </required_fields>
+        <optional_fields>
+            <field name="dependencies" type="array" />
+            <field name="assumptions" type="array" />
+            <field name="risks" type="array" />
+        </optional_fields>
+    </input_validation>
+
+    <state_management>
+        <variables>
+            <variable name="prd_version" type="string" initial_value="1.0.0" />
+            <variable name="feature_validation_status" type="object" initial_value="{}" />
+            <variable name="technical_validation_complete" type="boolean" initial_value="false" />
+        </variables>
+        <feature_categories>
+            <category name="core_features">
+                <attributes>
+                    <attribute>priority</attribute>
+                    <attribute>complexity</attribute>
+                    <attribute>dependencies</attribute>
+                    <attribute>metrics</attribute>
+                </attributes>
+            </category>
+            <category name="technical_requirements">
+                <attributes>
+                    <attribute>category</attribute>
+                    <attribute>specifications</attribute>
+                    <attribute>constraints</attribute>
+                    <attribute>validation</attribute>
+                </attributes>
+            </category>
+            <category name="user_requirements">
+                <attributes>
+                    <attribute>user_type</attribute>
+                    <attribute>needs</attribute>
+                    <attribute>acceptance_criteria</attribute>
+                    <attribute>validation_method</attribute>
+                </attributes>
+            </category>
+            <category name="non_functional_requirements">
+                <attributes>
+                    <attribute>type</attribute>
+                    <attribute>criteria</attribute>
+                    <attribute>measurement</attribute>
+                    <attribute>threshold</attribute>
+                </attributes>
+            </category>
+        </feature_categories>
+    </state_management>
+
+    <processing>
+        <steps>
+            <step order="1">
+                <action>Analyze product vision</action>
+                <validation>
+                    <condition>Product vision is complete and aligned</condition>
+                    <error_message>Incomplete or misaligned product vision</error_message>
+                </validation>
+            </step>
+            <step order="2">
+                <action>Process feature requirements</action>
+                <validation>
+                    <condition>All features are properly specified</condition>
+                    <error_message>Incomplete feature specifications</error_message>
+                </validation>
+            </step>
+            <step order="3">
+                <action>Validate technical requirements</action>
+                <validation>
+                    <condition>Technical requirements are feasible</condition>
+                    <error_message>Invalid technical requirements</error_message>
+                </validation>
+            </step>
+            <step order="4">
+                <action>Generate PRD document</action>
+                <validation>
+                    <condition>All sections are complete and consistent</condition>
+                    <error_message>Incomplete PRD sections</error_message>
+                </validation>
+            </step>
+            <step order="5">
+                <action>Technical review</action>
+                <validation>
+                    <condition>Technical approval received</condition>
+                    <error_message>Pending technical approval</error_message>
+                </validation>
+            </step>
+        </steps>
+    </processing>
+
+    <output_validation>
+        <requirements>
+            <requirement>All features properly documented</requirement>
+            <requirement>Technical requirements validated</requirement>
+            <requirement>Dependencies identified</requirement>
+            <requirement>Acceptance criteria defined</requirement>
+        </requirements>
+        <metrics>
+            <metric name="feature_coverage" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of features with complete specifications</description>
+            </metric>
+            <metric name="technical_validation" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of technical requirements validated</description>
+            </metric>
+            <metric name="acceptance_criteria_coverage" type="percentage">
+                <threshold>100</threshold>
+                <description>Percentage of features with acceptance criteria</description>
+            </metric>
+            <metric name="pass_fail" type="boolean">
+                <conditions>
+                    <condition>All features specified</condition>
+                    <condition>Technical validation complete</condition>
+                    <condition>Dependencies mapped</condition>
+                </conditions>
+            </metric>
+        </metrics>
+    </output_validation>
+
+    <error_handling>
+        <error type="invalid_input">
+            <message>Invalid product vision or requirements</message>
+            <action>Log error and request valid input</action>
+        </error>
+        <error type="technical_rejection">
+            <message>Technical review rejection</message>
+            <action>Document feedback and revise requirements</action>
+        </error>
+        <error type="feature_validation_failure">
+            <message>Feature validation failed</message>
+            <action>Review feature specifications and update</action>
+        </error>
+        <error type="incomplete_documentation">
+            <message>PRD sections incomplete</message>
+            <action>Identify missing sections and complete</action>
+        </error>
+    </error_handling>
+
+    <output_format>
+        <prd_template>
+            <section name="product_overview">
+                <vision>string</vision>
+                <target_users>array</target_users>
+                <success_metrics>array</success_metrics>
+            </section>
+            <section name="features">
+                <feature>
+                    <name>string</name>
+                    <description>string</description>
+                    <priority>integer</priority>
+                    <acceptance_criteria>array</acceptance_criteria>
+                    <dependencies>array</dependencies>
+                </feature>
+            </section>
+            <section name="technical_requirements">
+                <requirement>
+                    <category>string</category>
+                    <specifications>array</specifications>
+                    <constraints>array</constraints>
+                    <validation>object</validation>
+                </requirement>
+            </section>
+            <section name="implementation">
+                <timeline>object</timeline>
+                <dependencies>array</dependencies>
+                <risks>array</risks>
+                <mitigation>object</mitigation>
+            </section>
+            <metadata>
+                <version>string</version>
+                <last_updated>timestamp</last_updated>
+                <approvals>array</approvals>
+                <status>string</status>
+            </metadata>
+        </prd_template>
+    </output_format>
+</prompt_chain> 

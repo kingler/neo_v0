@@ -791,7 +791,7 @@ neo_project_site/
 │   │   │   ├── database/      # Database design
 │   │   │   └── api/          # API documentation
 │   │   │
-│   │   └── development/        # Development documentation
+│   │   ��── development/        # Development documentation
 │   │       ├── guides/        # Development guides
 │   │       ├── standards/     # Coding standards
 │   │       └── workflows/     # Development workflows
@@ -868,3 +868,176 @@ The documentation portal automatically integrates with:
 - API specifications
 - User story mapping
 - Development workflows
+
+# Neo - AI Development Process Orchestration
+
+## Overview
+Neo is an AI-powered development process orchestration system that manages the entire Software Development Life Cycle (SDLC) through specialized agents and prompt chains.
+
+## System Architecture
+
+### Core Components
+- **Neo Agent**: SDLC Orchestra Leader
+- **Morpheus Agent**: Ultimate Reasoner & Expert Decision Maker
+- **Specialized Agents**: Product Owner, UX Researcher, UX Designer, UI Designer, System Architect, Frontend Developer
+
+### Development Process Flow
+1. **Project Initialization**
+   - Requirements gathering and analysis
+   - Feature mapping and prioritization
+   - Technical stack selection
+   - Project scaffolding
+
+2. **Development Workflow**
+   - Automated code generation and review
+   - Component-based development using Atomic Design
+   - Continuous testing and quality assurance
+   - Documentation generation
+
+3. **Quality Assurance**
+   - Automated testing (Unit, Integration, E2E)
+   - Performance monitoring
+   - Security scanning
+   - Code quality metrics
+
+### Prompt Chain Architecture
+The system uses a sophisticated prompt chain architecture:
+
+1. **Planning Chains**
+   - Requirements analysis
+   - Feature decomposition
+   - Sprint planning
+   - Story generation
+
+2. **Development Chains**
+   - Code generation
+   - Testing
+   - Documentation
+   - Review processes
+
+3. **Quality Chains**
+   - Code quality assessment
+   - Performance testing
+   - Security validation
+   - Compliance checking
+
+## Command Structure
+- `/new-project`: Initialize new project
+- `/generate-project-structure`: Create project scaffolding
+- `/gen-<doc-type>`: Generate documentation
+- `/status`: Check project status
+- `/git-status`: Version control status
+
+## Development Management
+The system includes comprehensive development management features:
+
+1. **Environment Setup**
+   - Automated environment configuration
+   - Testing framework initialization
+   - CI/CD pipeline setup
+   - Security measures implementation
+
+2. **Testing Integration**
+   - Hierarchical testing approach
+   - Coverage reporting
+   - Automated test generation
+   - Failure handling and reporting
+
+3. **Documentation**
+   - Technical documentation
+   - User guides
+   - API documentation
+   - Release notes
+
+4. **Security**
+   - Role-based access control
+   - Audit logging
+   - Security scanning
+   - Compliance validation
+
+## Getting Started
+1. Clone the repository
+2. Install dependencies
+3. Configure environment variables
+4. Initialize the development environment
+5. Start using Neo commands
+
+## Contributing
+Please read our contributing guidelines and code of conduct before submitting pull requests.
+
+## License
+[License details here]
+
+## Product Management Process
+
+### Core Components
+1. **Business Analysis**
+   - Business Requirements Documentation (BRD)
+   - Stakeholder Analysis
+   - Market Validation
+   - Success Criteria Definition
+
+2. **Product Requirements**
+   - Product Requirements Documentation (PRD)
+   - Feature Specifications
+   - Technical Requirements
+   - Acceptance Criteria
+
+3. **Feature Journey Mapping**
+   - User Flow Documentation
+   - Interaction Points
+   - Experience Validation
+   - Error Flow Handling
+
+4. **Business Generation**
+   - Business Model Development
+   - Market Analysis
+   - Strategy Documentation
+   - Risk Assessment
+
+5. **Business Ontology**
+   - Domain Concept Modeling
+   - Business Rule Definition
+   - Semantic Relationship Mapping
+   - Process Documentation
+
+### Workflow Integration
+
+#### Product Planning Flow
+1. **Requirements Gathering**
+   - Business context analysis
+   - Stakeholder interviews
+   - Market research
+   - Competitive analysis
+
+2. **Product Definition**
+   - Feature specification
+   - Technical requirements
+   - User experience mapping
+   - Acceptance criteria
+
+3. **Business Modeling**
+   - Model development
+   - Strategy formulation
+   - Risk assessment
+   - Market validation
+
+4. **Domain Modeling**
+   - Concept definition
+   - Rule specification
+   - Relationship mapping
+   - Process documentation
+
+#### Quality Assurance
+- Requirements validation
+- Market analysis verification
+- Strategy assessment
+- Domain model consistency
+
+### Command Structure
+- `#product-init`: Initialize product management workflow
+- `#gen-brd`: Generate Business Requirements Document
+- `#gen-prd`: Generate Product Requirements Document
+- `#gen-journey`: Generate Feature Journey Map
+- `#gen-business`: Generate Business Model
+- `#gen-ontology`: Generate Business Ontology

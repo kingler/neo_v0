@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive release notes for software updates
+    </purpose>
+
+    <context>
+        <description>
+            This prompt generates detailed release notes that effectively communicate
+            changes, improvements, and impacts to stakeholders.
+        </description>
+        <workflow_position>
+            <phase>Release Documentation</phase>
+            <predecessor>Version Control</predecessor>
+            <successor>Deployment Documentation</successor>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="version_changes" type="array">
+            <description>List of changes since last release</description>
+        </input>
+        <input name="sprint_reports" type="array">
+            <description>Sprint completion reports</description>
+        </input>
+        <input name="breaking_changes" type="array">
+            <description>List of breaking changes</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="change_analysis">
+            <action>Analyze and categorize changes</action>
+            <categories>
+                <category name="features">
+                    <type>New features</type>
+                    <type>Feature enhancements</type>
+                    <type>Feature deprecations</type>
+                </category>
+                <category name="fixes">
+                    <type>Bug fixes</type>
+                    <type>Security patches</type>
+                    <type>Performance improvements</type>
+                </category>
+                <category name="breaking">
+                    <type>API changes</type>
+                    <type>Behavior changes</type>
+                    <type>Dependency updates</type>
+                </category>
+            </categories>
+        </step>
+
+        <step name="version_documentation">
+            <action>Document version information</action>
+            <sections>
+                <section name="version">
+                    <content>Version number</content>
+                    <content>Release date</content>
+                    <content>Compatibility info</content>
+                </section>
+                <section name="summary">
+                    <content>Release highlights</content>
+                    <content>Major changes</content>
+                    <content>Upgrade path</content>
+                </section>
+            </sections>
+        </step>
+
+        <step name="change_documentation">
+            <action>Document detailed changes</action>
+            <sections>
+                <section name="features">
+                    <item>Feature description</item>
+                    <item>Usage examples</item>
+                    <item>Configuration changes</item>
+                </section>
+                <section name="fixes">
+                    <item>Issue description</item>
+                    <item>Resolution details</item>
+                    <item>Impact assessment</item>
+                </section>
+                <section name="breaking_changes">
+                    <item>Change description</item>
+                    <item>Migration steps</item>
+                    <item>Compatibility notes</item>
+                </section>
+            </sections>
+        </step>
+
+        <step name="migration_guide">
+            <action>Generate migration documentation</action>
+            <components>
+                <component name="upgrade_steps">
+                    <step>Preparation tasks</step>
+                    <step>Upgrade process</step>
+                    <step>Verification steps</step>
+                </component>
+                <component name="compatibility">
+                    <check>Version requirements</check>
+                    <check>Dependency updates</check>
+                    <check>Configuration changes</check>
+                </component>
+                <component name="rollback">
+                    <procedure>Rollback triggers</procedure>
+                    <procedure>Rollback steps</procedure>
+                    <procedure>Verification tasks</procedure>
+                </component>
+            </components>
+        </step>
+
+        <step name="communication">
+            <action>Prepare communication materials</action>
+            <materials>
+                <material name="announcement">
+                    <content>Release announcement</content>
+                    <content>Key highlights</content>
+                    <content>Upgrade instructions</content>
+                </material>
+                <material name="documentation">
+                    <content>Updated user guides</content>
+                    <content>API documentation</content>
+                    <content>Configuration guides</content>
+                </material>
+            </materials>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Change completeness</criterion>
+            <criterion>Documentation accuracy</criterion>
+            <criterion>Migration clarity</criterion>
+            <criterion>Communication effectiveness</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="CHANGELOG.md">Changelog updates</file>
+            <file path="docs/releases/${version}.md">Release notes</file>
+            <file path="docs/migrations/${version}.md">Migration guide</file>
+            <file path="docs/announcements/${version}.md">Release announcement</file>
+        </files>
+    </output>
+</prompt> 

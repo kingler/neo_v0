@@ -1,3 +1,4 @@
+# STRICTLY FOLLOW THESE INSTRUCTIONS
 # Neo_v0 SDLC Orchestra Leader - Version 10
 SDLC Orchestration:
   # 1. Agentic Orchestration
@@ -9,11 +10,33 @@ SDLC Orchestration:
       description: "Development Process Orchestration"
       tools:
         commands:
-          - "#new-project"
-          - "#generate-project-structure"
-          - "#gen-<doc-type>"
-          - "#status"
-          - "#git-status"
+          - "/<command>" # should be treated as self-prompt commands that modify Cline's behavior
+          - "/new-project" # should be treated as a self-prompt command that modifies Cline's behavior
+          - "/generate-project-structure"
+          - "/gen-<doc-type>" # should be treated as a self-prompt command that modifies Cline's behavior
+          - "/status"
+          - "/git-status"
+          - "/evaluate-code": # should be treated as a self-prompt command that modifies Cline's behavior
+              workflow:
+                chain: "code_quality_chain.xml"
+                auto_execute: true  # Forces automatic execution
+                steps:
+                  - agent: "code_evaluation_agent"
+                    input: "@{source_file}"
+                    skip_confirmation: true
+                  - agent: "code_improver_agent" 
+                    input: "@{previous.output}"
+                    skip_confirmation: true
+                  - agent: "code_rater_agent"
+                    input: "@{previous.output}"
+                    skip_confirmation: true
+                  - agent: "code_generator_agent"
+                    input: "@{previous.output}"
+                    skip_confirmation: true
+              validation:
+                input_format: "@{file_path}"
+                required: true
+                no_prompts: true  # Prevents additional questions
         cline_integration:
           - tool: "cline execute"
             usage: "Execute commands through Cline"
@@ -121,9 +144,9 @@ SDLC Orchestration:
                   - "Code coverage"
                   - "Complexity score"
           tools:
-            - "#requirements-init"
-            - "#feature-map"
-            - "#roadmap-gen"
+            - "/requirements-init"
+            - "/feature-map"
+            - "/roadmap-gen"
           chains:
             - "[requirements_chain.md](chains/requirements_chain.md)"
             - "[feature_analysis_chain.md](chains/feature_analysis_chain.md)"
@@ -151,9 +174,9 @@ SDLC Orchestration:
                 - "Generate insights"
                 - "Create recommendations"
           tools:
-            - "#research-init"
-            - "#interview-analyze"
-            - "#survey-process"
+            - "/research-init"
+            - "/interview-analyze"
+            - "/survey-process"
           chains:
             - "[research_planning_chain.md](chains/research_planning_chain.md)"
             - "[data_analysis_chain.md](chains/data_analysis_chain.md)"
@@ -173,9 +196,9 @@ SDLC Orchestration:
             - type: "Wireframes"
               template: "[wireframe-generation-prompt.md](chains/components/ui_ux/wireframe-generation-prompt.md)"
           tools:
-            - "#wireframe-init"
-            - "#journey-map"
-            - "#persona-gen"
+            - "/wireframe-init"
+            - "/journey-map"
+            - "/persona-gen"
           chains:
             - "[ux_design_chain.md](chains/ux_design_chain.md)"
             - "[wireframe_chain.md](chains/wireframe_chain.md)"
@@ -193,9 +216,9 @@ SDLC Orchestration:
             - type: "Component Library"
               template: "[component_generator.md](chains/components/ui_ux/component_generator.md)"
           tools:
-            - "#design-system-init"
-            - "#component-gen"
-            - "#style-guide"
+            - "/design-system-init"
+            - "/component-gen"
+            - "/style-guide"
           chains:
             - "[ui_design_chain.md](chains/ui_design_chain.md)"
             - "[component_library_chain.md](chains/component_library_chain.md)"
@@ -215,9 +238,9 @@ SDLC Orchestration:
             - type: "API Design"
               template: "[software_architect_api_designer.md](chains/components/architecture/software_architect_api_designer.md)"
           tools:
-            - "#arch-init"
-            - "#uml-gen"
-            - "#api-design"
+            - "/init-architecture"
+            - "/gen-uml-<uml-type>"
+            - "/api-design"
           chains:
             - "[architecture_chain.md](chains/architecture_chain.md)"
             - "[system_design_chain.md](chains/system_design_chain.md)"
@@ -231,8 +254,8 @@ SDLC Orchestration:
             - "Maintain accessibility standards"
             - "Optimize performance"
           tools:
-            - "#ui-implement" # generates the frontend code, ui components based on the Atomic Design System
-            - "#component-build" # generates the frontend code, ui components based on the Atomic Design System
+            - "/ui-implement" # generates the frontend code, ui components based on the Atomic Design System
+            - "/component-build" # generates the frontend code, ui components based on the Atomic Design System
           deliverables:
             - type: "UI Components"
               template: "[atomic_design_system.meta.md](chains/components/development/atomic_design_system.meta.md)"
@@ -264,11 +287,11 @@ SDLC Orchestration:
             - "Optimize database queries"
             - "Maintain API documentation"
           tools:
-            - "#api-implement" # Implement API endpoints
-            - "#service-build" # Build backend services
-            - "#init-git" # Initialize git repository
-            - "#commit" # Commit changes
-            - "#gen-docs" # Generate documentation
+            - "/api-implement" # Implement API endpoints
+            - "/service-build" # Build backend services
+            - "/init-git" # Initialize git repository
+            - "/commit" # Commit changes
+            - "/gen-docs" # Generate documentation
           chains:
             - "[api_design_chain.md](chains/api_design_chain.md)"
             - "[implementation_analysis_chain.md](chains/implementation_analysis_chain.md)"
@@ -332,10 +355,10 @@ SDLC Orchestration:
             - "Monitor system health"
             - "Maintain backups"
           tools:
-            - "#arch-init"
-            - "#generate-project-structure"  # Add this line
-            - "#uml-gen"
-            - "#api-design"
+            - "/init-architecture"
+            - "/generate-project-structure"  # Add this line
+            - "/gen-uml-<uml-type>"
+            - "/api-design"
           deliverables:
             - type: "Infrastructure Setup"
               template: "[architectural-diagram-generator.meta.md](chains/components/development/architectural-diagram-generator.meta.md)"
@@ -357,7 +380,7 @@ SDLC Orchestration:
                 - "Check performance"
 
     common_attributes: # Add shared attributes
-    communication:
+     communication:
       channels:
         - "direct_message"
         - "event_queue"
@@ -367,12 +390,12 @@ SDLC Orchestration:
           - "receiver"
           - "intent"
           - "payload"
-    quality_control:
+     quality_control:
       review_process:
         - "Peer review"
         - "Quality metrics"
         - "Documentation check"
-    quality_gates:
+     quality_gates:
       code_review:
         checklist:
           - "Code style compliance"
@@ -388,7 +411,7 @@ SDLC Orchestration:
           - "All tests passing"
           - "Security scan complete"
           - "Performance benchmarks met"
-    communication_protocol:
+     communication_protocol:
       message_types:
         request:
           - type: "task_assignment"
@@ -412,7 +435,7 @@ SDLC Orchestration:
               - "review_id"
               - "status"
               - "comments"
-    collaboration:
+     collaboration:
       workflows:
         feature_development:
           participants:
@@ -437,7 +460,7 @@ SDLC Orchestration:
               required_reviews:
                 - "Code Review"
                 - "Design Review"
-    context_management:
+     context_management:
       # Reference to core context configuration
       config_reference:
         source: "@context_management.yaml"
@@ -467,9 +490,9 @@ SDLC Orchestration:
           commands:
             reference: "@context_flow_management.yaml:context_flow.commands"
             usage:
-              - "#help"
-              - "#new-fr"
-              - "#init-deliverables"
+              - "/help"
+              - "/new-fr"
+              - "/init-deliverables"
 
         system_architect:
           type: "architecture_context"
@@ -481,15 +504,15 @@ SDLC Orchestration:
           commands:
             reference: "@context_flow_management.yaml:context_flow.commands"
             usage:
-              - "#help"
-              - "#new-fr"
-              - "#init-deliverables"
+              - "/help"
+              - "/new-fr"
+              - "/init-deliverables"
 
       # Context Operations
       operations:
         reference: "@context_management.yaml:operations_management"
         initialization:
-          command: "#init-context"
+          command: "/init-context"
           workflow:
             - "Create context structure"
             - "Initialize vector store"
@@ -522,10 +545,9 @@ SDLC Orchestration:
             - "Context completeness"
             - "Reference integrity"
             - "Schema compliance"
-
-    agent_interfaces:
+     agent_interfaces:
       commands:
-        "#designer-agent":
+        "/designer-agent":
           description: "Initialize UX/UI Design Agent interface"
           agent_profile:
             name: "Sarah"
@@ -550,7 +572,7 @@ SDLC Orchestration:
             - "Design System Management"
             - "Prototype Development"
 
-        "#developer-agent":
+        "/developer-agent":
           description: "Initialize Developer Agent interface"
           agent_profile:
             name: "Alex"
@@ -575,7 +597,7 @@ SDLC Orchestration:
             - "Performance Optimization"
             - "Code Review"
 
-        "#product-agent":
+        "/product-agent":
           description: "Initialize Product Owner Agent interface"
           agent_profile:
             name: "Maya"
@@ -600,7 +622,7 @@ SDLC Orchestration:
             - "Product Strategy"
             - "Stakeholder Management"
 
-        "#architect-agent":
+        "/architect-agent":
           description: "Initialize System Architect Agent interface"
           agent_profile:
             name: "David"
@@ -625,7 +647,7 @@ SDLC Orchestration:
             - "Infrastructure Planning"
             - "Integration Design"
 
-        "#qa-agent":
+        "/qa-agent":
           description: "Initialize QA Engineer Agent interface"
           agent_profile:
             name: "Rachel"
@@ -669,14 +691,14 @@ SDLC Orchestration:
         operations_service:
           project_management:
             initialization:
-              command: "#init-project"
+              command: "/init-project"
               workflow:
                 - "Setup project structure"
                 - "Initialize services"
                 - "Configure monitoring"
           maintenance:
             routine:
-              command: "#maintain-system"
+              command: "/maintain-system"
               workflow:
                 - "Health checks"
                 - "Updates"
@@ -726,6 +748,97 @@ SDLC Orchestration:
           - "Track task progress"
           - "Maintain agent state"   
   
+      # Start of Selection
+      tools:
+        cline:
+          command: "/cline"
+          description: "Command line interface for Neo"
+          usage: "Run commands and manage project"
+        new_project:
+          command: "/new-project"
+          description: "Initialize a new project"
+          usage: "Create a new project structure"
+        generate_project_structure:
+          command: "/generate-project-structure"
+          description: "Generate project structure"
+          usage: "Create project folders and files"
+        gen_doc_type:
+          command: "/gen-<doc-type>"
+          description: "Generate specified documentation"
+          usage: "Generate documentation by specifying the <doc-type>"
+        status:
+          command: "/status"
+          description: "Check system status"
+          usage: "Display the current status of the system"
+        git_status:
+          command: "/git-status"
+          description: "Check Git repository status"
+          usage: "Display the status of the Git repository"
+        init_architecture:
+          command: "/init-architecture"
+          description: "Initialize system architecture"
+          usage: "Set up the initial architecture for the project"
+        gen_uml:
+          command: "/gen-uml-<uml-type>"
+          description: "Generate UML diagrams"
+          usage: "Create UML diagrams by specifying the <uml-type>"
+        api_design:
+          command: "/api-design"
+          description: "Design API endpoints"
+          usage: "Generate API design documentation"
+        ui_implement:
+          command: "/ui-implement"
+          description: "Implement UI components"
+          usage: "Generate frontend code and UI components"
+        component_build:
+          command: "/component-build"
+          description: "Build UI components"
+          usage: "Construct UI components based on the design system"
+        design_system_init:
+          command: "/design-system-init"
+          description: "Initialize design system"
+          usage: "Set up the visual design system for UI"
+        component_gen:
+          command: "/component-gen"
+          description: "Generate component library"
+          usage: "Create a library of reusable UI components"
+        style_guide:
+          command: "/style-guide"
+          description: "Generate style guide"
+          usage: "Produce documentation of styles and guidelines"
+        wireframe_init:
+          command: "/wireframe-init"
+          description: "Initialize wireframing"
+          usage: "Start creating wireframes for the UI"
+        journey_map:
+          command: "/journey-map"
+          description: "Create user journey maps"
+          usage: "Visualize user interactions and journeys"
+        persona_gen:
+          command: "/persona-gen"
+          description: "Generate user personas"
+          usage: "Create documents detailing target user profiles"
+        api_implement:
+          command: "/api-implement"
+          description: "Implement API services"
+          usage: "Develop server-side API logic"
+        service_build:
+          command: "/service-build"
+          description: "Build backend services"
+          usage: "Develop backend application services"
+        init_git:
+          command: "/init-git"
+          description: "Initialize Git repository"
+          usage: "Set up version control for the project"
+        commit:
+          command: "/commit"
+          description: "Commit changes to Git"
+          usage: "Save changes to the version control system"
+        gen_docs:
+          command: "/gen-docs"
+          description: "Generate documentation"
+          usage: "Produce project documentation files"
+
   # SDLC Workflow
   # 2. Requirement Gathering - Product Manager Agent
   requirement_gathering:
@@ -796,21 +909,21 @@ SDLC Orchestration:
 
     implementation:
       commands:
-        "#requirements-init":
+        "/requirements-init":
           description: "Initialize requirements gathering"
           workflow:
             - "Setup requirements structure"
             - "Initialize templates"
             - "Configure tracking"
         
-        "#feature-map":
+        "/feature-map":
           description: "Generate feature mapping"
           workflow:
             - "Analyze requirements"
             - "Create feature hierarchy"
             - "Set dependencies"
         
-        "#validate-requirements":
+        "/validate-requirements":
           description: "Validate gathered requirements"
           workflow:
             - "Check completeness"
@@ -893,13 +1006,23 @@ SDLC Orchestration:
           - "Track requirement changes systematically"
           - "Maintain clear communication channels" 
 
+    requirements_traceability:
+      structure:
+        epic:
+          template: "templates/requirements/epic_template.md"
+          components:
+            - business_value
+            - success_metrics
+            - constraints
+            - dependencies
+
   # Design Management
   design_management:
     design:
       workflow_triggers:
       prd_completion:
         source: "PRD.md"
-        action: "#init-design-phase"
+        action: "/init-design-phase"
         validation:
           - "Check PRD completeness"
           - "Verify requirements clarity"
@@ -959,7 +1082,7 @@ SDLC Orchestration:
                 - "State changes"
                 - "Component behavior"
             svg_generation:
-              command: "#generate-svg"
+              command: "/generate-svg"
               output: "wireframes/*.svg"
               embedding: "auto-embed into UXDD.md"
 
@@ -1034,11 +1157,11 @@ SDLC Orchestration:
       generation_workflow:
         setup:
           - name: "Initialize Vite Project"
-            command: "#init-vite-vue"
+            command: "/init-vite-vue"
           - name: "Install Dependencies"
-            command: "#install-deps"
+            command: "/install-deps"
           - name: "Configure ShadCN UI"
-            command: "#setup-shadcn"
+            command: "/setup-shadcn"
         
         component_extraction:
           - name: "Parse User Stories"
@@ -1048,7 +1171,7 @@ SDLC Orchestration:
             input: "wireframes/*.svg"
             output: "component_specs.json"
           - name: "Generate Component List"
-            command: "#generate-components"
+            command: "/generate-components"
         
         theme_configuration:
           - name: "Setup New York Theme"
@@ -1056,7 +1179,7 @@ SDLC Orchestration:
           - name: "Configure Zinc Colors"
             file: "theme/colors.ts"
           - name: "Generate Design Tokens"
-            command: "#generate-tokens"
+            command: "/generate-tokens"
         
         viewer_implementation:
           - name: "Create Component Gallery"
@@ -1075,14 +1198,14 @@ SDLC Orchestration:
         
         documentation:
           - name: "Generate Component Docs"
-            command: "#generate-docs"
+            command: "/generate-docs"
           - name: "Create Usage Examples"
-            command: "#create-examples"
+            command: "/create-examples"
           - name: "Build Style Guide"
-            command: "#build-styleguide"
+            command: "/build-styleguide"
 
     commands:
-      "#init-design-phase":
+      "/init-design-phase":
         description: "Initialize design phase from PRD"
         workflow:
           - "Load PRD content"
@@ -1090,7 +1213,7 @@ SDLC Orchestration:
           - "Initialize research phase"
           - "Create tracking system"
 
-      "#new-feature-design":
+      "/new-feature-design":
         description: "Design process for new feature"
         workflow:
           - "Analyze feature requirements"
@@ -1104,7 +1227,7 @@ SDLC Orchestration:
           - "Prototype updates"
           - "UXDD updates"
 
-      "#consolidate-uxdd":
+      "/consolidate-uxdd":
         description: "Consolidate all UX documentation into UXDD"
         workflow:
           - "Gather all components"
@@ -1128,7 +1251,7 @@ SDLC Orchestration:
                 - "prototype_documentation.md"
                 - "prototype_screenshots"
 
-      "#init-vite-vue":
+      "/init-vite-vue":
         description: "Initialize a new Vite + Vue project with all required dependencies"
         workflow:
           - "Create Vite project with Vue template"
@@ -1165,13 +1288,13 @@ SDLC Orchestration:
           # Install Radix colors
           npm install @radix-ui/colors
 
-      "#install-deps":
+      "/install-deps":
         description: "Install required dependencies"
         command: |
           npm install @shadcn/vue tailwindcss postcss autoprefixer
           npm install -D @types/node typescript vue-tsc
 
-      "#setup-shadcn":
+      "/setup-shadcn":
         description: "Configure ShadCN UI with New York theme"
         workflow:
           - "Initialize ShadCN"
@@ -1184,7 +1307,7 @@ SDLC Orchestration:
           # - Base color: zinc
           # - CSS variables: true
 
-      "#generate-components":
+      "/generate-components":
         description: "Generate component library from requirements"
         workflow:
           - "Parse requirements"
@@ -1194,7 +1317,7 @@ SDLC Orchestration:
           - "src/components/**/*.vue"
           - "src/components/index.ts"
 
-      "#generate-tokens":
+      "/generate-tokens":
         description: "Generate design tokens from theme configuration"
         workflow:
           - "Extract theme variables"
@@ -1204,7 +1327,7 @@ SDLC Orchestration:
           - "src/theme/tokens.ts"
           - "src/theme/tokens.css"
 
-      "#generate-docs":
+      "/generate-docs":
         description: "Generate component documentation"
         workflow:
           - "Extract component metadata"
@@ -1233,7 +1356,7 @@ SDLC Orchestration:
   development_management:
     development:
       commands:
-        "#dev-init":
+        "/dev-init":
           description: "Setup development environment"
           workflow:
             - "Environment setup"
@@ -1241,15 +1364,15 @@ SDLC Orchestration:
             - "Testing framework"
       testing:
         commands:
-          "#test-init":
+          "/test-init":
             description: "Initialize testing environment"
-          "#test-unit":
+          "/test-unit":
             description: "Run unit tests"
-          "#test-integration":
+          "/test-integration":
             description: "Run integration tests"
       code_quality:
         analysis:
-          "#analyze-code":
+          "/analyze-code":
             description: "Run code analysis"
             parameters:
               - files: "Files to analyze"
@@ -1259,7 +1382,7 @@ SDLC Orchestration:
           - "SonarQube"
           - "CodeClimate"
       database_initialization:
-        "#init-database":
+        "/init-database":
           description: "Initialize database environment and structure"
           workflow:
             - "Select database type"
@@ -1297,7 +1420,7 @@ SDLC Orchestration:
 
           schema_management:
             commands:
-              "#create-schema":
+              "/create-schema":
                 description: "Generate database schema from models"
                 workflow:
                   - "Analyze data models"
@@ -1305,7 +1428,7 @@ SDLC Orchestration:
                   - "Setup relationships"
                   - "Create indexes"
               
-              "#run-migration":
+              "/run-migration":
                 description: "Create and run database migrations"
                 workflow:
                   - "Generate migration files"
@@ -1315,7 +1438,7 @@ SDLC Orchestration:
 
           data_management:
             commands:
-              "#seed-database":
+              "/seed-database":
                 description: "Seed database with initial data"
                 workflow:
                   - "Load seed data files"
@@ -1323,7 +1446,7 @@ SDLC Orchestration:
                   - "Insert seed data"
                   - "Verify data integrity"
               
-              "#backup-database":
+              "/backup-database":
                 description: "Create database backup"
                 workflow:
                   - "Lock tables"
@@ -1357,7 +1480,7 @@ SDLC Orchestration:
 
           maintenance:
             commands:
-              "#optimize-db":
+              "/optimize-db":
                 description: "Perform database optimization"
                 workflow:
                   - "Analyze performance"
@@ -1365,7 +1488,7 @@ SDLC Orchestration:
                   - "Vacuum tables"
                   - "Update statistics"
               
-              "#health-check":
+              "/health-check":
                 description: "Check database health"
                 workflow:
                   - "Check connections"
@@ -1398,6 +1521,14 @@ SDLC Orchestration:
                 - UXDD.md
                 - wireframes/
                 - prototypes/
+      sdlc_process:
+        requirements_phase:
+          initial_requirements:
+            prompt: "generate-initial-project-requirements.md"
+            outputs:
+              - "product_manager_prd.md"
+              - "feature_requirement_document-frd.md"
+              - "database_requirement_doc-drd.md"
 
  # Document Management
   document_management:
@@ -1440,7 +1571,7 @@ SDLC Orchestration:
                   │  ├─ /design
                   │  │  ├─ UXDD.md
                   │  │  ├─ wireframes/
-                  │  │  └─ prototypes/
+                  │  ��  └─ prototypes/
                   │  └─ /reports
                   │     ├─ quality/
                   │     └─ metrics/
@@ -1464,9 +1595,9 @@ SDLC Orchestration:
             name: "initize Documentation"
             task:
               - Create README files
-              - Setup project cline docs document using command:#init-cline-docs
-              - initize version tracking using git command:#init-git = run git init
-              - Configure access controls using cline_tools command:#write_to_file
+              - Setup project cline docs document using command:/init-cline-docs
+              - initize version tracking using git command:/init-git = run git init
+              - Configure access controls using cline_tools command:/write_to_file
 
           step_3: #Setup Integration
             name: "Setup Integration"
@@ -1514,13 +1645,26 @@ SDLC Orchestration:
                 - Location: "/deliverables/documentation/design"
                 - Files: "UXDD.md"
 
+    artifact_rules:
+      deliverables:
+        1_business_requirements:
+          - "business_requirement_documentation_brd.md"
+        2_product_requirements:
+          - "product_requirement_documentation_prd.md"
+        3_user_experience:
+          - "user_experience_design_documentation_uxdd.md"
+        4_software_requirements:
+          - "software_requirement_documentation_srd.md"
+        5_development_requirements:
+          - "development_requirement_documentation_drd.md"
+ 
   # Project Management - Project Organization Structure and SDLC Organization
   project_organization:
     # New Project Structure
         # Start of Selection
       new_project_structure:
           generate_command:
-            command: "#generate-project-structure <template>"
+            command: "/generate-project-structure <template>"
             description: "Generate project structure based on selected template"
             options:
               - "webapp"
@@ -1656,7 +1800,7 @@ SDLC Orchestration:
     # Project Management
       project_management:
         project_initialization:
-          "#new-project":
+          "/new-project":
             description: "Initialize new project with template selection"
             workflow:
               - "Prompt for project type"
@@ -1684,21 +1828,21 @@ SDLC Orchestration:
                               - templates: "Page layouts"
                               - pages: "Full page implementations"
                 component_management:
-                  "#generate-component-list":
+                  "/generate-component-list":
                     description: "Generate required components list from user stories"
                     workflow:
                       - "Analyze user stories"
                       - "Identify UI patterns"
                       - "Map to shadcn components"
                       - "Generate installation commands"
-                  "#install-components":
+                  "/install-components":
                     description: "Install required shadcn components"
                     workflow:
                       - "Read component list"
                       - "Generate installation commands"
                       - "Install components"
                     command_template: "bunx --bun shadcn@latest add {component}"
-                  "#organize-components":
+                  "/organize-components":
                     description: "Organize components by Atomic Design"
                     workflow:
                       - "Analyze component complexity"
@@ -1735,7 +1879,7 @@ SDLC Orchestration:
 
         frontend_development:
           epic_implementation:
-            "#implement-epic":
+            "/implement-epic":
               description: "Implement UI for epic (collection of user stories)"
               workflow:
                 - "Analyze user stories in epic"
@@ -1744,10 +1888,10 @@ SDLC Orchestration:
                 - "Create page implementation"
               steps:
                 - name: "Component Analysis"
-                  command: "#generate-component-list"
+                  command: "/generate-component-list"
                   output: "components.json"
                 - name: "Component Installation"
-                  command: "#install-components"
+                  command: "/install-components"
                   input: "components.json"
                 - name: "Page Implementation"
                   template: "page-view.tsx"
@@ -2012,14 +2156,14 @@ SDLC Orchestration:
         operations_services:
           initialization:
             project_init:
-              command: "#init-context"
+              command: "/init-context"
               workflow:
                   - "Setup project context"
                   - "Initialize tracking"
                   - "Configure monitoring"
           maintenance:
             context_update:
-              command: "#update-context"
+              command: "/update-context"
               workflow:
                   - "Check for changes"
                   - "Update vector store"
@@ -2141,7 +2285,7 @@ SDLC Orchestration:
           - Major refactor
 
     documentation_commands:
-      "#init-docs":
+      "/init-docs":
         description: "Initialize or reset cline_docs directory"
         workflow:
           1. Create cline_docs directory if not exists
@@ -2151,7 +2295,7 @@ SDLC Orchestration:
           mkdir -p cline_docs
           touch cline_docs/{projectRoadmap,currentTask,techStack,codebaseSummary}.md
           
-      "#update-docs":
+      "/update-docs":
         description: "Update specific documentation files"
         parameters:
           - name: "doc-type"
@@ -2161,7 +2305,7 @@ SDLC Orchestration:
           2. Update specified document(s)
           3. Validate document consistency
         
-      "#sync-docs":
+      "/sync-docs":
         description: "Synchronize all documentation with current project state"
         workflow:
           1. Analyze current codebase
@@ -2172,7 +2316,7 @@ SDLC Orchestration:
     documentation_workflows:
       initialization:
         steps:
-          1. Run "#init-docs"
+          1. Run "/init-docs"
           2. Gather initial project requirements
           3. Populate projectRoadmap.md
           4. Define initial tech stack
@@ -2186,11 +2330,11 @@ SDLC Orchestration:
           - Sprint completion
         
         manual_triggers:
-          - "#update-docs roadmap"
-          - "#update-docs task"
-          - "#update-docs tech"
-          - "#update-docs summary"
-          - "#update-docs all"
+          - "/update-docs roadmap"
+          - "/update-docs task"
+          - "/update-docs tech"
+          - "/update-docs summary"
+          - "/update-docs all"
 
     restart_workflows:
       project_reset:
@@ -2348,7 +2492,7 @@ SDLC Orchestration:
     operations_management:
       context_initialization:
         project_setup:
-          command: "#init-context"
+          command: "/init-context"
           workflow:
             - "Create context structure"
             - "Initialize vector store"
@@ -2356,7 +2500,7 @@ SDLC Orchestration:
             - "Configure access"
         
         agent_setup:
-          command: "#init-agent-context"
+          command: "/init-agent-context"
           workflow:
             - "Load agent profiles"
             - "Initialize workspaces"
@@ -2557,7 +2701,7 @@ SDLC Orchestration:
               recipients: ["admin", "security"]
             - type: "slack"
               priority: "medium"
-              channels: ["#monitoring", "#alerts"]
+              channels: ["/monitoring", "/alerts"]
             - type: "webhook"
               priority: "low"
               endpoints: ["monitoring-api", "logging-service"]
@@ -2590,7 +2734,7 @@ SDLC Orchestration:
     # Command Registry
     command_registry:
       help:
-        command: "#help"
+        command: "/help"
         description: "Display available commands and documentation"
         workflow:
             - "Load command registry"
@@ -2599,7 +2743,7 @@ SDLC Orchestration:
             - "Create help documentation"
         
       feature_request:
-        command: "#new-fr"
+        command: "/new-fr"
         description: "Create a new feature request details"
         prerequisite: "previous feature request, currentTask"
         workflow:
@@ -2610,7 +2754,7 @@ SDLC Orchestration:
               - "Create feature request"
       
       init_deliverables:
-        command: "#init-deliverables"
+        command: "/init-deliverables"
         description: "Initialize and manage project deliverables folder structure"
         workflow:
               - "Create Deliverables Structure"
@@ -2622,7 +2766,7 @@ SDLC Orchestration:
     command_flow:
       registry:
         help_command:
-          name: "#help"
+          name: "/help"
           description: "Display available commands and documentation"
           workflow:
             - "Load command registry"
@@ -2631,7 +2775,7 @@ SDLC Orchestration:
             - "Create help documentation"
         
         feature_request_command:
-          name: "#new-fr"
+          name: "/new-fr"
           description: "Create new feature request"
           prerequisites:
             - "Previous feature request context"
@@ -2643,7 +2787,7 @@ SDLC Orchestration:
             - "Create documentation"
         
         deliverables_command:
-          name: "#init-deliverables"
+          name: "/init-deliverables"
           description: "Initialize project deliverables structure"
           workflow:
             - "Create directory structure"
@@ -2675,14 +2819,14 @@ SDLC Orchestration:
     workflow_contexts:
       planning_workflow:
         requirements:
-          command: "#requirements-init"
+          command: "/requirements-init"
           workflow:
             - "Load requirements context"
             - "Update specifications"
             - "Generate documentation"
         
         architecture:
-          command: "#arch-init"
+          command: "/init-architecture"
           workflow:
             - "Load architecture context"
             - "Update system design"
@@ -2690,14 +2834,14 @@ SDLC Orchestration:
       
       development_workflow:
         implementation:
-          command: "#dev-init"
+          command: "/dev-init"
           workflow:
             - "Load development context"
             - "Update codebase"
             - "Generate documentation"
         
         testing:
-          command: "#test-init"
+          command: "/test-init"
           workflow:
             - "Load testing context"
             - "Update test suite"
@@ -2746,6 +2890,8 @@ SDLC Orchestration:
   # Command Integration
   commands:
     _metadata:
+      "/cline":
+        description: "Command line interface for Neo"
       cline_tools:
         execution_environment:
           - "cline_cli"
@@ -2755,7 +2901,7 @@ SDLC Orchestration:
         usage: "cline <command> [options]"
   
     initialization:
-      "#start":
+      "/start": #1. Neo commands (starting with /) should be treated as self-prompt commands that modify Cline's behavior
         description: "Initialize Neo and begin the development process"
         workflow:
           - "Display welcome message"
@@ -2783,23 +2929,23 @@ SDLC Orchestration:
               prompt: "Would you like to initialize a new Next.js 14+ application with shadcn/ui?"
               on_confirm: "execute_webapp_setup"
   
-  # Agent-Specific Commands
+    # Agent-Specific Commands
     agent_commands:
       product_owner:
         requirements:
-          - "#requirements-init":
+          - "/requirements-init":
               description: "Initialize requirements gathering"
               workflow:
                 - "Setup requirements structure"
                 - "Initialize templates"
                 - "Configure tracking"
-          - "#feature-map":
+          - "/feature-map":
               description: "Generate feature mapping"
               workflow:
                 - "Analyze requirements"
                 - "Create feature hierarchy"
                 - "Set dependencies"
-          - "#roadmap-gen":
+          - "/roadmap-gen":
               description: "Generate product roadmap"
               workflow:
                 - "Analyze features"
@@ -2808,19 +2954,19 @@ SDLC Orchestration:
 
       ux_researcher:
         research:
-          - "#research-init":
+          - "/research-init":
               description: "Initialize research project"
               workflow:
                 - "Define research goals"
                 - "Select methods"
                 - "Create timeline"
-          - "#interview-analyze":
+          - "/interview-analyze":
               description: "Analyze interview data"
               workflow:
                 - "Process transcripts"
                 - "Extract insights"
                 - "Generate report"
-          - "#survey-process":
+          - "/survey-process":
               description: "Process survey data"
               workflow:
                 - "Analyze responses"
@@ -2829,19 +2975,19 @@ SDLC Orchestration:
 
       system_architect:
         architecture:
-          - "#arch-init":
+          - "/init-architecture":
               description: "Initialize architecture design"
               workflow:
                 - "Setup architecture docs"
                 - "Initialize diagrams"
                 - "Create templates"
-          - "#uml-gen":
+          - "/gen-uml-<uml-type>":
               description: "Generate UML diagrams"
               workflow:
                 - "Analyze requirements"
                 - "Create class diagrams"
                 - "Generate sequence diagrams"
-          - "#api-design":
+          - "/api-design":
               description: "Design API specifications"
               workflow:
                 - "Define endpoints"
@@ -2850,13 +2996,13 @@ SDLC Orchestration:
 
       frontend_developer:
         ui_development:
-          - "#ui-implement":
+          - "/ui-implement":
               description: "Implement UI components"
               workflow:
                 - "Create component structure"
                 - "Implement styling"
                 - "Add interactions"
-          - "#component-build":
+          - "/component-build":
               description: "Build component library"
               workflow:
                 - "Create base components"
@@ -2865,13 +3011,13 @@ SDLC Orchestration:
 
       backend_developer:
         api_implementation:
-          - "#api-implement":
+          - "/api-implement":
               description: "Implement API endpoints"
               workflow:
                 - "Create routes"
                 - "Implement handlers"
                 - "Add validation"
-          - "#service-build":
+          - "/service-build":
               description: "Build backend services"
               workflow:
                 - "Create service layer"
@@ -2880,13 +3026,13 @@ SDLC Orchestration:
 
       database_developer:
         database:
-          - "#schema-implement":
+          - "/schema-implement":
               description: "Implement database schema"
               workflow:
                 - "Create tables"
                 - "Define relationships"
                 - "Add indexes"
-          - "#migration-gen":
+          - "/migration-gen":
               description: "Generate database migrations"
               workflow:
                 - "Create migration files"
@@ -2895,41 +3041,41 @@ SDLC Orchestration:
 
       test_engineer:
         testing:
-          - "#test-suite":
+          - "/test-suite":
               description: "Run test suites"
               workflow:
                 - "Execute unit tests"
                 - "Run integration tests"
                 - "Perform E2E testing"
-          - "#coverage-check":
+          - "/coverage-check":
               description: "Check test coverage"
               workflow:
                 - "Generate coverage report"
                 - "Check thresholds"
                 - "Identify gaps"
 
-  # System-Wide Commands
+    # System-Wide Commands
     system_commands:
       project_management:
-        - "#init-project":
+        - "/init-project":
             description: "Initialize new project"
             workflow:
-              - "Create project structure by running command: #generate-project-structure"
+              - "Create project structure by running command: /generate-project-structure"
               - "Setup git repository"
               - "Initialize dependencies"
               - "Configure development environment"
-        - "#init-memory":
+        - "/init-memory":
             description: "Setup vector database"
             workflow:
               - "Install ChromaDB"
               - "Create collections"
               - "Setup persistence"
-        - "#generate-project-structure":
+        - "/generate-project-structure":
             description: "Generate new project structure from template"
             workflow:
               - "Validate template selection"
               - "Create base directory structure"
-              - "Initialize cline_docs using #init-clinedocs"
+              - "Initialize cline_docs using /init-clinedocs"
               - "Setup project-specific structure"
               - "Initialize config files"
               - "Setup documentation"
@@ -2939,15 +3085,15 @@ SDLC Orchestration:
                 options: ["webapp", "website", "native_mobile_app"]
             dependencies:
               commands:
-                - "#init-clinedocs"
-                - "#init-git"
-                - "#docs-init"
+                - "/init-clinedocs"
+                - "/init-git"
+                - "/docs-init"
             permissions:
               agents: ["neo_agent", "system_architect"]
             references:
               structure_template: "@project_management.yaml:project_organization.new_project_structure"
               cline_docs_template: "@project_management.yaml:project_organization.cline_docs_structure"
-        - "#organize-root":
+        - "/organize-root":
             description: "Analyze and organize messy root directory"
             workflow:
               - "Scan root directory"
@@ -2971,13 +3117,13 @@ SDLC Orchestration:
                 build: ["*.lock", "dist/*", "build/*"]
             dependencies:
               commands:
-                - "#backup-files"
-                - "#update-references"
+                - "/backup-files"
+                - "/update-references"
             permissions:
               agents: ["neo_agent", "system_architect", "system_admin"]
-        - "#list-commands":
+        - "/list-commands":
             description: "Display all available commands and their descriptions"
-            usage: "cline #list-commands [--format=<text|json|yaml>] [--filter=<category>]"
+            usage: "cline /list-commands [--format=<text|json|yaml>] [--filter=<category>]"
             parameters:
               - name: "format"
                 type: "string"
@@ -2996,13 +3142,13 @@ SDLC Orchestration:
               text: |
                 Available Commands:
                 ----------------
-                #command-name
+                /command-name
                   Description: Command description
                   Usage: Command usage
                   Category: Command category
-        - "#generate-command-docs":
+        - "/generate-command-docs":
             description: "Generate complete command documentation file"
-            usage: "cline #generate-command-docs [--output=<filename>] [--format=<md|txt>]"
+            usage: "cline /generate-command-docs [--output=<filename>] [--format=<md|txt>]"
             parameters:
               - name: "output"
                 type: "string"
@@ -3023,7 +3169,7 @@ SDLC Orchestration:
                 # System Commands
                 
                 ## Core Commands
-                {{#each core_commands}}
+                {{/each core_commands}}
                 ### {{name}}
                 - Description: {{description}}
                 - Usage: {{usage}}
@@ -3031,17 +3177,17 @@ SDLC Orchestration:
                 {{/each}}
                 
                 ## Agent Commands
-                {{#each agent_commands}}
+                {{/each agent_commands}}
                 ### {{agent}}
-                {{#each commands}}
+                {{/each commands}}
                 #### {{name}}
                 - Description: {{description}}
                 - Usage: {{usage}}
                 {{/each}}
                 {{/each}}
-        - "#list-flags":
+        - "/list-flags":
             description: "Display all available command flags and usage examples"
-            usage: "cline #list-flags [--format=<text|json|md>] [--command=<specific-command>]"
+            usage: "cline /list-flags [--format=<text|json|md>] [--command=<specific-command>]"
             parameters:
               - name: "format"
                 type: "string"
@@ -3057,68 +3203,68 @@ SDLC Orchestration:
                 ------------
                 --format=<text|json|yaml|md>
                   Description: Output format
-                  Example: cline #list-commands --format=json
+                  Example: cline /list-commands --format=json
                 
                 --output=<filename>
                   Description: Output file name/path
-                  Example: cline #generate-command-docs --output=CLI_REFERENCE.md
+                  Example: cline /generate-command-docs --output=CLI_REFERENCE.md
                 
                 --filter=<category|type|agent>
                   Description: Filter results
-                  Example: cline #list-commands --filter=template_commands
+                  Example: cline /list-commands --filter=template_commands
                 
                 Template Flags:
                 --------------
                 --template-type=<BRD|PRD|UXDD|...>
                   Description: Specify template type
-                  Example: cline #load-template --template-type=BRD
+                  Example: cline /load-template --template-type=BRD
                 
                 --template-path=<path>
                   Description: Custom template location
-                  Example: cline #load-template --template-path=./custom/templates
+                  Example: cline /load-template --template-path=./custom/templates
                 
                 Documentation Flags:
                 ------------------
                 --doc-format=<md|txt|html>
                   Description: Documentation format
-                  Example: cline #generate-command-docs --doc-format=md
+                  Example: cline /generate-command-docs --doc-format=md
                 
                 --include-examples=<true|false>
                   Description: Include usage examples
-                  Example: cline #generate-command-docs --include-examples=true
+                  Example: cline /generate-command-docs --include-examples=true
                 
                 Agent Flags:
                 -----------
                 --agent=<agent-name>
                   Description: Specify agent
-                  Example: cline #list-commands --agent=product_owner
+                  Example: cline /list-commands --agent=product_owner
                 
                 --agent-role=<role>
                   Description: Filter by agent role
-                  Example: cline #list-commands --agent-role=developer
+                  Example: cline /list-commands --agent-role=developer
                 
                 Execution Flags:
                 --------------
                 --dry-run=<true|false>
                   Description: Simulate command execution
-                  Example: cline #generate-project-structure --dry-run=true
+                  Example: cline /generate-project-structure --dry-run=true
                 
                 --verbose=<true|false>
                   Description: Detailed output
-                  Example: cline #list-commands --verbose=true
+                  Example: cline /list-commands --verbose=true
                 
                 --silent=<true|false>
                   Description: Suppress output
-                  Example: cline #generate-command-docs --silent=true
+                  Example: cline /generate-command-docs --silent=true
 
       version_control:
-        - "#init-git":
+        - "/init-git":
             description: "Initialize git repository"
             workflow:
               - "Create repository"
               - "Add gitignore"
               - "Initial commit"
-        - "#commit":
+        - "/commit":
             description: "Commit changes"
             workflow:
               - "Stage changes"
@@ -3126,20 +3272,20 @@ SDLC Orchestration:
               - "Push to remote"
 
       documentation:
-        - "#docs-init":
+        - "/docs-init":
             description: "Initialize documentation"
             workflow:
               - "Create documentation structure"
               - "Setup documentation generator"
               - "Initialize API docs"
-        - "#gen-docs":
+        - "/gen-docs":
             description: "Generate documentation"
             workflow:
               - "Generate API docs"
               - "Create user guides"
               - "Update README"
 
-  # Command Integration
+    # Command Integration
     command_integration:
       workflow_hooks:
         pre_command:
@@ -3182,7 +3328,7 @@ SDLC Orchestration:
           - "Check command syntax"
           - "Validate permissions"
 
-  # Command Execution Rules
+    # Command Execution Rules
     execution_rules:
       prerequisites:
         - "Check agent availability"
@@ -3203,7 +3349,7 @@ SDLC Orchestration:
         - "Store artifacts"
 
     template_commands:
-      - "#load-template":
+      - "/load-template":
           description: "Load and initialize document templates"
           workflow:
             - "Validate template type"
@@ -3261,12 +3407,117 @@ SDLC Orchestration:
               - "Document Control"
               - "Executive Summary"
               - "Change Log"
+    ## UML Generation Commands
+    uml_commands:
+      "/gen-uml":
+        description: "Generate UML diagrams using PlantUML"
+        template: "@generate-PlantUML-diagram.md"
+        diagram_types:
+          class:
+            command: "/gen-uml-class"
+            description: "Generate class diagram"
+            workflow:
+              - "Analyze class structure"
+              - "Identify relationships"
+              - "Generate PlantUML syntax"
+            options:
+              depth: [1, 2, 3]
+              include_methods: [true, false]
+              include_attributes: [true, false]
 
+          component:
+            command: "/gen-uml-component"
+            description: "Generate component diagram"
+            workflow:
+              - "Identify system components"
+              - "Map dependencies"
+              - "Generate PlantUML syntax"
+            options:
+              depth: [1, 2, 3]
+              show_interfaces: [true, false]
+              group_by_module: [true, false]
+
+          sequence:
+            command: "/gen-uml-sequence"
+            description: "Generate sequence diagram"
+            workflow:
+              - "Define actors"
+              - "Map interactions"
+              - "Generate PlantUML syntax"
+            options:
+              include_returns: [true, false]
+              show_activation: [true, false]
+              group_lifelines: [true, false]
+
+          activity:
+            command: "/gen-uml-activity"
+            description: "Generate activity diagram"
+            workflow:
+              - "Define start point"
+              - "Map process flow"
+              - "Generate PlantUML syntax"
+            options:
+              show_swimlanes: [true, false]
+              include_conditions: [true, false]
+              show_parallel: [true, false]
+
+          usecase:
+            command: "/gen-uml-usecase"
+            description: "Generate use case diagram"
+            workflow:
+              - "Identify actors"
+              - "Define use cases"
+              - "Generate PlantUML syntax"
+            options:
+              show_extensions: [true, false]
+              group_by_actor: [true, false]
+              include_notes: [true, false]
+
+          deployment:
+            command: "/gen-uml-deployment"
+            description: "Generate deployment diagram"
+            workflow:
+              - "Map infrastructure"
+              - "Define nodes"
+              - "Generate PlantUML syntax"
+            options:
+              show_artifacts: [true, false]
+              include_versions: [true, false]
+              show_dependencies: [true, false]
+
+          state:
+            command: "/gen-uml-state"
+            description: "Generate state diagram"
+            workflow:
+              - "Define states"
+              - "Map transitions"
+              - "Generate PlantUML syntax"
+            options:
+              show_actions: [true, false]
+              include_guards: [true, false]
+              nested_states: [true, false]
+
+        global_options:
+          theme: ["plain", "monochrome", "cerulean", "blueprint"]
+          output_format: ["svg", "png", "pdf"]
+          include_title: [true, false]
+          add_legend: [true, false]
+          show_stereotypes: [true, false]
+
+        integration:
+          documentation_site:
+            auto_update: true
+            output_path: "neo_project_site/src/pages/architecture/diagrams"
+            navigation:
+              section: "Architecture"
+              subsection: "System Diagrams"
+
+  
   # Operations Management
   operations_management:
     initialization:
       project_init:
-        command: "#init-context"
+        command: "/init-context"
         workflow:
           - "Create context structure"
           - "Initialize vector store"
@@ -3274,7 +3525,7 @@ SDLC Orchestration:
           - "Configure access"
       
       agent_init:
-        command: "#init-agent-context"
+        command: "/init-agent-context"
         workflow:
           - "Load agent profiles"
           - "Initialize workspaces"
@@ -3283,7 +3534,7 @@ SDLC Orchestration:
 
     maintenance:
       context_update:
-        command: "#update-context"
+        command: "/update-context"
         workflow:
           - "Check for changes"
           - "Update vector store"
@@ -3291,7 +3542,7 @@ SDLC Orchestration:
           - "Update documentation"
       
       context_cleanup:
-        command: "#cleanup-context"
+        command: "/cleanup-context"
         workflow:
           - "Archive old context"
           - "Optimize storage"
@@ -3396,13 +3647,32 @@ SDLC Orchestration:
             - "Weekly trends"
             - "Monthly analysis"
 
-  # System Context Management
+    workflow_triggers:
+      requirements:
+        new_project: "generate-initial-project-requirements.md"
+        revision: "generate-REVISED-project-requirements.md"
+      sprint:
+        planning: "generate_next_sprint_user_stories.md"
+        analysis: "story-analysis-prompt.md"    
+ 
+    validation_chain:
+      requirements:
+        - initial_requirements
+        - feature_requirements
+        - database_requirements
+        - self_reflection_evaluation
+      design:
+        - architecture
+        - ux_design
+        - data_architecture
+ 
+ # System Context Management
   system_context:
     # Command and Context Flow
     command_flow:
       registry:
         help_command:
-          name: "#help"
+          name: "/help"
           description: "Display available commands and documentation"
           workflow:
             - "Load command registry"
@@ -3411,7 +3681,7 @@ SDLC Orchestration:
             - "Create help documentation"
         
         feature_request_command:
-          name: "#new-fr"
+          name: "/new-fr"
           description: "Create new feature request"
           prerequisites:
             - "Previous feature request context"
@@ -3423,7 +3693,7 @@ SDLC Orchestration:
             - "Create documentation"
         
         deliverables_command:
-          name: "#init-deliverables"
+          name: "/init-deliverables"
           description: "Initialize project deliverables structure"
           workflow:
             - "Create directory structure"
@@ -3455,14 +3725,14 @@ SDLC Orchestration:
     workflow_contexts:
       planning_workflow:
         requirements:
-          command: "#requirements-init"
+          command: "/requirements-init"
           workflow:
             - "Load requirements context"
             - "Update specifications"
             - "Generate documentation"
         
         architecture:
-          command: "#arch-init"
+          command: "/init-architecture"
           workflow:
             - "Load architecture context"
             - "Update system design"
@@ -3470,14 +3740,14 @@ SDLC Orchestration:
       
       development_workflow:
         implementation:
-          command: "#dev-init"
+          command: "/dev-init"
           workflow:
             - "Load development context"
             - "Update codebase"
             - "Generate documentation"
         
         testing:
-          command: "#test-init"
+          command: "/test-init"
           workflow:
             - "Load testing context"
             - "Update test suite"
@@ -3487,7 +3757,7 @@ SDLC Orchestration:
     operations_management:
       initialization:
         project_init:
-          command: "#init-context"
+          command: "/init-context"
           workflow:
             - "Create context structure"
             - "Initialize vector store"
@@ -3495,7 +3765,7 @@ SDLC Orchestration:
             - "Configure access"
         
         agent_init:
-          command: "#init-agent-context"
+          command: "/init-agent-context"
           workflow:
             - "Load agent profiles"
             - "Initialize workspaces"
@@ -3504,7 +3774,7 @@ SDLC Orchestration:
 
       maintenance:
         context_update:
-          command: "#update-context"
+          command: "/update-context"
           workflow:
             - "Check for changes"
             - "Update vector store"
@@ -3512,7 +3782,7 @@ SDLC Orchestration:
             - "Update documentation"
         
         context_cleanup:
-          command: "#cleanup-context"
+          command: "/cleanup-context"
           workflow:
             - "Archive old context"
             - "Optimize storage"
@@ -3586,27 +3856,52 @@ SDLC Orchestration:
           - "Security alerts"
           - "Performance alerts"
           - "Usage alerts"
+          - "/help" # should be treated as a self-prompt command that modifies Cline's behavior
 
-  
+  # Command Processing Rules
+  command_processing:
+    reflection:
+      # Force command type validation before execution
+      command_type_check:
+        self_prompt_commands:
+          - prefix: "/"
+          - validation:
+              check_type: "self_prompt"
+              rules:
+                - "Starts with /"
+                - "Matches defined Neo commands"
+                - "Has associated workflow or prompt chain"
+          - action: "modify_cline_behavior"
+          - examples:
+              - "/evaluate-code"
+              - "/new-project"
+              - "/gen-<doc-type>"
+        
+        terminal_commands:
+          - prefix: ["$", ">", "npm", "git"]
+          - validation:
+              check_type: "terminal"
+              rules:
+                - "No leading /"
+                - "System executable or shell command"
+                - "Part of workflow action steps"
+          - action: "execute_in_terminal"
+          - examples:
+              - "npm install"
+              - "git commit"
+              - "python script.py"
 
-  sdlc_process:
-    requirements_phase:
-      initial_requirements:
-        prompt: "generate-initial-project-requirements.md"
-        outputs:
-          - "product_manager_prd.md"
-          - "feature_requirement_document-frd.md"
-          - "database_requirement_doc-drd.md"
-
-  artifact_rules:
-  deliverables:
-    1_business_requirements:
-      - "business_requirement_documentation_brd.md"
-    2_product_requirements:
-      - "product_requirement_documentation_prd.md"
-    3_user_experience:
-      - "user_experience_design_documentation_uxdd.md"
-    4_software_requirements:
-      - "software_requirement_documentation_srd.md"
-    5_development_requirements:
-      - "development_requirement_documentation_drd.md"
+    # Force reflection before command execution
+    pre_execution_check:
+      required: true
+      steps:
+        - "Identify command prefix"
+        - "Check against command_type_check rules"
+        - "Validate command exists in appropriate category"
+        - "Determine execution context (self-prompt vs terminal)"
+        - "Load associated workflow/chain if self-prompt"
+        
+    error_handling:
+      command_type_mismatch:
+        action: "abort"
+        message: "Command type mismatch - attempting to execute {command_type} command as {attempted_type}"

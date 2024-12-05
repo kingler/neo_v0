@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Analyze UI screenshots to extract component requirements and design patterns
+    </purpose>
+
+    <context>
+        <description>
+            This prompt analyzes UI screenshots to identify components, layout patterns,
+            and design elements for implementation in the design system.
+        </description>
+    </context>
+
+    <inputs>
+        <input name="screenshot" type="image">
+            <description>UI screenshot to analyze</description>
+        </input>
+        <input name="analysis_type" type="string">
+            <description>Type of analysis (component, layout, style)</description>
+        </input>
+        <input name="design_system" type="object">
+            <description>Current design system specifications</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="image_processing">
+            <action>Process and analyze screenshot</action>
+            <tasks>
+                <task>Identify UI elements</task>
+                <task>Detect layout patterns</task>
+                <task>Extract color schemes</task>
+                <task>Analyze typography</task>
+            </tasks>
+        </step>
+
+        <step name="component_identification">
+            <action>Identify and categorize components</action>
+            <categories>
+                <category name="atoms">
+                    <element>Buttons</element>
+                    <element>Inputs</element>
+                    <element>Icons</element>
+                    <element>Typography</element>
+                </category>
+                <category name="molecules">
+                    <element>Form groups</element>
+                    <element>Navigation items</element>
+                    <element>Cards</element>
+                </category>
+                <category name="organisms">
+                    <element>Navigation bars</element>
+                    <element>Forms</element>
+                    <element>Content sections</element>
+                </category>
+            </categories>
+        </step>
+
+        <step name="layout_analysis">
+            <action>Analyze layout structure</action>
+            <patterns>
+                <pattern>Grid systems</pattern>
+                <pattern>Flexbox layouts</pattern>
+                <pattern>Spacing patterns</pattern>
+                <pattern>Alignment rules</pattern>
+            </patterns>
+        </step>
+
+        <step name="style_extraction">
+            <action>Extract styling information</action>
+            <properties>
+                <property>Color palette</property>
+                <property>Typography scale</property>
+                <property>Spacing values</property>
+                <property>Shadow styles</property>
+            </properties>
+        </step>
+
+        <step name="documentation">
+            <action>Generate analysis documentation</action>
+            <sections>
+                <section>Component inventory</section>
+                <section>Layout patterns</section>
+                <section>Style guide</section>
+                <section>Implementation notes</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Component accuracy</criterion>
+            <criterion>Pattern recognition</criterion>
+            <criterion>Style consistency</criterion>
+            <criterion>Design system alignment</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="analysis/${screenshot_name}_components.json">Component analysis</file>
+            <file path="analysis/${screenshot_name}_layout.json">Layout analysis</file>
+            <file path="analysis/${screenshot_name}_styles.json">Style analysis</file>
+            <file path="analysis/${screenshot_name}_report.md">Analysis report</file>
+        </files>
+    </output>
+</prompt> 

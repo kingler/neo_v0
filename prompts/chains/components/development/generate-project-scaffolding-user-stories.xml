@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt_chain>
+    <metadata>
+        <name>Project Scaffolding User Stories Generator</name>
+        <description>Generates comprehensive user stories for project scaffolding and initial setup tasks</description>
+        <version>1.0.0</version>
+        <category>development</category>
+        <tags>
+            <tag>scaffolding</tag>
+            <tag>user-stories</tag>
+            <tag>project-setup</tag>
+            <tag>agile</tag>
+        </tags>
+    </metadata>
+
+    <input_validation>
+        <required_fields>
+            <field name="project_name" type="string">
+                <validation>
+                    <min_length>2</min_length>
+                    <max_length>100</max_length>
+                    <pattern>[a-zA-Z0-9-_]+</pattern>
+                </validation>
+            </field>
+            <field name="tech_stack" type="array">
+                <validation>
+                    <min_items>1</min_items>
+                    <max_items>20</max_items>
+                </validation>
+            </field>
+            <field name="project_type" type="string">
+                <validation>
+                    <enum>
+                        <value>web-application</value>
+                        <value>mobile-app</value>
+                        <value>api-service</value>
+                        <value>cli-tool</value>
+                        <value>library</value>
+                    </enum>
+                </validation>
+            </field>
+        </required_fields>
+        <optional_fields>
+            <field name="deployment_platform" type="string" />
+            <field name="ci_cd_requirements" type="array" />
+            <field name="testing_framework" type="string" />
+        </optional_fields>
+    </input_validation>
+
+    <state_management>
+        <variables>
+            <variable name="story_count" type="integer" initial_value="0" />
+            <variable name="current_phase" type="string" initial_value="project_setup" />
+            <variable name="completed_categories" type="array" initial_value="[]" />
+        </variables>
+        <phases>
+            <phase name="project_setup">
+                <tasks>
+                    <task>Initialize repository structure</task>
+                    <task>Setup dependency management</task>
+                    <task>Configure build system</task>
+                </tasks>
+            </phase>
+            <phase name="development_environment">
+                <tasks>
+                    <task>Setup development tools</task>
+                    <task>Configure IDE settings</task>
+                    <task>Setup linting and formatting</task>
+                </tasks>
+            </phase>
+            <phase name="ci_cd_setup">
+                <tasks>
+                    <task>Configure CI/CD pipeline</task>
+                    <task>Setup testing environment</task>
+                    <task>Configure deployment workflow</task>
+                </tasks>
+            </phase>
+        </phases>
+    </state_management>
+
+    <processing>
+        <steps>
+            <step order="1">
+                <action>Analyze project requirements</action>
+                <validation>
+                    <condition>Required fields are present and valid</condition>
+                    <error_message>Invalid or missing project requirements</error_message>
+                </validation>
+            </step>
+            <step order="2">
+                <action>Generate core setup stories</action>
+                <validation>
+                    <condition>Stories follow INVEST criteria</condition>
+                    <error_message>Generated stories do not meet INVEST criteria</error_message>
+                </validation>
+            </step>
+            <step order="3">
+                <action>Generate environment setup stories</action>
+                <validation>
+                    <condition>Environment requirements are complete</condition>
+                    <error_message>Incomplete environment setup requirements</error_message>
+                </validation>
+            </step>
+            <step order="4">
+                <action>Generate CI/CD setup stories</action>
+                <validation>
+                    <condition>CI/CD workflow is comprehensive</condition>
+                    <error_message>Incomplete CI/CD setup requirements</error_message>
+                </validation>
+            </step>
+        </steps>
+    </processing>
+
+    <output_validation>
+        <requirements>
+            <requirement>Each story follows INVEST principles</requirement>
+            <requirement>Stories are properly prioritized</requirement>
+            <requirement>Dependencies between stories are identified</requirement>
+            <requirement>Acceptance criteria are clear and testable</requirement>
+        </requirements>
+        <metrics>
+            <metric name="story_completeness" type="percentage">
+                <threshold>90</threshold>
+                <description>Percentage of required setup aspects covered by stories</description>
+            </metric>
+            <metric name="story_quality" type="percentage">
+                <threshold>85</threshold>
+                <description>Percentage of stories meeting INVEST criteria</description>
+            </metric>
+            <metric name="pass_fail" type="boolean">
+                <conditions>
+                    <condition>All required stories generated</condition>
+                    <condition>All stories have acceptance criteria</condition>
+                    <condition>All phases have coverage</condition>
+                </conditions>
+            </metric>
+        </metrics>
+    </output_validation>
+
+    <error_handling>
+        <error type="invalid_input">
+            <message>Invalid input parameters provided</message>
+            <action>Log error and request corrected input</action>
+        </error>
+        <error type="incomplete_stories">
+            <message>Generated stories do not cover all required aspects</message>
+            <action>Identify missing areas and regenerate stories</action>
+        </error>
+        <error type="invalid_story_format">
+            <message>Generated stories do not follow required format</message>
+            <action>Apply story template and regenerate</action>
+        </error>
+    </error_handling>
+
+    <output_format>
+        <story_template>
+            <title>As a {role}, I want {feature} so that {benefit}</title>
+            <acceptance_criteria>
+                <criterion>Given {context}</criterion>
+                <criterion>When {action}</criterion>
+                <criterion>Then {result}</criterion>
+            </acceptance_criteria>
+            <metadata>
+                <priority>integer</priority>
+                <effort_estimate>string</effort_estimate>
+                <dependencies>array</dependencies>
+                <category>string</category>
+            </metadata>
+        </story_template>
+    </output_format>
+</prompt_chain> 

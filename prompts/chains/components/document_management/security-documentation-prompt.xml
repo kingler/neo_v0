@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive security documentation and implementation guides
+    </purpose>
+
+    <context>
+        <description>
+            This prompt creates detailed security documentation that ensures
+            the application meets security standards and follows best practices.
+        </description>
+        <workflow_position>
+            <phase>Security Documentation</phase>
+            <predecessor>Security Implementation</predecessor>
+            <successor>Compliance Documentation</successor>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="system_architecture" type="object">
+            <description>System architecture and components</description>
+        </input>
+        <input name="security_requirements" type="object">
+            <description>Security requirements and standards</description>
+        </input>
+        <input name="compliance_needs" type="array">
+            <description>Compliance requirements and frameworks</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="security_analysis">
+            <action>Analyze security requirements and implementation</action>
+            <domains>
+                <domain name="authentication">
+                    <component>Authentication methods</component>
+                    <component>Token management</component>
+                    <component>Session handling</component>
+                    <component>Password policies</component>
+                </domain>
+                <domain name="authorization">
+                    <component>Role-based access</component>
+                    <component>Permission management</component>
+                    <component>Access control lists</component>
+                    <component>Resource protection</component>
+                </domain>
+                <domain name="data_protection">
+                    <component>Data encryption</component>
+                    <component>Data handling</component>
+                    <component>Privacy controls</component>
+                    <component>Data retention</component>
+                </domain>
+            </domains>
+        </step>
+
+        <step name="implementation_documentation">
+            <action>Document security implementations</action>
+            <sections>
+                <section name="authentication">
+                    <content>Authentication flows</content>
+                    <content>Token handling</content>
+                    <content>Session management</content>
+                </section>
+                <section name="authorization">
+                    <content>Access control</content>
+                    <content>Role management</content>
+                    <content>Permission system</content>
+                </section>
+                <section name="encryption">
+                    <content>Data encryption</content>
+                    <content>Key management</content>
+                    <content>Transport security</content>
+                </section>
+            </sections>
+        </step>
+
+        <step name="policy_documentation">
+            <action>Document security policies</action>
+            <policies>
+                <policy name="access_control">
+                    <content>Access policies</content>
+                    <content>Role definitions</content>
+                    <content>Permission matrices</content>
+                </policy>
+                <policy name="data_handling">
+                    <content>Data classification</content>
+                    <content>Handling procedures</content>
+                    <content>Retention policies</content>
+                </policy>
+                <policy name="incident_response">
+                    <content>Response procedures</content>
+                    <content>Escalation paths</content>
+                    <content>Recovery plans</content>
+                </policy>
+            </policies>
+        </step>
+
+        <step name="compliance_documentation">
+            <action>Document compliance measures</action>
+            <frameworks>
+                <framework name="data_protection">
+                    <requirement>Data privacy</requirement>
+                    <requirement>Data security</requirement>
+                    <requirement>User rights</requirement>
+                </framework>
+                <framework name="industry_standards">
+                    <requirement>Security controls</requirement>
+                    <requirement>Best practices</requirement>
+                    <requirement>Audit procedures</requirement>
+                </framework>
+            </frameworks>
+        </step>
+
+        <step name="security_guides">
+            <action>Generate security implementation guides</action>
+            <guides>
+                <guide name="development">
+                    <section>Secure coding</section>
+                    <section>Security testing</section>
+                    <section>Vulnerability management</section>
+                </guide>
+                <guide name="operations">
+                    <section>Security monitoring</section>
+                    <section>Incident response</section>
+                    <section>Disaster recovery</section>
+                </guide>
+                <guide name="maintenance">
+                    <section>Security updates</section>
+                    <section>Patch management</section>
+                    <section>Security reviews</section>
+                </guide>
+            </guides>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Security coverage</criterion>
+            <criterion>Implementation accuracy</criterion>
+            <criterion>Compliance alignment</criterion>
+            <criterion>Documentation clarity</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="docs/security/overview.md">Security overview</file>
+            <file path="docs/security/implementation.md">Implementation guide</file>
+            <file path="docs/security/policies.md">Security policies</file>
+            <file path="docs/security/compliance.md">Compliance documentation</file>
+            <file path="docs/security/guides.md">Security guides</file>
+        </files>
+    </output>
+</prompt> 

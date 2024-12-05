@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ project_name }} - Architecture Diagrams</title>
+    <meta name="description" content="{{ project_description }}">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --background: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+            --hover: rgba(0,0,0,0.05);
+        }
+
+        [data-theme="dark"] {
+            --primary: #3b82f6;
+            --secondary: #94a3b8;
+            --background: #0f172a;
+            --text: #e2e8f0;
+            --border: #1e293b;
+            --hover: rgba(255,255,255,0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--background);
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            padding: 2rem;
+            border-right: 1px solid var(--border);
+            background: var(--background);
+            overflow-y: auto;
+        }
+
+        .project-info {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .project-info h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-version {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background: var(--primary);
+            color: white;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .diagram-category {
+            margin-bottom: 2rem;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .diagram-list {
+            list-style: none;
+        }
+
+        .diagram-item {
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .diagram-item:hover {
+            background: var(--hover);
+        }
+
+        .diagram-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .diagram-viewer {
+            position: relative;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .diagram-controls {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            background: var(--background);
+            padding: 0.5rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .diagram-container {
+            padding: 2rem;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Metadata Styles */
+        .diagram-info {
+            background: var(--background);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metadata-item {
+            padding: 1rem;
+            background: var(--hover);
+            border-radius: 4px;
+        }
+
+        .metadata-item strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .documentation {
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .sidebar.active {
+                display: block;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 1000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="project-info">
+                <h1>{{ project_name }}</h1>
+                <span class="project-version">v{{ project_version }}</span>
+                <p>{{ project_description }}</p>
+            </div>
+
+            <nav>
+                {% for category in diagram_categories %}
+                <div class="diagram-category">
+                    <h2 class="category-title">{{ category.name }}</h2>
+                    <ul class="diagram-list">
+                        {% for diagram in category.diagrams %}
+                        <li class="diagram-item" 
+                            data-path="{{ diagram.path }}"
+                            data-type="{{ diagram.type }}">
+                            {{ diagram.name }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endfor %}
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="diagram-viewer">
+                <div class="diagram-controls">
+                    <button class="btn" id="zoom-in">+</button>
+                    <button class="btn" id="zoom-out">-</button>
+                    <button class="btn" id="reset">Reset</button>
+                    <select class="btn" id="export-format">
+                        {% for format in export_formats %}
+                        <option value="{{ format }}">{{ format }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn" id="export">Export</button>
+                    <button class="btn" id="theme-toggle">🌓</button>
+                </div>
+
+                <div class="diagram-container" id="diagram">
+                    {{ current_diagram.source | safe }}
+                </div>
+            </div>
+
+            <div class="diagram-info">
+                <div class="metadata-grid">
+                    <div class="metadata-item">
+                        <strong>Type</strong>
+                        <div>{{ current_diagram.type }}</div>
+                    </div>
+                    <div class="metadata-item">
+                        <strong>Last Updated</strong>
+                        <div>{{ current_diagram.last_updated }}</div>
+                    </div>
+                    <div class="metadata-item">
+                        <strong>Author</strong>
+                        <div>{{ current_diagram.author }}</div>
+                    </div>
+                </div>
+
+                <div class="documentation">
+                    {{ current_diagram.documentation | markdown | safe }}
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        class DiagramViewer {
+            constructor() {
+                this.scale = 1;
+                this.isDragging = false;
+                this.startX = 0;
+                this.startY = 0;
+                this.translateX = 0;
+                this.translateY = 0;
+                this.diagram = document.getElementById('diagram');
+                
+                this.setupControls();
+                this.setupDiagramList();
+                if ({{ auto_refresh }}) {
+                    this.setupAutoRefresh();
+                }
+            }
+
+            setupControls() {
+                document.getElementById('zoom-in').onclick = () => this.zoom(0.1);
+                document.getElementById('zoom-out').onclick = () => this.zoom(-0.1);
+                document.getElementById('reset').onclick = () => this.reset();
+                document.getElementById('export').onclick = () => this.export();
+                document.getElementById('theme-toggle').onclick = () => this.toggleTheme();
+                
+                this.setupDragAndDrop();
+            }
+
+            zoom(delta) {
+                this.scale = Math.max(0.5, Math.min(3, this.scale + delta));
+                this.updateTransform();
+            }
+
+            updateTransform() {
+                this.diagram.style.transform = `translate(${this.translateX}px, ${this.translateY}px) scale(${this.scale})`;
+            }
+
+            reset() {
+                this.scale = 1;
+                this.translateX = 0;
+                this.translateY = 0;
+                this.updateTransform();
+            }
+
+            setupDragAndDrop() {
+                this.diagram.onmousedown = (e) => {
+                    this.isDragging = true;
+                    this.startX = e.clientX - this.translateX;
+                    this.startY = e.clientY - this.translateY;
+                };
+
+                document.onmousemove = (e) => {
+                    if (!this.isDragging) return;
+                    this.translateX = e.clientX - this.startX;
+                    this.translateY = e.clientY - this.startY;
+                    this.updateTransform();
+                };
+
+                document.onmouseup = () => {
+                    this.isDragging = false;
+                };
+            }
+
+            export() {
+                const format = document.getElementById('export-format').value;
+                const link = document.createElement('a');
+                link.download = `diagram.${format.toLowerCase()}`;
+                link.href = `{{ diagrams_base_path }}/${this.currentDiagram}.${format.toLowerCase()}`;
+                link.click();
+            }
+
+            toggleTheme() {
+                const html = document.documentElement;
+                const currentTheme = html.getAttribute('data-theme');
+                html.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+            }
+
+            setupDiagramList() {
+                document.querySelectorAll('.diagram-item').forEach(item => {
+                    item.onclick = () => this.loadDiagram(item.dataset.path);
+                });
+            }
+
+            loadDiagram(path) {
+                this.currentDiagram = path;
+                // Implementation for loading new diagram
+                fetch(`{{ diagrams_base_path }}/${path}`)
+                    .then(response => response.text())
+                    .then(source => {
+                        this.diagram.innerHTML = source;
+                        this.reset();
+                    });
+            }
+
+            setupAutoRefresh() {
+                setInterval(() => {
+                    if (this.currentDiagram) {
+                        this.loadDiagram(this.currentDiagram);
+                    }
+                }, {{ refresh_interval }});
+            }
+        }
+
+        // Initialize viewer when document is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            window.diagramViewer = new DiagramViewer();
+        });
+    </script>
+</body>
+</html>

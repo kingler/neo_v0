@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate comprehensive UX sitemap documentation for application structure
+    </purpose>
+
+    <context>
+        <description>
+            This prompt creates detailed UX sitemap documentation that outlines the application's
+            structure, navigation flows, and content organization.
+        </description>
+    </context>
+
+    <inputs>
+        <input name="app_requirements" type="object">
+            <description>Application requirements and specifications</description>
+        </input>
+        <input name="user_flows" type="array">
+            <description>User journey flows and interactions</description>
+        </input>
+        <input name="content_structure" type="object">
+            <description>Content hierarchy and organization</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="structure_analysis">
+            <action>Analyze application structure</action>
+            <components>
+                <component>Navigation hierarchy</component>
+                <component>Page relationships</component>
+                <component>Content organization</component>
+                <component>User flows</component>
+            </components>
+        </step>
+
+        <step name="navigation_mapping">
+            <action>Map navigation structure</action>
+            <elements>
+                <primary>
+                    <item>Main navigation</item>
+                    <item>Sub-navigation</item>
+                    <item>Footer navigation</item>
+                </primary>
+                <secondary>
+                    <item>Contextual navigation</item>
+                    <item>Utility navigation</item>
+                    <item>Breadcrumbs</item>
+                </secondary>
+            </elements>
+        </step>
+
+        <step name="content_hierarchy">
+            <action>Define content hierarchy</action>
+            <levels>
+                <level name="top">
+                    <item>Landing pages</item>
+                    <item>Main sections</item>
+                </level>
+                <level name="middle">
+                    <item>Sub-sections</item>
+                    <item>Category pages</item>
+                </level>
+                <level name="detail">
+                    <item>Content pages</item>
+                    <item>Feature pages</item>
+                </level>
+            </levels>
+        </step>
+
+        <step name="user_flow_mapping">
+            <action>Map user flows and interactions</action>
+            <flows>
+                <flow>Authentication flows</flow>
+                <flow>Core feature flows</flow>
+                <flow>Transaction flows</flow>
+                <flow>Settings flows</flow>
+            </flows>
+        </step>
+
+        <step name="documentation">
+            <action>Generate sitemap documentation</action>
+            <sections>
+                <section>Structure overview</section>
+                <section>Navigation patterns</section>
+                <section>Content organization</section>
+                <section>User flows</section>
+                <section>Implementation notes</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Navigation clarity</criterion>
+            <criterion>Content organization</criterion>
+            <criterion>User flow logic</criterion>
+            <criterion>Documentation completeness</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="ux/sitemap.svg">Visual sitemap</file>
+            <file path="ux/sitemap.md">Documentation</file>
+            <file path="ux/flows.svg">User flow diagrams</file>
+            <file path="ux/navigation.json">Navigation structure</file>
+        </files>
+    </output>
+</prompt> 

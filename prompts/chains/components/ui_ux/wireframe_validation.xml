@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Validate wireframes against design system standards and requirements
+    </purpose>
+
+    <context>
+        <description>
+            This prompt validates wireframes against design system standards,
+            ensuring consistency, usability, and compliance with requirements.
+        </description>
+        <workflow_position>
+            <phase>Design Validation</phase>
+            <predecessor>Wireframe Development</predecessor>
+            <successor>Design Implementation</successor>
+        </workflow_position>
+    </context>
+
+    <inputs>
+        <input name="wireframes" type="array">
+            <description>Collection of wireframes to validate</description>
+        </input>
+        <input name="design_system" type="object">
+            <description>Design system specifications and standards</description>
+        </input>
+        <input name="requirements" type="object">
+            <description>Project requirements and constraints</description>
+        </input>
+    </inputs>
+
+    <validation_criteria>
+        <category name="design_principles">
+            <criterion name="hierarchy">
+                <check>Visual hierarchy clarity</check>
+                <check>Information architecture</check>
+                <check>Content priority</check>
+            </criterion>
+            <criterion name="consistency">
+                <check>Component usage</check>
+                <check>Pattern application</check>
+                <check>Style adherence</check>
+            </criterion>
+            <criterion name="usability">
+                <check>Navigation clarity</check>
+                <check>Interaction patterns</check>
+                <check>Feedback mechanisms</check>
+            </criterion>
+        </category>
+
+        <category name="technical_standards">
+            <criterion name="responsiveness">
+                <check>Breakpoint handling</check>
+                <check>Layout adaptability</check>
+                <check>Content reflow</check>
+            </criterion>
+            <criterion name="accessibility">
+                <check>WCAG compliance</check>
+                <check>Semantic structure</check>
+                <check>Color contrast</check>
+            </criterion>
+            <criterion name="performance">
+                <check>Component complexity</check>
+                <check>Asset optimization</check>
+                <check>Loading strategy</check>
+            </criterion>
+        </category>
+
+        <category name="requirements_compliance">
+            <criterion name="functional">
+                <check>Feature coverage</check>
+                <check>Interaction support</check>
+                <check>Data handling</check>
+            </criterion>
+            <criterion name="non_functional">
+                <check>Performance targets</check>
+                <check>Security requirements</check>
+                <check>Scalability needs</check>
+            </criterion>
+        </category>
+    </validation_criteria>
+
+    <workflow>
+        <step name="preparation">
+            <action>Prepare validation environment</action>
+            <tasks>
+                <task>Load wireframes</task>
+                <task>Setup validation tools</task>
+                <task>Configure checkers</task>
+            </tasks>
+        </step>
+
+        <step name="automated_checks">
+            <action>Run automated validations</action>
+            <checks>
+                <check>Component compliance</check>
+                <check>Style consistency</check>
+                <check>Technical standards</check>
+            </checks>
+        </step>
+
+        <step name="manual_review">
+            <action>Perform manual validation</action>
+            <reviews>
+                <review>Design principles</review>
+                <review>Usability patterns</review>
+                <review>Content structure</review>
+            </reviews>
+        </step>
+
+        <step name="requirements_verification">
+            <action>Verify requirements compliance</action>
+            <verifications>
+                <verify>Functional coverage</verify>
+                <verify>Non-functional compliance</verify>
+                <verify>Business rules</verify>
+            </verifications>
+        </step>
+
+        <step name="reporting">
+            <action>Generate validation report</action>
+            <sections>
+                <section>Validation summary</section>
+                <section>Issues found</section>
+                <section>Recommendations</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <output>
+        <deliverables>
+            <report path="validation/summary.md">Validation summary</report>
+            <report path="validation/issues.json">Detailed issues</report>
+            <report path="validation/metrics.json">Validation metrics</report>
+            <report path="validation/recommendations.md">Improvement recommendations</report>
+        </deliverables>
+    </output>
+</prompt> 

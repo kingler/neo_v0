@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>
+        Generate low-fidelity wireframes for user interfaces
+    </purpose>
+
+    <context>
+        <description>
+            This prompt generates SVG-based wireframes following atomic design principles,
+            creating visual representations of UI layouts and component relationships.
+        </description>
+    </context>
+
+    <inputs>
+        <input name="user_flow" type="object">
+            <description>User flow specifications and interactions</description>
+        </input>
+        <input name="components" type="array">
+            <description>Required UI components and their relationships</description>
+        </input>
+        <input name="layout_specs" type="object">
+            <description>Layout specifications and grid system</description>
+        </input>
+    </inputs>
+
+    <workflow>
+        <step name="analyze_requirements">
+            <action>Analyze user flow and component requirements</action>
+            <validation>
+                <rule>Verify user flow completeness</rule>
+                <rule>Check component relationships</rule>
+                <rule>Validate layout structure</rule>
+            </validation>
+        </step>
+
+        <step name="create_structure">
+            <action>Generate wireframe structure</action>
+            <components>
+                <atomic>
+                    <atoms>
+                        <component>Buttons</component>
+                        <component>Inputs</component>
+                        <component>Icons</component>
+                    </atoms>
+                    <molecules>
+                        <component>Form groups</component>
+                        <component>Navigation items</component>
+                        <component>Cards</component>
+                    </molecules>
+                    <organisms>
+                        <component>Forms</component>
+                        <component>Navigation bars</component>
+                        <component>Content sections</component>
+                    </organisms>
+                </atomic>
+            </components>
+        </step>
+
+        <step name="layout_design">
+            <action>Design layout and spacing</action>
+            <guidelines>
+                <rule>Follow grid system</rule>
+                <rule>Maintain consistent spacing</rule>
+                <rule>Consider responsive behavior</rule>
+            </guidelines>
+        </step>
+
+        <step name="interaction_patterns">
+            <action>Define interaction patterns</action>
+            <patterns>
+                <pattern>Navigation flows</pattern>
+                <pattern>Form interactions</pattern>
+                <pattern>State changes</pattern>
+            </patterns>
+        </step>
+
+        <step name="documentation">
+            <action>Generate wireframe documentation</action>
+            <sections>
+                <section>Component hierarchy</section>
+                <section>Layout structure</section>
+                <section>Interaction flows</section>
+                <section>Annotations</section>
+            </sections>
+        </step>
+    </workflow>
+
+    <validation>
+        <criteria>
+            <criterion>Visual hierarchy</criterion>
+            <criterion>Component relationships</criterion>
+            <criterion>User flow clarity</criterion>
+            <criterion>Layout consistency</criterion>
+        </criteria>
+    </validation>
+
+    <output>
+        <files>
+            <file path="wireframes/${ViewName}.svg">Wireframe SVG</file>
+            <file path="wireframes/${ViewName}.md">Documentation</file>
+            <file path="wireframes/flows/${FlowName}.svg">Flow diagram</file>
+        </files>
+    </output>
+</prompt> 
