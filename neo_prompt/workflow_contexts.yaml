@@ -2,14 +2,14 @@
 workflow_contexts:
   planning_workflow:
     requirements:
-      command: "#requirements-init"
+      command: "/requirements-init"
       workflow:
         - "Load requirements context"
         - "Update specifications"
         - "Generate documentation"
     
     architecture:
-      command: "#arch-init"
+      command: "/arch-init"
       workflow:
         - "Load architecture context"
         - "Update system design"
@@ -17,14 +17,14 @@ workflow_contexts:
   
   development_workflow:
     implementation:
-      command: "#dev-init"
+      command: "/dev-init"
       workflow:
         - "Load development context"
         - "Update codebase"
         - "Generate documentation"
     
     testing:
-      command: "#test-init"
+      command: "/test-init"
       workflow:
         - "Load testing context"
         - "Update test suite"

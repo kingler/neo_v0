@@ -61,7 +61,7 @@ This prompt guides the generation of clean, well-organized SVG wireframes follow
     x="[x]" y="[y]"
     width="[width]" height="40"
     rx="4"
-    fill="#E5E7EB"
+    fill="/E5E7EB"
   />
   <text
     x="[x+width/2]" y="[y+20]"
@@ -79,12 +79,12 @@ This prompt guides the generation of clean, well-organized SVG wireframes follow
     width="[width]" height="40"
     rx="4"
     fill="white"
-    stroke="#E5E7EB"
+    stroke="/E5E7EB"
   />
   <text
     x="[x+16]" y="[y+20]"
     dominant-baseline="middle"
-    fill="#6B7280"
+    fill="/6B7280"
   >[Placeholder]</text>
 </g>
 ```
@@ -97,7 +97,7 @@ This prompt guides the generation of clean, well-organized SVG wireframes follow
     width="[width]" height="[height]"
     rx="8"
     fill="white"
-    stroke="#E5E7EB"
+    stroke="/E5E7EB"
   />
   <g class="content" transform="translate([x+16], [y+16])">
     <!-- Container content -->

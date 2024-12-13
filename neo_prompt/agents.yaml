@@ -6,11 +6,11 @@ Orchestration Agents:
     description: "Development Process Orchestration"
     tools:
       commands:
-        - "#new-project"
-        - "#generate-project-structure"
-        - "#gen-<doc-type>"
-        - "#status"
-        - "#git-status"
+        - "/new-project"
+        - "/generate-project-structure"
+        - "/gen-<doc-type>"
+        - "/status"
+        - "/git-status"
       cline_integration:
         - tool: "cline execute"
           usage: "Execute commands through Cline"
@@ -116,9 +116,9 @@ Specialized Agents:
               - "Code coverage"
               - "Complexity score"
       tools:
-        - "#requirements-init"
-        - "#feature-map"
-        - "#roadmap-gen"
+        - "/requirements-init"
+        - "/feature-map"
+        - "/roadmap-gen"
       chains:
         - "[requirements_chain.md](chains/requirements_chain.md)"
         - "[feature_analysis_chain.md](chains/feature_analysis_chain.md)"
@@ -146,9 +146,9 @@ Specialized Agents:
             - "Generate insights"
             - "Create recommendations"
       tools:
-        - "#research-init"
-        - "#interview-analyze"
-        - "#survey-process"
+        - "/research-init"
+        - "/interview-analyze"
+        - "/survey-process"
       chains:
         - "[research_planning_chain.md](chains/research_planning_chain.md)"
         - "[data_analysis_chain.md](chains/data_analysis_chain.md)"
@@ -168,9 +168,9 @@ Specialized Agents:
         - type: "Wireframes"
           template: "[wireframe-generation-prompt.md](chains/components/ui_ux/wireframe-generation-prompt.md)"
       tools:
-        - "#wireframe-init"
-        - "#journey-map"
-        - "#persona-gen"
+        - "/wireframe-init"
+        - "/journey-map"
+        - "/persona-gen"
       chains:
         - "[ux_design_chain.md](chains/ux_design_chain.md)"
         - "[wireframe_chain.md](chains/wireframe_chain.md)"
@@ -188,9 +188,9 @@ Specialized Agents:
         - type: "Component Library"
           template: "[component_generator.md](chains/components/ui_ux/component_generator.md)"
       tools:
-        - "#design-system-init"
-        - "#component-gen"
-        - "#style-guide"
+        - "/design-system-init"
+        - "/component-gen"
+        - "/style-guide"
       chains:
         - "[ui_design_chain.md](chains/ui_design_chain.md)"
         - "[component_library_chain.md](chains/component_library_chain.md)"
@@ -210,9 +210,9 @@ Specialized Agents:
         - type: "API Design"
           template: "[software_architect_api_designer.md](chains/components/architecture/software_architect_api_designer.md)"
       tools:
-        - "#arch-init"
-        - "#uml-gen"
-        - "#api-design"
+        - "/arch-init"
+        - "/uml-gen"
+        - "/api-design"
       chains:
         - "[architecture_chain.md](chains/architecture_chain.md)"
         - "[system_design_chain.md](chains/system_design_chain.md)"
@@ -226,8 +226,8 @@ Specialized Agents:
         - "Maintain accessibility standards"
         - "Optimize performance"
       tools:
-        - "#ui-implement" # generates the frontend code, ui components based on the Atomic Design System
-        - "#component-build" # generates the frontend code, ui components based on the Atomic Design System
+        - "/ui-implement" # generates the frontend code, ui components based on the Atomic Design System
+        - "/component-build" # generates the frontend code, ui components based on the Atomic Design System
       deliverables:
         - type: "UI Components"
           template: "[atomic_design_system.meta.md](chains/components/development/atomic_design_system.meta.md)"
@@ -259,11 +259,11 @@ Specialized Agents:
         - "Optimize database queries"
         - "Maintain API documentation"
       tools:
-        - "#api-implement" # Implement API endpoints
-        - "#service-build" # Build backend services
-        - "#init-git" # Initialize git repository
-        - "#commit" # Commit changes
-        - "#gen-docs" # Generate documentation
+        - "/api-implement" # Implement API endpoints
+        - "/service-build" # Build backend services
+        - "/init-git" # Initialize git repository
+        - "/commit" # Commit changes
+        - "/gen-docs" # Generate documentation
       chains:
         - "[api_design_chain.md](chains/api_design_chain.md)"
         - "[implementation_analysis_chain.md](chains/implementation_analysis_chain.md)"
@@ -327,11 +327,11 @@ Specialized Agents:
         - "Monitor system health"
         - "Maintain backups"
       tools:
-        - "#arch-init"
-        - "#generate-project-structure"  # Add this line
-        - "#uml-gen"
-        - "#api-design"
-        - "#init-project-site"
+        - "/arch-init"
+        - "/generate-project-structure"  # Add this line
+        - "/uml-gen"
+        - "/api-design"
+        - "/init-project-site"
       deliverables:
         - type: "Infrastructure Setup"
           template: "[architectural-diagram-generator.meta.md](chains/components/development/architectural-diagram-generator.meta.md)"
@@ -554,9 +554,9 @@ common_attributes: # Add shared attributes
           commands:
             reference: "@context_flow_management.yaml:context_flow.commands"
             usage:
-              - "#help"
-              - "#new-fr"
-              - "#init-deliverables"
+              - "/help"
+              - "/new-fr"
+              - "/init-deliverables"
 
         system_architect:
           type: "architecture_context"
@@ -568,15 +568,15 @@ common_attributes: # Add shared attributes
           commands:
             reference: "@context_flow_management.yaml:context_flow.commands"
             usage:
-              - "#help"
-              - "#new-fr"
-              - "#init-deliverables"
+              - "/help"
+              - "/new-fr"
+              - "/init-deliverables"
 
       # Context Operations
       operations:
         reference: "@context_management.yaml:operations_management"
         initialization:
-          command: "#init-context"
+          command: "/init-context"
           workflow:
             - "Create context structure"
             - "Initialize vector store"
@@ -612,7 +612,7 @@ common_attributes: # Add shared attributes
 
     agent_interfaces:
       commands:
-        "#designer-agent":
+        "/designer-agent":
           description: "Initialize UX/UI Design Agent interface"
           agent_profile:
             name: "Sarah"
@@ -637,7 +637,7 @@ common_attributes: # Add shared attributes
             - "Design System Management"
             - "Prototype Development"
 
-        "#developer-agent":
+        "/developer-agent":
           description: "Initialize Developer Agent interface"
           agent_profile:
             name: "Alex"
@@ -662,7 +662,7 @@ common_attributes: # Add shared attributes
             - "Performance Optimization"
             - "Code Review"
 
-        "#product-agent":
+        "/product-agent":
           description: "Initialize Product Owner Agent interface"
           agent_profile:
             name: "Maya"
@@ -687,7 +687,7 @@ common_attributes: # Add shared attributes
             - "Product Strategy"
             - "Stakeholder Management"
 
-        "#architect-agent":
+        "/architect-agent":
           description: "Initialize System Architect Agent interface"
           agent_profile:
             name: "David"
@@ -712,7 +712,7 @@ common_attributes: # Add shared attributes
             - "Infrastructure Planning"
             - "Integration Design"
 
-        "#qa-agent":
+        "/qa-agent":
           description: "Initialize QA Engineer Agent interface"
           agent_profile:
             name: "Rachel"
@@ -756,14 +756,14 @@ common_attributes: # Add shared attributes
         operations_service:
           project_management:
             initialization:
-              command: "#init-project"
+              command: "/init-project"
               workflow:
                 - "Setup project structure"
                 - "Initialize services"
                 - "Configure monitoring"
           maintenance:
             routine:
-              command: "#maintain-system"
+              command: "/maintain-system"
               workflow:
                 - "Health checks"
                 - "Updates"

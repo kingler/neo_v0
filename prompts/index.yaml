@@ -5,74 +5,74 @@ description: "Index of all Neo prompts, templates, and documentation"
 agents:
   product_owner:
       - name: "Initialize Requirements"
-        command: "#requirements-init"
+        command: "/requirements-init"
         link: "@commands.yaml:agent_commands.product_owner.requirements.#requirements-init"
       
       - name: "Generate Feature Map"
-        command: "#feature-map"
+        command: "/feature-map"
         link: "@commands.yaml:agent_commands.product_owner.requirements.#feature-map"
       
       - name: "Generate Roadmap"
-        command: "#roadmap-gen"
+        command: "/roadmap-gen"
         link: "@commands.yaml:agent_commands.product_owner.requirements.#roadmap-gen"
   system_architect:
       - name: "Initialize Architecture"
-        command: "#arch-init"
+        command: "/arch-init"
         link: "@commands.yaml:agent_commands.system_architect.architecture.#arch-init"
       
       - name: "Generate UML"
-        command: "#uml-gen"
+        command: "/uml-gen"
         link: "@commands.yaml:agent_commands.system_architect.architecture.#uml-gen"
       
       - name: "Design API"
-        command: "#api-design"
+        command: "/api-design"
   frontend_developer:
       - name: "Implement UI"
-        command: "#ui-implement"
+        command: "/ui-implement"
         link: "@commands.yaml:agent_commands.frontend_developer.ui_development.#ui-implement"
       
       - name: "Build Components"
-        command: "#component-build"
+        command: "/component-build"
         link: "@commands.yaml:agent_commands.frontend_developer.ui_development.#component-build"
   backend_developer:
       - name: "Implement API"
-        command: "#api-implement"
+        command: "/api-implement"
         link: "@commands.yaml:agent_commands.backend_developer.api_implementation.#api-implement"
       
       - name: "Build Services"
-        command: "#service-build"
+        command: "/service-build"
         link: "@commands.yaml:agent_commands.backend_developer.api_implementation.#service-build"
   database_developer:
       - name: "Implement Schema"
-        command: "#schema-implement"
+        command: "/schema-implement"
         link: "@commands.yaml:agent_commands.database_developer.database.#schema-implement"
       
       - name: "Generate Migrations"
-        command: "#migration-gen"
+        command: "/migration-gen"
         link: "@commands.yaml:agent_commands.database_developer.database.#migration-gen"
   test_engineer:
       - name: "Run Test Suite"
-        command: "#test-suite"
+        command: "/test-suite"
         link: "@commands.yaml:agent_commands.test_engineer.testing.#test-suite"
       
       - name: "Check Coverage"
-        command: "#coverage-check"
+        command: "/coverage-check"
         link: "@commands.yaml:agent_commands.test_engineer.testing.#coverage-check"
   version_control:
     - name: "Initialize Git"
-      command: "#init-git"
+      command: "/init-git"
       link: "@commands.yaml:system_commands.version_control.#init-git"
     
     - name: "Commit Changes"
-      command: "#commit"
+      command: "/commit"
       link: "@commands.yaml:system_commands.version_control.#commit"
   documentation:
     - name: "Initialize Documentation"
-      command: "#docs-init"
+      command: "/docs-init"
       link: "@commands.yaml:system_commands.documentation.#docs-init"
     
     - name: "Generate Documentation"
-      command: "#gen-docs"
+      command: "/gen-docs"
       link: "@commands.yaml:system_commands.documentation.#gen-docs"
   
 # Metadata
@@ -88,13 +88,13 @@ metadata:
 documentation:
   product:
     - name: "Business Requirements Document"
-      command: "#load-template --template-type BRD"
+      command: "/load-template --template-type BRD"
       link: "@commands.yaml:template_commands.#load-template"
       type: "BRD"
       generates: ["business_requirements"]
     
     - name: "Product Requirements Document"
-      command: "#load-template --template-type PRD"
+      command: "/load-template --template-type PRD"
       link: "@commands.yaml:template_commands.#load-template"
       type: "PRD"
       generates: ["product_requirements"]
@@ -175,26 +175,26 @@ development:
 project_management:
     setup:
     - name: "Initialize Project"
-      command: "#init-project"
+      command: "/init-project"
       link: "@commands.yaml:system_commands.project_management.#init-project"
       type: "project_setup"
       description: "Initialize new project structure"
       workflow: ["project_setup", "git_init", "dependencies"]
     
     - name: "Initialize Memory"
-      command: "#init-memory"
+      command: "/init-memory"
       link: "@commands.yaml:system_commands.project_management.#init-memory"
       type: "setup"
       description: "Setup vector database"
     
     - name: "Generate Project Structure"
-      command: "#generate-project-structure"
+      command: "/generate-project-structure"
       link: "@commands.yaml:system_commands.project_management.#generate-project-structure"
       type: "project_setup"
       description: "Generate project structure from template"
     
     - name: "Organize Root Directory"
-      command: "#organize-root"
+      command: "/organize-root"
       link: "@commands.yaml:system_commands.project_management.#organize-root"
       type: "maintenance"
       description: "Clean and organize root directory"

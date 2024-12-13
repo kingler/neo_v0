@@ -1,0 +1,92 @@
+# FormField Component
+
+The FormField component is a molecule that combines a label, form control, and error message into a cohesive unit.
+
+## Import
+
+```tsx
+import { FormField } from '@/components/molecules/FormField'
+import { Input } from '@/components/atoms/Input'
+```
+
+## Usage
+
+```tsx
+<FormField label="Email">
+  <Input
+    type="email"
+    value={email}
+    onChange={setEmail}
+    placeholder="Enter your email"
+  />
+</FormField>
+```
+
+## Examples
+
+### Basic Usage
+
+<div className="space-y-4 mb-6">
+  <FormField label="Username">
+    <Input value="" onChange={() => {}} placeholder="Enter username" />
+  </FormField>
+</div>
+
+```tsx
+<FormField label="Username">
+  <Input value={username} onChange={setUsername} placeholder="Enter username" />
+</FormField>
+```
+
+### With Error Message
+
+<div className="space-y-4 mb-6">
+  <FormField 
+    label="Password" 
+    error="Password must be at least 8 characters long"
+  >
+    <Input 
+      type="password" 
+      value="" 
+      onChange={() => {}} 
+      placeholder="Enter password" 
+    />
+  </FormField>
+</div>
+
+```tsx
+<FormField 
+  label="Password" 
+  error="Password must be at least 8 characters long"
+>
+  <Input 
+    type="password" 
+    value={password} 
+    onChange={setPassword} 
+    placeholder="Enter password" 
+  />
+</FormField>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | required | The label text for the form field |
+| error | string | undefined | Error message to display below the field |
+| children | ReactNode | required | The form control component to render |
+
+## Design Tokens
+
+The FormField component uses the following Tailwind CSS classes:
+
+```tsx
+// Container
+const containerClasses = 'space-y-1'
+
+// Label
+const labelClasses = 'block text-sm font-medium text-gray-700'
+
+// Error message
+const errorClasses = 'text-sm text-red-600'
+``` 

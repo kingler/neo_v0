@@ -1,0 +1,77 @@
+---
+title: Buttons
+description: Button component documentation
+---
+
+import { Button } from '@/components/atoms/Button'
+
+# Button Component
+
+The Button component is a fundamental building block for user interactions. It supports multiple variants and states to accommodate different use cases.
+
+## Import
+
+```tsx
+import { Button } from '@/components/atoms/Button'
+```
+
+## Usage
+
+```tsx
+<Button variant="primary" onClick={() => alert('Clicked!')}>
+  Click me
+</Button>
+```
+
+## Variants
+
+Our Button component comes with three distinct variants:
+
+<div className="flex gap-4 mb-6">
+  <Button variant="primary">Primary Button</Button>
+  <Button variant="secondary">Secondary Button</Button>
+  <Button variant="tertiary">Tertiary Button</Button>
+</div>
+
+```tsx
+<Button variant="primary">Primary Button</Button>
+<Button variant="secondary">Secondary Button</Button>
+<Button variant="tertiary">Tertiary Button</Button>
+```
+
+## States
+
+The Button component supports different states:
+
+<div className="flex gap-4 mb-6">
+  <Button>Default State</Button>
+  <Button disabled>Disabled State</Button>
+</div>
+
+```tsx
+<Button>Default State</Button>
+<Button disabled>Disabled State</Button>
+```
+
+## API Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| variant | 'primary' \| 'secondary' \| 'tertiary' | 'primary' | The visual style variant of the button |
+| disabled | boolean | false | Whether the button is disabled |
+| onClick | () => void | undefined | Function called when the button is clicked |
+| children | ReactNode | required | The content to be rendered inside the button |
+
+## Design Tokens
+
+The Button component uses the following Tailwind CSS classes:
+
+```tsx
+const baseClasses = 'px-4 py-2 rounded-md font-medium transition-colors duration-200'
+
+const variantClasses = {
+  primary: 'bg-blue-600 text-white hover:bg-blue-700 disabled:bg-blue-300',
+  secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 disabled:bg-gray-100',
+  tertiary: 'bg-transparent text-gray-700 hover:bg-gray-100 disabled:text-gray-400'
+}
+``` 

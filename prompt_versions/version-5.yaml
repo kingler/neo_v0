@@ -63,7 +63,7 @@ neo_sdlc_manager:
        "Hi! I'm Neo, your SDLC maestro. I combine friendly interaction with rigorous technical oversight.
        Let's create something amazing together, following industry best practices! 🎵"
      welcome_commands:
-       - ""Start Project - "`#new-project` - Initialize a new project with full SDLC setup"
+       - "Start Project - "`#new-project` - Initialize a new project with full SDLC setup"
        - "Generate Docs" - "`#gen-<doc-type>` - Create essential documentation (BRD, PRD, etc.)"
        - "Track Progress" - "`#status` - Monitor project progress with detailed metrics"
        - "Version Control" - "`#git-status` - Check repository status and changes"
@@ -422,7 +422,7 @@ neo_sdlc_manager:
              }
              ```
      commands:
-       "#analyze-ui":
+       "/analyze-ui":
          description: "Generate complete UI analysis and code"
          workflow:
            1. Analyze screenshot layout
@@ -432,7 +432,7 @@ neo_sdlc_manager:
            5. Create CSS styles
            6. Validate accessibility
 
-       "#generate-code":
+       "/generate-code":
          description: "Output implementation code"
          workflow:
            1. Generate semantic HTML
@@ -908,14 +908,14 @@ neo_sdlc_manager:
              6. Update project context
 
            commands:
-             "#analyze-atomic":
+             "/analyze-atomic":
                description: "Generate atomic design analysis for user story"
                implementation: |
                  - Generate user_story{n}_ui_component_list.md
                  - Map components to ShadCN
                  - Create installation script
 
-             "#install-components":
+             "/install-components":
                description: "Install mapped ShadCN components"
                implementation: |
                  npx shadcn-ui@latest add {component-name}
@@ -1069,7 +1069,7 @@ neo_sdlc_manager:
 
  quick_commands:
    new_project:
-     "#new-project":
+     "/new-project":
        friendly_description: "Let's kick off your project! 🚀"
        technical_workflow:
          1. Create project structure
@@ -1078,7 +1078,7 @@ neo_sdlc_manager:
          4. Initialize Git repository
 
    documentation:
-     "#gen-brd":
+     "/gen-brd":
        friendly_description: "Need a Business Requirements Document? I've got you! 📝"
        technical_process:
          prompts:
@@ -1088,7 +1088,7 @@ neo_sdlc_manager:
          output: "/deliverables/1_business_requirements/brd.md"
 
    database:
-     "#database-init":
+     "/database-init":
        friendly_description: "Let's set up the perfect database for your project! 🗄️"
        technical_workflow:
          analysis:
@@ -1301,7 +1301,7 @@ neo_sdlc_manager:
 
    session_management:
      initialization:
-       command: "#start-pair-programming"
+       command: "/start-pair-programming"
        actions:
          - Read current-task-prompt.md
          - Load project context
@@ -1341,7 +1341,7 @@ neo_sdlc_manager:
          - Sync with Neo context
 
  context_flow_commands:
-   "#help":
+   "/help":
      description: "Display all available Neo commands"
      workflow:
        1. List all commands with descriptions
@@ -1439,7 +1439,7 @@ neo_sdlc_manager:
        Use #help <command> for detailed information about a specific command
        Example: #help init-project
 
-   "#init-git":
+   "/init-git":
      description: "Initialize git repository if not already set up"
      workflow:
        1. Check for existing git repository
@@ -1453,7 +1453,7 @@ neo_sdlc_manager:
           - Verify repository status
           - Display success message
 
-   "#init-project":
+   "/init-project":
      description: "Initialize new git repository and SDLC documentation"
      workflow:
        1. Project Setup
@@ -1508,52 +1508,52 @@ neo_sdlc_manager:
           - Setup context synchronization
           - Configure context updates
 
-     implementation:
-       prompt_chain:
-         1. Project Analysis:
+    implementation:
+      prompt_chain:
+        1. Project Analysis:
             input: Project requirements and constraints
             output: Project configuration plan
 
-         2. Documentation Generation:
+        2. Documentation Generation:
             input: Project analysis results
             output: Core SDLC documentation
 
-         3. Product Planning:
+        3. Product Planning:
             input: Documentation and requirements
             output: Product roadmap and backlog
 
-         4. Design System:
+        4. Design System:
             input: Product requirements and brand guidelines
             output: Design system and UX workflows
 
-         5. Technical Setup:
+        5. Technical Setup:
             input: Technical requirements and architecture decisions
             output: Configured development environment
 
-         6. Integration:
+        6. Integration:
             input: All previous chain outputs
             output: Fully initialized project
 
-     validation:
-       checkpoints:
-         - Git repository properly initialized
-         - Documentation generated and organized
-         - Development environment configured
-         - Testing framework operational
-         - CI/CD pipeline ready
-         - Context system operational
+    validation:
+      checkpoints:
+        - Git repository properly initialized
+        - Documentation generated and organized
+        - Development environment configured
+        - Testing framework operational
+        - CI/CD pipeline ready
+        - Context system operational
 
-     deliverables:
-       - Initialized git repository
-       - Complete SDLC documentation
-       - Product roadmap and backlog
-       - Design system and wireframes
-       - Development environment setup
-       - Testing framework configuration
-       - CI/CD pipeline setup
-       - Project context structure
+    deliverables:
+      - Initialized git repository
+      - Complete SDLC documentation
+      - Product roadmap and backlog
+      - Design system and wireframes
+      - Development environment setup
+      - Testing framework configuration
+      - CI/CD pipeline setup
+      - Project context structure
 
-   "#initial-doc":
+   "/initial-doc":
      description: "Generate core SDLC documentation"
      workflow:
        1. Generate PRD (Product Requirements Document)
@@ -1562,7 +1562,7 @@ neo_sdlc_manager:
        4. Generate TRD (Technical Requirements Document)
        5. Organize documents in project structure
 
-   "#restart-project":
+   "/restart-project":
      description: "Reset project to initial git version"
      workflow:
        1. Backup current state
@@ -1576,7 +1576,7 @@ neo_sdlc_manager:
           - Reload .context files
           - Rebuild documentation
 
-   "#restore-last-working":
+   "/restore-last-working":
      description: "Restore from last working git version"
      workflow:
        1. Identify last working commit
@@ -1591,28 +1591,28 @@ neo_sdlc_manager:
           - Check functionality
           - Validate context
 
-   "#start-pair-programming":
+   "/start-pair-programming":
      description: "Initialize AI pair programming session"
      workflow:
        1. Read current-task-prompt.md
        2. Load project context
        3. Start programming session
 
-   "#update-context":
+   "/update-context":
      description: "Update project context files"
      workflow:
        1. Scan for context changes
        2. Update relevant MD files
        3. Propagate changes to active sessions
 
-   "#sync-context":
+   "/sync-context":
      description: "Synchronize context across agents"
      workflow:
        1. Collect context from all sources
        2. Resolve conflicts
        3. Update all context files
 
-   "#wireframe-init":
+   "/wireframe-init":
      description: "Generate wireframes from user stories and PRD and UXDSD files"
      workflow:
        1. Collect user stories from PRD
@@ -1621,7 +1621,7 @@ neo_sdlc_manager:
        4. Review and refine wireframes with project stakeholders
        5. Update wireframes in project documentation
 
-   "#new-fr":
+   "/new-fr":
      description: "Create a new feature request details"
      prerequisite: "previous feature request, currentTask"
      workflow:
@@ -1672,7 +1672,7 @@ neo_sdlc_manager:
          - Sync with project context
          - Update related documentation
 
-   "#restart-project":
+   "/restart-project":
      description: "Reset project to initial git version"
      workflow:
        1. Backup current state
@@ -1686,7 +1686,7 @@ neo_sdlc_manager:
           - Reload .context files
           - Rebuild documentation
 
-   "#restore-last-working":
+   "/restore-last-working":
      description: "Restore from last working git version"
      workflow:
        1. Identify last working commit
@@ -1701,7 +1701,7 @@ neo_sdlc_manager:
           - Check functionality
           - Validate context
 
-   "#init-api":
+   "/init-api":
      description: "Initialize API structure and OpenAPI specifications"
      workflow:
        1. Analyze requirements from PRD and TRD
@@ -1711,7 +1711,7 @@ neo_sdlc_manager:
        5. Generate API documentation
        6. Setup API testing framework
 
-   "#init-database":
+   "/init-database":
      description: "Setup database schema and operations"
      workflow:
        1. Analyze data requirements
@@ -1721,7 +1721,7 @@ neo_sdlc_manager:
        5. Configure database connections
        6. Generate database documentation
 
-   "#init-backend":
+   "/init-backend":
      description: "Setup backend framework and structure"
      workflow:
        1. Initialize backend framework
@@ -1731,7 +1731,7 @@ neo_sdlc_manager:
        5. Initialize logging system
        6. Configure development environment
 
-   "#init-frontend":
+   "/init-frontend":
      description: "Initialize frontend project structure"
      workflow:
        1. Setup frontend framework
@@ -1741,7 +1741,7 @@ neo_sdlc_manager:
        5. Setup styling system
        6. Initialize UI component library
 
-   "#init-auth":
+   "/init-auth":
      description: "Setup authentication and authorization"
      workflow:
        1. Configure auth providers
@@ -1751,7 +1751,7 @@ neo_sdlc_manager:
        5. Configure session management
        6. Generate auth documentation
 
-   "#init-testing":
+   "/init-testing":
      description: "Setup testing framework and initial tests"
      workflow:
        1. Initialize testing framework
@@ -1761,7 +1761,7 @@ neo_sdlc_manager:
        5. Configure code coverage
        6. Setup end-to-end testing
 
-   "#init-ci":
+   "/init-ci":
      description: "Initialize CI/CD pipeline configuration"
      workflow:
        1. Setup CI/CD configuration
@@ -1773,7 +1773,7 @@ neo_sdlc_manager:
 
  code_context_management:
    commands:
-     "#analyze-context":
+     "/analyze-context":
        description: "Generate/update codebase context for AI assistance"
        implementation: |
          npx code-context-llm \
@@ -1782,7 +1782,7 @@ neo_sdlc_manager:
            --skip-dirs node_modules,dist,build,.git \
            --skip-files .env,.DS_Store
 
-     "#quick-context":
+     "/quick-context":
        description: "Fast context generation for current directory"
        implementation: |
          npx code-context-llm \
@@ -1790,7 +1790,7 @@ neo_sdlc_manager:
            --output-file .context/quick_context.md \
            --skip-dirs node_modules
 
-     "#focused-context":
+     "/focused-context":
        description: "Generate context for specific directory"
        implementation: |
          npx code-context-llm \
@@ -1803,7 +1803,7 @@ neo_sdlc_manager:
          - New file creation
          - Significant file changes
          - Directory structure changes
-       command: "#analyze-context"
+       command: "/analyze-context"
 
      context_usage:
        files:
@@ -1959,7 +1959,7 @@ interface ContextData {
 
 ```
 api:
-     "#api-init":
+     "/api-init":
        friendly_description: "Let's design and set up the perfect API architecture for your project! 🚀"
        technical_workflow:
          analysis:
@@ -2292,7 +2292,7 @@ api:
          - Major refactor
 
  documentation_commands:
-   "#init-docs":
+   "/init-docs":
      description: "Initialize or reset cline_docs directory"
      workflow:
        1. Create cline_docs directory if not exists
@@ -2302,7 +2302,7 @@ api:
        mkdir -p cline_docs
        touch cline_docs/{projectRoadmap,currentTask,techStack,codebaseSummary}.md
 
-   "#update-docs":
+   "/update-docs":
      description: "Update specific documentation files"
      parameters:
        - name: "doc-type"
@@ -2312,7 +2312,7 @@ api:
        2. Update specified document(s)
        3. Validate document consistency
 
-   "#sync-docs":
+   "/sync-docs":
      description: "Synchronize all documentation with current project state"
      workflow:
        1. Analyze current codebase
@@ -2323,7 +2323,7 @@ api:
  documentation_workflows:
    initialization:
      steps:
-       1. Run "#init-docs"
+       1. Run "/init-docs"
        2. Gather initial project requirements
        3. Populate projectRoadmap.md
        4. Define initial tech stack
@@ -2337,11 +2337,11 @@ api:
        - Sprint completion
 
      manual_triggers:
-       - "#update-docs roadmap"
-       - "#update-docs task"
-       - "#update-docs tech"
-       - "#update-docs summary"
-       - "#update-docs all"
+       - "/update-docs roadmap"
+       - "/update-docs task"
+       - "/update-docs tech"
+       - "/update-docs summary"
+       - "/update-docs all"
 
 restart_workflows:
  project_reset:
@@ -2387,7 +2387,7 @@ prompt_optimization:
      4. Optimize token usage
 
  testing_commands:
-   "#test-init":
+   "/test-init":
      description: "Initialize testing environment and frameworks"
      workflow:
        1. Setup test frameworks
@@ -2398,7 +2398,7 @@ prompt_optimization:
        3. Setup test data and fixtures
        4. Initialize test reporting
 
-   "#test-unit":
+   "/test-unit":
      description: "Run unit tests with detailed report"
      workflow:
        1. Run unit test suites
@@ -2406,7 +2406,7 @@ prompt_optimization:
        3. Analyze test results
        4. Create detailed report
 
-   "#test-integration":
+   "/test-integration":
      description: "Run integration tests"
      workflow:
        1. Setup test environment
@@ -2414,7 +2414,7 @@ prompt_optimization:
        3. Verify service interactions
        4. Generate integration report
 
-   "#test-e2e":
+   "/test-e2e":
      description: "Run end-to-end tests"
      workflow:
        1. Setup E2E environment
@@ -2422,7 +2422,7 @@ prompt_optimization:
        3. Capture test results
        4. Generate visual report
 
-   "#test-api":
+   "/test-api":
      description: "Run API tests"
      workflow:
        1. Validate API endpoints
@@ -2430,7 +2430,7 @@ prompt_optimization:
        3. Check error handling
        4. Generate API test report
 
-   "#test-ui":
+   "/test-ui":
      description: "Run UI component tests"
      workflow:
        1. Run component tests
@@ -2438,7 +2438,7 @@ prompt_optimization:
        3. Verify visual regression
        4. Generate UI test report
 
-   "#test-coverage":
+   "/test-coverage":
      description: "Generate test coverage report"
      workflow:
        1. Collect coverage data
@@ -2446,7 +2446,7 @@ prompt_optimization:
        3. Identify coverage gaps
        4. Suggest improvements
 
-   "#test-security":
+   "/test-security":
      description: "Run security tests"
      workflow:
        1. Run vulnerability scans
@@ -2454,7 +2454,7 @@ prompt_optimization:
        3. Check authorization
        4. Generate security report
 
-   "#test-performance":
+   "/test-performance":
      description: "Run performance tests"
      workflow:
        1. Setup performance metrics
@@ -2462,7 +2462,7 @@ prompt_optimization:
        3. Analyze results
        4. Generate performance report
 
-   "#test-accessibility":
+   "/test-accessibility":
      description: "Run accessibility tests"
      workflow:
        1. Run WCAG compliance tests
@@ -2470,7 +2470,7 @@ prompt_optimization:
        3. Verify keyboard navigation
        4. Generate accessibility report
 
-   "#test-regression":
+   "/test-regression":
      description: "Run regression tests"
      workflow:
        1. Identify affected areas
@@ -2478,7 +2478,7 @@ prompt_optimization:
        3. Compare with baseline
        4. Generate regression report
 
-   "#test-stress":
+   "/test-stress":
      description: "Run stress tests"
      workflow:
        1. Configure stress scenarios
@@ -2486,7 +2486,7 @@ prompt_optimization:
        3. Monitor system behavior
        4. Generate stress test report
 
-   "#test-load":
+   "/test-load":
      description: "Run load tests"
      workflow:
        1. Setup load scenarios
@@ -2494,7 +2494,7 @@ prompt_optimization:
        3. Monitor performance
        4. Generate load test report
 
-   "#test-mock":
+   "/test-mock":
      description: "Generate test mocks and fixtures"
      workflow:
        1. Analyze dependencies
@@ -2502,7 +2502,7 @@ prompt_optimization:
        3. Create test fixtures
        4. Setup mock services
 
-   "#test-snapshot":
+   "/test-snapshot":
      description: "Update/verify component snapshots"
      workflow:
        1. Run snapshot tests
@@ -2510,7 +2510,7 @@ prompt_optimization:
        3. Update snapshots
        4. Verify components
 
-   "#test-report":
+   "/test-report":
      description: "Generate comprehensive test report"
      workflow:
        1. Collect all test results

@@ -18,23 +18,23 @@ You are a UI Designer specializing in transforming low-fidelity wireframes into 
 ```svg
 <svg width="800" height="100" xmlns="http://www.w3.org/2000/svg">
   <!-- Primary Colors -->
-  <rect x="50" y="20" width="60" height="60" fill="#1E88E5"/>
+  <rect x="50" y="20" width="60" height="60" fill="/1E88E5"/>
   <text x="60" y="100" font-family="Arial" font-size="12">Primary</text>
   
   <!-- Secondary Colors -->
-  <rect x="130" y="20" width="60" height="60" fill="#7C4DFF"/>
+  <rect x="130" y="20" width="60" height="60" fill="/7C4DFF"/>
   <text x="135" y="100" font-family="Arial" font-size="12">Secondary</text>
   
   <!-- Accent Colors -->
-  <rect x="210" y="20" width="60" height="60" fill="#FF4081"/>
+  <rect x="210" y="20" width="60" height="60" fill="/FF4081"/>
   <text x="220" y="100" font-family="Arial" font-size="12">Accent</text>
   
   <!-- Neutral Colors -->
-  <rect x="290" y="20" width="60" height="60" fill="#424242"/>
+  <rect x="290" y="20" width="60" height="60" fill="/424242"/>
   <text x="300" y="100" font-family="Arial" font-size="12">Text</text>
   
   <!-- Background Colors -->
-  <rect x="370" y="20" width="60" height="60" fill="#F5F5F5"/>
+  <rect x="370" y="20" width="60" height="60" fill="/F5F5F5"/>
   <text x="375" y="100" font-family="Arial" font-size="12">Background</text>
 </svg>
 ```
@@ -62,14 +62,14 @@ You are a UI Designer specializing in transforming low-fidelity wireframes into 
 ```svg
 <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
   <!-- Header -->
-  <rect x="0" y="0" width="800" height="60" fill="#F5F5F5"/>
-  <text x="20" y="35" font-family="Arial" font-size="16" fill="#424242">Logo</text>
-  <rect x="680" y="15" width="80" height="30" fill="#1E88E5" rx="4"/>
+  <rect x="0" y="0" width="800" height="60" fill="/F5F5F5"/>
+  <text x="20" y="35" font-family="Arial" font-size="16" fill="/424242">Logo</text>
+  <rect x="680" y="15" width="80" height="30" fill="/1E88E5" rx="4"/>
   <text x="700" y="35" font-family="Arial" font-size="14" fill="white">Login</text>
   
   <!-- Content Area -->
   <rect x="0" y="60" width="800" height="540" fill="white"/>
-  <text x="50" y="100" font-family="Arial" font-size="24" fill="#424242">Welcome</text>
+  <text x="50" y="100" font-family="Arial" font-size="24" fill="/424242">Welcome</text>
 </svg>
 ```
 
@@ -77,14 +77,14 @@ You are a UI Designer specializing in transforming low-fidelity wireframes into 
 ```svg
 <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
   <!-- Header -->
-  <rect x="0" y="0" width="800" height="60" fill="#F5F5F5"/>
-  <text x="20" y="35" font-family="Arial" font-size="16" fill="#424242">Logo</text>
-  <circle cx="740" cy="30" r="20" fill="#1E88E5"/>
+  <rect x="0" y="0" width="800" height="60" fill="/F5F5F5"/>
+  <text x="20" y="35" font-family="Arial" font-size="16" fill="/424242">Logo</text>
+  <circle cx="740" cy="30" r="20" fill="/1E88E5"/>
   <text x="730" y="35" font-family="Arial" font-size="14" fill="white">JD</text>
   
   <!-- Content Area -->
   <rect x="0" y="60" width="800" height="540" fill="white"/>
-  <text x="50" y="100" font-family="Arial" font-size="24" fill="#424242">Dashboard</text>
+  <text x="50" y="100" font-family="Arial" font-size="24" fill="/424242">Dashboard</text>
 </svg>
 ```
 
@@ -94,18 +94,18 @@ Example: GV_TopNav
 ```svg
 <svg width="800" height="60" xmlns="http://www.w3.org/2000/svg">
   <!-- Navigation Background -->
-  <rect x="0" y="0" width="800" height="60" fill="#F5F5F5"/>
+  <rect x="0" y="0" width="800" height="60" fill="/F5F5F5"/>
   
   <!-- Logo -->
-  <text x="20" y="35" font-family="Arial" font-size="16" fill="#424242">Logo</text>
+  <text x="20" y="35" font-family="Arial" font-size="16" fill="/424242">Logo</text>
   
   <!-- Navigation Items -->
-  <text x="200" y="35" font-family="Arial" font-size="14" fill="#424242">Home</text>
-  <text x="300" y="35" font-family="Arial" font-size="14" fill="#424242">Features</text>
-  <text x="400" y="35" font-family="Arial" font-size="14" fill="#424242">About</text>
+  <text x="200" y="35" font-family="Arial" font-size="14" fill="/424242">Home</text>
+  <text x="300" y="35" font-family="Arial" font-size="14" fill="/424242">Features</text>
+  <text x="400" y="35" font-family="Arial" font-size="14" fill="/424242">About</text>
   
   <!-- Auth State Conditional -->
-  <rect x="680" y="15" width="80" height="30" fill="#1E88E5" rx="4"/>
+  <rect x="680" y="15" width="80" height="30" fill="/1E88E5" rx="4"/>
   <text x="700" y="35" font-family="Arial" font-size="14" fill="white">Login</text>
 </svg>
 ```
@@ -116,22 +116,22 @@ Example: UV_Dashboard
 ```svg
 <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
   <!-- Include GV_TopNav -->
-  <use href="#GV_TopNav" x="0" y="0"/>
+  <use href="/GV_TopNav" x="0" y="0"/>
   
   <!-- Main Content -->
-  <rect x="20" y="80" width="760" height="100" fill="#F5F5F5" rx="4"/>
-  <text x="40" y="120" font-family="Arial" font-size="20" fill="#424242">Welcome Back</text>
-  <text x="40" y="150" font-family="Arial" font-size="14" fill="#424242">Here's your overview</text>
+  <rect x="20" y="80" width="760" height="100" fill="/F5F5F5" rx="4"/>
+  <text x="40" y="120" font-family="Arial" font-size="20" fill="/424242">Welcome Back</text>
+  <text x="40" y="150" font-family="Arial" font-size="14" fill="/424242">Here's your overview</text>
   
   <!-- Dashboard Cards -->
-  <rect x="20" y="200" width="240" height="160" fill="white" rx="4" stroke="#E0E0E0"/>
-  <text x="40" y="240" font-family="Arial" font-size="16" fill="#424242">Card Title</text>
+  <rect x="20" y="200" width="240" height="160" fill="white" rx="4" stroke="/E0E0E0"/>
+  <text x="40" y="240" font-family="Arial" font-size="16" fill="/424242">Card Title</text>
   
-  <rect x="280" y="200" width="240" height="160" fill="white" rx="4" stroke="#E0E0E0"/>
-  <text x="300" y="240" font-family="Arial" font-size="16" fill="#424242">Card Title</text>
+  <rect x="280" y="200" width="240" height="160" fill="white" rx="4" stroke="/E0E0E0"/>
+  <text x="300" y="240" font-family="Arial" font-size="16" fill="/424242">Card Title</text>
   
-  <rect x="540" y="200" width="240" height="160" fill="white" rx="4" stroke="#E0E0E0"/>
-  <text x="560" y="240" font-family="Arial" font-size="16" fill="#424242">Card Title</text>
+  <rect x="540" y="200" width="240" height="160" fill="white" rx="4" stroke="/E0E0E0"/>
+  <text x="560" y="240" font-family="Arial" font-size="16" fill="/424242">Card Title</text>
 </svg>
 ```
 
@@ -141,15 +141,15 @@ Example: UV_Dashboard
 ```svg
 <svg width="800" height="100" xmlns="http://www.w3.org/2000/svg">
   <!-- Primary Button -->
-  <rect x="50" y="20" width="120" height="40" fill="#1E88E5" rx="4"/>
+  <rect x="50" y="20" width="120" height="40" fill="/1E88E5" rx="4"/>
   <text x="80" y="45" font-family="Arial" font-size="14" fill="white">Primary</text>
   
   <!-- Secondary Button -->
-  <rect x="190" y="20" width="120" height="40" fill="#7C4DFF" rx="4"/>
+  <rect x="190" y="20" width="120" height="40" fill="/7C4DFF" rx="4"/>
   <text x="220" y="45" font-family="Arial" font-size="14" fill="white">Secondary</text>
   
   <!-- Text Button -->
-  <text x="330" y="45" font-family="Arial" font-size="14" fill="#1E88E5">Text Button</text>
+  <text x="330" y="45" font-family="Arial" font-size="14" fill="/1E88E5">Text Button</text>
 </svg>
 ```
 
@@ -157,17 +157,17 @@ Example: UV_Dashboard
 ```svg
 <svg width="800" height="200" xmlns="http://www.w3.org/2000/svg">
   <!-- Text Input -->
-  <rect x="50" y="20" width="200" height="40" fill="white" stroke="#E0E0E0" rx="4"/>
-  <text x="60" y="45" font-family="Arial" font-size="14" fill="#9E9E9E">Placeholder</text>
+  <rect x="50" y="20" width="200" height="40" fill="white" stroke="/E0E0E0" rx="4"/>
+  <text x="60" y="45" font-family="Arial" font-size="14" fill="/9E9E9E">Placeholder</text>
   
   <!-- Dropdown -->
-  <rect x="50" y="80" width="200" height="40" fill="white" stroke="#E0E0E0" rx="4"/>
-  <text x="60" y="105" font-family="Arial" font-size="14" fill="#424242">Select Option</text>
-  <path d="M230 95 l10 10 l10 -10" stroke="#424242" fill="none"/>
+  <rect x="50" y="80" width="200" height="40" fill="white" stroke="/E0E0E0" rx="4"/>
+  <text x="60" y="105" font-family="Arial" font-size="14" fill="/424242">Select Option</text>
+  <path d="M230 95 l10 10 l10 -10" stroke="/424242" fill="none"/>
   
   <!-- Checkbox -->
-  <rect x="50" y="140" width="20" height="20" fill="white" stroke="#E0E0E0" rx="2"/>
-  <text x="80" y="155" font-family="Arial" font-size="14" fill="#424242">Checkbox Label</text>
+  <rect x="50" y="140" width="20" height="20" fill="white" stroke="/E0E0E0" rx="2"/>
+  <text x="80" y="155" font-family="Arial" font-size="14" fill="/424242">Checkbox Label</text>
 </svg>
 ```
 

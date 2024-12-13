@@ -1,7 +1,7 @@
 # Design Management
 design_management:
   commands:
-    "#design-init":
+    "/design-init":
       description: "Initialize design management workflow"
       workflow:
         - "UX sitemap creation"
@@ -62,7 +62,7 @@ design_management:
           - "Update documentation"
 
     design_commands:
-      "#gen-sitemap":
+      "/gen-sitemap":
         description: "Generate UX Sitemap"
         workflow:
           - "Analyze user flows"
@@ -71,7 +71,7 @@ design_management:
           - "Validate navigation"
         template: "ux_site_map_document.xml"
 
-      "#gen-wireframes":
+      "/gen-wireframes":
         description: "Generate Wireframes"
         workflow:
           - "Create layouts"
@@ -131,7 +131,7 @@ design_management:
           - "Validate changes"
 
     component_commands:
-      "#gen-component":
+      "/gen-component":
         description: "Generate React Component"
         workflow:
           - "Define structure"
@@ -140,7 +140,7 @@ design_management:
           - "Write tests"
         template: "component_generator.xml"
 
-      "#gen-layout":
+      "/gen-layout":
         description: "Generate Layout Design"
         workflow:
           - "Define grid"
@@ -184,7 +184,7 @@ design_management:
           - "Update docs"
 
     style_commands:
-      "#gen-styles":
+      "/gen-styles":
         description: "Generate Style System"
         workflow:
           - "Create tokens"

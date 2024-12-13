@@ -8,9 +8,9 @@ Guides the systematic implementation of user stories through a structured workfl
    - User story to be implemented
    - Project technology stack information
    - Current dependencies and versions
-2. Use command: "#implement-story S<X.Y>" to start or resume implementation
+2. Use command: "/implement-story S<X.Y>" to start or resume implementation
    - Replace X.Y with specific story number (e.g., S2.1)
-3. Use command: "#implement-story-status" to check progress
+3. Use command: "/implement-story-status" to check progress
 
 ## Best suited for
 - Feature implementation

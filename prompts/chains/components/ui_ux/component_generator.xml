@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
     <purpose>
-        Generate React components based on design specifications and wireframes
+        Generate shadcn-ui tailwind styled components based on user stories, design specifications and wireframes
     </purpose>
 
     <context>
         <description>
-            This prompt generates React components following Atomic Design principles and best practices,
+            This prompt generates shadcn-ui tailwind styled components following Atomic Design principles and best practices,
             integrating with Tailwind CSS for styling and ensuring type safety with TypeScript.
         </description>
     </context>

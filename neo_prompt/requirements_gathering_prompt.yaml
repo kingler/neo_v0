@@ -71,21 +71,21 @@ principles:
 
 implementation:
   commands:
-    "#requirements-init":
+    "/requirements-init":
       description: "Initialize requirements gathering"
       workflow:
         - "Setup requirements structure"
         - "Initialize templates"
         - "Configure tracking"
     
-    "#feature-map":
+    "/feature-map":
       description: "Generate feature mapping"
       workflow:
         - "Analyze requirements"
         - "Create feature hierarchy"
         - "Set dependencies"
     
-    "#validate-requirements":
+    "/validate-requirements":
       description: "Validate gathered requirements"
       workflow:
         - "Check completeness"

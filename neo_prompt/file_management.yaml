@@ -106,7 +106,7 @@ file_management:
         - Major refactor
 
   documentation_commands:
-    "#init-docs":
+    "/init-docs":
       description: "Initialize or reset cline_docs directory"
       workflow:
         1. Create cline_docs directory if not exists
@@ -116,7 +116,7 @@ file_management:
         mkdir -p cline_docs
         touch cline_docs/{projectRoadmap,currentTask,techStack,codebaseSummary}.md
         
-    "#update-docs":
+    "/update-docs":
       description: "Update specific documentation files"
       parameters:
         - name: "doc-type"
@@ -126,7 +126,7 @@ file_management:
         2. Update specified document(s)
         3. Validate document consistency
       
-    "#sync-docs":
+    "/sync-docs":
       description: "Synchronize all documentation with current project state"
       workflow:
         1. Analyze current codebase
@@ -137,7 +137,7 @@ file_management:
   documentation_workflows:
     initialization:
       steps:
-        1. Run "#init-docs"
+        1. Run "/init-docs"
         2. Gather initial project requirements
         3. Populate projectRoadmap.md
         4. Define initial tech stack
@@ -151,11 +151,11 @@ file_management:
         - Sprint completion
       
       manual_triggers:
-        - "#update-docs roadmap"
-        - "#update-docs task"
-        - "#update-docs tech"
-        - "#update-docs summary"
-        - "#update-docs all"
+        - "/update-docs roadmap"
+        - "/update-docs task"
+        - "/update-docs tech"
+        - "/update-docs summary"
+        - "/update-docs all"
 
   restart_workflows:
     project_reset:

@@ -1,1043 +1,495 @@
-# AIDA System
+# Neo - SDLC Orchestra Leader
 
 ## Overview
-AIDA (AI Development Assistant) is an advanced AI-powered development system that streamlines the software development lifecycle through intelligent automation and coordination. At its core, AIDA utilizes a sophisticated chain-based architecture that orchestrates collaboration between two primary AI agents:
+Neo is an advanced AI-powered SDLC Orchestra Leader that orchestrates development processes with intelligent context management and code safety features. It uses LLM capabilities and code knowledge graphs to understand and manage your project's context effectively.
 
-- **Neo (The Orchestrator)**: Manages the development workflow, coordinates system components, and ensures adherence to software development best practices
-- **Cline (The Implementer)**: Handles direct code implementation, file operations, and technical execution of development tasks
+## Features
 
-## Key Features
+### 🧠 Intelligent Context Management
+- Dynamic code knowledge graph generation
+- Context-aware code analysis
+- LLM-optimized context windows
+- Automated context updates
+- Vector DB integration for UI components
+- Comprehensive template system
 
-- **Intelligent Workflow Management**: Automated coordination of development tasks and processes
-- **Chain-Based Architecture**: Modular, extensible system design for flexible development workflows
-- **Integrated Documentation**: Automated generation and maintenance of project documentation
-- **Quality Assurance**: Built-in code quality checks and testing automation
-- **Development Automation**: Streamlined implementation of features and components
+### 🛡️ Code Safety
+- Scratch pad system for safe code modifications
+- Automatic code backup and restoration
+- Change validation and diff analysis
+- Accidental deletion protection
 
-## System Architecture
+### 🧪 Test Integration
+- Automated test detection and updates
+- Test coverage analysis
+- Multi-framework support (Jest, Pytest, Mocha)
+- Continuous validation
 
-### Chain-Based Organization
-prompts/
-├── chains/              # Core chain implementations
-│   ├── components/      # Specialized components
-│   │   ├── requirements/       # Requirements gathering
-│   │   ├── product_management/ # Business Requirement Document (BRD)
-│   │   ├── documentation/      # Product Requirement Document (PRD)
-│   │   ├── ui_ux/              # User Experience Design Document (UXDD)
-│   │   ├── system/            # System Requirement Document/Specification (SRD/S)
-│   │   ├── architecture/      # Design Requirement Document (DRD)
-│   │   ├── backend/           # Database Requirement Document (DBRD)
-│   │   ├── code_quality/      # Code quality
-│   │   ├── orchestration/     # Process orchestration
-│   │   ├── testing/           # Testing
-│   │   ├── meta/              # Meta information
-│   │   └── utilities/         # Utilities
-│   └── [chain].md             # Chain implementations
+### 📊 Knowledge Graph
+- Real-time codebase analysis
+- Dependency tracking
+- Semantic code understanding
+- Token-optimized context
 
-## Core Components
+### 📝 Template System
+- Comprehensive documentation templates
+- Design system templates
+- PlantUML diagram integration
+- Layout and component templates
+- Project management templates
+- Market analysis templates
 
-### Neo (Orchestrator)
-- Orchestrates development workflows
-- Manages system architecture
-- Ensures quality standards
-- Coordinates documentation
-- Handles project planning
-- Maintains development context
-
-### Cline (Implementer)
-- Executes code implementation
-- Performs file operations
-- Manages technical execution
-- Ensures code quality
-- Implements features
-- Handles direct system interactions
-
-### UI/UX Tools
-
-#### Screenshot Analyzer
-- Purpose: Analyzes UI screenshots to extract component requirements
-- Features:
-  - UI element detection
-  - Color scheme analysis
-  - Layout analysis
-  - Interactive element mapping
-  - Utility file validation
-- Commands:
-  ```bash
-  # Analyze a screenshot and generate components
-  #analyze-screenshot <image-path> [options]
-  
-  Options:
-    --output-dir    Output directory for generated files
-    --format        Output format (detailed|summary)
-    --template      Template type (next|react|vue)
-    --check-utils   Check for required utility files
-    --gen-utils     Generate missing utility files
-  
-  # Update components based on new screenshot
-  #update-components <image-path> [options]
-  
-  Options:
-    --components    Path to existing components
-    --diff         Show component differences
-    --apply        Apply recommended changes
-    --update-utils Update utility files if needed
-  ```
-
-#### Component Generator
-- Purpose: Generates React components from analysis results
-- Features:
-  - Layout component generation
-  - Navigation component generation
-  - Content component generation
-  - Interactive component generation
-  - Utility file generation
-- Commands:
-  ```bash
-  # Generate a new component
-  #generate-component <name> [options]
-  
-  Options:
-    --type        Component type (layout|navigation|content|interactive)
-    --template    Template to use (base|layout|interactive)
-    --utils       Generate missing utility files (true|false)
-  
-  # Update an existing component
-  #update-component <name> [options]
-  
-  Options:
-    --template    New template to use
-    --merge       Merge with existing code (true|false)
-    --utils       Update utility files (true|false)
-  ```
-
-#### Required Utilities
-The UI/UX tools manage two essential utility files:
-
-1. **lib/utils.ts**
-   - Purpose: Common utility functions
-   - Features:
-     - Class name merging (cn)
-     - Tailwind integration
-   - Dependencies:
-     - clsx
-     - tailwind-merge
-
-2. **components/icons.tsx**
-   - Purpose: Icon component library
-   - Features:
-     - Lucide React icons
-     - Common icon exports
-     - TypeScript types
-   - Dependencies:
-     - lucide-react
-
-#### Integration Standards
-- Consistent import paths (../../../lib/utils, ../design-system/src/components/icons)
-- Automatic utility file management
-- Component reusability
-- Accessibility compliance
-- Performance optimization
-- Documentation generation
-
-## Testing Framework
-
-### Test Orchestration
-The system implements a comprehensive testing framework through the TestOrchestrator class, which manages:
-- Test suite execution
-- Environment configuration
-- Results aggregation and reporting
-
-### Test Types
-
-#### Unit Testing
-- **Description**: Component/function level testing
-- **Tools**: Jest, Mocha, PyTest
-- **Coverage Threshold**: 80%
-- **Requirements**: 
-  - Isolation
-  - Async support
-  - Mock/stub compliance
-
-#### Integration Testing
-- **Description**: Module interaction testing
-- **Tools**: Supertest, TestNG, Cypress
-- **Environment**: Staging
-- **Features**:
-  - Data cleanup
-  - Transaction rollback
-  - API contract validation
-
-#### System Testing
-- **Description**: End-to-end system validation
-- **Tools**: Selenium, Cypress, Puppeteer
-- **Categories**:
-  - Functionality
-  - Performance
-  - Security
-  - Usability
-
-#### Additional Test Types
-- **Sanity Testing**: Quick verification of critical paths
-- **Smoke Testing**: Basic build verification
-- **Regression Testing**: Verification of existing functionality
-- **User Acceptance Testing**: Business validation
-- **Beta Testing**: Limited user base testing
-- **Black Box Testing**: External behavior testing
-
-### Test Execution Workflows
-
-#### Continuous Testing
-```yaml
-triggers:
-  - code_commit
-  - pull_request
-  - scheduled
-stages:
-  - unit_tests
-  - integration_tests
-  - smoke_tests
-```
-
-#### Release Testing
-```yaml
-triggers:
-  - release_candidate
-  - hotfix
-stages:
-  - regression_tests
-  - system_tests
-  - performance_tests
-  - security_tests
-```
-
-### Quality Gates
-```yaml
-coverage_thresholds:
-  unit_tests: 80%
-  integration_tests: 70%
-  system_tests: 60%
-performance_criteria:
-  response_time: "< 500ms"
-  throughput: "> 100 rps"
-  error_rate: "< 1%"
-```
-
-## Development Workflow
-
-1. **Project Initialization**
-   - Requirements analysis
-   - Architecture planning
-   - Environment setup
-   - Documentation initialization
-
-2. **Development Process**
-   - Feature implementation
-   - Code quality checks
-   - Documentation updates
-   - Testing automation
-
-3. **Quality Assurance**
-   - Automated testing
-   - Code review
-   - Performance analysis
-   - Security validation
-
-## Documentation System
-
-### Core Documentation
-- **codebaseSummary.md**: System architecture and overview
-- **techStack.md**: Technical specifications and stack details
-- **currentTask.md**: Active development status
-- **projectRoadmap.md**: Development planning and milestones
-
-### Context Management
-Each component maintains its context through `.context` files that define:
-- Component purpose
-- Integration points
-- Usage guidelines
-- Relationships with other components
-
-### Context Management System
-
-The context management system uses `code-context-llm` to analyze and maintain codebase understanding. Here's how each command works:
-
-#### Command Implementation Details
-
-1. `#analyze-context` (Full Analysis)
-```bash
-npx code-context-llm \
-  --project-path . \
-  --output-file .context/codebase_context.md \
-  --skip-dirs node_modules,dist,build,.git \
-  --skip-files .env,.DS_Store
-```
-
-- Performs a complete analysis of the entire codebase
-- Generates comprehensive documentation in `.context/codebase_context.md`
-- Skips unnecessary directories and sensitive files
-- Used for initial setup or major updates
-
-2. `#quick-context` (Fast Analysis)
-```bash
-npx code-context-llm \
-  --project-path . \
-  --output-file .context/quick_context.md \
-  --skip-dirs node_modules
-```
-
-- Faster, lightweight analysis of current directory
-- Useful during active development
-- Focuses on recent changes
-- Less comprehensive but quicker execution
-
-3. `#focused-context` (Directory-Specific)
-```bash
-npx code-context-llm \
-  --project-path {directory} \
-  --output-file .context/{directory}_context.md
-```
-
-- Analyzes a specific directory or component
-- Creates targeted context for particular features
-- Useful when working on specific modules
-
-#### Automatic Updates
-
-The system automatically triggers context updates on:
-```yaml
-triggers:
-  - New file creation
-  - Significant file changes
-  - Directory structure changes
-```
-
-#### Context Integration
-
-The generated context files are used in:
-```yaml
-integration:
-  - Include in AI prompts
-  - Reference in documentation
-  - Use for code analysis
-```
-
-#### Context File Structure
-
-The context files follow this structure:
-```typescript
-interface ContextData {
-  frontMatter: {
-    moduleName: string;
-    version: string;
-    description: string;
-    relatedModules: Array<{ name: string; path: string }>;
-    technologies: string[];
-    conventions: string[];
-    directives: string[];
-    diagrams: Array<{ name: string; path: string }>;
-    architecture: Record<string, unknown>;
-    development: Record<string, unknown>;
-    businessRequirements: Record<string, unknown>;
-    qualityAssurance: Record<string, unknown>;
-    deployment: Record<string, unknown>;
-  };
-  content: string;
-}
-```
-
-#### Usage Examples
-
-1. Initial project setup:
-```bash
-#analyze-context  # Full analysis
-```
-
-2. During development:
-```bash
-#quick-context   # Fast updates while coding
-```
-
-3. Working on specific feature:
-```bash
-#focused-context src/features/auth  # Analyze auth module
-```
-
-4. Sync changes across team:
-```bash
-#sync-context    # Ensure all team members have latest context
-```
-
-The context management system helps maintain an up-to-date understanding of the codebase, which improves the quality of AI assistance and documentation generation throughout the development lifecycle.
-
-### Documentation System
-
-#### Essential Documentation Structure
-The system maintains a `cline_docs` directory containing essential project documentation:
-
-1. **projectRoadmap.md**
-   - High-level goals and features
-   - Completion criteria
-   - Progress tracking
-   - Task history
-
-2. **currentTask.md**
-   - Active objectives
-   - Task context
-   - Dependencies
-   - Next steps
-
-3. **techStack.md**
-   - Technology choices
-   - Framework decisions
-   - Infrastructure details
-   - Architecture decisions
-
-4. **codebaseSummary.md**
-   - Project structure overview
-   - Component relationships
-   - Data flow
-   - Recent changes
-
-#### Documentation Commands
+## Installation
 
 ```bash
-# Initialize Documentation
-#init-docs      # Create and initialize cline_docs directory
+# Clone the repository
+git clone https://github.com/yourusername/neo.git
 
-# Update Documentation
-#update-docs roadmap   # Update project roadmap
-#update-docs task     # Update current task
-#update-docs tech     # Update tech stack
-#update-docs summary  # Update codebase summary
-#update-docs all      # Update all documentation
+# Install dependencies
+npm install
 
-# Synchronize Documentation
-#sync-docs      # Sync all documentation with project state
+# Configure environment
+cp .env.example .env
+# Add your OpenAI API key to .env
 ```
 
-#### Documentation Workflows
+## Configuration
+Neo uses a hierarchical configuration system:
+- `neo_core.yaml`: Core system configuration
+- `neo_config.yaml`: Feature and environment settings
+- `context_management.yaml`: Context management rules
+- `neo_v0-2.yaml`: Template and workflow configurations
 
-The system automatically triggers documentation updates on:
-```yaml
-triggers:
-  projectRoadmap:
-    - Goal completion
-    - New feature addition
-    - Progress milestone
-  
-  currentTask:
-    - Task completion
-    - Subtask update
-    - Context change
-  
-  techStack:
-    - Technology addition
-    - Architecture change
-    - Version update
-  
-  codebaseSummary:
-    - Structure change
-    - New component
-    - Major refactor
-```
+## Commands Reference
 
-## Quick Commands
+### Top-Level Commands
 
+#### Project Initialization
 ```bash
-# Project Management
-#new-project    # Initialize new project with SDLC setup
-#start         # Continue from last sprint task
-#onboard       # Scan and parse existing codebase for AI context
-#sdlc-init     # Initialize SDLC for new development project
-
-# Documentation Management
-#gen-brd       # Generate Business Requirements Document
-#gen-prd       # Generate Product Requirements Document
-#gen-uxdd      # Generate UX Design Document
-#gen-drd       # Generate Development Requirements Document
-#update-doc    # Update project documentation with recent changes
-
-# Sprint & Story Management
-#new-sprint    # Start new sprint planning
-#new-user-story # Generate new user story
-#new-fr        # Create new feature request
-#update-fr     # Update feature request details
-
-# Context Management
-#analyze-context    # Generate/update full codebase context
-#quick-context     # Fast context generation for current directory
-#focused-context   # Generate context for specific directory
-#update-context    # Update project context files
-#sync-context      # Synchronize context across agents
-
-# Development Tools
-#database-init     # Set up project database
-#wireframe-init    # Generate wireframes from requirements
-#start-pair-programming  # Initialize AI pair programming session
-
-# Project Tracking
-#status        # Monitor project progress with metrics
-#git-status    # Check repository status and changes
+/init-project           # Initialize new project
+/init-existing-project  # Setup Neo for existing project
+/init-context          # Initialize context management
+/init-deliverables     # Setup deliverables structure
 ```
 
-### Command Details
-
-#### Project Setup Commands
-- `#new-project`: Initializes new project with full SDLC setup, including:
-  - Project scaffold creation
-  - Documentation initialization
-  - Development environment setup
-  - Git repository initialization
-  - Context generation
-
-- `#onboard`: Analyzes existing codebase and sets up:
-  - Project context
-  - SDLC documentation
-  - Architecture insights
-  - Project tracking
-
-#### Context Management Commands
-- `#analyze-context`: Full codebase analysis and context generation
-- `#quick-context`: Fast context generation for current work
-- `#focused-context`: Targeted context generation for specific directories
-- `#update-context`: Updates project context files
-- `#sync-context`: Synchronizes context across all agents
-
-#### Documentation Commands
-- `#gen-<doc-type>`: Generates various documentation types:
-  - BRD (Business Requirements Document)
-  - PRD (Product Requirements Document)
-  - UXDD (UX Design Document)
-  - DRD (Development Requirements Document)
-- `#update-doc`: Refreshes all project documentation
-
-#### Feature & Story Commands
-- `#new-user-story`: Creates new user stories with:
-  - Story template
-  - Acceptance criteria
-  - Implementation notes
-  - Estimation details
-
-- `#new-fr`/`#update-fr`: Manages feature requests with:
-  - Requirement collection
-  - Documentation updates
-  - Team review process
-  - Context synchronization
-
-#### Development Tools
-- `#database-init`: Database setup with:
-  - Requirements analysis
-  - Technology selection
-  - Setup scripts generation
-  - Configuration management
-
-- `#wireframe-init`: Wireframe generation including:
-  - User story analysis
-  - Design specification review
-  - Initial wireframe creation
-  - Stakeholder review process
-
-- `#start-pair-programming`: AI pair programming session with:
-  - Context loading
-  - Task management
-  - Real-time assistance
-  - Progress tracking
-
-## Setup and Usage
-
-1. **Installation**
-   ```bash
-   git clone [repository-url]
-   npm install
-   ```
-
-2. **Configuration**
-   - Set up environment variables
-   - Configure system preferences
-   - Initialize development environment
-   - Configure test environments
-
-3. **Development**
-   - Follow chain-based architecture
-   - Maintain context documentation
-   - Adhere to system workflows
-   - Write and maintain tests
-
-## Contributing
-
-1. **Development Guidelines**
-   - Follow chain-based structure
-   - Update context files
-   - Maintain documentation
-   - Ensure test coverage
-
-2. **Quality Standards**
-   - Write clean, maintainable code
-   - Follow project conventions
-   - Include appropriate tests
-   - Update relevant documentation
-   - Meet coverage thresholds
-
-## License
-MIT License - see LICENSE file for details
-
-## Design System Management
-
-### Component Library Structure
-The system implements an atomic design pattern with the following hierarchy:
-
-```
-src/
-  components/
-    atoms/
-      - Button
-      - Input
-      - Label
-      - Checkbox
-      - RadioGroup
-      - Select
-      - Switch
-      - Textarea
-    molecules/
-      - FormField
-      - SearchBar
-      - NavigationItem
-      - Card
-      - Dialog
-      - Dropdown
-    organisms/
-      - Form
-      - NavigationBar
-      - CardList
-      - Table
-      - Tabs
-    templates/
-      - PageLayout
-      - SectionTemplate
-      - GridLayout
-```
-
-### Component Generation Workflow
-- **Project Setup**
-  - Vite + Vue initialization
-  - ShadCN UI configuration with New York theme
-  - Tailwind CSS integration
-  - Dependency management
-- **Component Extraction**
-  - User story analysis
-  - Wireframe parsing
-  - Automated component generation
-- **Theme Configuration**
-  - New York theme setup
-  - Zinc color scheme
-  - Design token generation
-
-## Project Organization
-
-### File Structure Management
-The system provides automated organization of project files into semantic folders:
-
-- **docs/** - Documentation files
-  - guides/ - User and development guides
-  - api/ - API documentation
-  - specs/ - Specifications
-- **config/** - Configuration files
-  - env/ - Environment configurations
-  - tools/ - Tool configurations
-  - build/ - Build configurations
-- **scripts/** - Script files
-  - build/ - Build scripts
-  - deploy/ - Deployment scripts
-  - utils/ - Utility scripts
-- **assets/** - Asset files
-  - images/ - Image files
-  - icons/ - Icon files
-  - media/ - Media files
-
-### Documentation System
-
-#### Essential Documentation
-The system maintains core documentation files:
-
-1. **projectRoadmap.md**
-   ```markdown
-   # Project Roadmap
-   
-   ## Goals
-   - [ ] Goal 1
-   - [ ] Goal 2
-   
-   ## Features
-   - [ ] Feature 1
-   - [ ] Feature 2
-   
-   ## Completion Criteria
-   - Criterion 1
-   - Criterion 2
-   ```
-
-2. **currentTask.md**
-   ```markdown
-   # Current Task
-   
-   ## Objective
-   {task_description}
-   
-   ## Context
-   - Related roadmap item: {roadmap_reference}
-   - Dependencies: {dependencies}
-   ```
-
-3. **techStack.md**
-   ```markdown
-   # Technology Stack
-   
-   ## Frontend
-   - Framework: {framework}
-   - UI Library: {ui_library}
-   
-   ## Backend
-   - Runtime: {runtime}
-   - Database: {database}
-   ```
-
-#### Documentation Commands
+#### Feature Development
 ```bash
-# Initialize Documentation
-#init-docs      # Create and initialize documentation structure
+/new-fr                # Create feature request
+/feature-init          # Initialize feature development
+/feature-dev           # Start feature development
+```
 
-# Update Documentation
-#update-docs <doc-type>   # Update specific documentation (roadmap|task|tech|summary|all)
+#### Context Management
+```bash
+/generate-knowledge-graph  # Generate code knowledge graph
+/optimize-context         # Optimize context for LLM
+/update-context          # Update project context and vector DB
+```
 
-# Synchronize Documentation
-#sync-docs      # Sync all documentation with current project state
+#### Template Management
+```bash
+/init-templates          # Initialize template system
+/update-templates        # Update template configurations
+/sync-templates         # Synchronize templates with workflows
+```
+
+#### Code Safety
+```bash
+/create-scratch          # Create scratch pad for changes
+/validate-changes        # Validate code modifications
+/restore-code           # Restore removed code
+```
+
+### Workflow Chains
+
+#### Requirements Chain
+```bash
+#requirements-init
+  └─ "Load requirements context"
+  └─ "Generate knowledge graph"
+  └─ "Update specifications"
+  └─ "Generate documentation"
+```
+
+#### Architecture Chain
+```bash
+#arch-init
+  └─ "Generate knowledge graph"
+  └─ "Load architecture context"
+  └─ "Update system design"
+  └─ "Generate diagrams"
+```
+
+#### Development Chain
+```bash
+#dev-init
+  └─ "Generate knowledge graph"
+  └─ "Load development context"
+  └─ "Update codebase"
+  └─ "Generate documentation"
+```
+
+#### Testing Chain
+```bash
+#test-init
+  └─ "Generate knowledge graph"
+  └─ "Load testing context"
+  └─ "Update test suite"
+  └─ "Generate reports"
+```
+
+## Usage Examples
+
+### 1. Starting a New Project
+```bash
+/init-project
+# Neo will:
+# 1. Initialize project structure
+# 2. Generate initial knowledge graph
+# 3. Setup context management
+# 4. Configure test environment
+```
+
+### 2. Developing a New Feature
+```bash
+/new-fr "Feature description"
+# Neo will:
+# 1. Create feature request document
+# 2. Update context with requirements
+# 3. Generate implementation plan
+
+/feature-init
+# Neo will:
+# 1. Create feature branch
+# 2. Setup feature structure
+# 3. Initialize tests
+# 4. Update knowledge graph
+```
+
+### 3. Making Safe Code Changes
+```bash
+/create-scratch
+# Neo will:
+# 1. Create temporary workspace
+# 2. Copy current code state
+# 3. Enable change tracking
+
+# Make your changes...
+
+/validate-changes
+# Neo will:
+# 1. Compare changes with original
+# 2. Check for accidental deletions
+# 3. Run tests
+# 4. Update context
 ```
 
 ## Context Management
 
-### Monitoring Services
-- **Performance Metrics**
-  - Query response time
-  - System latency
-  - Resource usage
-- **Context Metrics**
-  - Context size
-  - Query latency
-  - Update frequency
-  - Cache hit rate
-- **Analytics**
-  - Usage patterns
-  - Query patterns
-  - Access frequency
+### Knowledge Graph Generation
+The knowledge graph is a foundational component that provides a comprehensive, structured understanding of the codebase's architecture and dependencies. It is automatically generated and updated during:
 
-### Operations Services
-```bash
-# Initialize Context
-#init-context   # Setup project context and monitoring
+#### Key Features
+1. **Dependency and Structure Mapping**
+   - Analyzes source code (React components, modules, services)
+   - Identifies file and functionality relationships
+   - Maps architectural dependencies
+   - Discovers core modules and interactions
 
-# Update Context
-#update-context # Sync context with current state
+2. **Contextual Metadata**
+   - Stores metadata in `.neo/knowledge-graph-meta.json`
+   - Tracks last updated timestamps
+   - Maintains statistical summaries
+   - Records component counts and code metrics
+   - Provides historical insight into project evolution
+
+3. **Analysis and Decision Support**
+   - Identifies high complexity areas
+   - Highlights frequently changing modules
+   - Detects SOLID/YAGNI principle violations
+   - Enables informed code evaluations
+   - Supports targeted refactoring decisions
+
+4. **SDLC Workflow Integration**
+   - Powers project onboarding process
+   - Informs requirement gathering
+   - Guides architectural decisions
+   - Supports feature request planning
+   - Facilitates bug fix prioritization
+
+The graph is automatically updated during:
+- Project initialization
+- Feature development
+- Code modifications
+- Dependency changes
+- Context initialization (/init_context)
+
+This ensures every SDLC action is based on an accurate, up-to-date representation of the codebase.
+
+### Codebase Context Specification (CCS)
+Neo implements CCS v1.1-RFC for structured codebase context management. The implementation includes:
+
+#### File Structure
+```
+.context/
+├── index.md           # Primary entry point with YAML front matter
+├── docs.md           # Extended documentation and guides
+├── diagrams/         # Architectural and workflow diagrams
+└── images/          # Supporting visual assets
 ```
 
-## Command System
+#### Key Features
+- Markdown-centric documentation
+- Hierarchical organization
+- Modularity and extensibility
+- Agent-friendly linking
+- Flexible tool integration
 
-### Global Command Flags
+#### Context Management Commands
 ```bash
-# Format Flags
---format=<text|json|yaml|md>   # Output format
---output=<filename>            # Output file
---filter=<category|type|agent> # Filter results
-
-# Template Flags
---template-type=<BRD|PRD|UXDD> # Template type
---template-path=<path>         # Custom template location
-
-# Documentation Flags
---doc-format=<md|txt|html>     # Documentation format
---include-examples=<true|false> # Include examples
-
-# Execution Flags
---dry-run=<true|false>         # Simulate execution
---verbose=<true|false>         # Detailed output
---silent=<true|false>          # Suppress output
+/init_context          # Initialize CCS structure
+/update_context        # Update context with changes
+/validate_context      # Validate context integrity
+/index_context         # Index context in vector DB
 ```
 
-## Documentation Portal
+### Context Optimization
+Neo automatically optimizes context for LLM interactions by:
+- Analyzing code dependencies
+- Tracking semantic relationships
+- Managing token limits
+- Caching frequent patterns
+- Integrating with vector DB for UI components
+- Enriching prompts with relevant context
 
-### Neo Project Site
-The system includes a documentation portal that provides a centralized view of all SDLC documentation:
+### Template System
+Neo provides a comprehensive template system that includes:
 
-```bash
-# Initialize Documentation Portal
-npm run init-docs-portal
-
-# Structure
-neo_project_site/
-├── src/
-│   ├── pages/
-│   │   ├── requirements/        # Requirements documentation
-│   │   │   ├── business/       # BRD and related docs
-│   │   │   ├── product/        # PRD and related docs
-│   │   │   └── technical/      # SRD and related docs
-│   │   │
-│   │   ├── design/             # Design documentation
-│   │   │   ├── ux/            # UXDD and wireframes
-│   │   │   ├── system/        # Design system
-│   │   │   └── components/    # Component library
-│   │   │
-│   │   ├── architecture/       # Architecture documentation
-│   │   │   ├── technical/     # Technical architecture
-│   │   │   ├── database/      # Database design
-│   │   │   └── api/          # API documentation
-│   │   │
-│   │   ��── development/        # Development documentation
-│   │       ├── guides/        # Development guides
-│   │       ├── standards/     # Coding standards
-│   │       └── workflows/     # Development workflows
-│   │
-│   ├── components/            # Shared components
-│   │   ├── Navigation/       # Navigation components
-│   │   ├── DocViewer/       # Documentation viewer
-│   │   └── DesignSystem/    # Design system components
-│   │
-│   └── utils/                # Utility functions
-│       ├── mdx/             # MDX processing
-│       ├── search/          # Search functionality
-│       └── navigation/      # Navigation utilities
-```
-
-### Design System View
-The design system section provides a comprehensive view of:
-
-1. **Atomic Design Structure**
-   - Atoms: Basic UI components
-   - Molecules: Component combinations
-   - Organisms: Complex components
-   - Templates: Page layouts
-   - Pages: Full implementations
-
-2. **User Story Mapping**
-   ```
-   Component Categories:
-   ├── User Interaction
-   │   ├── Forms
-   │   ├── Navigation
-   │   └── Actions
-   │
-   ├── Data Display
-   │   ├── Lists
-   │   ├── Tables
-   │   └── Charts
-   │
-   └── Layout
-       ├── Containers
-       ├── Grids
-       └── Cards
-   ```
-
-### Features
-- **Interactive Documentation**: MDX-powered interactive documentation
-- **Live Component Preview**: Real-time component visualization
-- **Search Functionality**: Full-text search across all documentation
-- **Version Control**: Documentation version tracking
-- **Auto-Generation**: Automatic updates from SDLC processes
-- **Design System Integration**: Live design system documentation
-- **API Documentation**: Interactive API documentation
-- **User Story Mapping**: Visual user story organization
-
-### Usage
-```bash
-# Install dependencies
-npm install
-
-# Start documentation portal
-npm run docs:dev
-
-# Build for production
-npm run docs:build
-
-# Deploy documentation
-npm run docs:deploy
-```
-
-### Integration
-The documentation portal automatically integrates with:
-- Generated SDLC documentation
-- Design system components
-- API specifications
-- User story mapping
-- Development workflows
-
-# Neo - AI Development Process Orchestration
-
-## Overview
-Neo is an AI-powered development process orchestration system that manages the entire Software Development Life Cycle (SDLC) through specialized agents and prompt chains.
-
-## System Architecture
-
-### Core Components
-- **Neo Agent**: SDLC Orchestra Leader
-- **Morpheus Agent**: Ultimate Reasoner & Expert Decision Maker
-- **Specialized Agents**: Product Owner, UX Researcher, UX Designer, UI Designer, System Architect, Frontend Developer
-
-### Development Process Flow
-1. **Project Initialization**
-   - Requirements gathering and analysis
-   - Feature mapping and prioritization
-   - Technical stack selection
-   - Project scaffolding
-
-2. **Development Workflow**
-   - Automated code generation and review
-   - Component-based development using Atomic Design
-   - Continuous testing and quality assurance
-   - Documentation generation
-
-3. **Quality Assurance**
-   - Automated testing (Unit, Integration, E2E)
-   - Performance monitoring
-   - Security scanning
-   - Code quality metrics
-
-### Prompt Chain Architecture
-The system uses a sophisticated prompt chain architecture:
-
-1. **Planning Chains**
-   - Requirements analysis
-   - Feature decomposition
-   - Sprint planning
-   - Story generation
-
-2. **Development Chains**
-   - Code generation
-   - Testing
-   - Documentation
-   - Review processes
-
-3. **Quality Chains**
-   - Code quality assessment
-   - Performance testing
-   - Security validation
-   - Compliance checking
-
-## Command Structure
-- `/new-project`: Initialize new project
-- `/generate-project-structure`: Create project scaffolding
-- `/gen-<doc-type>`: Generate documentation
-- `/status`: Check project status
-- `/git-status`: Version control status
-
-## Development Management
-The system includes comprehensive development management features:
-
-1. **Environment Setup**
-   - Automated environment configuration
-   - Testing framework initialization
-   - CI/CD pipeline setup
-   - Security measures implementation
-
-2. **Testing Integration**
-   - Hierarchical testing approach
-   - Coverage reporting
-   - Automated test generation
-   - Failure handling and reporting
-
-3. **Documentation**
-   - Technical documentation
+1. **Documentation Templates**
    - User guides
-   - API documentation
-   - Release notes
+   - Migration guides
+   - Integration plans
+   - Backlog reports
+   - Market analysis
 
-4. **Security**
-   - Role-based access control
-   - Audit logging
-   - Security scanning
-   - Compliance validation
+2. **Design Templates**
+   - Wireframes
+   - Prototypes
+   - Design systems
+   - Component specifications
+   - Layout structures
 
-## Getting Started
-1. Clone the repository
-2. Install dependencies
-3. Configure environment variables
-4. Initialize the development environment
-5. Start using Neo commands
+3. **Project Management**
+   - Epic templates
+   - Journey maps
+   - Persona definitions
+   - OOUX templates
+   - Matrix templates
+
+4. **Technical Documentation**
+   - PlantUML diagrams
+   - Grid systems
+   - Component layouts
+   - Page structures
+
+All templates are automatically integrated with relevant workflow chains and kept in sync with the project context.
+
+## Security Features
+
+### API Key Management
+- Secure environment variable storage
+- Encrypted key management
+- Access control based on roles
+
+### Code Safety
+- Automatic backups every 5 minutes
+- 1-day retention of scratch pads
+- Diff-based change validation
+- Automatic code restoration
+
+## Monitoring
+
+### Metrics Tracked
+- Context update frequency
+- Test coverage
+- Code safety incidents
+- Graph generation time
+- Query latency
+
+### Alerts
+- Console notifications
+- Log entries
+- Error reporting
+- Performance warnings
 
 ## Contributing
-Please read our contributing guidelines and code of conduct before submitting pull requests.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
-[License details here]
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-## Product Management Process
+Below are the key areas in the provided prompt and code that relate to leveraging Cline's tool capabilities. These excerpts highlight how Neo and Cline integrate with the code, invoke tools, and maintain context.
 
-### Core Components
-1. **Business Analysis**
-   - Business Requirements Documentation (BRD)
-   - Stakeholder Analysis
-   - Market Validation
-   - Success Criteria Definition
+1. Script for Knowledge Graph Generation
 
-2. **Product Requirements**
-   - Product Requirements Documentation (PRD)
-   - Feature Specifications
-   - Technical Requirements
-   - Acceptance Criteria
+File: generate_knowledge_graphs.js
 
-3. **Feature Journey Mapping**
-   - User Flow Documentation
-   - Interaction Points
-   - Experience Validation
-   - Error Flow Handling
+Relevant Points:
+	•	The script analyzes the existing codebase and produces a knowledge graph (code-knowledge-graph.json) and associated metadata (.neo/knowledge-graph-meta.json).
+	•	By updating these artifacts, Neo and Cline can maintain a structured representation of the codebase, which is crucial for context-aware code evaluations and improvements.
 
-4. **Business Generation**
-   - Business Model Development
-   - Market Analysis
-   - Strategy Documentation
-   - Risk Assessment
+Excerpt:
 
-5. **Business Ontology**
-   - Domain Concept Modeling
-   - Business Rule Definition
-   - Semantic Relationship Mapping
-   - Process Documentation
+```javascript
+const analyzer = new ReactCodeKnowledgeGraph(this.projectPath);
+await analyzer.analyzeCodebase();
+// Save the knowledge graph
+await analyzer.saveToFile(this.outputPath);
+// Save metadata
+const metadata = {
+  lastUpdated: new Date().toISOString(),
+  stats: analyzer.stats,
+  graphPath: this.outputPath
+};
+await this._saveMetadata(metadata);
+```
 
-### Workflow Integration
+Significance:
+This ensures Neo and Cline have a current, data-driven understanding of the project's structure. Tools and agents can reference this knowledge graph to inform decisions about code improvements, missing features, or architectural optimizations.
 
-#### Product Planning Flow
-1. **Requirements Gathering**
-   - Business context analysis
-   - Stakeholder interviews
-   - Market research
-   - Competitive analysis
+2. Neo and Cline Prompt Configuration
 
-2. **Product Definition**
-   - Feature specification
-   - Technical requirements
-   - User experience mapping
-   - Acceptance criteria
+Context from the Provided Prompt:
+The prompt describes Neo and Cline, along with their roles and the tools they can use. It defines how each command and workflow step can invoke tools to analyze, validate, or improve code quality.
 
-3. **Business Modeling**
-   - Model development
-   - Strategy formulation
-   - Risk assessment
-   - Market validation
+Key Sections:
+	•	Tool Integration Instructions:
+The prompt includes a detailed set of rules and instructions on how to call tools (e.g., <execute_command>, <read_file>, <write_to_file>), including their parameters and strict formatting requirements.
+	•	Cline as a Skilled Engineer:
+Cline is described as a highly skilled software engineer, capable of using tools for file manipulation, searching code, executing commands, and validating code, ensuring that changes are made effectively and aligned with best practices.
+	•	Commands and Agents:
+The YAML-like configuration defines various agents (e.g., neo_orchestrator_agent, morpheus_validator_agent) and specialized agents (like product_owner, ux_researcher, frontend_developer), each with responsibilities and tools they can invoke. These agents rely on Cline's tooling capabilities to execute tasks like /evaluate_code, /validate_config, /process_audit_findings.
 
-4. **Domain Modeling**
-   - Concept definition
-   - Rule specification
-   - Relationship mapping
-   - Process documentation
+Excerpt:
 
-#### Quality Assurance
-- Requirements validation
-- Market analysis verification
-- Strategy assessment
-- Domain model consistency
+```yaml
+# Example snippet showing tool invocation capabilities
+neo_orchestrator_agent:
+  name: "Neo"
+  role: "SDLC Orchestration Leader"
+  tools:
+    commands:
+      - "/evaluate_code"
+      - "/validate_config"
+      - "/onboard_existing_project"
+      - "/process_audit_findings"
+    cline_integration:
+      - tool: "cline_execute"
+        usage: "Execute commands through CLI"
+        permissions: ["all"]
+      - tool: "cline_repl"
+        usage: "Interactive command execution"
+        permissions: ["all"]
+```
 
-### Command Structure
-- `#product-init`: Initialize product management workflow
-- `#gen-brd`: Generate Business Requirements Document
-- `#gen-prd`: Generate Product Requirements Document
-- `#gen-journey`: Generate Feature Journey Map
-- `#gen-business`: Generate Business Model
-- `#gen-ontology`: Generate Business Ontology
+Significance:
+This shows how Neo can leverage Cline's integrated tools to run commands, analyze the code, and perform validations. By calling cline_execute or other tools, Neo interacts with the environment to maintain and improve the codebase.
+
+3. Code Quality Improvement and Rating Chain
+
+Context from the Provided Prompt:
+The prompt defines a chain (e.g., code_quality_chain) that orchestrates multiple agents (code_evaluation_agent, code_improver_agent, code_rater_agent, code_generator_agent) to continuously evaluate, improve, and rate code quality. Each step can use Cline's capabilities to manipulate files, run linters, or validate configuration files.
+
+Excerpt:
+
+```xml
+<step id="1">
+  <agent>code_evaluation_agent</agent>
+  <input>
+    <source>file</source>
+  </input>
+  <output>
+    <type>evaluationReport</type>
+    <target>code_improver_agent</target>
+  </output>
+</step>
+
+<step id="2">
+  <agent>code_improver_agent</agent>
+  <input>
+    <source>code_evaluation_agent.evaluationReport</source>
+  </input>
+  <output>
+    <type>improvementResult</type>
+    <target>code_rater_agent</target>
+  </output>
+</step>
+```
+
+Significance:
+Here, each agent uses tool-driven processes to analyze the codebase, propose improvements, and then apply those improvements. By continuously looping through these steps until quality gates are met, Cline's tool capabilities are central to refining the codebase.
+
+4. Onboarding Existing Projects
+
+Context from the Provided Prompt:
+When onboarding existing projects (/onboard_existing_project command), Neo runs the knowledge graph script, initializes context, analyzes the codebase, and generates an audit report. This triggers a workflow that involves identifying missing capabilities, bug fixes, and feature requests, then integrating those into sprints following the SDLC process.
+
+Excerpt:
+
+```yaml
+onboarding:
+  "/onboard_existing_project":
+    description: "Onboard existing project into SDLC orchestration"
+    steps:
+      knowledge_graph:
+        description: "Generate project knowledge graph"
+        command: "python scripts/build_knowledge_graph.py"
+        ...
+      codebase_analysis:
+        description: "Analyze existing codebase"
+        commands:
+          - "/analyze_code --depth=full"
+          - "/evaluate_code --mode=audit"
+```
+
+Significance:
+This section shows how the generated knowledge graph and code analysis steps feed into the workflow. Using these tools, Neo and Cline gain deep insights into the project's state and can then leverage Cline's capabilities to create or update user stories, feature requests, and bug fixes, aligning them with the SDLC pipeline.
+
+5. Validation and CI/CD Integration
+
+Context from the Provided Prompt:
+The prompt specifies how configuration validation (/validate_config) uses tools like yq and ajv to ensure YAML and JSON schema compliance. This helps maintain a consistent and quality-controlled development environment.
+
+Excerpt:
+
+```yaml
+validation_workflow:
+  triggers:
+    - after: "/generate_structure"
+      run: "/validate_config"
+  ci_cd_integration:
+    requirements:
+      - tool: "yq"
+      - tool: "ajv"
+```
+
+Significance:
+This demonstrates how tools integrate into CI/CD pipelines for automatic validation, ensuring ongoing codebase consistency and alignment with defined schemas and principles.
+
+Summary
+
+Key Areas Related to Leveraging Cline's Tool Capabilities:
+	1.	Knowledge Graph Generation (generate_knowledge_graphs.js):
+Provides structured codebase context used by Neo and Cline for informed decision-making.
+	2.	Neo and Agents Configuration:
+	•	Specifies which commands and tools agents can invoke.
+	•	Defines roles and responsibilities aligned with Cline's tool usage.
+	3.	Code Quality and Rating Chains:
+	•	Shows iterative improvement cycles, each step leveraging tools to analyze, improve, rate, and generate code until thresholds are met.
+	4.	Onboarding Existing Projects:
+	•	Integrates the knowledge graph and code analysis tools to produce audit reports.
+	•	Uses these reports to create feature requests, bug fixes, and user stories, reflecting the synergy between Cline's tooling and Neo's orchestration.
+	5.	Validation and CI/CD:
+	•	Demonstrates how tools (yq, ajv) are integrated into pipelines for schema validation and quality control.
+
+Collectively, these areas illustrate how the prompt's definitions and configurations rely on Cline's tooling capabilities to maintain codebase context, perform continuous quality improvements, and integrate findings into the SDLC workflow.

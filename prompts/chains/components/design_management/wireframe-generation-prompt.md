@@ -20,32 +20,32 @@ If any items are missing, request them before proceeding.
 ```svg
 <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
   <!-- Top Navigation -->
-  <rect x="0" y="0" width="800" height="60" fill="#E0E0E0"/>
+  <rect x="0" y="0" width="800" height="60" fill="/E0E0E0"/>
   <text x="20" y="35" font-family="Arial" font-size="14">Dashboard Navigation</text>
   
   <!-- Sidebar -->
-  <rect x="0" y="60" width="200" height="540" fill="#D3D3D3"/>
+  <rect x="0" y="60" width="200" height="540" fill="/D3D3D3"/>
   <text x="20" y="90" font-family="Arial" font-size="14">Menu Navigation</text>
   
   <!-- Stats Cards -->
-  <rect x="220" y="80" width="180" height="100" fill="#E0E0E0"/>
+  <rect x="220" y="80" width="180" height="100" fill="/E0E0E0"/>
   <text x="240" y="130" font-family="Arial" font-size="12">KPI Card 1</text>
   
-  <rect x="420" y="80" width="180" height="100" fill="#E0E0E0"/>
+  <rect x="420" y="80" width="180" height="100" fill="/E0E0E0"/>
   <text x="440" y="130" font-family="Arial" font-size="12">KPI Card 2</text>
   
-  <rect x="620" y="80" width="180" height="100" fill="#E0E0E0"/>
+  <rect x="620" y="80" width="180" height="100" fill="/E0E0E0"/>
   <text x="640" y="130" font-family="Arial" font-size="12">KPI Card 3</text>
   
   <!-- Charts -->
-  <rect x="220" y="200" width="380" height="250" fill="#D3D3D3"/>
+  <rect x="220" y="200" width="380" height="250" fill="/D3D3D3"/>
   <text x="240" y="320" font-family="Arial" font-size="14">Main Chart Area</text>
   
-  <rect x="620" y="200" width="180" height="250" fill="#D3D3D3"/>
+  <rect x="620" y="200" width="180" height="250" fill="/D3D3D3"/>
   <text x="640" y="320" font-family="Arial" font-size="14">Side Chart</text>
   
   <!-- Data Table -->
-  <rect x="220" y="470" width="580" height="130" fill="#E0E0E0"/>
+  <rect x="220" y="470" width="580" height="130" fill="/E0E0E0"/>
   <text x="240" y="530" font-family="Arial" font-size="14">Data Table</text>
 </svg>
 ```
@@ -78,29 +78,29 @@ Components:
 ```svg
 <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
   <!-- Header -->
-  <rect x="0" y="0" width="800" height="60" fill="#E0E0E0"/>
+  <rect x="0" y="0" width="800" height="60" fill="/E0E0E0"/>
   <text x="20" y="35" font-family="Arial" font-size="14">Store Header</text>
   
   <!-- Search Bar -->
-  <rect x="100" y="80" width="600" height="40" fill="#D3D3D3"/>
+  <rect x="100" y="80" width="600" height="40" fill="/D3D3D3"/>
   <text x="120" y="105" font-family="Arial" font-size="14">Search Products</text>
   
   <!-- Category Nav -->
-  <rect x="0" y="140" width="800" height="40" fill="#E0E0E0"/>
+  <rect x="0" y="140" width="800" height="40" fill="/E0E0E0"/>
   <text x="20" y="165" font-family="Arial" font-size="14">Category Navigation</text>
   
   <!-- Product Grid -->
-  <rect x="20" y="200" width="240" height="280" fill="#D3D3D3"/>
+  <rect x="20" y="200" width="240" height="280" fill="/D3D3D3"/>
   <text x="40" y="340" font-family="Arial" font-size="14">Product Card 1</text>
   
-  <rect x="280" y="200" width="240" height="280" fill="#D3D3D3"/>
+  <rect x="280" y="200" width="240" height="280" fill="/D3D3D3"/>
   <text x="300" y="340" font-family="Arial" font-size="14">Product Card 2</text>
   
-  <rect x="540" y="200" width="240" height="280" fill="#D3D3D3"/>
+  <rect x="540" y="200" width="240" height="280" fill="/D3D3D3"/>
   <text x="560" y="340" font-family="Arial" font-size="14">Product Card 3</text>
   
   <!-- Filters -->
-  <rect x="20" y="500" width="760" height="60" fill="#E0E0E0"/>
+  <rect x="20" y="500" width="760" height="60" fill="/E0E0E0"/>
   <text x="40" y="535" font-family="Arial" font-size="14">Filter Bar</text>
 </svg>
 ```
@@ -135,23 +135,23 @@ Components:
 ```svg
 <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
   <!-- Top Bar -->
-  <rect x="0" y="0" width="800" height="50" fill="#E0E0E0"/>
+  <rect x="0" y="0" width="800" height="50" fill="/E0E0E0"/>
   <text x="20" y="30" font-family="Arial" font-size="14">Social App Header</text>
   
   <!-- Story Bar -->
-  <rect x="0" y="50" width="800" height="100" fill="#D3D3D3"/>
+  <rect x="0" y="50" width="800" height="100" fill="/D3D3D3"/>
   <text x="20" y="100" font-family="Arial" font-size="14">Stories Carousel</text>
   
   <!-- Post 1 -->
-  <rect x="100" y="170" width="600" height="200" fill="#E0E0E0"/>
+  <rect x="100" y="170" width="600" height="200" fill="/E0E0E0"/>
   <text x="120" y="270" font-family="Arial" font-size="14">Social Post 1</text>
   
   <!-- Post 2 -->
-  <rect x="100" y="390" width="600" height="200" fill="#E0E0E0"/>
+  <rect x="100" y="390" width="600" height="200" fill="/E0E0E0"/>
   <text x="120" y="490" font-family="Arial" font-size="14">Social Post 2</text>
   
   <!-- Navigation -->
-  <rect x="0" y="550" width="800" height="50" fill="#D3D3D3"/>
+  <rect x="0" y="550" width="800" height="50" fill="/D3D3D3"/>
   <text x="20" y="580" font-family="Arial" font-size="14">Bottom Navigation</text>
 </svg>
 ```

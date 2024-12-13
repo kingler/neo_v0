@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<prompt>
+    <purpose>Configure layout design workspace and templates</purpose>
+    
+    <templates>
+        <template>
+            <name>Grid Systems</name>
+            <path>prompts/core/templates/grid_systems.md</path>
+        </template>
+        <template>
+            <name>Component Layouts</name>
+            <path>prompts/core/templates/component_layouts.md</path>
+        </template>
+        <template>
+            <name>Page Structures</name>
+            <path>prompts/core/templates/page_structures.md</path>
+        </template>
+    </templates>
+    
+    <workflow>
+        <step>
+            <action>Load templates</action>
+            <validation>
+                <rule>All templates exist</rule>
+                <rule>Templates are valid markdown</rule>
+            </validation>
+        </step>
+        
+        <step>
+            <action>Configure workspace</action>
+            <setup>
+                <item>Code editor settings</item>
+                <item>Preview configurations</item>
+                <item>Build tools setup</item>
+            </setup>
+        </step>
+        
+        <step>
+            <action>Initialize layouts</action>
+            <components>
+                <item>Grid systems</item>
+                <item>Component layouts</item>
+                <item>Page structures</item>
+            </components>
+        </step>
+    </workflow>
+</prompt> 

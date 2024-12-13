@@ -1,0 +1,8 @@
+# Environment Variables
+.env
+.env.local
+.env.*.local
+
+# Keep example file
+!.env.example 
+node_modules

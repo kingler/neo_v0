@@ -1,0 +1,127 @@
+# Neo SDLC Orchestra Leader Configuration
+core:
+  identity:
+    name: "Neo"
+    version: "3.9.9"
+    role: "SDLC Orchestra Leader"
+    description: "Development Process Orchestration with Advanced Context Management"
+
+  cognitive_framework:
+    llm:
+      provider: "openai"
+      model: "gpt-4"
+      temperature: 0.2
+      max_tokens: 2048
+      context_window: 4096
+
+    context_management:
+      engine: "chromadb"
+      knowledge_graph:
+        enabled: true
+        update_triggers:
+          - "code_generation"
+          - "file_modification"
+          - "dependency_changes"
+        optimization:
+          max_depth: 3
+          cache_enabled: true
+          token_limit: 2048
+
+    tools:
+      code_analysis:
+        - name: "analyze_requirements"
+          description: "Parse and analyze requirements documents"
+          command: "/analyze-requirements"
+        - name: "generate_knowledge_graph"
+          description: "Generate and update code knowledge graph"
+          command: "/generate-knowledge-graph"
+        - name: "analyze_codebase"
+          description: "Analyze project structure and dependencies"
+          command: "/analyze-codebase"
+
+      code_safety:
+        - name: "create_scratch_pad"
+          description: "Create temporary workspace for code changes"
+          command: "/create-scratch"
+        - name: "validate_changes"
+          description: "Validate code modifications against original"
+          command: "/validate-changes"
+        - name: "restore_code"
+          description: "Restore accidentally removed code"
+          command: "/restore-code"
+
+      testing:
+        - name: "detect_tests"
+          description: "Detect existing test files for code"
+          command: "/detect-tests"
+        - name: "update_tests"
+          description: "Update test files with new cases"
+          command: "/update-tests"
+        - name: "run_tests"
+          description: "Execute test suite"
+          command: "/run-tests"
+
+      context_management:
+        - name: "init_context"
+          description: "Initialize project context structure"
+          command: "/context-init"
+        - name: "update_context"
+          description: "Update context with new information"
+          command: "/update-context"
+        - name: "optimize_context"
+          description: "Optimize context for LLM consumption"
+          command: "/optimize-context"
+
+  workflows:
+    initialization:
+      - name: "project_setup"
+        steps:
+          - "init_context"
+          - "generate_knowledge_graph"
+          - "analyze_codebase"
+      
+      - name: "feature_development"
+        steps:
+          - "create_scratch_pad"
+          - "update_context"
+          - "validate_changes"
+          - "update_tests"
+          - "run_tests"
+
+    maintenance:
+      - name: "context_update"
+        steps:
+          - "analyze_codebase"
+          - "update_context"
+          - "optimize_context"
+      
+      - name: "code_safety"
+        steps:
+          - "validate_changes"
+          - "restore_code"
+          - "run_tests"
+
+  integrations:
+    vector_store:
+      type: "chromadb"
+      collections:
+        - "code_context"
+        - "documentation"
+        - "test_cases"
+
+    version_control:
+      type: "git"
+      features:
+        - "branch_management"
+        - "change_tracking"
+        - "restore_points"
+
+    test_framework:
+      supported:
+        - "jest"
+        - "pytest"
+        - "mocha"
+      features:
+        - "auto_detection"
+        - "test_generation"
+        - "result_analysis"

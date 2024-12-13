@@ -1,0 +1,361 @@
+import { Callout, Tabs, Tab } from 'nextra/components'
+import { Button } from '@/components/atoms/Button'
+import { Input } from '@/components/atoms/Input'
+import { FormField } from '@/components/molecules/FormField'
+import { Form } from '@/components/organisms/Form'
+
+# Atomic Design System Showcase
+
+<Callout type="info">
+  This section showcases our Atomic Design System components with live examples, documentation, and usage patterns.
+</Callout>
+
+## Component Hierarchy
+
+```mermaid
+graph TD
+    subgraph Atoms
+        B[Button]
+        I[Input]
+        T[Typography]
+        IC[Icon]
+    end
+    
+    subgraph Molecules
+        FF[Form Field]
+        SB[Search Bar]
+        C[Card]
+        FF --> I
+        FF --> T
+        SB --> I
+        SB --> B
+        C --> T
+    end
+    
+    subgraph Organisms
+        F[Form]
+        N[Navigation]
+        H[Header]
+        F --> FF
+        F --> B
+        N --> B
+        N --> IC
+        H --> N
+    end
+    
+    subgraph Templates
+        PL[Page Layout]
+        GS[Grid System]
+        PL --> H
+        PL --> N
+        GS --> C
+    end
+```
+
+## Atoms
+
+### Button Component
+
+<Tabs items={['Preview', 'Code', 'Usage']}>
+  <Tab>
+    <div className="flex gap-4 p-4">
+      <Button variant="default">Default</Button>
+      <Button variant="destructive">Destructive</Button>
+      <Button variant="outline">Outline</Button>
+      <Button variant="secondary">Secondary</Button>
+      <Button variant="ghost">Ghost</Button>
+      <Button variant="link">Link</Button>
+    </div>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Button variant="default">Default</Button>
+    <Button variant="destructive">Destructive</Button>
+    <Button variant="outline">Outline</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="link">Link</Button>
+    ```
+  </Tab>
+  <Tab>
+    ```tsx
+    import { Button } from '@/components/atoms/Button'
+    
+    export const MyComponent = () => {
+      return (
+        <Button 
+          variant="default"
+          onClick={() => console.log('Clicked!')}
+        >
+          Click Me
+        </Button>
+      )
+    }
+    ```
+  </Tab>
+</Tabs>
+
+### Input Component
+
+<Tabs items={['Preview', 'Code', 'Usage']}>
+  <Tab>
+    <div className="flex flex-col gap-4 p-4">
+      <Input placeholder="Default input" />
+      <Input type="password" placeholder="Password input" />
+      <Input disabled placeholder="Disabled input" />
+      <Input error placeholder="Error input" />
+    </div>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Input placeholder="Default input" />
+    <Input type="password" placeholder="Password input" />
+    <Input disabled placeholder="Disabled input" />
+    <Input error placeholder="Error input" />
+    ```
+  </Tab>
+  <Tab>
+    ```tsx
+    import { Input } from '@/components/atoms/Input'
+    
+    export const MyComponent = () => {
+      const [value, setValue] = useState('')
+      
+      return (
+        <Input 
+          value={value}
+          onChange={(e) => setValue(e.target.value)}
+          placeholder="Enter text"
+        />
+      )
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Molecules
+
+### Form Field Component
+
+<Tabs items={['Preview', 'Code', 'Usage']}>
+  <Tab>
+    <div className="p-4">
+      <FormField label="Email">
+        <Input placeholder="Enter your email" />
+      </FormField>
+      <FormField label="Password" error="Password is required">
+        <Input type="password" placeholder="Enter password" error />
+      </FormField>
+    </div>
+  </Tab>
+  <Tab>
+    ```tsx
+    <FormField label="Email">
+      <Input placeholder="Enter your email" />
+    </FormField>
+    <FormField label="Password" error="Password is required">
+      <Input type="password" placeholder="Enter password" error />
+    </FormField>
+    ```
+  </Tab>
+  <Tab>
+    ```tsx
+    import { FormField } from '@/components/molecules/FormField'
+    import { Input } from '@/components/atoms/Input'
+    
+    export const MyForm = () => {
+      return (
+        <FormField 
+          label="Username"
+          error={errors.username}
+        >
+          <Input 
+            value={username}
+            onChange={setUsername}
+            error={!!errors.username}
+          />
+        </FormField>
+      )
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Organisms
+
+### Form Component
+
+<Tabs items={['Preview', 'Code', 'Usage']}>
+  <Tab>
+    <div className="p-4">
+      <Form onSubmit={(data) => console.log(data)}>
+        <FormField label="Email">
+          <Input name="email" placeholder="Enter your email" />
+        </FormField>
+        <FormField label="Password">
+          <Input name="password" type="password" placeholder="Enter password" />
+        </FormField>
+        <Button type="submit">Submit</Button>
+      </Form>
+    </div>
+  </Tab>
+  <Tab>
+    ```tsx
+    <Form onSubmit={(data) => console.log(data)}>
+      <FormField label="Email">
+        <Input name="email" placeholder="Enter your email" />
+      </FormField>
+      <FormField label="Password">
+        <Input name="password" type="password" placeholder="Enter password" />
+      </FormField>
+      <Button type="submit">Submit</Button>
+    </Form>
+    ```
+  </Tab>
+  <Tab>
+    ```tsx
+    import { Form } from '@/components/organisms/Form'
+    import { FormField } from '@/components/molecules/FormField'
+    import { Input } from '@/components/atoms/Input'
+    import { Button } from '@/components/atoms/Button'
+    
+    export const LoginForm = () => {
+      const handleSubmit = (data: FormData) => {
+        // Handle form submission
+      }
+      
+      return (
+        <Form onSubmit={handleSubmit}>
+          {/* Form fields */}
+        </Form>
+      )
+    }
+    ```
+  </Tab>
+</Tabs>
+
+## Component Flow Diagrams
+
+### Button Component Flow
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant B as Button
+    participant M as Motion
+    participant C as Click Handler
+    
+    U->>B: Click
+    B->>M: Trigger tap animation
+    M->>B: Animation complete
+    B->>C: Execute onClick
+    C-->>U: Feedback/Result
+```
+
+### Form Component Flow
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant F as Form
+    participant V as Validation
+    participant S as Submit Handler
+    
+    U->>F: Submit Form
+    F->>V: Validate Fields
+    alt is valid
+        V->>S: Process Data
+        S-->>U: Success Response
+    else is invalid
+        V-->>F: Show Errors
+        F-->>U: Display Feedback
+    end
+```
+
+### Input Component Flow
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant I as Input
+    participant V as Validation
+    participant S as State Manager
+    
+    U->>I: Type Text
+    I->>V: Validate Input
+    V->>S: Update State
+    S-->>I: Re-render
+    alt has error
+        I-->>U: Show Error State
+    else is valid
+        I-->>U: Show Valid State
+    end
+```
+
+## Design Tokens
+
+### Color System
+```mermaid
+graph TD
+    subgraph Primary
+        P1[primary-50]
+        P2[primary-100]
+        P3[primary-200]
+        P4[primary-300]
+        P5[primary-400]
+        P6[primary-500]
+        P7[primary-600]
+        P8[primary-700]
+        P9[primary-800]
+        P10[primary-900]
+    end
+    
+    subgraph Neutral
+        N1[neutral-50]
+        N2[neutral-100]
+        N3[neutral-200]
+        N4[neutral-300]
+        N5[neutral-400]
+        N6[neutral-500]
+        N7[neutral-600]
+        N8[neutral-700]
+        N9[neutral-800]
+        N10[neutral-900]
+    end
+```
+
+## Usage Guidelines
+
+### Component Selection Guide
+```mermaid
+flowchart TD
+    A[Start] --> B{Need User Input?}
+    B -->|Yes| C{Simple Input?}
+    B -->|No| D{Need Display?}
+    C -->|Yes| E[Use Input Component]
+    C -->|No| F[Use Form Component]
+    D -->|Yes| G{Interactive?}
+    D -->|No| H[Use Typography]
+    G -->|Yes| I[Use Button]
+    G -->|No| J[Use Card]
+```
+
+## Accessibility Features
+
+### Focus Management
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant T as Tab Key
+    participant F as Focus Manager
+    participant C as Component
+    
+    U->>T: Press Tab
+    T->>F: Request Next Focus
+    F->>C: Set Focus
+    C-->>U: Visual Feedback
+```
+
+## Next Steps
+1. [ ] Review component usage
+2. [ ] Test accessibility
+3. [ ] Add more examples
+4. [ ] Update documentation
+5. [ ] Gather feedback 

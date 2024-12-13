@@ -3,14 +3,14 @@ use_case_commands:
   # New Project Commands
   new_project:
     common_initialization:
-      - "#init-project":
+      - "/init-project":
           description: "Initialize project foundation"
           workflow:
             - "Create project structure"
             - "Setup version control"
             - "Initialize dependencies"
             - "Configure development environment"
-      - "#init-documentation":
+      - "/init-documentation":
           description: "Setup project documentation"
           workflow:
             - "Create documentation structure"
@@ -21,7 +21,7 @@ use_case_commands:
     project_types:
       website:
         initialization:
-          - "#init-website":
+          - "/init-website":
               description: "Initialize website project"
               workflow:
                 - "Setup static site generator"
@@ -31,7 +31,7 @@ use_case_commands:
         
         templates:
           - type: "Landing Page"
-            command: "#gen-landing"
+            command: "/gen-landing"
             components:
               - "Hero section"
               - "Features grid"
@@ -39,7 +39,7 @@ use_case_commands:
               - "Contact form"
           
           - type: "Blog"
-            command: "#gen-blog"
+            command: "/gen-blog"
             components:
               - "Post listing"
               - "Categories"
@@ -48,7 +48,7 @@ use_case_commands:
 
       webapp:
         initialization:
-          - "#init-webapp":
+          - "/init-webapp":
               description: "Initialize web application"
               workflow:
                 - "Setup frontend framework"
@@ -58,7 +58,7 @@ use_case_commands:
         
         architecture:
           frontend:
-            - "#init-frontend":
+            - "/init-frontend":
                 framework_options:
                   - "React"
                   - "Vue"
@@ -69,7 +69,7 @@ use_case_commands:
                   - "Routing system"
           
           backend:
-            - "#init-backend":
+            - "/init-backend":
                 framework_options:
                   - "Node.js/Express"
                   - "Python/Django"
@@ -81,7 +81,7 @@ use_case_commands:
 
       mobile_app:
         initialization:
-          - "#init-mobile":
+          - "/init-mobile":
               description: "Initialize mobile application"
               workflow:
                 - "Setup mobile framework"
@@ -91,24 +91,24 @@ use_case_commands:
         
         platform_setup:
           cross_platform:
-            - "#init-react-native":
+            - "/init-react-native":
                 setup:
                   - "React Native configuration"
                   - "Native modules"
                   - "Navigation system"
-            - "#init-flutter":
+            - "/init-flutter":
                 setup:
                   - "Flutter configuration"
                   - "Widget structure"
                   - "State management"
           
           native:
-            - "#init-ios":
+            - "/init-ios":
                 setup:
                   - "iOS project structure"
                   - "CocoaPods setup"
                   - "Swift configuration"
-            - "#init-android":
+            - "/init-android":
                 setup:
                   - "Android project structure"
                   - "Gradle configuration"
@@ -117,7 +117,7 @@ use_case_commands:
   # Existing Project Commands
   existing_project:
     analysis:
-      - "#analyze-project":
+      - "/analyze-project":
           description: "Analyze existing project structure"
           workflow:
             - "Scan project structure"
@@ -125,7 +125,7 @@ use_case_commands:
             - "Generate dependency graph"
             - "Create project map"
       
-      - "#analyze-architecture":
+      - "/analyze-architecture":
           description: "Analyze current architecture"
           workflow:
             - "Review system design"
@@ -135,14 +135,14 @@ use_case_commands:
 
     integration:
       feature_addition:
-        - "#add-feature":
+        - "/add-feature":
             workflow:
               - "Analyze impact"
               - "Plan integration"
               - "Implement changes"
               - "Update tests"
         
-        - "#update-docs":
+        - "/update-docs":
             workflow:
               - "Update documentation"
               - "Generate API docs"
@@ -150,14 +150,14 @@ use_case_commands:
               - "Review changes"
 
       modernization:
-        - "#modernize-stack":
+        - "/modernize-stack":
             workflow:
               - "Analyze dependencies"
               - "Update versions"
               - "Migrate deprecated code"
               - "Update build system"
         
-        - "#optimize-performance":
+        - "/optimize-performance":
             workflow:
               - "Profile application"
               - "Identify bottlenecks"
@@ -167,14 +167,14 @@ use_case_commands:
   # Common Development Workflows
   development_workflows:
     feature_development:
-      - "#feature-start":
+      - "/feature-start":
           workflow:
             - "Create feature branch"
             - "Setup feature structure"
             - "Initialize tests"
             - "Update documentation"
       
-      - "#feature-implement":
+      - "/feature-implement":
           workflow:
             - "Implement functionality"
             - "Write tests"
@@ -183,7 +183,7 @@ use_case_commands:
 
     testing:
       unit_testing:
-        - "#test-unit":
+        - "/test-unit":
             workflow:
               - "Generate test cases"
               - "Implement tests"
@@ -191,7 +191,7 @@ use_case_commands:
               - "Generate coverage"
       
       integration_testing:
-        - "#test-integration":
+        - "/test-integration":
             workflow:
               - "Setup test environment"
               - "Run integration tests"
@@ -200,7 +200,7 @@ use_case_commands:
 
     deployment:
       staging:
-        - "#deploy-staging":
+        - "/deploy-staging":
             workflow:
               - "Build application"
               - "Run tests"
@@ -208,7 +208,7 @@ use_case_commands:
               - "Run smoke tests"
       
       production:
-        - "#deploy-prod":
+        - "/deploy-prod":
             workflow:
               - "Verify staging"
               - "Run security checks"
@@ -219,7 +219,7 @@ use_case_commands:
   project_features:
     website:
       seo:
-        - "#setup-seo":
+        - "/setup-seo":
             workflow:
               - "Configure meta tags"
               - "Setup sitemap"
@@ -227,7 +227,7 @@ use_case_commands:
               - "Configure analytics"
       
       performance:
-        - "#optimize-web":
+        - "/optimize-web":
             workflow:
               - "Optimize images"
               - "Setup caching"
@@ -236,7 +236,7 @@ use_case_commands:
 
     webapp:
       authentication:
-        - "#setup-auth":
+        - "/setup-auth":
             workflow:
               - "Configure auth system"
               - "Setup user flows"
@@ -244,7 +244,7 @@ use_case_commands:
               - "Add social login"
       
       data_management:
-        - "#setup-data":
+        - "/setup-data":
             workflow:
               - "Setup database"
               - "Configure ORM"
@@ -253,7 +253,7 @@ use_case_commands:
 
     mobile_app:
       native_features:
-        - "#setup-notifications":
+        - "/setup-notifications":
             workflow:
               - "Configure push notifications"
               - "Setup handlers"
@@ -261,7 +261,7 @@ use_case_commands:
               - "Test notifications"
       
       offline_support:
-        - "#setup-offline":
+        - "/setup-offline":
             workflow:
               - "Implement data sync"
               - "Setup local storage"
@@ -272,7 +272,7 @@ use_case_commands:
   integration_points:
     version_control:
       git_workflow:
-        - "#git-flow":
+        - "/git-flow":
             workflow:
               - "Setup branches"
               - "Configure hooks"
@@ -281,7 +281,7 @@ use_case_commands:
 
     continuous_integration:
       setup:
-        - "#setup-ci":
+        - "/setup-ci":
             workflow:
               - "Configure pipeline"
               - "Setup environments"
@@ -290,7 +290,7 @@ use_case_commands:
 
     monitoring:
       setup:
-        - "#setup-monitoring":
+        - "/setup-monitoring":
             workflow:
               - "Configure metrics"
               - "Setup alerts"

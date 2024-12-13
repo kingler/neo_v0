@@ -109,7 +109,7 @@ testing:
         - "Execution time"
   
   testing_commands:
-    "#test-init":
+    "/test-init":
       description: "Initialize testing environment"
       workflow:
         - "Install testing dependencies"
@@ -121,7 +121,7 @@ testing:
         # or
         pip install pytest pytest-cov selenium playwright
 
-    "#test-unit":
+    "/test-unit":
       description: "Run unit tests"
       workflow:
         - "Execute all unit tests"
@@ -132,7 +132,7 @@ testing:
         # or
         pytest tests/unit
 
-    "#test-integration":
+    "/test-integration":
       description: "Run integration tests"
       workflow:
         - "Start test database"
@@ -143,7 +143,7 @@ testing:
         # or
         pytest tests/integration
 
-    "#test-e2e":
+    "/test-e2e":
       description: "Run end-to-end tests"
       workflow:
         - "Start application"
@@ -154,7 +154,7 @@ testing:
         # or
         pytest tests/e2e
 
-    "#test-api":
+    "/test-api":
       description: "Test API endpoints"
       workflow:
         - "Start API server"
@@ -165,7 +165,7 @@ testing:
         # or
         pytest tests/api
 
-    "#test-ui":
+    "/test-ui":
       description: "Test UI components"
       workflow:
         - "Start dev server"
@@ -176,7 +176,7 @@ testing:
         # or
         pytest tests/ui
 
-    "#test-coverage":
+    "/test-coverage":
       description: "Generate coverage report"
       workflow:
         - "Run all tests with coverage"
@@ -187,7 +187,7 @@ testing:
         # or
         pytest --cov=src --cov-report=html
 
-    "#test-scan":
+    "/test-scan":
       description: "Scan codebase for missing tests"
       workflow:
         - "Scan src directory recursively"

@@ -8,7 +8,7 @@
 
 ## System Architecture
 ### High-Level Architecture
-```embed:plantuml
+```plantuml
 @startuml
 package "Frontend" {
   [UI Components]
@@ -120,7 +120,7 @@ interface EventArchitecture {
 
 ## Data Architecture
 ### Database Schema
-```embed:plantuml
+```plantuml
 @startuml
 entity "User" {
   * id: UUID

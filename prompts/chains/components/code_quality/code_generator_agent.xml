@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <prompt>
     <purpose>
-        Generate code that adheres to SDLC principles based on evaluation results
+        Generate code that adheres to SDLC principles and handle audit reporting for existing projects
     </purpose>
 
     <chain-position>
@@ -24,16 +24,45 @@
                 <![CDATA[
                 {
                     "ratingReport": {
-                        "scores": {},
+                        "scores": {
+                            "quality": {
+                                "overall": "number",
+                                "maintainability": "number",
+                                "performance": "number",
+                                "security": "number"
+                            }
+                        },
                         "principleCompliance": {},
                         "analysis": "string",
                         "recommendations": ["string"],
-                        "thresholdsMet": "boolean"
+                        "thresholdsMet": "boolean",
+                        "decision": {
+                            "verdict": "string"
+                        }
                     }
                 }
                 ]]>
             </schema>
         </requirements>
+        <context>
+            <type>sdlc_context</type>
+            <format>json</format>
+            <schema>
+                <![CDATA[
+                {
+                    "qualityGates": {
+                        "thresholds": {
+                            "total": "number",
+                            "maintainability": "number",
+                            "security": "number"
+                        }
+                    },
+                    "projectType": "string",
+                    "isExistingProject": "boolean"
+                }
+                ]]>
+            </schema>
+        </context>
     </input>
 
     <output>
@@ -43,14 +72,25 @@
             {
                 "generatorDecision": {
                     "action": "string",
-                    "code": "string",
+                    "rationale": ["string"],
+                    "feedback": ["string"],
+                    "focusAreas": ["string"],
                     "qualityMetrics": {
                         "scores": {},
                         "principles": {},
                         "trends": {}
                     },
-                    "nextAction": "string",
-                    "targetAgent": "string"
+                    "output": {
+                        "code": "string",
+                        "documentation": ["string"],
+                        "qualityReport": "string",
+                        "auditReport": "string",
+                        "improvements": {
+                            "features": ["string"],
+                            "bugs": ["string"],
+                            "userStories": ["string"]
+                        }
+                    }
                 }
             }
             ]]>
@@ -58,10 +98,113 @@
         <target>code_evaluation_agent</target>
     </output>
 
+    <workflow>
+        <iteration-loop>
+            <condition>
+                <![CDATA[
+                rating === 'revise' || overallScore < threshold
+                ]]>
+            </condition>
+            <actions>
+                <action>Re-evaluate code quality</action>
+                <action>Generate improvement suggestions</action>
+                <action>Update quality metrics</action>
+            </actions>
+        </iteration-loop>
+
+        <audit-workflow>
+            <trigger>
+                <![CDATA[
+                rating === 'accept' && sdlcContext.isExistingProject === true
+                ]]>
+            </trigger>
+            <steps>
+                <step>
+                    <command>/generate_audit_report</command>
+                    <args>
+                        <arg>--output=deliverables/reports/audit_report.md</arg>
+                        <arg>--include=all</arg>
+                    </args>
+                </step>
+                <step>
+                    <command>/process_audit_findings</command>
+                    <args>
+                        <arg>--input=deliverables/reports/audit_report.md</arg>
+                        <arg>--output=deliverables/reports/updated_backlog_report.md</arg>
+                    </args>
+                </step>
+            </steps>
+        </audit-workflow>
+    </workflow>
+
+    <logic>
+        <![CDATA[
+        const rating = ratingReport.decision.verdict;
+        const overallScore = ratingReport.scores.quality.overall;
+        const threshold = sdlcContext.qualityGates.thresholds.total;
+
+        if (rating === 'revise' || overallScore < threshold) {
+            return {
+                action: "iterate",
+                rationale: ["Rating below threshold: Need another iteration."],
+                feedback: ratingReport.recommendations,
+                focusAreas: ["performance", "maintainability"],
+                qualityMetrics: ratingReport.scores
+            };
+        } else {
+            if (sdlcContext.isExistingProject) {
+                // Generate audit report for existing project
+                cline_execute("/generate_audit_report --output=deliverables/reports/audit_report.md --include=all");
+                
+                // Process findings and create improvement items
+                cline_execute("/process_audit_findings --input=deliverables/reports/audit_report.md");
+
+                return {
+                    action: "output",
+                    rationale: ["Rating meets quality gates. Initiating improvement workflow."],
+                    feedback: ["Code quality acceptable. Processing audit findings."],
+                    focusAreas: [],
+                    qualityMetrics: ratingReport.scores,
+                    output: {
+                        code: "/* final improved code */",
+                        documentation: [
+                            "deliverables/reports/audit_report.md",
+                            "deliverables/reports/updated_backlog_report.md"
+                        ],
+                        qualityReport: "audit_report.md",
+                        auditReport: "updated_backlog_report.md",
+                        improvements: {
+                            features: ["docs/feature-requests/*.md"],
+                            bugs: ["cline_docs/context/bugs.md"],
+                            userStories: [".context/sprint_backlog.json"]
+                        }
+                    }
+                };
+            } else {
+                // Standard output for new projects
+                return {
+                    action: "output",
+                    rationale: ["Rating meets quality gates."],
+                    feedback: ["Code quality acceptable."],
+                    focusAreas: [],
+                    qualityMetrics: ratingReport.scores,
+                    output: {
+                        code: "/* final improved code */",
+                        documentation: ["deliverables/reports/quality_report.md"],
+                        qualityReport: "quality_report.md"
+                    }
+                };
+            }
+        }
+        ]]>
+    </logic>
+
     <instructions>
         <instruction>Analyze rating report and quality metrics</instruction>
         <instruction>Decide whether to continue iteration</instruction>
         <instruction>Generate improved code if needed</instruction>
+        <instruction>For existing projects, generate and process audit report</instruction>
+        <instruction>Create improvement items from audit findings</instruction>
         <instruction>Validate against termination conditions</instruction>
     </instructions>
 </prompt> 

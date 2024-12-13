@@ -167,8 +167,8 @@ Your final result description here
 {
   "apiEndpoint": "https://api.example.com",
   "theme": {
-    "primaryColor": "#007bff",
-    "secondaryColor": "#6c757d",
+    "primaryColor": "/007bff",
+    "secondaryColor": "/6c757d",
     "fontFamily": "Arial, sans-serif"
   },
   "features": {

@@ -1,7 +1,7 @@
 # Project Planning Management
 project_planning_management:
   commands:
-    "#plan-init":
+    "/plan-init":
       description: "Initialize project planning workflow"
       workflow:
         - "Story generation"
@@ -25,9 +25,9 @@ project_planning_management:
           - "Implementability"
           - "Testability"
         tools:
-          - "#gen-sprint-stories"
-          - "#analyze-dependencies"
-          - "#validate-stories"
+          - "/gen-sprint-stories"
+          - "/analyze-dependencies"
+          - "/validate-stories"
 
       story_analysis:
         description: "User story analysis"
@@ -41,9 +41,9 @@ project_planning_management:
           - "Technical accuracy"
           - "Validation coverage"
         tools:
-          - "#analyze-story"
-          - "#validate-criteria"
-          - "#check-dependencies"
+          - "/analyze-story"
+          - "/validate-criteria"
+          - "/check-dependencies"
 
     execution:
       workflow:
@@ -61,7 +61,7 @@ project_planning_management:
           - "Update stories"
 
     story_commands:
-      "#gen-sprint-stories":
+      "/gen-sprint-stories":
         description: "Generate Sprint Stories"
         workflow:
           - "Analyze requirements"
@@ -70,7 +70,7 @@ project_planning_management:
           - "Validate stories"
         template: "sprint-story-generation-prompt.xml"
 
-      "#analyze-story":
+      "/analyze-story":
         description: "Analyze User Story"
         workflow:
           - "Break down story"
@@ -94,9 +94,9 @@ project_planning_management:
           - "Completeness"
           - "Feasibility"
         tools:
-          - "#analyze-implementation"
-          - "#check-tech-stack"
-          - "#validate-steps"
+          - "/analyze-implementation"
+          - "/check-tech-stack"
+          - "/validate-steps"
 
     execution:
       workflow:
@@ -114,7 +114,7 @@ project_planning_management:
           - "Update plan"
 
     implementation_commands:
-      "#analyze-implementation":
+      "/analyze-implementation":
         description: "Analyze Implementation Approach"
         workflow:
           - "Review requirements"
@@ -138,9 +138,9 @@ project_planning_management:
           - "Clarity"
           - "Completeness"
         tools:
-          - "#decompose-story"
-          - "#validate-tasks"
-          - "#check-coverage"
+          - "/decompose-story"
+          - "/validate-tasks"
+          - "/check-coverage"
 
     execution:
       workflow:
@@ -158,7 +158,7 @@ project_planning_management:
           - "Update plan"
 
     decomposition_commands:
-      "#decompose-story":
+      "/decompose-story":
         description: "Decompose User Story"
         workflow:
           - "Break down story"
@@ -182,9 +182,9 @@ project_planning_management:
           - "Timeliness"
           - "Completeness"
         tools:
-          - "#track-implementation"
-          - "#validate-progress"
-          - "#check-completion"
+          - "/track-implementation"
+          - "/validate-progress"
+          - "/check-completion"
 
     execution:
       workflow:
@@ -202,7 +202,7 @@ project_planning_management:
           - "Update plan"
 
     implementation_commands:
-      "#implement-story":
+      "/implement-story":
         description: "Implement User Story"
         workflow:
           - "Start implementation"

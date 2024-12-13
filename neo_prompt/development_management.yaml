@@ -2,7 +2,7 @@
 development_management:
   development:
     commands:
-      "#dev-init":
+      "/dev-init":
         description: "Setup development environment"
         workflow:
           - "Environment setup"
@@ -62,7 +62,7 @@ development_management:
           - "Notify relevant team members"
 
     testing_commands:
-      "#test-init":
+      "/test-init":
         description: "Initialize testing environment"
         workflow:
           - "Install testing dependencies"
@@ -74,7 +74,7 @@ development_management:
           # or
           pip install pytest pytest-cov selenium playwright
 
-      "#test-scan":
+      "/test-scan":
         description: "Scan codebase for missing tests"
         workflow:
           - "Scan src directory recursively"
@@ -244,7 +244,7 @@ development_management:
 
   # Database Management
   database_initialization:
-    "#init-database":
+    "/init-database":
       description: "Initialize database environment and structure"
       workflow:
         - "Select database type"
@@ -281,7 +281,7 @@ development_management:
   # Error Prevention and Quality Control
   quality_control:
     testing_commands:
-      "#test-init":
+      "/test-init":
         description: "Initialize testing environment"
         workflow:
           - "Install testing dependencies"
@@ -289,7 +289,7 @@ development_management:
           - "Set up test directories"
           - "Initialize coverage reporting"
 
-      "#test-scan":
+      "/test-scan":
         description: "Scan codebase for missing tests"
         workflow:
           - "Scan src directory recursively"
@@ -321,7 +321,7 @@ development_management:
 
     maintenance:
       commands:
-        "#optimize-db":
+        "/optimize-db":
           description: "Perform database optimization"
           workflow:
             - "Analyze performance"
@@ -329,7 +329,7 @@ development_management:
             - "Vacuum tables"
             - "Update statistics"
         
-        "#health-check":
+        "/health-check":
           description: "Check database health"
           workflow:
             - "Check connections"

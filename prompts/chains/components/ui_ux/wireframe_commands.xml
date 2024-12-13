@@ -17,7 +17,7 @@
     </context>
 
     <commands>
-        <command name="#init-wireframe">
+        <command name="/init-wireframe">
             <description>Initialize new wireframe project</description>
             <parameters>
                 <param name="project_name" type="string">Project identifier</param>
@@ -30,7 +30,7 @@
             </workflow>
         </command>
 
-        <command name="#gen-component">
+        <command name="/gen-component">
             <description>Generate wireframe component</description>
             <parameters>
                 <param name="component_name" type="string">Component identifier</param>
@@ -43,7 +43,7 @@
             </workflow>
         </command>
 
-        <command name="#gen-layout">
+        <command name="/gen-layout">
             <description>Generate wireframe layout</description>
             <parameters>
                 <param name="layout_name" type="string">Layout identifier</param>
@@ -56,7 +56,7 @@
             </workflow>
         </command>
 
-        <command name="#gen-flow">
+        <command name="/gen-flow">
             <description>Generate user flow diagram</description>
             <parameters>
                 <param name="flow_name" type="string">Flow identifier</param>
@@ -69,7 +69,7 @@
             </workflow>
         </command>
 
-        <command name="#export-wireframes">
+        <command name="/export-wireframes">
             <description>Export wireframe artifacts</description>
             <parameters>
                 <param name="format" type="string">Export format (svg/png/pdf)</param>

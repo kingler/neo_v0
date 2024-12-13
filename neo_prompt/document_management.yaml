@@ -1,7 +1,7 @@
 # Document Management
 document_management:
   commands:
-    "#docs-init":
+    "/docs-init":
       description: "Initialize documentation workflow"
       workflow:
         - "Project documentation"
@@ -62,7 +62,7 @@ document_management:
           - "Update content"
 
     documentation_commands:
-      "#gen-readme":
+      "/gen-readme":
         description: "Generate Project README"
         workflow:
           - "Analyze project"
@@ -71,7 +71,7 @@ document_management:
           - "Create content"
         template: "generate-project-README.xml"
 
-      "#gen-user-docs":
+      "/gen-user-docs":
         description: "Generate User Documentation"
         workflow:
           - "Analyze features"
@@ -116,7 +116,7 @@ document_management:
           - "Update guides"
 
     security_commands:
-      "#gen-security-docs":
+      "/gen-security-docs":
         description: "Generate Security Documentation"
         workflow:
           - "Analyze security"
@@ -160,7 +160,7 @@ document_management:
           - "Update docs"
 
     release_commands:
-      "#gen-release-notes":
+      "/gen-release-notes":
         description: "Generate Release Notes"
         workflow:
           - "Collect changes"
@@ -204,7 +204,7 @@ document_management:
           - "Update docs"
 
     monitoring_commands:
-      "#gen-monitoring-docs":
+      "/gen-monitoring-docs":
         description: "Generate Monitoring Documentation"
         workflow:
           - "Define metrics"

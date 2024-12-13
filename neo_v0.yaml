@@ -3075,7 +3075,7 @@ SDLC Orchestration:
             workflow:
               - "Validate template selection"
               - "Create base directory structure"
-              - "Initialize cline_docs using /init-clinedocs"
+              - "Initialize cline_docs using /init-cline-docs"
               - "Setup project-specific structure"
               - "Initialize config files"
               - "Setup documentation"
@@ -3085,7 +3085,7 @@ SDLC Orchestration:
                 options: ["webapp", "website", "native_mobile_app"]
             dependencies:
               commands:
-                - "/init-clinedocs"
+                - "/init-cline-docs"
                 - "/init-git"
                 - "/docs-init"
             permissions:

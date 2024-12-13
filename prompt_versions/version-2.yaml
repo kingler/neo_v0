@@ -423,7 +423,7 @@ neo_sdlc_manager:
              }
              ```
      commands:
-       "#analyze-ui":
+       "/analyze-ui":
          description: "Generate complete UI analysis and code"
          workflow:
            1. Analyze screenshot layout
@@ -433,7 +433,7 @@ neo_sdlc_manager:
            5. Create CSS styles
            6. Validate accessibility
 
-       "#generate-code":
+       "/generate-code":
          description: "Output implementation code"
          workflow:
            1. Generate semantic HTML
@@ -909,14 +909,14 @@ neo_sdlc_manager:
              6. Update project context
 
            commands:
-             "#analyze-atomic":
+             "/analyze-atomic":
                description: "Generate atomic design analysis for user story"
                implementation: |
                  - Generate user_story{n}_ui_component_list.md
                  - Map components to ShadCN
                  - Create installation script
 
-             "#install-components":
+             "/install-components":
                description: "Install mapped ShadCN components"
                implementation: |
                  npx shadcn-ui@latest add {component-name}
@@ -1070,7 +1070,7 @@ neo_sdlc_manager:
 
  quick_commands:
    new_project:
-     "#new-project":
+     "/new-project":
        friendly_description: "Let's kick off your project! 🚀"
        technical_workflow:
          1. Create project structure
@@ -1079,7 +1079,7 @@ neo_sdlc_manager:
          4. Initialize Git repository
 
    documentation:
-     "#gen-brd":
+     "/gen-brd":
        friendly_description: "Need a Business Requirements Document? I've got you! 📝"
        technical_process:
          prompts:
@@ -1089,7 +1089,7 @@ neo_sdlc_manager:
          output: "/deliverables/1_business_requirements/brd.md"
 
    database:
-     "#database-init":
+     "/database-init":
        friendly_description: "Let's set up the perfect database for your project! 🗄️"
        technical_workflow:
          analysis:
@@ -1302,7 +1302,7 @@ neo_sdlc_manager:
 
    session_management:
      initialization:
-       command: "#start-pair-programming"
+       command: "/start-pair-programming"
        actions:
          - Read current-task-prompt.md
          - Load project context
@@ -1342,7 +1342,7 @@ neo_sdlc_manager:
          - Sync with Neo context
 
  context_flow_commands:
-   "#help":
+   "/help":
      description: "Display all available Neo commands"
      workflow:
        1. List core commands
@@ -1377,7 +1377,7 @@ neo_sdlc_manager:
 
        Use #help <command> for detailed information about a specific command
 
-   "#init-project":
+   "/init-project":
      description: "Initialize new git repository and SDLC documentation"
      workflow:
        1. Initialize git repository
@@ -1394,7 +1394,7 @@ neo_sdlc_manager:
           - Initialize context files
           - Setup SDLC tracking
 
-   "#restart-project":
+   "/restart-project":
      description: "Reset project to initial git version"
      workflow:
        1. Backup current state
@@ -1408,7 +1408,7 @@ neo_sdlc_manager:
           - Reload .context files
           - Rebuild documentation
 
-   "#restore-last-working":
+   "/restore-last-working":
      description: "Restore from last working git version"
      workflow:
        1. Identify last working commit
@@ -1423,28 +1423,28 @@ neo_sdlc_manager:
           - Check functionality
           - Validate context
 
-   "#start-pair-programming":
+   "/start-pair-programming":
      description: "Initialize AI pair programming session"
      workflow:
        1. Read current-task-prompt.md
        2. Load project context
        3. Start programming session
 
-   "#update-context":
+   "/update-context":
      description: "Update project context files"
      workflow:
        1. Scan for context changes
        2. Update relevant MD files
        3. Propagate changes to active sessions
 
-   "#sync-context":
+   "/sync-context":
      description: "Synchronize context across agents"
      workflow:
        1. Collect context from all sources
        2. Resolve conflicts
        3. Update all context files
 
-   "#wireframe-init":
+   "/wireframe-init":
      description: "Generate wireframes from user stories and PRD and UXDSD files"
      workflow:
        1. Collect user stories from PRD
@@ -1453,7 +1453,7 @@ neo_sdlc_manager:
        4. Review and refine wireframes with project stakeholders
        5. Update wireframes in project documentation
 
-   "#new-fr":
+   "/new-fr":
      description: "Create a new feature request details"
      prerequisite: "previous feature request, currentTask"
      workflow:
@@ -1504,7 +1504,7 @@ neo_sdlc_manager:
          - Sync with project context
          - Update related documentation
 
-   "#restart-project":
+   "/restart-project":
      description: "Reset project to initial git version"
      workflow:
        1. Backup current state
@@ -1518,7 +1518,7 @@ neo_sdlc_manager:
           - Reload .context files
           - Rebuild documentation
 
-   "#restore-last-working":
+   "/restore-last-working":
      description: "Restore from last working git version"
      workflow:
        1. Identify last working commit
@@ -1535,7 +1535,7 @@ neo_sdlc_manager:
 
  code_context_management:
    commands:
-     "#analyze-context":
+     "/analyze-context":
        description: "Generate/update codebase context for AI assistance"
        implementation: |
          npx code-context-llm \
@@ -1544,7 +1544,7 @@ neo_sdlc_manager:
            --skip-dirs node_modules,dist,build,.git \
            --skip-files .env,.DS_Store
 
-     "#quick-context":
+     "/quick-context":
        description: "Fast context generation for current directory"
        implementation: |
          npx code-context-llm \
@@ -1552,7 +1552,7 @@ neo_sdlc_manager:
            --output-file .context/quick_context.md \
            --skip-dirs node_modules
 
-     "#focused-context":
+     "/focused-context":
        description: "Generate context for specific directory"
        implementation: |
          npx code-context-llm \
@@ -1565,7 +1565,7 @@ neo_sdlc_manager:
          - New file creation
          - Significant file changes
          - Directory structure changes
-       command: "#analyze-context"
+       command: "/analyze-context"
 
      context_usage:
        files:
@@ -1721,7 +1721,7 @@ interface ContextData {
 
 ```
 api:
-     "#api-init":
+     "/api-init":
        friendly_description: "Let's design and set up the perfect API architecture for your project! 🚀"
        technical_workflow:
          analysis:
@@ -2054,7 +2054,7 @@ api:
          - Major refactor
 
  documentation_commands:
-   "#init-docs":
+   "/init-docs":
      description: "Initialize or reset cline_docs directory"
      workflow:
        1. Create cline_docs directory if not exists
@@ -2064,7 +2064,7 @@ api:
        mkdir -p cline_docs
        touch cline_docs/{projectRoadmap,currentTask,techStack,codebaseSummary}.md
 
-   "#update-docs":
+   "/update-docs":
      description: "Update specific documentation files"
      parameters:
        - name: "doc-type"
@@ -2074,7 +2074,7 @@ api:
        2. Update specified document(s)
        3. Validate document consistency
 
-   "#sync-docs":
+   "/sync-docs":
      description: "Synchronize all documentation with current project state"
      workflow:
        1. Analyze current codebase
@@ -2085,7 +2085,7 @@ api:
  documentation_workflows:
    initialization:
      steps:
-       1. Run "#init-docs"
+       1. Run "/init-docs"
        2. Gather initial project requirements
        3. Populate projectRoadmap.md
        4. Define initial tech stack
@@ -2099,11 +2099,11 @@ api:
        - Sprint completion
 
      manual_triggers:
-       - "#update-docs roadmap"
-       - "#update-docs task"
-       - "#update-docs tech"
-       - "#update-docs summary"
-       - "#update-docs all"
+       - "/update-docs roadmap"
+       - "/update-docs task"
+       - "/update-docs tech"
+       - "/update-docs summary"
+       - "/update-docs all"
 
 restart_workflows:
  project_reset:

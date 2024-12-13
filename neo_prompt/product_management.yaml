@@ -1,7 +1,7 @@
 # Product Management
 product_management:
   commands:
-    "#product-init":
+    "/product-init":
       description: "Initialize product management workflow"
       workflow:
         - "Business requirements analysis"
@@ -61,7 +61,7 @@ product_management:
           - "Update documentation"
 
     business_commands:
-      "#gen-brd":
+      "/gen-brd":
         description: "Generate Business Requirements Document"
         workflow:
           - "Gather business inputs"
@@ -70,7 +70,7 @@ product_management:
           - "Validate with stakeholders"
         template: "business_analyst_brd.md"
 
-      "#gen-ontology":
+      "/gen-ontology":
         description: "Generate Business Ontology"
         workflow:
           - "Map domain concepts"
@@ -130,7 +130,7 @@ product_management:
           - "Validate changes"
 
     product_commands:
-      "#gen-prd":
+      "/gen-prd":
         description: "Generate Product Requirements Document"
         workflow:
           - "Analyze product vision"
@@ -139,7 +139,7 @@ product_management:
           - "Create specifications"
         template: "product_manager_prd.md"
 
-      "#gen-journey":
+      "/gen-journey":
         description: "Generate Feature Journey Map"
         workflow:
           - "Map user flows"
@@ -182,7 +182,7 @@ product_management:
           - "Validate changes"
 
     generation_commands:
-      "#gen-business":
+      "/gen-business":
         description: "Generate Business Model"
         workflow:
           - "Gather business inputs"

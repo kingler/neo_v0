@@ -1,0 +1,133 @@
+imports:
+  core:
+    - path: "core/identity.yml"
+      required: true
+    - path: "core/principles.yml"
+      required: true
+    - path: "core/cognitive.yml"
+      required: true
+  
+  categories:
+    - path: "categories/requirements.yml"
+      description: "Requirements analysis and management"
+    - path: "categories/ux_design.yml"
+      description: "User experience design patterns"
+    - path: "categories/development.yml"
+      description: "Development workflows and standards"
+    - path: "categories/documentation.yml"
+      description: "Documentation templates and guidelines"
+    - path: "categories/testing.yml"
+      description: "Testing strategies and frameworks"
+    - path: "categories/context.yml"
+      description: "Context management and knowledge graphs"
+  
+  agents:
+    - path: "agents/roles.yml"
+      description: "Agent role definitions"
+    - path: "agents/workflows.yml"
+      description: "Agent workflow configurations"
+    - path: "agents/context_provider.yml"
+      description: "Context management agent"
+    - path: "agents/code_analyzer.yml"
+      description: "Code analysis and safety agent"
+    - path: "agents/test_manager.yml"
+      description: "Test management agent"
+  
+  management:
+    - path: "management/project.yml"
+      description: "Project management configurations"
+    - path: "management/monitoring.yml"
+      description: "System monitoring and alerts"
+    - path: "management/operations.yml"
+      description: "Operational procedures"
+    - path: "management/context.yml"
+      description: "Context management operations"
+    - path: "management/knowledge_graph.yml"
+      description: "Knowledge graph management"
+  
+  commands:
+    - path: "commands/core.yml"
+      description: "Core system commands"
+    - path: "commands/project.yml"
+      description: "Project management commands"
+    - path: "commands/workflow.yml"
+      description: "Workflow automation commands"
+    - path: "commands/context.yml"
+      description: "Context management commands"
+    - path: "commands/testing.yml"
+      description: "Test automation commands"
+
+# Configuration Settings
+settings:
+  environment:
+    development:
+      context_optimization: true
+      test_automation: true
+      code_safety: true
+    
+    production:
+      context_optimization: true
+      test_automation: true
+      code_safety: true
+
+  features:
+    knowledge_graph:
+      enabled: true
+      auto_update: true
+      optimization:
+        enabled: true
+        max_depth: 3
+    
+    scratch_pad:
+      enabled: true
+      backup_interval: "5m"
+      retention_period: "1d"
+    
+    testing:
+      auto_detection: true
+      auto_update: true
+      fail_fast: true
+
+  security:
+    api_keys:
+      storage: "environment"
+      encryption: true
+    
+    backups:
+      enabled: true
+      interval: "1h"
+      retention: "7d"
+
+  monitoring:
+    enabled: true
+    metrics:
+      - "context_updates"
+      - "test_coverage"
+      - "code_safety"
+    
+    alerts:
+      channels:
+        - "console"
+        - "log"
+      levels:
+        - "error"
+        - "warning"
+        - "info"
+
+# Dependency Management
+dependencies:
+  required:
+    - name: "openai"
+      version: "^1.0.0"
+    - name: "chromadb"
+      version: "^0.4.0"
+    - name: "diff"
+      version: "^5.0.0"
+  
+  optional:
+    - name: "jest"
+      version: "^29.0.0"
+    - name: "pytest"
+      version: "^7.0.0"
+    - name: "mocha"
+      version: "^10.0.0" 

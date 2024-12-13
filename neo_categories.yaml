@@ -1,6 +1,0 @@
-# Functional Categories
-categories:
-  requirement_gathering:
-    commands:
-      "#gather-requirements":
-        description: "Collect and analyze project requirements" 

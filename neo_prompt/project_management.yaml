@@ -4,7 +4,7 @@ project_organization:
       # Start of Selection
     new_project_structure:
         generate_command:
-          command: "#generate-project-structure <template>"
+          command: "/generate-project-structure <template>"
           description: "Generate project structure based on selected template"
           options:
             - "webapp"
@@ -133,7 +133,7 @@ project_organization:
   # Project Management
     project_management:
       project_initialization:
-        "#new-project":
+        "/new-project":
           description: "Initialize new project with template selection"
           workflow:
             - "Prompt for project type"
@@ -161,21 +161,21 @@ project_organization:
                             - templates: "Page layouts"
                             - pages: "Full page implementations"
               component_management:
-                "#generate-component-list":
+                "/generate-component-list":
                   description: "Generate required components list from user stories"
                   workflow:
                     - "Analyze user stories"
                     - "Identify UI patterns"
                     - "Map to shadcn components"
                     - "Generate installation commands"
-                "#install-components":
+                "/install-components":
                   description: "Install required shadcn components"
                   workflow:
                     - "Read component list"
                     - "Generate installation commands"
                     - "Install components"
                   command_template: "bunx --bun shadcn@latest add {component}"
-                "#organize-components":
+                "/organize-components":
                   description: "Organize components by Atomic Design"
                   workflow:
                     - "Analyze component complexity"
@@ -212,7 +212,7 @@ project_organization:
 
       frontend_development:
         epic_implementation:
-          "#implement-epic":
+          "/implement-epic":
             description: "Implement UI for epic (collection of user stories)"
             workflow:
               - "Analyze user stories in epic"
@@ -221,10 +221,10 @@ project_organization:
               - "Create page implementation"
             steps:
               - name: "Component Analysis"
-                command: "#generate-component-list"
+                command: "/generate-component-list"
                 output: "components.json"
               - name: "Component Installation"
-                command: "#install-components"
+                command: "/install-components"
                 input: "components.json"
               - name: "Page Implementation"
                 template: "page-view.tsx"
@@ -487,14 +487,14 @@ project_organization:
       operations_services:
         initialization:
           project_init:
-            command: "#init-context"
+            command: "/init-context"
             workflow:
                 - "Setup project context"
                 - "Initialize tracking"
                 - "Configure monitoring"
         maintenance:
           context_update:
-            command: "#update-context"
+            command: "/update-context"
             workflow:
                 - "Check for changes"
                 - "Update vector store"

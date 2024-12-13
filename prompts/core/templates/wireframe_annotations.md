@@ -286,7 +286,7 @@ end note
   "data": [
     ["Token", "Value", "Usage"],
     ["spacing-md", "16px", "Component padding"],
-    ["color-primary", "#007AFF", "Interactive elements"],
+    ["color-primary", "/007AFF", "Interactive elements"],
     ["text-body", "16px/1.5", "Body text"]
   ]
 }

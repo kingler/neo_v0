@@ -9,8 +9,8 @@ Guides the systematic generation of sprint user stories through a structured wor
    - Previous sprint stories
    - Implementation status report
    - Technology stack information
-2. Use command: "#generate-sprint-stories" to start or resume
-3. Use command: "#generate-sprint-stories-status" to check progress
+2. Use command: "/generate-sprint-stories" to start or resume
+3. Use command: "/generate-sprint-stories-status" to check progress
 
 ## Best suited for
 - Sprint planning sessions

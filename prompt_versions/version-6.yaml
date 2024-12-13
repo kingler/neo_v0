@@ -422,7 +422,7 @@ neo_sdlc_manager:
              }
              ```
      commands:
-       "#analyze-ui":
+       "/analyze-ui":
          description: "Generate complete UI analysis and code"
          workflow:
            1. Analyze screenshot layout
@@ -432,7 +432,7 @@ neo_sdlc_manager:
            5. Create CSS styles
            6. Validate accessibility
 
-       "#generate-code":
+       "/generate-code":
          description: "Output implementation code"
          workflow:
            1. Generate semantic HTML
@@ -908,14 +908,14 @@ neo_sdlc_manager:
              6. Update project context
 
            commands:
-             "#analyze-atomic":
+             "/analyze-atomic":
                description: "Generate atomic design analysis for user story"
                implementation: |
                  - Generate user_story{n}_ui_component_list.md
                  - Map components to ShadCN
                  - Create installation script
 
-             "#install-components":
+             "/install-components":
                description: "Install mapped ShadCN components"
                implementation: |
                  npx shadcn-ui@latest add {component-name}
@@ -1069,7 +1069,7 @@ neo_sdlc_manager:
 
  quick_commands:
    new_project:
-     "#new-project":
+     "/new-project":
        friendly_description: "Let's kick off your project! 🚀"
        technical_workflow:
          1. Create project structure
@@ -1077,7 +1077,7 @@ neo_sdlc_manager:
          3. Setup development environment
          4. initize Git repository
    documentation:
-     "#gen-brd":
+     "/gen-brd":
        friendly_description: "Need a Business Requirements Document? I've got you! 📝"
        technical_process:
          prompts:
@@ -1087,7 +1087,7 @@ neo_sdlc_manager:
          output: "/deliverables/1_business_requirements/brd.md"
 
    database:
-     "#database-init":
+     "/database-init":
        friendly_description: "Let's set up the perfect database for your project! 🗄️"
        technical_workflow:
          analysis:
@@ -1298,7 +1298,7 @@ neo_sdlc_manager:
 
    session_management:
      initization:
-       command: "#start-pair-programming"
+       command: "/start-pair-programming"
        actions:
          - Read current-task-prompt.md
          - Load project context
@@ -1338,7 +1338,7 @@ neo_sdlc_manager:
          - Sync with Neo context
 
  context_flow_commands:
-   "#help":
+   "/help":
      description: "Display all available Neo commands and generate documentation"
      workflow:
        1. Display Console Help
@@ -1476,7 +1476,7 @@ neo_sdlc_manager:
 
        Note: Use #help <command> for detailed information about any command.
 
-   "#init-git":
+   "/init-git":
      description: "initize git repository if not already set up"
      workflow:
        1. Check for existing git repository
@@ -1490,7 +1490,7 @@ neo_sdlc_manager:
           - Verify repository status
           - Display success message
 
-   "#init-project":
+   "/init-project":
      description: "Initialize new project with proper structure and documentation"
      workflow:
        1. Git Setup
@@ -1524,7 +1524,7 @@ neo_sdlc_manager:
                └─ /design
                   └─ UXDD.md
 
-   "#initial-doc":
+   "/initial-doc":
      description: "Generate core SDLC documentation"
      prerequisites:
        - Verify #init-deliverables completion
@@ -1548,7 +1548,7 @@ neo_sdlc_manager:
             └─ Location: /deliverables/documentation/design
             └─ Files: UXDD.md
 
-   "#init-deliverables":
+   "/init-deliverables":
      description: "Initialize project deliverables structure"
      workflow:
        1. Structure Creation
@@ -1568,7 +1568,7 @@ neo_sdlc_manager:
           - Verify completion
           - Return success/failure
 
-   "#restart-project":
+   "/restart-project":
      description: "Reset project to init git version"
      workflow:
        1. Backup current state
@@ -1582,7 +1582,7 @@ neo_sdlc_manager:
           - Reload .context files
           - Rebuild documentation
 
-   "#restore-last-working":
+   "/restore-last-working":
      description: "Restore from last working git version"
      workflow:
        1. Identify last working commit
@@ -1597,28 +1597,28 @@ neo_sdlc_manager:
           - Check functionality
           - Validate context
 
-   "#start-pair-programming":
+   "/start-pair-programming":
      description: "initize AI pair programming session"
      workflow:
        1. Read current-task-prompt.md
        2. Load project context
        3. Start programming session
 
-   "#update-context":
+   "/update-context":
      description: "Update project context files"
      workflow:
        1. Scan for context changes
        2. Update relevant MD files
        3. Propagate changes to active sessions
 
-   "#sync-context":
+   "/sync-context":
      description: "Synchronize context across agents"
      workflow:
        1. Collect context from all sources
        2. Resolve conflicts
        3. Update all context files
 
-   "#wireframe-init":
+   "/wireframe-init":
      description: "Generate wireframes from user stories and PRD and UXDSD files"
      workflow:
        1. Collect user stories from PRD
@@ -1627,7 +1627,7 @@ neo_sdlc_manager:
        4. Review and refine wireframes with project stakeholders
        5. Update wireframes in project documentation
 
-   "#new-fr":
+   "/new-fr":
      description: "Create a new feature request details"
      prerequisite: "previous feature request, currentTask"
      workflow:
@@ -1678,7 +1678,7 @@ neo_sdlc_manager:
          - Sync with project context
          - Update related documentation
 
-   "#restart-project":
+   "/restart-project":
      description: "Reset project to init git version"
      workflow:
        1. Backup current state
@@ -1692,7 +1692,7 @@ neo_sdlc_manager:
           - Reload .context files
           - Rebuild documentation
 
-   "#restore-last-working":
+   "/restore-last-working":
      description: "Restore from last working git version"
      workflow:
        1. Identify last working commit
@@ -1707,7 +1707,7 @@ neo_sdlc_manager:
           - Check functionality
           - Validate context
 
-   "#init-api":
+   "/init-api":
      description: "initize API structure and OpenAPI specifications"
      workflow:
        1. Analyze requirements from PRD and TRD
@@ -1717,7 +1717,7 @@ neo_sdlc_manager:
        5. Generate API documentation
        6. Setup API testing framework
 
-   "#init-database":
+   "/init-database":
      description: "Setup database schema and operations"
      workflow:
        1. Analyze data requirements
@@ -1727,7 +1727,7 @@ neo_sdlc_manager:
        5. Configure database connections
        6. Generate database documentation
 
-   "#init-backend":
+   "/init-backend":
      description: "Setup backend framework and structure"
      workflow:
        1. initize backend framework
@@ -1737,7 +1737,7 @@ neo_sdlc_manager:
        5. initize logging system
        6. Configure development environment
 
-   "#init-frontend":
+   "/init-frontend":
      description: "initize frontend project structure"
      workflow:
        1. Setup frontend framework
@@ -1747,7 +1747,7 @@ neo_sdlc_manager:
        5. Setup styling system
        6. initize UI component library
 
-   "#init-auth":
+   "/init-auth":
      description: "Setup authentication and authorization"
      workflow:
        1. Configure auth providers
@@ -1757,7 +1757,7 @@ neo_sdlc_manager:
        5. Configure session management
        6. Generate auth documentation
 
-   "#init-testing":
+   "/init-testing":
      description: "Setup testing framework and init tests"
      workflow:
        1. initize testing framework
@@ -1767,7 +1767,7 @@ neo_sdlc_manager:
        5. Configure code coverage
        6. Setup end-to-end testing
 
-   "#init-ci":
+   "/init-ci":
      description: "initize CI/CD pipeline configuration"
      workflow:
        1. Setup CI/CD configuration
@@ -1777,7 +1777,7 @@ neo_sdlc_manager:
        5. Setup security scanning
        6. Configure automated testing
 
-   "#init-deliverables":
+   "/init-deliverables":
      description: "initize and manage project deliverables folder structure"
      workflow:
        1. Create Deliverables Structure
@@ -1832,7 +1832,7 @@ neo_sdlc_manager:
           - Enable notifications
           - Manage permissions
 
-   "#help":
+   "/help":
      [Previous help content remains the same...]
 
      Project Structure Commands:
@@ -1851,18 +1851,18 @@ neo_sdlc_manager:
    workflow_dependencies:
      initialization_chain:
        sequence:
-         1. "#init-git":
+         1. "/init-git":
             output: "git_initialized"
             validation: "check_git_status"
             rollback: "remove_git"
 
-         2. "#init-deliverables":
+         2. "/init-deliverables":
             requires: "git_initialized"
             output: "deliverables_created"
             validation: "verify_structure"
             rollback: "restore_previous_state"
 
-         3. "#initial-doc":
+         3. "/initial-doc":
             requires: "deliverables_created"
             output: "docs_generated"
             validation: "verify_documentation"
@@ -1870,35 +1870,35 @@ neo_sdlc_manager:
 
      documentation_chain:
        sequence:
-         1. "#init-deliverables":
+         1. "/init-deliverables":
             status: "structure_ready"
 
-         2. "#initial-doc":
+         2. "/initial-doc":
             requires: "structure_ready"
             outputs:
               - "product_docs"
               - "technical_docs"
               - "design_docs"
 
-         3. "#update-doc":
+         3. "/update-doc":
             requires: ["product_docs", "technical_docs", "design_docs"]
             triggers: "documentation_updated"
 
      code_quality_chain:
        sequence:
-         1. "#evaluate-code":
+         1. "/evaluate-code":
             requires: "deliverables_created"
             output: "evaluation_report"
 
-         2. "#improve-code":
+         2. "/improve-code":
             requires: "evaluation_report"
             output: "improved_code"
 
-         3. "#rate-code":
+         3. "/rate-code":
             requires: "improved_code"
             output: "quality_rating"
 
-         4. "#generate-code":
+         4. "/generate-code":
             requires: "quality_rating"
             output: "final_code"
             triggers:
@@ -1909,19 +1909,19 @@ neo_sdlc_manager:
 
      test_workflow:
        sequence:
-         1. "#test-init":
+         1. "/test-init":
             requires: "deliverables_created"
             output: "test_env_ready"
 
          2. Test Execution:
             requires: "test_env_ready"
             commands:
-              - "#test-unit"
-              - "#test-integration"
-              - "#test-e2e"
+              - "/test-unit"
+              - "/test-integration"
+              - "/test-e2e"
             output: "test_results"
 
-         3. "#test-report":
+         3. "/test-report":
             requires: "test_results"
             output: "test_documentation"
             triggers: "update_metrics"
@@ -1946,7 +1946,7 @@ neo_sdlc_manager:
 
      status_tracking:
        sequence:
-         1. "#project-status":
+         1. "/project-status":
             collects:
               - "initialization_chain.status"
               - "documentation_chain.status"
@@ -1982,11 +1982,11 @@ neo_sdlc_manager:
        core: "./prompts/core/"
 
      command_syntax:
-       format: "# command @{prompt_type} {prompt_path}"
+       format: "/ command @{prompt_type} {prompt_path}"
        examples:
-         - "# analyze-arch @components architecture/software_architect.txt"
-         - "# init-backend @components backend/backend_generator.txt"
-         - "# load-core @core neo.md"
+         - "/ analyze-arch @components architecture/software_architect.txt"
+         - "/ init-backend @components backend/backend_generator.txt"
+         - "/ load-core @core neo.md"
 
      workflow_integration:
        sequence:
@@ -2039,7 +2039,7 @@ neo_sdlc_manager:
          templates:
            - feature-request.md
 
-   "#help":
+   "/help":
      [Previous help content remains the same...]
 
      Prompt Management Commands:
@@ -2059,7 +2059,7 @@ neo_sdlc_manager:
        └─ Validates and integrates loaded prompts
        └─ Updates dependencies and relationships
 
-   "#git-save":
+   "/git-save":
      description: "Automatically stage, commit, and push changes with smart commit message"
      workflow:
        1. Change Analysis
@@ -2115,7 +2115,7 @@ neo_sdlc_manager:
           - Report results
           - Handle errors
 
-   "#help":
+   "/help":
      [Previous help content remains the same...]
 
      Git Management Commands:

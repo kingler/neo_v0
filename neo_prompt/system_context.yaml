@@ -4,7 +4,7 @@ system_context:
   command_flow:
     registry:
       help_command:
-        name: "#help"
+        name: "/help"
         description: "Display available commands and documentation"
         workflow:
           - "Load command registry"
@@ -13,7 +13,7 @@ system_context:
           - "Create help documentation"
       
       feature_request_command:
-        name: "#new-fr"
+        name: "/new-fr"
         description: "Create new feature request"
         prerequisites:
           - "Previous feature request context"
@@ -25,7 +25,7 @@ system_context:
           - "Create documentation"
       
       deliverables_command:
-        name: "#init-deliverables"
+        name: "/init-deliverables"
         description: "Initialize project deliverables structure"
         workflow:
           - "Create directory structure"
@@ -66,14 +66,14 @@ system_context:
   workflow_contexts:
     planning_workflow:
       requirements:
-        command: "#requirements-init"
+        command: "/requirements-init"
         workflow:
           - "Load requirements context"
           - "Update specifications"
           - "Generate documentation"
       
       architecture:
-        command: "#arch-init"
+        command: "/arch-init"
         workflow:
           - "Load architecture context"
           - "Update system design"
@@ -81,14 +81,14 @@ system_context:
     
     development_workflow:
       implementation:
-        command: "#dev-init"
+        command: "/dev-init"
         workflow:
           - "Load development context"
           - "Update codebase"
           - "Generate documentation"
       
       testing:
-        command: "#test-init"
+        command: "/test-init"
         workflow:
           - "Load testing context"
           - "Update test suite"
@@ -98,7 +98,7 @@ system_context:
   operations_management:
     initialization:
       project_init:
-        command: "#init-context"
+        command: "/init-context"
         workflow:
           - "Create context structure"
           - "Initialize vector store"
@@ -106,7 +106,7 @@ system_context:
           - "Configure access"
       
       agent_init:
-        command: "#init-agent-context"
+        command: "/init-agent-context"
         workflow:
           - "Load agent profiles"
           - "Initialize workspaces"
@@ -115,7 +115,7 @@ system_context:
 
     maintenance:
       context_update:
-        command: "#update-context"
+        command: "/update-context"
         workflow:
           - "Check for changes"
           - "Update vector store"
@@ -123,7 +123,7 @@ system_context:
           - "Update documentation"
       
       context_cleanup:
-        command: "#cleanup-context"
+        command: "/cleanup-context"
         workflow:
           - "Archive old context"
           - "Optimize storage"
@@ -234,20 +234,20 @@ system_context:
 
       command_mappings:
         self_prompt_commands:
-          - "#new-fr"          # Feature requests require context
-          - "#requirements-init"  # Requirements analysis
-          - "#arch-init"       # Architecture planning
-          - "#design-system"   # Design system generation
-          - "#analyze-code"    # Code analysis
-          - "#gen-docs"        # Documentation generation
+          - "/new-fr"          # Feature requests require context
+          - "/requirements-init"  # Requirements analysis
+          - "/arch-init"       # Architecture planning
+          - "/design-system"   # Design system generation
+          - "/analyze-code"    # Code analysis
+          - "/gen-docs"        # Documentation generation
         
         terminal_commands:
-          - "#init-git"        # Git operations
-          - "#commit"          # Git operations
-          - "#install-deps"    # Package installation
-          - "#build"           # Project building
-          - "#test"           # Running tests
-          - "#deploy"         # Deployment operations
+          - "/init-git"        # Git operations
+          - "/commit"          # Git operations
+          - "/install-deps"    # Package installation
+          - "/build"           # Project building
+          - "/test"           # Running tests
+          - "/deploy"         # Deployment operations
 
       execution_context:
         validation:

@@ -43,7 +43,7 @@ context_management:
   workflow_contexts:
     planning_workflow:
       requirements:
-        command: "#requirements-init"
+        command: "/requirements-init"
         workflow:
           - "Generate code knowledge graph"
           - "Load requirements context"
@@ -51,7 +51,7 @@ context_management:
           - "Generate documentation"
       
       architecture:
-        command: "#arch-init"
+        command: "/arch-init"
         workflow:
           - "Generate code knowledge graph"
           - "Load architecture context"
@@ -60,7 +60,7 @@ context_management:
     
     development_workflow:
       implementation:
-        command: "#dev-init"
+        command: "/dev-init"
         workflow:
           - "Generate code knowledge graph"
           - "Load development context"
@@ -68,7 +68,7 @@ context_management:
           - "Generate documentation"
       
       testing:
-        command: "#test-init"
+        command: "/test-init"
         workflow:
           - "Generate code knowledge graph"
           - "Load testing context"
@@ -77,7 +77,7 @@ context_management:
 
     feature_workflow:
       initialization:
-        command: "#feature-init"
+        command: "/feature-init"
         workflow:
           - "Generate code knowledge graph"
           - "Create feature branch"
@@ -86,7 +86,7 @@ context_management:
           - "Setup documentation"
       
       development:
-        command: "#feature-dev"
+        command: "/feature-dev"
         workflow:
           - "Generate code knowledge graph"
           - "Implement functionality"
@@ -98,7 +98,7 @@ context_management:
   operations_management:
     workflow_initialization:
       project_init:
-        command: "#init-context"
+        command: "/init-context"
         workflow:
           - "Create context structure"
           - "Initialize vector store"
@@ -107,7 +107,7 @@ context_management:
           - "Configure access"
       
       code_knowledge_graph:
-        command: "#generate-knowledge-graph"
+        command: "/generate-knowledge-graph"
         workflow:
           - "Analyze project structure"
           - "Generate dependency graph"
@@ -123,7 +123,7 @@ context_management:
             - "Notify dependent workflows"
       
       workflow_init:
-        command: "#init-workflow"
+        command: "/init-workflow"
         workflow:
           - "Generate code knowledge graph"
           - "Load workflow templates"
@@ -133,7 +133,7 @@ context_management:
 
     workflow_maintenance:
       context_update:
-        command: "#update-workflow"
+        command: "/update-workflow"
         workflow:
           - "Generate code knowledge graph"
           - "Check for changes"
@@ -142,7 +142,7 @@ context_management:
           - "Update documentation"
       
       context_cleanup:
-        command: "#cleanup-workflow"
+        command: "/cleanup-workflow"
         workflow:
           - "Archive old workflows"
           - "Optimize storage"
