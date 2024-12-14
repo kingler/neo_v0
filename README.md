@@ -294,6 +294,103 @@ Neo provides a comprehensive template system that includes:
 
 All templates are automatically integrated with relevant workflow chains and kept in sync with the project context.
 
+## Component Organization (Atomic Design)
+
+Neo follows the Atomic Design methodology for organizing UI components, providing a scalable and maintainable component architecture:
+
+### 1. Atoms (`src/components/atoms/`)
+Fundamental building blocks of the interface:
+- `Button`: Core button component
+- `Icon`: Icon system
+- `Color`: Color token component
+- `CopyButton`: Copy functionality
+- `ThemeSwitcher`: Theme toggle
+- `ModeSwitcher`: Mode selection
+- `Callout`: Alert/notification element
+
+### 2. Molecules (`src/components/molecules/`)
+Simple combinations of atoms:
+- `ColorPalette`: Color selection interface
+- `ColorFormatSelector`: Format switching
+- `CommandMenu`: Command interface
+- `ComponentCard`: Component display
+- `ComponentSource`: Source code viewer
+- `ThemeCustomizer`: Theme configuration
+- `BlockImage`: Image block component
+
+### 3. Organisms (`src/components/organisms/`)
+Complex UI components:
+- `SiteHeader`: Main header
+- `SiteFooter`: Main footer
+- `MainNav`: Primary navigation
+- `MobileNav`: Mobile navigation
+- `DocsNav`: Documentation nav
+- `ComponentPreview`: Component demos
+- `BlockViewer`: Block visualization
+- `ChartDisplay`: Data visualization
+
+### 4. Templates (`src/components/templates/`)
+Page-level layouts:
+```
+DocsLayout/
+├── index.tsx
+├── Sidebar.tsx
+├── Content.tsx
+└── Navigation.tsx
+
+ComponentLayout/
+├── index.tsx
+├── Preview.tsx
+├── Documentation.tsx
+└── Examples.tsx
+
+DashboardLayout/
+├── index.tsx
+├── Header.tsx
+├── Sidebar.tsx
+└── MainContent.tsx
+```
+
+### 5. Pages (`src/components/pages/`)
+Complete application screens:
+```
+Home/
+├── index.tsx
+├── Hero.tsx
+├── Features.tsx
+└── Examples.tsx
+
+Documentation/
+├── index.tsx
+├── ComponentsSection.tsx
+└── GuidesSection.tsx
+
+Components/
+├── index.tsx
+├── ComponentGrid.tsx
+└── ComponentDetails.tsx
+```
+
+### Usage
+Components are imported following the Atomic Design hierarchy:
+```typescript
+// Importing atoms
+import { Button } from '@/components/atoms/Button';
+import { Icon } from '@/components/atoms/Icon';
+
+// Composing molecules
+import { CommandMenu } from '@/components/molecules/CommandMenu';
+
+// Using organisms
+import { SiteHeader } from '@/components/organisms/SiteHeader';
+
+// Applying templates
+import { DocsLayout } from '@/components/templates/DocsLayout';
+
+// Building pages
+import { Home } from '@/components/pages/Home';
+```
+
 ## Security Features
 
 ### API Key Management

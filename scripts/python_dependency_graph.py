@@ -27,7 +27,8 @@ class PythonCodeKnowledgeGraph:
         self.dirs_processed = 0
 
         # Directories to ignore during analysis.
-        self.ignored_directories = set([
+        self.ignored_directories = set ([
+            
             '__pycache__', 'venv', 'env', '.env', '.git', '.idea', '.vscode', 'build', 'dist',
             '.eggs', '.pytest_cache', '.mypy_cache', '.tox', '.cache', '.coverage', 'node_modules',
             'tests', 'docs', 'examples', 'data', 'migrations', 'scripts', 'static', 'media', 'logs',
@@ -486,82 +487,51 @@ class PythonCodeKnowledgeGraph:
             json.dump({"graph": data, "metadata": metadata}, f, indent=2)
 
     def visualize_graph(self):
-        """Visualize the knowledge graph."""
+        """Visualize the knowledge graph using React Flow."""
         try:
-            import matplotlib.pyplot as plt
+            import json
+            import subprocess
+            import webbrowser
+            from tempfile import NamedTemporaryFile
 
-            # Create color map for different node types
-            color_map = {
-                "file": "#ADD8E6",       # Light blue
-                "class": "#90EE90",      # Light green
-                "function": "#FFE5B4",   # Peach
-                "method": "#FFDAB9",     # Light peach
-                "module": "#E6E6FA",     # Lavender
-                "entity": "#FFD700",     # Gold
-                "dependency_file": "#C0C0C0",  # Silver
-                "dependency": "#8A2BE2",  # Blue Violet
-                "decorator": "#FFB6C1",  # Light pink
+            # Convert graph data to format expected by visualizer
+            graph_data = {
+                'nodes': [
+                    {
+                        'id': node,
+                        'type': self.graph.nodes[node].get('type', 'unknown'),
+                        'name': node.split(': ')[-1]
+                    }
+                    for node in self.graph.nodes()
+                ],
+                'edges': [
+                    {
+                        'source': edge[0],
+                        'target': edge[1],
+                        'relation': self.graph.edges[edge].get('relation', '')
+                    }
+                    for edge in self.graph.edges()
+                ]
             }
 
-            # Set node colors
-            node_colors = [
-                color_map.get(self.graph.nodes[node].get("type", "file"), "lightgray")
-                for node in self.graph.nodes()
-            ]
+            # Save graph data to temporary file
+            with NamedTemporaryFile(mode='w', suffix='.json', delete=False) as f:
+                json.dump(graph_data, f)
+                temp_file = f.name
 
-            # Create figure and axis explicitly
-            fig, ax = plt.subplots(figsize=(20, 15))
+            # Start visualization server
+            print("\nStarting visualization server...")
+            subprocess.Popen(['node', 'scripts/visualize_graph.js', temp_file])
 
-            # Calculate layout
-            pos = nx.spring_layout(self.graph, k=1.5, iterations=50)
+            # Open browser
+            webbrowser.open('http://localhost:3000')
+            
+            print("Visualization server started. Opening browser...")
+            print("Press Ctrl+C to stop the server when done.")
 
-            # Draw the graph
-            nx.draw(
-                self.graph,
-                pos,
-                ax=ax,
-                with_labels=True,
-                node_color=node_colors,
-                node_size=2000,
-                font_size=8,
-                font_weight="bold",
-                arrows=True,
-                edge_color="gray",
-                arrowsize=20,
-            )
-
-            # Add legend
-            legend_elements = [
-                plt.Line2D(
-                    [0], [0],
-                    marker='o',
-                    color='w',
-                    markerfacecolor=color,
-                    label=node_type,
-                    markersize=10
-                )
-                for node_type, color in color_map.items()
-            ]
-
-            # Place legend outside the plot
-            ax.legend(
-                handles=legend_elements,
-                loc='center left',
-                bbox_to_anchor=(1.05, 0.5),
-                title="Node Types"
-            )
-
-            # Set title
-            ax.set_title("Python Code Knowledge Graph Visualization", pad=20)
-
-            # Adjust layout to accommodate legend
-            plt.subplots_adjust(right=0.85)
-
-            # Show plot
-            plt.show()
-
-        except ImportError:
-            print("Matplotlib is required for visualization. Install it using 'pip install matplotlib'.")
+        except Exception as e:
+            print(f"Error starting visualization: {str(e)}")
+            print("Please ensure you have Node.js installed and have run 'npm install'")
 
 
 if __name__ == "__main__":

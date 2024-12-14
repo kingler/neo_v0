@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SDLC_Orchestration>
+    <!-- Init Existing Project Workflow -->
+    <init_existing_project>
+        <description>Initialize and integrate an existing project into SDLC orchestration</description>
+        <steps>
+            <knowledge_graph>
+                <description>Generate project knowledge graph</description>
+                <command>/generate_knowledge_graph</command>
+                <args>
+                    <arg>--input=./existing_project</arg>
+                    <arg>--output=.context/knowledge_graph.json</arg>
+                </args>
+                <validation>
+                    <check>Check graph completeness</check>
+                    <check>Verify node connections</check>
+                </validation>
+            </knowledge_graph>
+
+            <context_initialization>
+                <description>Initialize project context</description>
+                <commands>
+                    <command>/init_context</command>
+                    <command>/load_project_state</command>
+                </commands>
+                <outputs>
+                    <output>.context/project_state.json</output>
+                    <output>.context/documentation_index.json</output>
+                </outputs>
+            </context_initialization>
+
+            <codebase_analysis>
+                <description>Analyze existing codebase</description>
+                <commands>
+                    <command>/analyze_code --depth=full</command>
+                    <command>/evaluate_code --mode=audit</command>
+                </commands>
+                <scans>
+                    <scan>
+                        <type>Static Analysis</type>
+                        <tool>ESLint</tool>
+                    </scan>
+                    <scan>
+                        <type>Dependencies</type>
+                        <tool>npm audit</tool>
+                    </scan>
+                    <scan>
+                        <type>Test Coverage</type>
+                        <tool>Jest --coverage</tool>
+                    </scan>
+                </scans>
+            </codebase_analysis>
+
+            <ui_assessment>
+                <description>Assess UI/UX state</description>
+                <commands>
+                    <command>/capture_screenshots</command>
+                    <command>/compare_design_system</command>
+                </commands>
+                <artifacts>
+                    <artifact>ui_audit/</artifact>
+                    <artifact>component_inventory.json</artifact>
+                </artifacts>
+            </ui_assessment>
+
+            <documentation_audit>
+                <description>Audit existing documentation</description>
+                <scan_directories>
+                    <directory>docs/</directory>
+                    <directory>README.md</directory>
+                    <directory>API.md</directory>
+                </scan_directories>
+                <mapping>
+                    <map>
+                        <source>existing_docs/</source>
+                        <target>deliverables/</target>
+                        <template>templates/doc_migration.md</template>
+                    </map>
+                </mapping>
+            </documentation_audit>
+
+            <gap_analysis>
+                <description>Generate gap analysis report</description>
+                <command>/generate_audit_report</command>
+                <args>
+                    <arg>--include=all</arg>
+                    <arg>--output=deliverables/reports/audit_report.md</arg>
+                </args>
+                <sections>
+                    <section>Project Overview</section>
+                    <section>Codebase Assessment</section>
+                    <section>Documentation Status</section>
+                    <section>Test Coverage</section>
+                    <section>UI/UX Alignment</section>
+                    <section>Security Review</section>
+                    <section>Performance Metrics</section>
+                    <section>Recommendations</section>
+                </sections>
+            </gap_analysis>
+
+            <integration_planning>
+                <description>Plan project integration</description>
+                <outputs>
+                    <output>
+                        <type>Integration Plan</type>
+                        <template>templates/onboarding/integration_plan.md</template>
+                        <sections>
+                            <section>Timeline</section>
+                            <section>Resource Requirements</section>
+                            <section>Risk Assessment</section>
+                            <section>Migration Steps</section>
+                        </sections>
+                    </output>
+                    <output>
+                        <type>Checklist</type>
+                        <template>templates/onboarding/migration_checklist.md</template>
+                        <items>
+                            <item>Documentation Migration</item>
+                            <item>Code Standards Alignment</item>
+                            <item>Test Coverage Improvement</item>
+                            <item>UI/UX Standardization</item>
+                            <item>Security Compliance</item>
+                        </items>
+                    </output>
+                </outputs>
+            </integration_planning>
+
+            <post_actions>
+                <action>
+                    <command>/process_audit_findings</command>
+                    <args>
+                        <arg>--input=deliverables/reports/audit_report.md</arg>
+                        <arg>--output=deliverables/reports/updated_backlog_report.md</arg>
+                    </args>
+                </action>
+            </post_actions>
+        </steps>
+    </init_existing_project>
+</SDLC_Orchestration> 

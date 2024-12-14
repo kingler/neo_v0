@@ -221,6 +221,39 @@ class ReactCodeKnowledgeGraph {
         );
         console.log(`\nKnowledge graph saved to ${outputPath}`);
     }
+
+    async visualizeGraph() {
+        try {
+            const DependencyGraphVisualizer = require('./visualize_graph');
+            const express = require('express');
+            const app = express();
+            const port = 3000;
+
+            // Convert graph data to format expected by visualizer
+            const graphData = {
+                nodes: Array.from(this.graph.nodes.values()),
+                edges: Array.from(this.graph.edges.values())
+            };
+
+            // Serve static files
+            app.use(express.static('dist'));
+
+            // Serve graph data
+            app.get('/data', (req, res) => {
+                res.json(graphData);
+            });
+
+            // Start server
+            app.listen(port, () => {
+                console.log(`\nVisualization server running at http://localhost:${port}`);
+                console.log("Press Ctrl+C to stop the server when done.");
+            });
+
+        } catch (error) {
+            console.error('Error starting visualization:', error.message);
+            console.log("Please ensure you have run 'npm install' and 'npm run build'");
+        }
+    }
 }
 
 module.exports = ReactCodeKnowledgeGraph;

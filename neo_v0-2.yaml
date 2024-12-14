@@ -21,7 +21,7 @@ SDLC_Orchestration:
 
         **Top-Level Chain-Flows:**
         - /init_project : Initialize a new project environment.
-        - /init_existing_project : Onboard an existingng codebase into the SDLC pipeline (replaces /onboard_existing_project).
+        - /init_existing_project : Onboard an existing codebase into the SDLC pipeline (replaces /onboard_existing_project).
         - /init_requirement_docs : Setup initial requirements documentation.
         - /init_design_docs : Setup design phase documentation.
         - /init_dev_docs : Setup development phase documentation.
@@ -161,34 +161,162 @@ SDLC_Orchestration:
 
             generate_knowledge_graph:
               description: "Generate initial knowledge graph"
-              command: "/generate_knowledge_graph"
+              command: "/init_knowledge_graph"
+              setup_steps:
+                - name: "Install Dependencies"
+                  command: "npm install"
+                  description: "Install required npm packages for visualization"
+                
+                - name: "Build Visualization"
+                  command: "npm run build"
+                  description: "Build the React Flow visualization bundle"
+
               # Depending on project type:
               cli_choices:
-                - "python scripts/python_dependency_graph.py"
-                - "node scripts/react_dependency_graph.js"
-                - "node scripts/vue_dependency_graph.js"
+                - name: "Python Project"
+                  commands:
+                    - "pip install networkx matplotlib toml"  # Install Python dependencies
+                    - "python scripts/python_dependency_graph.py"
+                
+                - name: "React Project"
+                  commands:
+                    - "npm install @babel/parser @babel/traverse glob"  # Install specific React dependencies
+                    - "node scripts/react_dependency_graph.js"
+                
+                - name: "Vue Project"
+                  commands:
+                    - "npm install @babel/parser @babel/traverse glob @vue/compiler-sfc"  # Install specific Vue dependencies
+                    - "node scripts/vue_dependency_graph.js"
+              
               input: "Project codebase"
-              output: "initial-knowledge-graph.json"
+              output_directory: .context/
+              output_file: ".context/initial-knowledge-graph.json"
+              
+              validation:
+                - "Check if dependencies are installed correctly"
+                - "Verify visualization bundle is built"
+                - "Ensure graph generation completes successfully"
+                - "Validate output file structure"
+
+              error_handling:
+                - condition: "npm install fails"
+                  action: "Retry with --force flag"
+                
+                - condition: "build fails"
+                  action: "Clear cache and rebuild"
+                
+                - condition: "graph generation fails"
+                  action: "Check logs and retry with debug mode"
+
+              post_actions:
+                - "Clean up temporary files"
+                - "Update context index"
+                - "Generate visualization"
 
             setup_context:
-              description: "Setup context management"
-              command: "/setup_context"
-              output: ".context/"
+              description: "Initialize and setup CCS (Codebase Context Specification)"
+              command: "/init_context"  # Changed from /setup_context to use single command
+              steps:
+                - name: "Create Directory Structure"
+                  action: "create_directories"
+                  paths:
+                    - ".context/"
+                    - ".context/diagrams/"
+                    - ".context/images/"
+                    - ".context/docs/"
+                    - ".context/knowledge_graph/"
 
-            configure_env:
-              description: "Configure development environment"
-              command: "/configure-env"
-              # Terminal command to set up .env and .env.example:
-              args:
-                - "touch .env .env.example && chmod 600 .env && echo '# Supabase Configuration\nSUPABASE_URL=your_supabase_project_url\nSUPABASE_ANON_KEY=your_supabase_anon_key\nSUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key\n\n# Anthropic API Configuration\nANTHROPIC_API_KEY=your_anthropic_api_key\n\n# OpenAI API Configuration\nOPENAI_API_KEY=your_openai_api_key\n\n# Environment Configuration\nNODE_ENV=development' > .env && echo '# Supabase Configuration\nSUPABASE_URL=\nSUPABASE_ANON_KEY=\nSUPABASE_SERVICE_ROLE_KEY=\n\n# Anthropic API Configuration\nANTHROPIC_API_KEY=\n\n# OpenAI API Configuration\nOPENAI_API_KEY=\n\n# Environment Configuration\nNODE_ENV=development' > .env.example && echo '# Environment Variables\n.env\n.env.local\n.env.*.local\n\n# Keep example file\n!.env.example' > .gitignore"
-              output: ".env"
+                - name: "Initialize Core Files"
+                  action: "create_files"
+                  templates:
+                    index_md:
+                      path: ".context/index.md"
+                      content_template: |
+                        ---
+                        module-name: "${project_name}"
+                        description: "${project_description}"
+                        technologies: []
+                        related-modules: []
+                        permissions: "read-write"
+                        version: "1.0.0"
+                        ---
 
-            init_version_control:
-              description: "Initialize version control"
-              command: "/init-version-control"
-              args:
-                - "git init && git add . && git commit -m 'initial commit' && git push"
-              output: ".git/"
+                        # ${project_name}
+
+                        ## Module Overview
+
+                        ## Architecture
+
+                        ## Domain Logic
+
+                        ## Integration Points
+
+                        ## Configuration
+
+                    docs_md:
+                      path: ".context/docs.md"
+                      content_template: |
+                        # Extended Documentation
+
+                        ## Tutorials
+
+                        ## Domain-Specific Guidance
+
+                - name: "Initialize .contextignore"
+                  action: "create_file"
+                  path: ".contextignore"
+                  content: |
+                    # Build outputs
+                    dist/
+                    build/
+
+                    # Dependencies
+                    node_modules/
+
+                    # Test artifacts
+                    **/__snapshots__/
+                    *.test.js.snap
+
+                    # Temporary files
+                    *.tmp
+                    *.log
+
+                - name: "Link Knowledge Graph"
+                  action: "link_files"
+                  links:
+                    - source: ".context/initial-knowledge-graph.json"
+                      target: ".context/knowledge_graph/current.json"
+
+                - name: "Update Context Index"
+                  action: "update_index"
+                  file: ".context/documentation_index.json"
+                  entries:
+                    - "index.md"
+                    - "docs.md"
+                    - "knowledge_graph/current.json"
+
+              validation:
+                - "Verify directory structure"
+                - "Check file contents and front matter"
+                - "Validate knowledge graph integration"
+                - "Ensure all templates are properly initialized"
+
+              error_handling:
+                - condition: "directory creation fails"
+                  action: "Check permissions and retry"
+                
+                - condition: "template generation fails"
+                  action: "Verify template variables and retry"
+                
+                - condition: "knowledge graph linking fails"
+                  action: "Check file paths and regenerate if needed"
+
+              output:
+                - ".context/"
+                - ".context/index.md"
+                - ".context/docs.md"
+                - ".contextignore"
+                - ".context/documentation_index.json"
 
         # Existing Project Onboarding Workflow
         "/init_existing_project":
@@ -1761,6 +1889,8 @@ SDLC_Orchestration:
                   - ".context/"
                   - ".context/diagrams/"
                   - ".context/images/"
+                  - ".context/docs/"
+                  - ".context/knowledge_graph/"
 
               - name: "Initialize Core Files"
                 action: "create_files"
@@ -1817,226 +1947,1402 @@ SDLC_Orchestration:
                   *.tmp
                   *.log
 
-          indexing:
-            command: "/index_context"
-            steps:
-              - name: "Parse Context Files"
-                action: "parse_markdown"
-                targets:
-                  - ".context/**/*.md"
-                exclude:
-                  - file: ".contextignore"
-                parser_config:
-                  extract_front_matter: true
-                  parse_mermaid: true
-                  process_links: true
+              - name: "Link Knowledge Graph"
+                action: "link_files"
+                links:
+                  - source: ".context/initial-knowledge-graph.json"
+                    target: ".context/knowledge_graph/current.json"
 
-              - name: "Generate Embeddings"
-                action: "create_embeddings"
-                config:
-                  model: "text-embedding-ada-002"
-                  dimensions: 1536
-                  batch_size: 100
+              - name: "Update Context Index"
+                action: "update_index"
+                file: ".context/documentation_index.json"
+                entries:
+                  - "index.md"
+                  - "docs.md"
+                  - "knowledge_graph/current.json"
 
-              - name: "Index Context"
-                action: "index_context"
-                metadata:
-                  - "module_name"
-                  - "technologies"
-                  - "permissions"
-                  - "version"
+              validation:
+                - "Verify directory structure"
+                - "Check file contents and front matter"
+                - "Validate knowledge graph integration"
+                - "Ensure all templates are properly initialized"
 
-          module_management:
-            command: "/manage_modules"
-            operations:
-              create_module:
-                description: "Create new module context"
-                steps:
-                  - "Create module .context directory"
-                  - "Initialize module index.md"
-                  - "Update root index.md references"
+              error_handling:
+                - condition: "directory creation fails"
+                  action: "Check permissions and retry"
+                
+                - condition: "template generation fails"
+                  action: "Verify template variables and retry"
+                
+                - condition: "knowledge graph linking fails"
+                  action: "Check file paths and regenerate if needed"
 
-              link_module:
-                description: "Link external module context"
-                steps:
-                  - "Validate external reference"
-                  - "Add to related-modules in front matter"
-                  - "Update context index"
-
-          visualization:
-            command: "/visualize_context"
-            generators:
-              - name: "Architecture Diagram"
-                type: "mermaid"
-                source: "diagrams/architecture.md"
-                output: "diagrams/architecture.svg"
-
-              - name: "Module Hierarchy"
-                type: "mermaid"
-                source: "diagrams/modules.md"
-                output: "diagrams/modules.svg"
+              output:
+                - ".context/"
+                - ".context/index.md"
+                - ".context/docs.md"
+                - ".contextignore"
+                - ".context/documentation_index.json"
 
           validation:
-            command: "/validate_context"
-            checks:
-              - "Verify required files exist"
-              - "Validate YAML front matter"
-              - "Check link integrity"
-              - "Validate module references"
-              - "Verify diagram syntax"
+            - "Verify directory structure"
+            - "Check file contents and front matter"
+            - "Validate knowledge graph integration"
+            - "Ensure all templates are properly initialized"
 
-          integration:
-            vector_db:
-              - name: "Index Context in Vector DB"
-                description: "Add context content to vector database"
-                steps:
-                  - "Extract content from .context directory"
-                  - "Generate embeddings"
-                  - "Store in vector DB with metadata"
+          error_handling:
+            - condition: "directory creation fails"
+              action: "Check permissions and retry"
+            
+            - condition: "template generation fails"
+              action: "Verify template variables and retry"
+            
+            - condition: "knowledge graph linking fails"
+              action: "Check file paths and regenerate if needed"
 
-              - name: "Context Queries"
-                description: "Query patterns for context retrieval"
-                examples:
-                  - "Find related modules"
-                  - "Search architecture patterns"
-                  - "Locate domain concepts"
+          output:
+            - ".context/"
+            - ".context/index.md"
+            - ".context/docs.md"
+            - ".contextignore"
+            - ".context/documentation_index.json"
 
-            knowledge_graph:
-              - name: "Build Context Graph"
-                description: "Create graph representation of context"
-                nodes:
-                  - "Modules"
-                  - "Technologies"
-                  - "Integration points"
-                edges:
-                  - "Dependencies"
-                  - "Relationships"
-                  - "Data flow"
+  # Define the document management phase
+  document_management:
+    # Directories - cline_docs, 
+    directories:
+      cline_docs: "cline_docs/"
+      internal_docs:
+        - name: "project_roadmap.md"
+          purpose: "Track high-level goals, progress, and milestones"
+        - name: "current_task.md"
+          purpose: "Record current objectives and context"
+        - name: "tech_stack.md"
+          purpose: "Document chosen technologies and frameworks"
+        - name: "codebase_summary.md"
+          purpose: "Overview of project structure, data flow, dependencies"
+      deliverables:
+        structure:
+          requirements:
+            - "BRD.md"      # Business Requirements Document
+            - "PRD.md"      # Product Requirements Document
+            - "FRD.md"      # Feature Requirements Document
+            - "DBRD.md"     # Database Requirements Document
+            - "SRS.md"      # Software Requirements Specification
+          design:
+            core:
+              - "UXDD.md"     # UX Design Document
+            architecture:
+              - "system_architecture.md"
+              - "deployment_architecture.md"
+            ui_design:
+              - "design_system.md"
+              - "style_guide.md"
+            component_library:
+              - "components.md"
+              - "patterns.md"
+          development:
+            - "API_specs/"
+            - "database_specs/"
+            - "security_specs/"
 
-      prompt_processing:
-        description: "Prompt improvement and compression pipeline"
-        version: "1.0.0"
-        
-        pipeline:
-          command: "/process_prompt"
-          steps:
-            - name: "Meta-Prompt Enhancement"
-              description: "Enhance user input using meta-prompt template"
-              action: "enhance_prompt"
-              input:
-                - type: "user_input"
-                  description: "Original user query or request"
-                - type: "template"
-                  source: "prompts/meta-prompt.txt"
-                  description: "Meta-prompt template for enhancement"
-              output:
-                type: "enhanced_prompt"
-                format: "text"
+    # Add project onboarding functionality
+    project_onboarding:
+      commands:
+        "/onboard_existing_project":
+          description: "Onboard existing project into SDLC orchestration"
+          workflow:
+            discovery:
+              - "Scan existing codebase structure"
+              - "Identify existing documentation"
+              - "Map current test coverage"
+              - "Analyze deployment setup"
+            normalization:
+              - "Align with standard directory structure"
+              - "Convert docs to template format"
+              - "Standardize naming conventions"
+            validation:
+              - "Run config validation"
+              - "Check documentation completeness"
+              - "Verify test coverage"
+            integration:
+              - "Link to workflow phases"
+              - "Setup CI/CD pipelines"
+              - "Configure monitoring"
+          outputs:
+            - type: "Gap Analysis Report"
+              template: "templates/onboarding/gap_analysis.md"
+            - type: "Integration Plan"
+              template: "templates/onboarding/integration_plan.md"
+            - type: "Migration Checklist"
+              template: "templates/onboarding/migration_checklist.md"
+
+
+
+      matrix:
+        template: "templates/traceability/matrix_template.md"
+        links:
+          - from: "deliverables/product/FRD.md"
+            to: 
+              - "tests/results/"
+              - "tests/performance/"
+          - from: "deliverables/design/UXDD.md"
+            to:
+              - "deliverables/product/PRD.md"
+              - "deliverables/product/FRD.md"
+
+
+    security_compliance:
+      standards:
+        - name: "OWASP Top 10"
+          validation_chain: "chains/security/owasp_validation_chain.md"
+        - name: "GDPR"
+          validation_chain: "chains/security/gdpr_validation_chain.md"
+      checks:
+        - "Security vulnerability scanning"
+        - "Dependency vulnerability checks"
+        - "Code security analysis"
+        - "Access control validation"
+
+
+    validation_workflow:
+      triggers:
+        - after: "/generate_structure"
+          run: "/validate_config"
+        - after: "/dev_init"
+          run: "/validate_config"
+        - before: "testing"
+          run: "/validate_config"
+      ci_cd_integration:
+        requirements:
+          - tool: "yq"
+            purpose: "YAML processing"
+            installation: "npm install -g yq"
+          - tool: "ajv"
+            purpose: "JSON Schema validation"
+            installation: "npm install -g ajv-cli"
+      workflow:
+        - "Convert YAML to JSON using yq"
+        - "Validate against schema using ajv"
+        - "Generate validation report"
+        - "Block pipeline if validation fails"
+
+
+    schema_validation:
+      mandatory_fields:
+        agent:
+          - "role"
+          - "responsibilities"
+          - "tools"
+        workflow:
+          - "name"
+          - "description"
+          - "chains"
+      enums:
+        workflow_phases:
+          - "requirements"
+          - "architecture"
+          - "system_design"
+          - "ux_research"
+          - "ux_design"
+          - "ui_design"
+          - "development"
+          - "testing"
+          - "deployment"
+
+
+    # Add new commands for the development management phase
+    development_management:
+      commands:
+        "/update_context":
+          description: "Update context management system with latest changes"
+          workflow:
+            - name: "Check for Changes"
+              description: "Identify changes in the project context"
+              command: "/detect_changes"
+              output: "changes_detected.json"
+
+            - name: "Update Vector Store"
+              description: "Update the vector store with new context data"
+              command: "/update_vector_store"
+              args:
+                - "changes_detected.json"
+              output: "vector_store_updated.json"
+
+            - name: "Sync with Agents"
+              description: "Synchronize updated context with all relevant agents"
+              command: "/sync_agents"
+              args:
+                - "vector_store_updated.json"
+              output: "agents_synced.json"
+
+            - name: "Update Documentation"
+              description: "Reflect changes in the project documentation"
+              command: "/update_docs"
+              args:
+                - "agents_synced.json"
+              output: "documentation_updated.json"
+
+          validation:
+            - "Ensure vector store is updated correctly"
+            - "Verify all agents are synchronized"
+            - "Check documentation reflects latest changes"
+
+      context_management:
+        codebase_context:
+          description: "Codebase Context Specification (CCS) implementation"
+          version: "1.1-RFC"
+          
+          structure:
+            root_directory: ".context/"
+            core_files:
+              - name: "index.md"
+                description: "Primary entry point with YAML front matter"
+                required: true
+              - name: "docs.md"
+                description: "Extended documentation and guides"
+                required: true
+            directories:
+              - name: "diagrams/"
+                description: "Architectural and workflow diagrams"
+              - name: "images/"
+                description: "Supporting visual assets"
+
+          initialization:
+            command: "/init_context"
+            steps:
+              - name: "Create Directory Structure"
+                action: "create_directories"
+                paths:
+                  - ".context/"
+                  - ".context/diagrams/"
+                  - ".context/images/"
+                  - ".context/docs/"
+                  - ".context/knowledge_graph/"
+
+              - name: "Initialize Core Files"
+                action: "create_files"
+                templates:
+                  index_md:
+                    path: ".context/index.md"
+                    content_template: |
+                      ---
+                      module-name: "${project_name}"
+                      description: "${project_description}"
+                      technologies: []
+                      related-modules: []
+                      permissions: "read-write"
+                      version: "1.0.0"
+                      ---
+
+                      # ${project_name}
+
+                      ## Module Overview
+
+                      ## Architecture
+
+                      ## Domain Logic
+
+                      ## Integration Points
+
+                      ## Configuration
+
+                  docs_md:
+                    path: ".context/docs.md"
+                    content_template: |
+                      # Extended Documentation
+
+                      ## Tutorials
+
+                      ## Domain-Specific Guidance
+
+              - name: "Initialize .contextignore"
+                action: "create_file"
+                path: ".contextignore"
+                content: |
+                  # Build outputs
+                  dist/
+                  build/
+
+                  # Dependencies
+                  node_modules/
+
+                  # Test artifacts
+                  **/__snapshots__/
+                  *.test.js.snap
+
+                  # Temporary files
+                  *.tmp
+                  *.log
+
+              - name: "Link Knowledge Graph"
+                action: "link_files"
+                links:
+                  - source: ".context/initial-knowledge-graph.json"
+                    target: ".context/knowledge_graph/current.json"
+
+              - name: "Update Context Index"
+                action: "update_index"
+                file: ".context/documentation_index.json"
+                entries:
+                  - "index.md"
+                  - "docs.md"
+                  - "knowledge_graph/current.json"
+
               validation:
-                - "Check template variables are filled"
-                - "Verify prompt structure"
-                - "Ensure context preservation"
+                - "Verify directory structure"
+                - "Check file contents and front matter"
+                - "Validate knowledge graph integration"
+                - "Ensure all templates are properly initialized"
 
-            - name: "Initial LLM Processing"
-              description: "Process enhanced prompt through base LLM"
-              action: "process_llm"
-              input:
-                type: "enhanced_prompt"
-                source: "previous_step"
-              config:
-                model: "gpt-4"
-                temperature: 0.7
-                max_tokens: 2000
-              output:
-                type: "llm_response"
-                format: "text"
-              validation:
-                - "Check response completeness"
-                - "Verify response relevance"
-
-            - name: "Context Enrichment"
-              description: "Enrich prompt with relevant context and knowledge"
-              action: "enrich_context"
-              input:
-                - type: "llm_response"
-                  source: "previous_step"
-                - type: "context_sources"
-                  sources:
-                    vector_db:
-                      - collection: "codebase_context"
-                        query_type: "semantic"
-                        top_k: 5
-                      - collection: "design_system"
-                        query_type: "semantic"
-                        top_k: 3
-                    knowledge_graph:
-                      - node_types: ["modules", "components", "patterns"]
-                        edge_types: ["depends_on", "implements", "uses"]
-                        max_depth: 2
-                    context_directory:
-                      - path: ".context/"
-                        file_patterns: ["*.md", "diagrams/*.md"]
-              enrichment_rules:
-                - name: "Code Context"
-                  priority: "high"
-                  sources: ["codebase_context"]
-                  max_tokens: 1000
+              error_handling:
+                - condition: "directory creation fails"
+                  action: "Check permissions and retry"
                 
-                - name: "Design Patterns"
-                  priority: "medium"
-                  sources: ["design_system"]
-                  max_tokens: 500
+                - condition: "template generation fails"
+                  action: "Verify template variables and retry"
                 
-                - name: "Architecture Context"
-                  priority: "high"
-                  sources: ["knowledge_graph", "context_directory"]
-                  max_tokens: 800
-              
-              output:
-                type: "enriched_prompt"
-                format: "text"
-                sections:
-                  - "Original Response"
-                  - "Relevant Code Context"
-                  - "Design System Context"
-                  - "Architectural Context"
-              
-              validation:
-                - "Check context relevance"
-                - "Verify context integration"
-                - "Ensure context size limits"
+                - condition: "knowledge graph linking fails"
+                  action: "Check file paths and regenerate if needed"
 
-            - name: "Prompt Compression"
-              description: "Compress and optimize enriched prompt"
-              action: "compress_prompt"
-              input:
-                - type: "enriched_prompt"
-                  source: "previous_step"
-                - type: "compression_template"
-                  source: "prompts/core/docs/prompt-compression.md"
-                  description: "Compression guidelines and rules"
-              compression_rules:
-                - name: "Context Preservation"
-                  priority: "highest"
-                  description: "Preserve critical context while removing redundancy"
-                  
-                - name: "Knowledge Integration"
-                  priority: "high"
-                  description: "Maintain essential knowledge elements"
-                  
-                - name: "Clarity Enhancement"
-                  priority: "medium"
-                  description: "Improve clarity without losing meaning"
-              
               output:
-                type: "final_prompt"
-                format: "text"
-                sections:
-                  - "Compressed Query"
-                  - "Essential Context"
-                  - "Key Knowledge Points"
-              
+                - ".context/"
+                - ".context/index.md"
+                - ".context/docs.md"
+                - ".contextignore"
+                - ".context/documentation_index.json"
+
+          validation:
+            - "Verify directory structure"
+            - "Check file contents and front matter"
+            - "Validate knowledge graph integration"
+            - "Ensure all templates are properly initialized"
+
+          error_handling:
+            - condition: "directory creation fails"
+              action: "Check permissions and retry"
+            
+            - condition: "template generation fails"
+              action: "Verify template variables and retry"
+            
+            - condition: "knowledge graph linking fails"
+              action: "Check file paths and regenerate if needed"
+
+          output:
+            - ".context/"
+            - ".context/index.md"
+            - ".context/docs.md"
+            - ".contextignore"
+            - ".context/documentation_index.json"
+
+  # Define the document management phase
+  document_management:
+    # Directories - cline_docs, 
+    directories:
+      cline_docs: "cline_docs/"
+      internal_docs:
+        - name: "project_roadmap.md"
+          purpose: "Track high-level goals, progress, and milestones"
+        - name: "current_task.md"
+          purpose: "Record current objectives and context"
+        - name: "tech_stack.md"
+          purpose: "Document chosen technologies and frameworks"
+        - name: "codebase_summary.md"
+          purpose: "Overview of project structure, data flow, dependencies"
+      deliverables:
+        structure:
+          requirements:
+            - "BRD.md"      # Business Requirements Document
+            - "PRD.md"      # Product Requirements Document
+            - "FRD.md"      # Feature Requirements Document
+            - "DBRD.md"     # Database Requirements Document
+            - "SRS.md"      # Software Requirements Specification
+          design:
+            core:
+              - "UXDD.md"     # UX Design Document
+            architecture:
+              - "system_architecture.md"
+              - "deployment_architecture.md"
+            ui_design:
+              - "design_system.md"
+              - "style_guide.md"
+            component_library:
+              - "components.md"
+              - "patterns.md"
+          development:
+            - "API_specs/"
+            - "database_specs/"
+            - "security_specs/"
+
+    # Add project onboarding functionality
+    project_onboarding:
+      commands:
+        "/onboard_existing_project":
+          description: "Onboard existing project into SDLC orchestration"
+          workflow:
+            discovery:
+              - "Scan existing codebase structure"
+              - "Identify existing documentation"
+              - "Map current test coverage"
+              - "Analyze deployment setup"
+            normalization:
+              - "Align with standard directory structure"
+              - "Convert docs to template format"
+              - "Standardize naming conventions"
+            validation:
+              - "Run config validation"
+              - "Check documentation completeness"
+              - "Verify test coverage"
+            integration:
+              - "Link to workflow phases"
+              - "Setup CI/CD pipelines"
+              - "Configure monitoring"
+          outputs:
+            - type: "Gap Analysis Report"
+              template: "templates/onboarding/gap_analysis.md"
+            - type: "Integration Plan"
+              template: "templates/onboarding/integration_plan.md"
+            - type: "Migration Checklist"
+              template: "templates/onboarding/migration_checklist.md"
+
+
+
+      matrix:
+        template: "templates/traceability/matrix_template.md"
+        links:
+          - from: "deliverables/product/FRD.md"
+            to: 
+              - "tests/results/"
+              - "tests/performance/"
+          - from: "deliverables/design/UXDD.md"
+            to:
+              - "deliverables/product/PRD.md"
+              - "deliverables/product/FRD.md"
+
+
+    security_compliance:
+      standards:
+        - name: "OWASP Top 10"
+          validation_chain: "chains/security/owasp_validation_chain.md"
+        - name: "GDPR"
+          validation_chain: "chains/security/gdpr_validation_chain.md"
+      checks:
+        - "Security vulnerability scanning"
+        - "Dependency vulnerability checks"
+        - "Code security analysis"
+        - "Access control validation"
+
+
+    validation_workflow:
+      triggers:
+        - after: "/generate_structure"
+          run: "/validate_config"
+        - after: "/dev_init"
+          run: "/validate_config"
+        - before: "testing"
+          run: "/validate_config"
+      ci_cd_integration:
+        requirements:
+          - tool: "yq"
+            purpose: "YAML processing"
+            installation: "npm install -g yq"
+          - tool: "ajv"
+            purpose: "JSON Schema validation"
+            installation: "npm install -g ajv-cli"
+      workflow:
+        - "Convert YAML to JSON using yq"
+        - "Validate against schema using ajv"
+        - "Generate validation report"
+        - "Block pipeline if validation fails"
+
+
+    schema_validation:
+      mandatory_fields:
+        agent:
+          - "role"
+          - "responsibilities"
+          - "tools"
+        workflow:
+          - "name"
+          - "description"
+          - "chains"
+      enums:
+        workflow_phases:
+          - "requirements"
+          - "architecture"
+          - "system_design"
+          - "ux_research"
+          - "ux_design"
+          - "ui_design"
+          - "development"
+          - "testing"
+          - "deployment"
+
+
+    # Add new commands for the development management phase
+    development_management:
+      commands:
+        "/update_context":
+          description: "Update context management system with latest changes"
+          workflow:
+            - name: "Check for Changes"
+              description: "Identify changes in the project context"
+              command: "/detect_changes"
+              output: "changes_detected.json"
+
+            - name: "Update Vector Store"
+              description: "Update the vector store with new context data"
+              command: "/update_vector_store"
+              args:
+                - "changes_detected.json"
+              output: "vector_store_updated.json"
+
+            - name: "Sync with Agents"
+              description: "Synchronize updated context with all relevant agents"
+              command: "/sync_agents"
+              args:
+                - "vector_store_updated.json"
+              output: "agents_synced.json"
+
+            - name: "Update Documentation"
+              description: "Reflect changes in the project documentation"
+              command: "/update_docs"
+              args:
+                - "agents_synced.json"
+              output: "documentation_updated.json"
+
+          validation:
+            - "Ensure vector store is updated correctly"
+            - "Verify all agents are synchronized"
+            - "Check documentation reflects latest changes"
+
+      context_management:
+        codebase_context:
+          description: "Codebase Context Specification (CCS) implementation"
+          version: "1.1-RFC"
+          
+          structure:
+            root_directory: ".context/"
+            core_files:
+              - name: "index.md"
+                description: "Primary entry point with YAML front matter"
+                required: true
+              - name: "docs.md"
+                description: "Extended documentation and guides"
+                required: true
+            directories:
+              - name: "diagrams/"
+                description: "Architectural and workflow diagrams"
+              - name: "images/"
+                description: "Supporting visual assets"
+
+          initialization:
+            command: "/init_context"
+            steps:
+              - name: "Create Directory Structure"
+                action: "create_directories"
+                paths:
+                  - ".context/"
+                  - ".context/diagrams/"
+                  - ".context/images/"
+                  - ".context/docs/"
+                  - ".context/knowledge_graph/"
+
+              - name: "Initialize Core Files"
+                action: "create_files"
+                templates:
+                  index_md:
+                    path: ".context/index.md"
+                    content_template: |
+                      ---
+                      module-name: "${project_name}"
+                      description: "${project_description}"
+                      technologies: []
+                      related-modules: []
+                      permissions: "read-write"
+                      version: "1.0.0"
+                      ---
+
+                      # ${project_name}
+
+                      ## Module Overview
+
+                      ## Architecture
+
+                      ## Domain Logic
+
+                      ## Integration Points
+
+                      ## Configuration
+
+                  docs_md:
+                    path: ".context/docs.md"
+                    content_template: |
+                      # Extended Documentation
+
+                      ## Tutorials
+
+                      ## Domain-Specific Guidance
+
+              - name: "Initialize .contextignore"
+                action: "create_file"
+                path: ".contextignore"
+                content: |
+                  # Build outputs
+                  dist/
+                  build/
+
+                  # Dependencies
+                  node_modules/
+
+                  # Test artifacts
+                  **/__snapshots__/
+                  *.test.js.snap
+
+                  # Temporary files
+                  *.tmp
+                  *.log
+
+              - name: "Link Knowledge Graph"
+                action: "link_files"
+                links:
+                  - source: ".context/initial-knowledge-graph.json"
+                    target: ".context/knowledge_graph/current.json"
+
+              - name: "Update Context Index"
+                action: "update_index"
+                file: ".context/documentation_index.json"
+                entries:
+                  - "index.md"
+                  - "docs.md"
+                  - "knowledge_graph/current.json"
+
               validation:
+                - "Verify directory structure"
+                - "Check file contents and front matter"
+                - "Validate knowledge graph integration"
+                - "Ensure all templates are properly initialized"
+
+              error_handling:
+                - condition: "directory creation fails"
+                  action: "Check permissions and retry"
+                
+                - condition: "template generation fails"
+                  action: "Verify template variables and retry"
+                
+                - condition: "knowledge graph linking fails"
+                  action: "Check file paths and regenerate if needed"
+
+              output:
+                - ".context/"
+                - ".context/index.md"
+                - ".context/docs.md"
+                - ".contextignore"
+                - ".context/documentation_index.json"
+
+          validation:
+            - "Verify directory structure"
+            - "Check file contents and front matter"
+            - "Validate knowledge graph integration"
+            - "Ensure all templates are properly initialized"
+
+          error_handling:
+            - condition: "directory creation fails"
+              action: "Check permissions and retry"
+            
+            - condition: "template generation fails"
+              action: "Verify template variables and retry"
+            
+            - condition: "knowledge graph linking fails"
+              action: "Check file paths and regenerate if needed"
+
+          output:
+            - ".context/"
+            - ".context/index.md"
+            - ".context/docs.md"
+            - ".contextignore"
+            - ".context/documentation_index.json"
+
+  # Define the document management phase
+  document_management:
+    # Directories - cline_docs, 
+    directories:
+      cline_docs: "cline_docs/"
+      internal_docs:
+        - name: "project_roadmap.md"
+          purpose: "Track high-level goals, progress, and milestones"
+        - name: "current_task.md"
+          purpose: "Record current objectives and context"
+        - name: "tech_stack.md"
+          purpose: "Document chosen technologies and frameworks"
+        - name: "codebase_summary.md"
+          purpose: "Overview of project structure, data flow, dependencies"
+      deliverables:
+        structure:
+          requirements:
+            - "BRD.md"      # Business Requirements Document
+            - "PRD.md"      # Product Requirements Document
+            - "FRD.md"      # Feature Requirements Document
+            - "DBRD.md"     # Database Requirements Document
+            - "SRS.md"      # Software Requirements Specification
+          design:
+            core:
+              - "UXDD.md"     # UX Design Document
+            architecture:
+              - "system_architecture.md"
+              - "deployment_architecture.md"
+            ui_design:
+              - "design_system.md"
+              - "style_guide.md"
+            component_library:
+              - "components.md"
+              - "patterns.md"
+          development:
+            - "API_specs/"
+            - "database_specs/"
+            - "security_specs/"
+
+    # Add project onboarding functionality
+    project_onboarding:
+      commands:
+        "/onboard_existing_project":
+          description: "Onboard existing project into SDLC orchestration"
+          workflow:
+            discovery:
+              - "Scan existing codebase structure"
+              - "Identify existing documentation"
+              - "Map current test coverage"
+              - "Analyze deployment setup"
+            normalization:
+              - "Align with standard directory structure"
+              - "Convert docs to template format"
+              - "Standardize naming conventions"
+            validation:
+              - "Run config validation"
+              - "Check documentation completeness"
+              - "Verify test coverage"
+            integration:
+              - "Link to workflow phases"
+              - "Setup CI/CD pipelines"
+              - "Configure monitoring"
+          outputs:
+            - type: "Gap Analysis Report"
+              template: "templates/onboarding/gap_analysis.md"
+            - type: "Integration Plan"
+              template: "templates/onboarding/integration_plan.md"
+            - type: "Migration Checklist"
+              template: "templates/onboarding/migration_checklist.md"
+
+
+
+      matrix:
+        template: "templates/traceability/matrix_template.md"
+        links:
+          - from: "deliverables/product/FRD.md"
+            to: 
+              - "tests/results/"
+              - "tests/performance/"
+          - from: "deliverables/design/UXDD.md"
+            to:
+              - "deliverables/product/PRD.md"
+              - "deliverables/product/FRD.md"
+
+
+    security_compliance:
+      standards:
+        - name: "OWASP Top 10"
+          validation_chain: "chains/security/owasp_validation_chain.md"
+        - name: "GDPR"
+          validation_chain: "chains/security/gdpr_validation_chain.md"
+      checks:
+        - "Security vulnerability scanning"
+        - "Dependency vulnerability checks"
+        - "Code security analysis"
+        - "Access control validation"
+
+
+    validation_workflow:
+      triggers:
+        - after: "/generate_structure"
+          run: "/validate_config"
+        - after: "/dev_init"
+          run: "/validate_config"
+        - before: "testing"
+          run: "/validate_config"
+      ci_cd_integration:
+        requirements:
+          - tool: "yq"
+            purpose: "YAML processing"
+            installation: "npm install -g yq"
+          - tool: "ajv"
+            purpose: "JSON Schema validation"
+            installation: "npm install -g ajv-cli"
+      workflow:
+        - "Convert YAML to JSON using yq"
+        - "Validate against schema using ajv"
+        - "Generate validation report"
+        - "Block pipeline if validation fails"
+
+
+    schema_validation:
+      mandatory_fields:
+        agent:
+          - "role"
+          - "responsibilities"
+          - "tools"
+        workflow:
+          - "name"
+          - "description"
+          - "chains"
+      enums:
+        workflow_phases:
+          - "requirements"
+          - "architecture"
+          - "system_design"
+          - "ux_research"
+          - "ux_design"
+          - "ui_design"
+          - "development"
+          - "testing"
+          - "deployment"
+
+
+    # Add new commands for the development management phase
+    development_management:
+      commands:
+        "/update_context":
+          description: "Update context management system with latest changes"
+          workflow:
+            - name: "Check for Changes"
+              description: "Identify changes in the project context"
+              command: "/detect_changes"
+              output: "changes_detected.json"
+
+            - name: "Update Vector Store"
+              description: "Update the vector store with new context data"
+              command: "/update_vector_store"
+              args:
+                - "changes_detected.json"
+              output: "vector_store_updated.json"
+
+            - name: "Sync with Agents"
+              description: "Synchronize updated context with all relevant agents"
+              command: "/sync_agents"
+              args:
+                - "vector_store_updated.json"
+              output: "agents_synced.json"
+
+            - name: "Update Documentation"
+              description: "Reflect changes in the project documentation"
+              command: "/update_docs"
+              args:
+                - "agents_synced.json"
+              output: "documentation_updated.json"
+
+          validation:
+            - "Ensure vector store is updated correctly"
+            - "Verify all agents are synchronized"
+            - "Check documentation reflects latest changes"
+
+      context_management:
+        codebase_context:
+          description: "Codebase Context Specification (CCS) implementation"
+          version: "1.1-RFC"
+          
+          structure:
+            root_directory: ".context/"
+            core_files:
+              - name: "index.md"
+                description: "Primary entry point with YAML front matter"
+                required: true
+              - name: "docs.md"
+                description: "Extended documentation and guides"
+                required: true
+            directories:
+              - name: "diagrams/"
+                description: "Architectural and workflow diagrams"
+              - name: "images/"
+                description: "Supporting visual assets"
+
+          initialization:
+            command: "/init_context"
+            steps:
+              - name: "Create Directory Structure"
+                action: "create_directories"
+                paths:
+                  - ".context/"
+                  - ".context/diagrams/"
+                  - ".context/images/"
+                  - ".context/docs/"
+                  - ".context/knowledge_graph/"
+
+              - name: "Initialize Core Files"
+                action: "create_files"
+                templates:
+                  index_md:
+                    path: ".context/index.md"
+                    content_template: |
+                      ---
+                      module-name: "${project_name}"
+                      description: "${project_description}"
+                      technologies: []
+                      related-modules: []
+                      permissions: "read-write"
+                      version: "1.0.0"
+                      ---
+
+                      # ${project_name}
+
+                      ## Module Overview
+
+                      ## Architecture
+
+                      ## Domain Logic
+
+                      ## Integration Points
+
+                      ## Configuration
+
+                  docs_md:
+                    path: ".context/docs.md"
+                    content_template: |
+                      # Extended Documentation
+
+                      ## Tutorials
+
+                      ## Domain-Specific Guidance
+
+              - name: "Initialize .contextignore"
+                action: "create_file"
+                path: ".contextignore"
+                content: |
+                  # Build outputs
+                  dist/
+                  build/
+
+                  # Dependencies
+                  node_modules/
+
+                  # Test artifacts
+                  **/__snapshots__/
+                  *.test.js.snap
+
+                  # Temporary files
+                  *.tmp
+                  *.log
+
+              - name: "Link Knowledge Graph"
+                action: "link_files"
+                links:
+                  - source: ".context/initial-knowledge-graph.json"
+                    target: ".context/knowledge_graph/current.json"
+
+              - name: "Update Context Index"
+                action: "update_index"
+                file: ".context/documentation_index.json"
+                entries:
+                  - "index.md"
+                  - "docs.md"
+                  - "knowledge_graph/current.json"
+
+              validation:
+                - "Verify directory structure"
+                - "Check file contents and front matter"
+                - "Validate knowledge graph integration"
+                - "Ensure all templates are properly initialized"
+
+              error_handling:
+                - condition: "directory creation fails"
+                  action: "Check permissions and retry"
+                
+                - condition: "template generation fails"
+                  action: "Verify template variables and retry"
+                
+                - condition: "knowledge graph linking fails"
+                  action: "Check file paths and regenerate if needed"
+
+              output:
+                - ".context/"
+                - ".context/index.md"
+                - ".context/docs.md"
+                - ".contextignore"
+                - ".context/documentation_index.json"
+
+          validation:
+            - "Verify directory structure"
+            - "Check file contents and front matter"
+            - "Validate knowledge graph integration"
+            - "Ensure all templates are properly initialized"
+
+          error_handling:
+            - condition: "directory creation fails"
+              action: "Check permissions and retry"
+            
+            - condition: "template generation fails"
+              action: "Verify template variables and retry"
+            
+            - condition: "knowledge graph linking fails"
+              action: "Check file paths and regenerate if needed"
+
+          output:
+            - ".context/"
+            - ".context/index.md"
+            - ".context/docs.md"
+            - ".contextignore"
+            - ".context/documentation_index.json"
+
+  # Define the document management phase
+  document_management:
+    # Directories - cline_docs, 
+    directories:
+      cline_docs: "cline_docs/"
+      internal_docs:
+        - name: "project_roadmap.md"
+          purpose: "Track high-level goals, progress, and milestones"
+        - name: "current_task.md"
+          purpose: "Record current objectives and context"
+        - name: "tech_stack.md"
+          purpose: "Document chosen technologies and frameworks"
+        - name: "codebase_summary.md"
+          purpose: "Overview of project structure, data flow, dependencies"
+      deliverables:
+        structure:
+          requirements:
+            - "BRD.md"      # Business Requirements Document
+            - "PRD.md"      # Product Requirements Document
+            - "FRD.md"      # Feature Requirements Document
+            - "DBRD.md"     # Database Requirements Document
+            - "SRS.md"      # Software Requirements Specification
+          design:
+            core:
+              - "UXDD.md"     # UX Design Document
+            architecture:
+              - "system_architecture.md"
+              - "deployment_architecture.md"
+            ui_design:
+              - "design_system.md"
+              - "style_guide.md"
+            component_library:
+              - "components.md"
+              - "patterns.md"
+          development:
+            - "API_specs/"
+            - "database_specs/"
+            - "security_specs/"
+
+    # Add project onboarding functionality
+    project_onboarding:
+      commands:
+        "/onboard_existing_project":
+          description: "Onboard existing project into SDLC orchestration"
+          workflow:
+            discovery:
+              - "Scan existing codebase structure"
+              - "Identify existing documentation"
+              - "Map current test coverage"
+              - "Analyze deployment setup"
+            normalization:
+              - "Align with standard directory structure"
+              - "Convert docs to template format"
+              - "Standardize naming conventions"
+            validation:
+              - "Run config validation"
+              - "Check documentation completeness"
+              - "Verify test coverage"
+            integration:
+              - "Link to workflow phases"
+              - "Setup CI/CD pipelines"
+              - "Configure monitoring"
+          outputs:
+            - type: "Gap Analysis Report"
+              template: "templates/onboarding/gap_analysis.md"
+            - type: "Integration Plan"
+              template: "templates/onboarding/integration_plan.md"
+            - type: "Migration Checklist"
+              template: "templates/onboarding/migration_checklist.md"
+
+
+
+      matrix:
+        template: "templates/traceability/matrix_template.md"
+        links:
+          - from: "deliverables/product/FRD.md"
+            to: 
+              - "tests/results/"
+              - "tests/performance/"
+          - from: "deliverables/design/UXDD.md"
+            to:
+              - "deliverables/product/PRD.md"
+              - "deliverables/product/FRD.md"
+
+
+    security_compliance:
+      standards:
+        - name: "OWASP Top 10"
+          validation_chain: "chains/security/owasp_validation_chain.md"
+        - name: "GDPR"
+          validation_chain: "chains/security/gdpr_validation_chain.md"
+      checks:
+        - "Security vulnerability scanning"
+        - "Dependency vulnerability checks"
+        - "Code security analysis"
+        - "Access control validation"
+
+
+    validation_workflow:
+      triggers:
+        - after: "/generate_structure"
+          run: "/validate_config"
+        - after: "/dev_init"
+          run: "/validate_config"
+        - before: "testing"
+          run: "/validate_config"
+      ci_cd_integration:
+        requirements:
+          - tool: "yq"
+            purpose: "YAML processing"
+            installation: "npm install -g yq"
+          - tool: "ajv"
+            purpose: "JSON Schema validation"
+            installation: "npm install -g ajv-cli"
+      workflow:
+        - "Convert YAML to JSON using yq"
+        - "Validate against schema using ajv"
+        - "Generate validation report"
+        - "Block pipeline if validation fails"
+
+
+    schema_validation:
+      mandatory_fields:
+        agent:
+          - "role"
+          - "responsibilities"
+          - "tools"
+        workflow:
+          - "name"
+          - "description"
+          - "chains"
+      enums:
+        workflow_phases:
+          - "requirements"
+          - "architecture"
+          - "system_design"
+          - "ux_research"
+          - "ux_design"
+          - "ui_design"
+          - "development"
+          - "testing"
+          - "deployment"
+
+
+    # Add new commands for the development management phase
+    development_management:
+      commands:
+        "/update_context":
+          description: "Update context management system with latest changes"
+          workflow:
+            - name: "Check for Changes"
+              description: "Identify changes in the project context"
+              command: "/detect_changes"
+              output: "changes_detected.json"
+
+            - name: "Update Vector Store"
+              description: "Update the vector store with new context data"
+              command: "/update_vector_store"
+              args:
+                - "changes_detected.json"
+              output: "vector_store_updated.json"
+
+            - name: "Sync with Agents"
+              description: "Synchronize updated context with all relevant agents"
+              command: "/sync_agents"
+              args:
+                - "vector_store_updated.json"
+              output: "agents_synced.json"
+
+            - name: "Update Documentation"
+              description: "Reflect changes in the project documentation"
+              command: "/update_docs"
+              args:
+                - "agents_synced.json"
+              output: "documentation_updated.json"
+
+          validation:
+            - "Ensure vector store is updated correctly"
+            - "Verify all agents are synchronized"
+            - "Check documentation reflects latest changes"
+
+      context_management:
+        codebase_context:
+          description: "Codebase Context Specification (CCS) implementation"
+          version: "1.1-RFC"
+          
+          structure:
+            root_directory: ".context/"
+            core_files:
+              - name: "index.md"
+                description: "Primary entry point with YAML front matter"
+                required: true
+              - name: "docs.md"
+                description: "Extended documentation and guides"
+                required: true
+            directories:
+              - name: "diagrams/"
+                description: "Architectural and workflow diagrams"
+              - name: "images/"
+                description: "Supporting visual assets"
+
+          initialization:
+            command: "/init_context"
+            steps:
+              - name: "Create Directory Structure"
+                action: "create_directories"
+                paths:
+                  - ".context/"
+                  - ".context/diagrams/"
+                  - ".context/images/"
+                  - ".context/docs/"
+                  - ".context/knowledge_graph/"
+
+              - name: "Initialize Core Files"
+                action: "create_files"
+                templates:
+                  index_md:
+                    path: ".context/index.md"
+                    content_template: |
+                      ---
+                      module-name: "${project_name}"
+                      description: "${project_description}"
+                      technologies: []
+                      related-modules: []
+                      permissions: "read-write"
+                      version: "1.0.0"
+                      ---
+
+                      # ${project_name}
+
+                      ## Module Overview
+
+                      ## Architecture
+
+                      ## Domain Logic
+
+                      ## Integration Points
+
+                      ## Configuration
+
+                  docs_md:
+                    path: ".context/docs.md"
+                    content_template: |
+                      # Extended Documentation
+
+                      ## Tutorials
+
+                      ## Domain-Specific Guidance
+
+              - name: "Initialize .contextignore"
+                action: "create_file"
+                path: ".contextignore"
+                content: |
+                  # Build outputs
+                  dist/
+                  build/
+
+                  # Dependencies
+                  node_modules/
+
+                  # Test artifacts
+                  **/__snapshots__/
+                  *.test.js.snap
+
+                  # Temporary files
+                  *.tmp
+                  *.log
+
+              - name: "Link Knowledge Graph"
+                action: "link_files"
+                links:
+                  - source: ".context/initial-knowledge-graph.json"
+                    target: ".context/knowledge_graph/current.json"
+
+              - name: "Update Context Index"
+                action: "update_index"
+                file: ".context/documentation_index.json"
+                entries:
+                  - "index.md"
+                  - "docs.md"
+                  - "knowledge_graph/current.json"
+
+              validation:
+                - "Verify directory structure"
+                - "Check file contents and front matter"
+                - "Validate knowledge graph integration"
+                - "Ensure all templates are properly initialized"
+
+              error_handling:
+                - condition: "directory creation fails"
+                  action: "Check permissions and retry"
+                
+                - condition: "template generation fails"
+                  action: "Verify template variables and retry"
+                
+                - condition: "knowledge graph linking fails"
+                  action: "Check file paths and regenerate if needed"
+
+              output:
+                - ".context/"
+                - ".context/index.md"
+                - ".context/docs.md"
+                - ".contextignore"
+                - ".context/documentation_index.json"
+
+          validation:
+            - "Verify directory structure"
+            - "Check file contents and front matter"
+            - "Validate knowledge graph integration"
+            - "Ensure all templates are properly initialized"
+
+          error_handling:
+            - condition: "directory creation fails"
+              action: "Check permissions and retry"
+            
+            - condition: "template generation fails"
+              action: "Verify template variables and retry"
+            
+            - condition: "knowledge graph linking fails"
+              action: "Check file paths and regenerate if needed"
+
+          output:
+            - ".context/"
+            - ".context/index.md"
+            - ".context/docs.md"
+            - ".contextignore"
+            - ".context/documentation_index.json"
+
+  # Define the document management phase
+  document_management:
+    # Directories - cline_docs, 
+    directories:
+      cline_docs: "cline_docs/"
+      internal_docs:
+        - name: "project_roadmap.md"
+          purpose: "Track high-level goals, progress, and milestones"
+        - name: "current_task.md"
+          purpose: "Record current objectives and context"
+        - name: "tech_stack.md"
+          purpose: "Document chosen technologies and frameworks"
+        - name: "codebase_summary.md"
+          purpose: "Overview of project structure, data flow, dependencies"
+      deliverables:
+        structure:
+          requirements:
+            - "BRD.md"      # Business Requirements Document
+            - "PRD.md"      # Product Requirements Document
+            - "FRD.md"      # Feature Requirements Document
+            - "DBRD.md"     # Database Requirements Document
+            - "SRS.md"      # Software Requirements Specification
+          design:
+            core:
                 - "Check compression ratio"
                 - "Verify information preservation"
                 - "Ensure clarity and coherence"
