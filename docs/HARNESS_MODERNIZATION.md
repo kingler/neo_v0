@@ -146,14 +146,24 @@ ported mechanically. Section 5 is the backlog.
 6. **Legacy configs stay as the source of truth** during migration. The scaffold references
    them; nothing is deleted until parity is proven.
 
-## 5. Migration backlog (after this PR)
+## 5. Migration backlog
 
-- [ ] Port remaining init skills: `init-frontend`, `init-backend`, `init-mobile` variants.
-- [ ] Port the design chain (wireframe → layout → component → design-director) as a Workflow.
-- [ ] Convert each `agents/interfaces/*.xml` to a `.claude/agents/*.md` subagent.
+Done in this PR:
+
+- [x] Port the core SDLC chains to skills: `architecture`, `ui-ux-design`, `backend-dev`,
+  `testing`, `deployment` (alongside `init-project`, `requirements-doc`, `knowledge-graph`,
+  `code-quality-loop`).
+- [x] Port the design chain (Layout → Style → Component → Design Director) as the
+  `ui-design-pipeline.js` Workflow.
+
+Remaining:
+
+- [ ] Port remaining init variants: `init-frontend`, `init-backend`, `init-mobile`.
+- [ ] Convert each `agents/interfaces/*.xml` to a `.claude/agents/*.md` subagent (product_owner,
+  system_architect, ux_researcher, …) so the orchestrator can delegate per role.
 - [ ] Stand up the actual Chroma MCP server (stub config shipped here) and index `library/`.
 - [ ] Add `PostToolUse` hook to run `/validate_config` (AJV) after structure generation.
-- [ ] Replace `${fs.readFileSync}` chains with Workflow scripts or skill-bundled resources.
+- [ ] Replace remaining `${fs.readFileSync}` chains with Workflow scripts or skill-bundled resources.
 - [ ] Add a `security-review` gate to `.github/workflows` mirroring `security_management.yaml`.
 - [ ] Retire `.cursorrules.md` once Skills + Rules reach parity (keep a thin Cursor shim if needed).
 

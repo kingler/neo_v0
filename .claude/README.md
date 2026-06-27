@@ -22,8 +22,18 @@ legacy → modern mapping.
 
 - `init-project` — new project / existing-project onboarding
 - `requirements-doc` — BRD / PRD / SRS / FRD / DBRD generation
+- `architecture` — system design, PlantUML diagrams, OpenAPI specs
+- `ui-ux-design` — wireframes → layout → SVG → high-fidelity styling
+- `backend-dev` — database schema, server, API implementation
+- `testing` — unit + performance tests, coverage validation
+- `deployment` — CI/CD pipeline, staging/prod release
 - `knowledge-graph` — generate / refresh / query the code knowledge graph
 - `code-quality-loop` — iterative evaluate → improve → verify quality gate
+
+## Workflows shipped
+
+- `code-quality-loop.js` — parallel evaluate per dimension → adversarial verify gate
+- `ui-design-pipeline.js` — Layout → Style → Component → Design Director (per view)
 
 ## Status
 

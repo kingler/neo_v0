@@ -17,6 +17,11 @@ Mode-specific guidance for the `neo` mode. General constraints live in `.roo/rul
 |---|---|---|
 | Start / onboard a project | `/init-project`, `/init-existing-project`, `/init-website\|webapp\|mobile` | Create structure per `neo_prompt/structure.yaml`, generate the graph, init context + git |
 | Requirements docs | requirements chain | Draft BRD/PRD/SRS/FRD/DBRD → `deliverables/documentation/product/` |
+| Architecture & API design | architecture_design_chain | System design + PlantUML diagrams + OpenAPI specs → `deliverables/documentation/architecture/` |
+| UI/UX design | ui_ux_chain | Wireframes → layout → SVG → styling (Layout→Style→Component→Director pass) |
+| Backend implementation | backend_development_chain | DB schema → server → API/WebSocket impl |
+| Testing | testing_chain | Unit + performance tests; gate coverage in CI |
+| Deployment | `/setup-ci`, `/deploy-staging\|prod` | Build → test → deploy pipeline in `.github/workflows/` |
 | Code knowledge graph | `/generate-knowledge-graph` | `node scripts/generate_knowledge_graph.js` |
 | Quality improvement | code_quality_chain | Evaluate → improve → rate → Morpheus verify, loop until grade ≥ B |
 | Component / theme lookup | vector DB scripts | Query the `chroma` MCP server (`.roo/mcp.json`) |
