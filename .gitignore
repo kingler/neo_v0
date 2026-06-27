@@ -6,3 +6,6 @@
 # Keep example file
 !.env.example 
 node_modules
+
+# Claude Code machine-local settings (not shared)
+.claude/settings.local.json

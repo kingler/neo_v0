@@ -1,0 +1,53 @@
+name: Validate Neo harness
+
+# Lightweight structural checks for the .claude/ harness so a malformed skill,
+# settings, or MCP config is caught in CI rather than at session start.
+
+on:
+  pull_request:
+    paths:
+      - '.claude/**'
+      - '.github/workflows/harness-validate.yml'
+  push:
+    branches: [main]
+    paths:
+      - '.claude/**'
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON configs parse
+        run: |
+          python3 -c "import json,sys; json.load(open('.claude/settings.json')); print('settings.json OK')"
+          python3 -c "import json,sys; json.load(open('.claude/mcp.json')); print('mcp.json OK')"
+
+      - name: Every skill has frontmatter with name + description
+        run: |
+          set -e
+          fail=0
+          for f in .claude/skills/*/SKILL.md; do
+            head -1 "$f" | grep -q '^---$' || { echo "::error file=$f::missing YAML frontmatter"; fail=1; }
+            grep -q '^name:' "$f" || { echo "::error file=$f::missing name"; fail=1; }
+            grep -q '^description:' "$f" || { echo "::error file=$f::missing description"; fail=1; }
+            echo "checked $f"
+          done
+          exit $fail
+
+      - name: Hooks are executable
+        run: |
+          set -e
+          for h in .claude/hooks/*.sh; do
+            [ -x "$h" ] || { echo "::error file=$h::hook is not executable (chmod +x)"; exit 1; }
+            bash -n "$h" && echo "syntax OK: $h"
+          done
+
+      - name: Workflow scripts parse
+        run: |
+          if command -v node >/dev/null; then
+            for w in .claude/workflows/*.js; do
+              node --check "$w" && echo "parse OK: $w"
+            done
+          fi
