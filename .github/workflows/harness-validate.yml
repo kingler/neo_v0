@@ -7,11 +7,15 @@ on:
   pull_request:
     paths:
       - '.claude/**'
+      - '.roo/**'
+      - '.roomodes'
       - '.github/workflows/harness-validate.yml'
   push:
     branches: [main]
     paths:
       - '.claude/**'
+      - '.roo/**'
+      - '.roomodes'
 
 jobs:
   validate:
@@ -22,7 +26,13 @@ jobs:
       - name: Validate JSON configs parse
         run: |
           python3 -c "import json,sys; json.load(open('.claude/settings.json')); print('settings.json OK')"
-          python3 -c "import json,sys; json.load(open('.claude/mcp.json')); print('mcp.json OK')"
+          python3 -c "import json,sys; json.load(open('.claude/mcp.json')); print('.claude/mcp.json OK')"
+          python3 -c "import json,sys; json.load(open('.roo/mcp.json')); print('.roo/mcp.json OK')"
+
+      - name: Validate .roomodes YAML
+        run: |
+          pip install pyyaml >/dev/null 2>&1 || true
+          python3 -c "import yaml; d=yaml.safe_load(open('.roomodes')); assert 'customModes' in d; print('.roomodes OK —', len(d['customModes']), 'modes')"
 
       - name: Every skill has frontmatter with name + description
         run: |

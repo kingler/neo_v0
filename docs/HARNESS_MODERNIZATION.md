@@ -93,14 +93,40 @@ a `chroma` MCP server so component/theme retrieval ("a primary button with an ic
     session-start.sh             # knowledge-graph freshness check
   workflows/
     code-quality-loop.js         # evaluate→improve→rate→verify loop
+.roomodes                        # Roo custom modes: neo + morpheus
+.roo/
+  README.md                      # index + cross-harness mapping
+  mcp.json                       # MCP: Chroma vectordb
+  rules/                         # always-on workspace rules (principles, code-edits)
+  rules-neo/                     # orchestrator mode instructions + command mapping
+  rules-morpheus/                # validator mode instructions
 .github/
   pull_request_template.md
   workflows/
-    harness-validate.yml         # lint skills/rules/settings structure
+    harness-validate.yml         # lint skills/rules/settings/.roomodes structure
     claude-code-review.yml       # optional Claude review on PRs
 docs/
   HARNESS_MODERNIZATION.md       # this document
 ```
+
+### Multi-harness parity
+
+The same SDLC harness is expressed for three tools so the project works regardless of
+which agent a contributor runs:
+
+| Concept | `.claude/` (Claude Code) | `.roo/` (Roo Code) | `.github/` (CI) |
+|---|---|---|---|
+| Identity / memory | `CLAUDE.md` | mode `roleDefinition` + `rules/` | — |
+| Rules | `rules/*.md` | `rules/*.md` | enforced in review workflow |
+| Agents | `agents/*.md` subagents | `.roomodes` + `rules-<slug>/` | — |
+| Skills / commands | `skills/*/SKILL.md` | command map in `rules-neo/` | — |
+| MCP | `mcp.json` | `mcp.json` | — |
+| Workflows | `workflows/*.js` | orchestrated by `neo` mode | — |
+| Hooks | `hooks/` + `settings.json` | (no equivalent — manual) | Actions on PR/push |
+
+`.roo` has no SessionStart-hook equivalent, so the knowledge-graph refresh that
+`.claude/hooks/session-start.sh` automates is run manually by the `neo` mode. That is the
+only capability that does not port 1:1.
 
 These are **representative, working examples** — not an exhaustive port of all 152
 commands. They establish the patterns and conventions so the remaining commands can be
