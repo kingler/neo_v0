@@ -34,11 +34,11 @@ jobs:
           pip install pyyaml >/dev/null 2>&1 || true
           python3 -c "import yaml; d=yaml.safe_load(open('.roomodes')); assert 'customModes' in d; print('.roomodes OK —', len(d['customModes']), 'modes')"
 
-      - name: Every skill has frontmatter with name + description
+      - name: Every skill and agent has frontmatter with name + description
         run: |
           set -e
           fail=0
-          for f in .claude/skills/*/SKILL.md; do
+          for f in .claude/skills/*/SKILL.md .claude/agents/*.md; do
             head -1 "$f" | grep -q '^---$' || { echo "::error file=$f::missing YAML frontmatter"; fail=1; }
             grep -q '^name:' "$f" || { echo "::error file=$f::missing name"; fail=1; }
             grep -q '^description:' "$f" || { echo "::error file=$f::missing description"; fail=1; }

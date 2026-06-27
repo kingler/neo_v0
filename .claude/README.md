@@ -35,6 +35,18 @@ legacy → modern mapping.
 - `code-quality-loop.js` — parallel evaluate per dimension → adversarial verify gate
 - `ui-design-pipeline.js` — Layout → Style → Component → Design Director (per view)
 
+## Subagents shipped
+
+The orchestrator delegates role-focused work to specialists (each ported from
+`prompts/chains/components/agents/interfaces/*.xml`):
+
+- `morpheus-validator` — adversarial reasoner / quality gate
+- `product-owner` · `ux-researcher` · `ux-designer` · `ui-designer`
+- `system-architect` · `frontend-developer` · `backend-developer` · `database-developer`
+- `system-admin` · `test-engineer`
+
+Each specialist is mirrored as a Roo mode in `../.roomodes`.
+
 ## Status
 
 This is a **foundational scaffold** — representative examples that establish the

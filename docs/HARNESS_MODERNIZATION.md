@@ -155,12 +155,14 @@ Done in this PR:
   `code-quality-loop`).
 - [x] Port the design chain (Layout → Style → Component → Design Director) as the
   `ui-design-pipeline.js` Workflow.
+- [x] Convert all 10 specialist `agents/interfaces/*.xml` to `.claude/agents/*.md` subagents
+  (product-owner, ux-researcher, ux-designer, ui-designer, system-architect,
+  frontend-developer, backend-developer, database-developer, system-admin, test-engineer),
+  each mirrored as a Roo mode in `.roomodes`.
 
 Remaining:
 
 - [ ] Port remaining init variants: `init-frontend`, `init-backend`, `init-mobile`.
-- [ ] Convert each `agents/interfaces/*.xml` to a `.claude/agents/*.md` subagent (product_owner,
-  system_architect, ux_researcher, …) so the orchestrator can delegate per role.
 - [ ] Stand up the actual Chroma MCP server (stub config shipped here) and index `library/`.
 - [ ] Add `PostToolUse` hook to run `/validate_config` (AJV) after structure generation.
 - [ ] Replace remaining `${fs.readFileSync}` chains with Workflow scripts or skill-bundled resources.
