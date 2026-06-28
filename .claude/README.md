@@ -21,6 +21,7 @@ legacy → modern mapping.
 ## Skills shipped
 
 - `init-project` — new project / existing-project onboarding
+- `init-stack` — initialize a layer/platform (frontend / backend / mobile + framework)
 - `requirements-doc` — BRD / PRD / SRS / FRD / DBRD generation
 - `architecture` — system design, PlantUML diagrams, OpenAPI specs
 - `ui-ux-design` — wireframes → layout → SVG → high-fidelity styling

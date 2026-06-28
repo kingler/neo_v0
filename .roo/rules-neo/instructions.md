@@ -16,6 +16,7 @@ Mode-specific guidance for the `neo` mode. General constraints live in `.roo/rul
 | Intent | Legacy command(s) | How to run here |
 |---|---|---|
 | Start / onboard a project | `/init-project`, `/init-existing-project`, `/init-website\|webapp\|mobile` | Create structure per `neo_prompt/structure.yaml`, generate the graph, init context + git |
+| Initialize a layer/platform | `/init-frontend\|backend\|mobile`, `/init-react-native\|flutter\|ios\|android` | Scaffold one layer with a chosen framework + its standard structure |
 | Requirements docs | requirements chain | Draft BRD/PRD/SRS/FRD/DBRD → `deliverables/documentation/product/` |
 | Architecture & API design | architecture_design_chain | System design + PlantUML diagrams + OpenAPI specs → `deliverables/documentation/architecture/` |
 | UI/UX design | ui_ux_chain | Wireframes → layout → SVG → styling (Layout→Style→Component→Director pass) |

@@ -170,9 +170,11 @@ Done in this PR:
   built-ins only) producing the same artifacts; the hook now uses it and the graph regenerates
   successfully. Generated artifacts are gitignored.
 
-Remaining:
+- [x] Port the init variants (`init-frontend`/`init-backend`/`init-mobile` + `react-native`/
+  `flutter`/`ios`/`android`) as a single consolidated `init-stack` skill with a layer argument
+  (collapse-don't-transliterate).
 
-- [ ] Port remaining init variants: `init-frontend`, `init-backend`, `init-mobile`.
+Remaining:
 - [ ] Stand up the actual Chroma MCP server (stub config shipped) and index `library/`.
 - [ ] Replace remaining `${fs.readFileSync}` chains with Workflow scripts or skill-bundled resources.
 - [ ] Remediate the pre-existing legacy-tree npm vulnerabilities (9 critical / 66 high as of this
