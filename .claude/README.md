@@ -14,9 +14,9 @@ legacy → modern mapping.
 | `mcp.json` | **MCP** | Chroma vector-DB server (component/theme retrieval) |
 | `rules/` | **Rules** | enforceable constraints (KISS/YAGNI/SOLID, edit format) |
 | `skills/` | **Skills** | invokable SDLC procedures (ported slash commands) |
-| `agents/` | **Subagents** | specialist agents (Morpheus validator) |
-| `workflows/` | **Workflows** | deterministic multi-agent chains (code-quality loop) |
-| `hooks/` | **Hooks** | scripts the harness runs (knowledge-graph freshness) |
+| `agents/` | **Subagents** | specialist agents (Morpheus + 10 SDLC roles) |
+| `workflows/` | **Workflows** | deterministic multi-agent chains (code-quality, ui-design) |
+| `hooks/` | **Hooks** | `session-start.sh` (graph freshness) · `validate-config.sh` (PostToolUse JSON/YAML validation) |
 
 ## Skills shipped
 

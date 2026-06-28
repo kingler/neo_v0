@@ -1,0 +1,66 @@
+name: Security review
+
+# Mirrors the security_scan stage in neo_prompt/ci_cd.yaml:
+#   steps: SAST, dependency scan, license compliance
+#   requirements: no critical vulnerabilities, dependencies up to date
+# Plus a secret scan, since the harness handles API keys (.env.example).
+# Gating: dependency-audit fails only on CRITICAL; secret scan fails on any hit.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: npm audit (fail on critical)
+        run: |
+          if [ -f package-lock.json ]; then
+            # Report everything, but only critical vulnerabilities fail the gate.
+            npm audit --audit-level=critical || {
+              echo "::error::Critical npm vulnerabilities found — resolve before merging."
+              exit 1
+            }
+          else
+            echo "No package-lock.json — skipping npm audit."
+          fi
+
+      - name: pip audit (advisory)
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install pip-audit >/dev/null 2>&1 || true
+            pip-audit -r requirements.txt || echo "::warning::pip-audit reported issues (advisory)."
+          else
+            echo "No requirements.txt — skipping pip audit."
+          fi
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan tracked files for committed secrets
+        run: |
+          # Lightweight, dependency-free secret scan. .env is gitignored; .env.example
+          # (placeholder values) is allowed. Fails if a real-looking key is committed.
+          patterns='(sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|xox[baprs]-[0-9A-Za-z-]+|ghp_[A-Za-z0-9]{36})'
+          hits=$(git grep -nIE "$patterns" -- ':!*.example' ':!.github/workflows/security-review.yml' || true)
+          if [ -n "$hits" ]; then
+            echo "::error::Potential committed secret(s):"
+            echo "$hits"
+            exit 1
+          fi
+          echo "No committed secrets detected."

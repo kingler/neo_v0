@@ -26,6 +26,17 @@
           }
         ]
       }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/validate-config.sh"
+          }
+        ]
+      }
     ]
   }
 }

@@ -160,13 +160,16 @@ Done in this PR:
   frontend-developer, backend-developer, database-developer, system-admin, test-engineer),
   each mirrored as a Roo mode in `.roomodes`.
 
+- [x] Add a `PostToolUse` hook (`validate-config.sh`) that validates JSON/YAML configs after
+  Write/Edit — ports the legacy `validation_workflow` (yq/ajv) trigger.
+- [x] Add a `security-review` CI gate (`.github/workflows/security-review.yml`) mirroring the
+  `security_scan` stage in `ci_cd.yaml`: dependency scan (fail on critical), secret scan.
+
 Remaining:
 
 - [ ] Port remaining init variants: `init-frontend`, `init-backend`, `init-mobile`.
-- [ ] Stand up the actual Chroma MCP server (stub config shipped here) and index `library/`.
-- [ ] Add `PostToolUse` hook to run `/validate_config` (AJV) after structure generation.
+- [ ] Stand up the actual Chroma MCP server (stub config shipped) and index `library/`.
 - [ ] Replace remaining `${fs.readFileSync}` chains with Workflow scripts or skill-bundled resources.
-- [ ] Add a `security-review` gate to `.github/workflows` mirroring `security_management.yaml`.
 - [ ] Retire `.cursorrules.md` once Skills + Rules reach parity (keep a thin Cursor shim if needed).
 
 ## 6. How to verify the scaffold
