@@ -174,8 +174,15 @@ Done in this PR:
   `flutter`/`ios`/`android`) as a single consolidated `init-stack` skill with a layer argument
   (collapse-don't-transliterate).
 
+- [x] Make the Chroma MCP integration real: the legacy `init_vector_db.py` assumed dict inputs
+  (the `library/*.json` files are lists), needed langchain + an OpenAI key, and wrote
+  per-collection dirs the MCP server can't serve — so all three stores held 0 embeddings. Added
+  `scripts/index_vectordb.py` (chromadb + local embeddings, no key) that indexes 38 components +
+  9 theme categories into the single `vectordb/storage` dir the server points at; fixed
+  `mcp.json` and documented setup. (Live connection still needs `pip install chromadb` + a
+  session restart — config/procedure verified, runtime not.)
+
 Remaining:
-- [ ] Stand up the actual Chroma MCP server (stub config shipped) and index `library/`.
 - [ ] Replace remaining `${fs.readFileSync}` chains with Workflow scripts or skill-bundled resources.
 - [ ] Remediate the pre-existing legacy-tree npm vulnerabilities (9 critical / 66 high as of this
   PR, all in `webpack-dev-server`/`ws`/etc.) via `npm audit fix`, then flip the `security-review`

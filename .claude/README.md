@@ -48,6 +48,23 @@ The orchestrator delegates role-focused work to specialists (each ported from
 
 Each specialist is mirrored as a Roo mode in `../.roomodes`.
 
+## Vector search (Chroma MCP) setup
+
+The `chroma` MCP server (`mcp.json`) exposes the component/theme library as retrieval tools.
+The store under `vectordb/` ships **empty** (the legacy `init_vector_db.py` assumed
+dict-shaped inputs but the `library/*.json` files are lists, and required an OpenAI key, so
+it never populated). To stand it up:
+
+```bash
+pip install chromadb            # local all-MiniLM embeddings — no API key
+python3 scripts/index_vectordb.py   # indexes 38 components + 9 theme categories
+# chroma-mcp then serves ./vectordb/storage; restart the session to connect.
+```
+
+`scripts/index_vectordb.py` writes both collections (`components`, `themes`) into the single
+`vectordb/storage` data dir the MCP server points at. Once connected, the `ui-designer` /
+`ui-ux-design` skills query it for reuse before designing new components.
+
 ## Status
 
 This is a **foundational scaffold** — representative examples that establish the

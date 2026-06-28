@@ -1,7 +1,9 @@
 {
-  "//": "MCP servers for Neo. The Chroma server exposes the existing vectordb/ store so",
-  "//2": "component/theme retrieval becomes a tool call instead of a manual script run.",
-  "//3": "This is a starter config — replace the command with your actual Chroma MCP server.",
+  "//": "Chroma MCP server — exposes the component/theme library as retrieval tools so",
+  "//2": "lookups ('a primary button with an icon') are tool calls, not manual scripts.",
+  "//setup": "The store ships EMPTY. Populate it first:  pip install chromadb &&",
+  "//setup2": "python3 scripts/index_vectordb.py   (writes collections: components, themes).",
+  "//run": "Then `uvx chroma-mcp` serves ./vectordb/storage. Requires uvx (astral uv).",
   "mcpServers": {
     "chroma": {
       "command": "uvx",
@@ -9,11 +11,7 @@
         "chroma-mcp",
         "--client-type", "persistent",
         "--data-dir", "./vectordb/storage"
-      ],
-      "env": {
-        "//": "Collections already populated by scripts/init_vector_db.py:",
-        "//collections": "components, themes"
-      }
+      ]
     }
   }
 }
