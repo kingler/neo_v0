@@ -164,6 +164,11 @@ Done in this PR:
   Write/Edit — ports the legacy `validation_workflow` (yq/ajv) trigger.
 - [x] Add a `security-review` CI gate (`.github/workflows/security-review.yml`) mirroring the
   `security_scan` stage in `ci_cd.yaml`: dependency scan (fail on critical), secret scan.
+- [x] Make the Knowledge layer actually work: the legacy `generate_knowledge_graph.js` needs
+  `@babel/parser`/`@babel/traverse`/`glob` (undeclared, uninstalled) and always failed in the
+  SessionStart hook. Added a dependency-free `scripts/generate_knowledge_graph_lite.js` (Node
+  built-ins only) producing the same artifacts; the hook now uses it and the graph regenerates
+  successfully. Generated artifacts are gitignored.
 
 Remaining:
 

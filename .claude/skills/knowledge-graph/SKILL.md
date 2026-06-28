@@ -16,16 +16,21 @@ Ports `scripts/generate_knowledge_graph.js` (+ the per-language analyzers
 ## Generate / refresh
 
 ```bash
+# Default: dependency-free, works without node_modules (Node built-ins only).
+node scripts/generate_knowledge_graph_lite.js
+
+# Richer AST-based graph — requires @babel/parser, @babel/traverse, glob installed.
 node scripts/generate_knowledge_graph.js
 ```
 
-Outputs:
-- `code-knowledge-graph.json` — nodes (files/modules) + edges (dependencies).
-- `.neo/knowledge-graph-meta.json` — `lastUpdated`, stats, component counts.
+Both output the same artifacts:
+- `code-knowledge-graph.json` — nodes (files/modules) + edges (dependencies), with
+  `fanIn`/`fanOut` per node and `externalDependencies`.
+- `.neo/knowledge-graph-meta.json` — `lastUpdated`, stats, most-depended-on / highest-fan-out.
 
-Pick the analyzer that matches the codebase (React/Next → react, Vue → vue, Python → python).
-The `SessionStart` hook (`.claude/hooks/session-start.sh`) auto-refreshes when the graph is
-older than the newest source file.
+The `SessionStart` hook (`.claude/hooks/session-start.sh`) auto-refreshes (via the lite
+generator) when the graph is older than the newest source file. For non-JS stacks use the
+matching analyzer (`vue_dependency_graph.js`, `python_dependency_graph.py`).
 
 ## Query
 

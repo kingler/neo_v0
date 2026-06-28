@@ -11,9 +11,14 @@ ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$ROOT"
 
 GRAPH="code-knowledge-graph.json"
-GEN="scripts/generate_knowledge_graph.js"
+# Prefer the dependency-free lite generator (works without node_modules). Fall back to the
+# babel-based generator only if its deps are installed.
+GEN="scripts/generate_knowledge_graph_lite.js"
+if [ ! -f "$GEN" ] && [ -f "scripts/generate_knowledge_graph.js" ]; then
+  GEN="scripts/generate_knowledge_graph.js"
+fi
 
-# Nothing to do if the generator isn't present.
+# Nothing to do if no generator is present.
 [ -f "$GEN" ] || { echo "neo: knowledge-graph generator not found, skipping"; exit 0; }
 
 needs_refresh=0
