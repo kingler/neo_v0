@@ -58,7 +58,7 @@ Neo uses a hierarchical configuration system:
 - `neo_core.yaml`: Core system configuration
 - `neo_config.yaml`: Feature and environment settings
 - `context_management.yaml`: Context management rules
-- `neo_v0-2.yaml`: Template and workflow configurations
+- `neo_v0.yaml`: Template and workflow configurations (latest; older revisions archived in `prompt_versions/`)
 
 ## Commands Reference
 

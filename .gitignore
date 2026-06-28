@@ -4,8 +4,11 @@
 .env.*.local
 
 # Keep example file
-!.env.example 
+!.env.example
 node_modules
+
+# macOS
+.DS_Store
 
 # Claude Code machine-local settings (not shared)
 .claude/settings.local.json
