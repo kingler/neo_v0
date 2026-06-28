@@ -1,0 +1,76 @@
+name: Security review
+
+# Mirrors the security_scan stage in neo_prompt/ci_cd.yaml:
+#   steps: SAST, dependency scan, license compliance
+#   requirements: no critical vulnerabilities, dependencies up to date
+# Plus a secret scan, since the harness handles API keys (.env.example).
+#
+# Gating policy: the secret scan is BLOCKING (any committed real-looking key fails).
+# The dependency scan is ADVISORY for now — the legacy app tree carries pre-existing
+# vulnerabilities (see backlog). It reports critical/high counts as warnings so they're
+# visible without blocking unrelated work. Flip `continue-on-error` to false (and remove
+# the `|| true`) once the existing criticals are remediated via `npm audit fix`.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  dependency-scan:
+    runs-on: ubuntu-latest
+    # Advisory until the pre-existing legacy-tree vulnerabilities are remediated.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: npm audit (advisory — surface critical/high counts)
+        run: |
+          if [ -f package-lock.json ]; then
+            # Don't fail the build; annotate critical/high so they're visible on the PR.
+            audit_json=$(npm audit --json 2>/dev/null || true)
+            crit=$(printf '%s' "$audit_json" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('metadata',{}).get('vulnerabilities',{}).get('critical',0))" 2>/dev/null || echo '?')
+            high=$(printf '%s' "$audit_json" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('metadata',{}).get('vulnerabilities',{}).get('high',0))" 2>/dev/null || echo '?')
+            echo "npm audit: $crit critical, $high high vulnerabilities."
+            if [ "$crit" != "0" ] && [ "$crit" != "?" ]; then
+              echo "::warning::$crit critical npm vulnerabilities present (advisory). Run 'npm audit fix' and flip this gate to blocking — see workflow header."
+            fi
+          else
+            echo "No package-lock.json — skipping npm audit."
+          fi
+
+      - name: pip audit (advisory)
+        run: |
+          if [ -f requirements.txt ]; then
+            pip install pip-audit >/dev/null 2>&1 || true
+            pip-audit -r requirements.txt || echo "::warning::pip-audit reported issues (advisory)."
+          else
+            echo "No requirements.txt — skipping pip audit."
+          fi
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan tracked files for committed secrets
+        run: |
+          # Lightweight, dependency-free secret scan. .env is gitignored; .env.example
+          # (placeholder values) is allowed. Fails if a real-looking key is committed.
+          patterns='(sk-[A-Za-z0-9]{20,}|AKIA[0-9A-Z]{16}|-----BEGIN [A-Z ]*PRIVATE KEY-----|xox[baprs]-[0-9A-Za-z-]+|ghp_[A-Za-z0-9]{36})'
+          hits=$(git grep -nIE "$patterns" -- ':!*.example' ':!.github/workflows/security-review.yml' || true)
+          if [ -n "$hits" ]; then
+            echo "::error::Potential committed secret(s):"
+            echo "$hits"
+            exit 1
+          fi
+          echo "No committed secrets detected."

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "chroma": {
+      "command": "uvx",
+      "args": [
+        "chroma-mcp",
+        "--client-type", "persistent",
+        "--data-dir", "./vectordb/storage"
+      ]
+    }
+  }
+}

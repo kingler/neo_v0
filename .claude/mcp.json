@@ -1,0 +1,17 @@
+{
+  "//": "Chroma MCP server — exposes the component/theme library as retrieval tools so",
+  "//2": "lookups ('a primary button with an icon') are tool calls, not manual scripts.",
+  "//setup": "The store ships EMPTY. Populate it first:  pip install chromadb &&",
+  "//setup2": "python3 scripts/index_vectordb.py   (writes collections: components, themes).",
+  "//run": "Then `uvx chroma-mcp` serves ./vectordb/storage. Requires uvx (astral uv).",
+  "mcpServers": {
+    "chroma": {
+      "command": "uvx",
+      "args": [
+        "chroma-mcp",
+        "--client-type", "persistent",
+        "--data-dir", "./vectordb/storage"
+      ]
+    }
+  }
+}

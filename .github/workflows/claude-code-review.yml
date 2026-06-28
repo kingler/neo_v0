@@ -1,0 +1,40 @@
+name: Claude code review
+
+# OPTIONAL. Runs an automated Claude review on PRs using Neo's rules + principles.
+# Requires repo secret ANTHROPIC_API_KEY. The job is gated on the secret being present
+# so forks and unconfigured repos skip it cleanly instead of failing.
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Guard on API key
+        id: guard
+        run: |
+          if [ -n "${{ secrets.ANTHROPIC_API_KEY }}" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "ANTHROPIC_API_KEY not set — skipping Claude review."
+          fi
+
+      - name: Claude review
+        if: steps.guard.outputs.enabled == 'true'
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: >-
+            Review this PR's diff as Neo's code reviewer. Apply the constraints in
+            .claude/rules/principles.md and .claude/rules/code-edits.md (KISS/YAGNI/SOLID,
+            edit hygiene). Flag correctness bugs and principle violations with file:line.
+            Be concise; only post findings worth a reviewer's attention.
