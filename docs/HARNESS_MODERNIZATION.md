@@ -170,6 +170,9 @@ Remaining:
 - [ ] Port remaining init variants: `init-frontend`, `init-backend`, `init-mobile`.
 - [ ] Stand up the actual Chroma MCP server (stub config shipped) and index `library/`.
 - [ ] Replace remaining `${fs.readFileSync}` chains with Workflow scripts or skill-bundled resources.
+- [ ] Remediate the pre-existing legacy-tree npm vulnerabilities (9 critical / 66 high as of this
+  PR, all in `webpack-dev-server`/`ws`/etc.) via `npm audit fix`, then flip the `security-review`
+  dependency-scan from advisory to blocking (remove `continue-on-error`).
 - [ ] Retire `.cursorrules.md` once Skills + Rules reach parity (keep a thin Cursor shim if needed).
 
 ## 6. How to verify the scaffold
